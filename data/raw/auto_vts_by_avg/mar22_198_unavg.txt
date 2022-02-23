@@ -1,0 +1,18 @@
+ABC	AT	RC	V02 Max
+Time (min)	19:59	22:46	23:42
+Work (Watts)	15	19	20
+ 	 	 	 
+VCO2 (L/min)	2.14	2.16	4.17
+VO2 (L/min)	2.42	2.60	4.94
+RER	0.89	0.83	0.84
+VO2 (mL/kg/min)	37.4	40.3	76.5
+VO2/HR (mL/beat)	 	 	 
+HR (BPM)	 	 	 
+ 	 	 	 
+VE BTPS (L/min)	62.5	57.7	108.2
+Vt BTPS (L)	2.06	1.85	1.89
+Vt/IC (%)	 	 	 
+Vd/Vt - est	0.15	0.17	0.12
+ 	 	 	 
+VE/VCO2	29	27	26
+VE/VO2	26	22	22
