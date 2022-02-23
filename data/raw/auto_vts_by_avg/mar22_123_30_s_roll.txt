@@ -1,0 +1,18 @@
+ABC	AT	RC	V02 Max
+Time (min)	21:50	22:40	24:30
+Ex Time (min)	20:35	21:25	23:15
+ 	 	 	 
+VCO2 (L/min)	1.41	1.49	1.93
+VO2 (L/min)	1.59	1.71	1.86
+RER	0.89	0.87	1.04
+VO2 (mL/kg/min)	27.4	29.6	32.1
+Speed (MPH)	5.0	5.2	5.8
+Grade (%)	0.9	0.9	1.5
+ 	 	 	 
+VE BTPS (L/min)	50.1	49.8	68.2
+Vt BTPS (L)	1.25	1.38	1.42
+Vt/IC (%)	 	 	 
+Vd/Vt - est	0.21	0.20	0.20
+ 	 	 	 
+VE/VCO2	36	33	35
+VE/VO2	32	29	37
