@@ -49,7 +49,31 @@ link = base_url + '?tool=' + tool + '&email=' + email + '&ids=' + pmc_string + '
 
 r = requests.get(url = link)
 r.url
-r.json()
+r.json()['records']
+pd.DataFrame.from_dict(r.json()['records'])
+
+id_conv = []
+id_df_list = []
+
+for i in range(len(pmc_sections)):
+    url_string = pmc.iloc[pmc_sections[i]].str.cat(sep = ',')
+    pmc_string = url_string.replace('https://www.ncbi.nlm.nih.gov/pmc/articles/', '')
+    link = base_url + '?tool=' + tool + '&email=' + email + '&ids=' + pmc_string + '&idtype=' + idtype \
+    + '&format=' + format
+    r = requests.get(url = link)
+    id_conv.append(r.json())
+
+    json_dat = r.json()
+    temp_df = pd.DataFrame.from_dict(json_dat['records'])
+    temp_df = temp_df[["pmcid", "pmid", "doi"]]
+    id_df_list.append(temp_df)
+
+id_df_list
+
+id_df = pd.concat(id_df_list)
+id_df = id_df.reset_index(drop = True)
+id_df.to_csv("/Users/antonhesse/Desktop/Anton/Education/UMN/Lab and Research/HSPL/CPET_data_analysis/data/raw/pmc_conv.csv",\
+    index=False)
 
 # let's try this with a dictionary
 # payload = {
