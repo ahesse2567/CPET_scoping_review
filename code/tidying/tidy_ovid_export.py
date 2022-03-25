@@ -9,5 +9,3 @@ ovid_output['doi_clean'] = ovid_output.DO.str.replace('https://dx.doi.org/', '')
 
 ovid_output.to_csv('/Users/antonhesse/Desktop/Anton/Education/UMN/Lab and Research/HSPL/CPET_data_analysis/data/processed/ovid_export_tidy.csv',\
     index=False)
-
-ovid_output[ovid_output['pmc_clean'] == 'PMC7675617'].index
