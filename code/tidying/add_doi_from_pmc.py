@@ -7,15 +7,25 @@ ovid_output = pd.read_csv('/Users/antonhesse/Desktop/Anton/Education/UMN/Lab and
 #     index = True)
 id_df = pd.read_csv('/Users/antonhesse/Desktop/Anton/Education/UMN/Lab and Research/HSPL/CPET_data_analysis/data/raw/pmc_conv.csv')
 
-for i in range(len(id_df)):
-    idx = np.where(ovid_output['pmc_clean'] == id_df.loc[i,'pmcid'])
-    ovid_doi = ovid_output.loc[idx,'doi_clean'].values[0]
-    id_df_doi = id_df.loc[i,'doi']
-    if ovid_output.loc[idx,'doi_clean'].isnull().values[0] & (ovid_doi != id_df_doi):
-        if ovid_output.loc[idx,'doi_clean'].isna().bool():
-            ovid_output.loc[idx,'doi_clean'].fillna(id_df_doi, inplace=True) # not saving for some reason
-        else:
-            ovid_output.loc[idx,'doi_clean'] = id_df_doi
-        print(f'i = {i}\nindex = {idx}')
-        
-ovid_output.to_csv('/Users/antonhesse/Desktop/Anton/Education/UMN/Lab and Research/HSPL/CPET_data_analysis/data/processed/ovid_output_pmc_doi.csv')
+#change the name of the pmc id column so that it's the same in both dfs.
+ovid_output = ovid_output.rename(columns={'pmc_clean': 'pmcid'})
+
+#merge matching on pmcid; indicator=True creates a new column that shows you if pmcid is found in "both" columns, "left_only", or "right_only"
+merged_df = ovid_output.merge(id_df, on='pmcid', how='outer', indicator=True)
+
+#show the rows where a DOI from id_df was added
+print(len(merged_df[merged_df['_merge'] == 'both']), 'rows with DOI added from id_df')
+merged_df[merged_df['_merge'] == 'both'] #merged_df will include all rows from both dfs
+
+# From Cody H: This loop copies the value of the doi column over to doi_clean in
+# any rows where doi_clean is null and doi is not:
+def my_function():
+    for i, row in merged_df.iterrows():
+        if pd.notnull(row['doi']) and pd.isnull(row['doi_clean']):
+            merged_df.loc[i, 'doi_clean'] = row['doi']
+            
+
+my_function()
+
+merged_df.to_csv('/Users/antonhesse/Desktop/Anton/Education/UMN/Lab and Research/HSPL/CPET_data_analysis/data/processed/doi_merged.csv',\
+    index=False)
