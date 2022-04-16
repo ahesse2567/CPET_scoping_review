@@ -22,11 +22,28 @@ pairwise.t.test(auto_vt_wide$AT_vo2_abs,
                 paired = TRUE,
                 p.adjust.method = "BH")
 
+mod_AT_time <- lm(AT_time ~ 1 + avg_method, data = auto_vt_wide)
+anova(mod_AT_time)
+summary(mod_AT_time)
+
+pairwise.t.test(auto_vt_wide$AT_time,
+                g = auto_vt_wide$avg_method,
+                paired = TRUE,
+                p.adjust.method = "BH")
+
 ggplot(data = auto_vt_wide, aes(x = AT_vo2_abs)) +
     geom_density(aes(color = avg_method)) +
     theme_bw()
 
 ggplot(data = auto_vt_wide, aes(x = avg_method, y = AT_vo2_abs)) +
+    geom_boxplot(aes(fill = avg_method)) +
+    theme_bw()
+
+ggplot(data = auto_vt_wide, aes(x = AT_time)) +
+    geom_density(aes(color = avg_method)) +
+    theme_bw()
+
+ggplot(data = auto_vt_wide, aes(x = avg_method, y = AT_time)) +
     geom_boxplot(aes(fill = avg_method)) +
     theme_bw()
 
@@ -63,23 +80,24 @@ err <- vo2_err_mod$coefficients[1] +
     vo2_err_mod$coefficients[2]*mean(auto_vt_wide$AT_vo2_abs)
 
 ba_plots <- vector(mode = "list", length = nrow(combinations))
+var_name <- "AT_vo2_abs"
 
 for(i in 1:nrow(combinations)) {
     ba_plots[[i]] <- blandr.draw(auto_vt_wide[auto_vt_wide[["avg_method"]] ==
                                             combinations[["method1"]][i],
-                             "AT_vo2_abs"] %>% pull(),
+                             var_name] %>% pull(),
                 auto_vt_wide[auto_vt_wide[["avg_method"]] == combinations[["method2"]][i],
-                             "AT_vo2_abs"] %>% pull()) +
+                             var_name] %>% pull()) +
         theme_bw() +
         ggtitle(paste0("Agreement between\n",
                        combinations[["method1"]][i],
                        " and ",
                        combinations[["method2"]][i])) +
-        xlab("Mean of VO2 at VT1") +
-        ylab("Difference in VO2 at VT1") +
+        xlab(paste("Mean of", var_name,  "at VT1")) +
+        ylab(paste("Difference in", var_name,  "at VT1")) +
         theme(plot.title = element_text(hjust = 0.5)) +
-        geom_hline(yintercept = err, color = "red") +
-        geom_hline(yintercept = -1*err, color = "red")
+        geom_hline(yintercept = 0.091, color = "red") +
+        geom_hline(yintercept = -1*0.091, color = "red")
 }
 
 do.call("grid.arrange", c(ba_plots, ncol = 5))
@@ -88,13 +106,13 @@ do.call("grid.arrange", c(ba_plots, ncol = 5))
 #     print(ba_plots[[i]])
 # }
 
-tiff("data/breeze_pilot/bland_altman_pilot.png",
-     width = 1174,
-     height = 591,
-     res = 1200,
-     units = "px")
-do.call("grid.arrange", c(ba_plots, ncol = 5))
-dev.off()
+# tiff("data/breeze_pilot/bland_altman_pilot.png",
+#      width = 1174,
+#      height = 591,
+#      res = 1200,
+#      units = "px")
+# do.call("grid.arrange", c(ba_plots, ncol = 5))
+# dev.off()
 
 
 comb_no_unavg <- combinations %>% 
@@ -105,9 +123,9 @@ ba_stats <- vector(mode = "list", length = nrow(comb_no_unavg))
 for(i in 1:nrow(comb_no_unavg)) {
     ba_stats[[i]] <- blandr.statistics(
         auto_vt_wide[auto_vt_wide[["avg_method"]] ==
-                         comb_no_unavg[["method1"]][i],"AT_vo2_abs"] %>% pull(),
+                         comb_no_unavg[["method1"]][i],var_name] %>% pull(),
         auto_vt_wide[auto_vt_wide[["avg_method"]] ==
-                         comb_no_unavg[["method2"]][i],"AT_vo2_abs"] %>% pull())
+                         comb_no_unavg[["method2"]][i],var_name] %>% pull())
 }
 
 loa_stats <- numeric(length = length(ba_stats))
