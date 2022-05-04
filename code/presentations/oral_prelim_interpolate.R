@@ -23,9 +23,15 @@ df_unavg_interp <- interpolate(df_unavg,
             method = "linear",
             every_s = 1)
 
+un_interp <- ggplot(data = df_unavg, aes(x = time, y = vo2_abs)) +
+    geom_point(alpha = 0.5) +
+    theme_bw() +
+    ggtitle("Uninterpolated Data")
 
-ggplot(data = df_unavg_interp, aes(x = time, y = vo2_abs)) +
-    geom_point() +
-    theme_bw()
-    geom_point(data = df_unavg_interp, aes(x = time, y = vo2_abs), color = "red")
+interp <- ggplot(data = df_unavg_interp, aes(x = time, y = vo2_abs)) +
+    geom_point(alpha = 0.5) +
+    theme_bw() +
+    ggtitle("Data interpolated to every 1-second")
+
+grid.arrange(un_interp, interp)               
        
