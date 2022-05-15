@@ -6,11 +6,9 @@ Created on Tue Mar  1 14:39:06 2022
 @author: antonhesse
 """
 #%%
-from matplotlib.pyplot import axis
 import pandas as pd
 from unpywall.utils import UnpywallCredentials
 from unpywall import Unpywall
-import re
 import numpy as np
 #%%
 
