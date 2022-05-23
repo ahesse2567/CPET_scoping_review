@@ -14,10 +14,11 @@ import numpy as np
 
 UnpywallCredentials('hesse151@umn.edu')
                
-dois = pd.read_csv('/Users/antonhesse/Desktop/Anton/Education/UMN/Lab and Research/HSPL/CPET_data_analysis/data/cpet_articles/doi_merged.csv')
-id_only = dois['doi_clean'].astype(str).to_list()
+dois = pd.read_csv('/Users/antonhesse/Desktop/Anton/Education/UMN/Lab and Research/HSPL/CPET_scoping_review/data/cpet_articles/dois_combined.csv')
+doi_list = dois['doi'].astype(str).to_list()
+doi_list
 
-# id_only = [re.sub(pre_doi_re, '', str(doi)) for doi in dois['DO'].tolist()]
+# doi_list = [re.sub(pre_doi_re, '', str(doi)) for doi in dois['DO'].tolist()]
 #%%
 
 def divisions(dividend, divisor):
@@ -33,12 +34,14 @@ def divisions(dividend, divisor):
             sections.append(list(range(sections[i-1][-1] + 1, (sections[i-1][-1] + 1) + parts[i])))
     return sections
 
-doi_divisions = divisions(len(id_only), 100)
+doi_divisions = divisions(len(doi_list), 100)
 #%%
 df = pd.DataFrame()
 for i in range(len(doi_divisions)):
-    df = df.append(Unpywall.doi(dois=id_only[doi_divisions[i][0]:doi_divisions[i][-1]], \
+    df = df.append(Unpywall.doi(dois=doi_list[doi_divisions[i][0]:doi_divisions[i][-1]], \
         progress=True, errors = 'ignore'))
-    print(i)
-df.to_csv('/Users/antonhesse/Desktop/Anton/Education/UMN/Lab and Research/HSPL/CPET_data_analysis/data/cpet_articles/unpaywall_info.csv',\
+    pct_complete = (i+1) / (len(doi_divisions + 1))
+    print(f'{pct_complete}%')
+
+df.to_csv('/Users/antonhesse/Desktop/Anton/Education/UMN/Lab and Research/HSPL/CPET_data_analysis/data/cpet_articles/unpywall/unpaywall_info.csv',\
     index=False)

@@ -38,8 +38,8 @@ id_df_list = []
 # chunks that are up to 200 items long
 pmid_sections = divisions(len(pmid), ceil(len(pmid) / 200))
 
-for i, nums in enumerate(pmid_sections):
-    pmid_string = pmid.iloc[nums].str.cat(sep = ',')
+for i, sections in enumerate(pmid_sections):
+    pmid_string = pmid.iloc[sections].str.cat(sep = ',')
     link = base_url + '?tool=' + tool + '&email=' + email + '&ids=' + pmid_string + \
         '&idtype=' + idtype + '&format=' + format
     response = requests.get(url = link)
