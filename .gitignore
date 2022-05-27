@@ -7,4 +7,4 @@ springer_config.json
 *.log
 data/cpet_articles/pdfs/
 **/unpaywall_cache
-*/.ipynb_checkpoints/
+**/.ipynb_checkpoints/
