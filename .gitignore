@@ -4,6 +4,7 @@
 .Ruserdata
 elsevier_config.json
 springer_config.json
-.log
+*.log
 data/cpet_articles/pdfs/
-unpaywall_cache
+**/unpaywall_cache
+*/.ipynb_checkpoints/
