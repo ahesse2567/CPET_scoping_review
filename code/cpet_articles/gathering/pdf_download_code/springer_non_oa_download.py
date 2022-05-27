@@ -4,7 +4,6 @@ import requests
 # from unpywall.utils import UnpywallCredentials
 # from unpywall import Unpywall
 import json
-import re
 from tqdm import tqdm
 
 # UnpywallCredentials('hesse151@umn.edu')
