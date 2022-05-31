@@ -10,7 +10,7 @@ articles = pd.read_csv('/Users/antonhesse/Desktop/Anton/Education/UMN/Lab and Re
 bmj_non_oa_articles = articles[(articles['is_oa'] == False) & \
     (articles['publisher'] == 'BMJ')].reset_index()
 
-bmj_non_oa_articles
+bmj_non_oa_articles.shape
 
 crossref_headers = {
     'Accept': 'application/vnd.citationstyles.csl+json, application/vnd.crossref.unixref+xml',
@@ -46,9 +46,10 @@ pdf_response # currently getting 404 error
 
 # -k: verify=False
 # -L: allow_redirections=True
-# -O: show progress?
+# -O: write file based on what's returned from the request. -o lets you choose the output file name
+# -D, --dump-header <filename> puts headers into file name(?)
 '''
-headers to include
+headers to include. See https://curl.se/docs/manpage.html#-D for details
 CR-TDM-Client-Token
 CR-TDM-Rate-Limit
 CR-TDM-Rate-Limit-Reset
