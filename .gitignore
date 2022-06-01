@@ -6,5 +6,6 @@ elsevier_config.json
 springer_config.json
 *.log
 data/cpet_articles/pdfs/
+data/cpet_articles/txts/
 **/unpaywall_cache
 **/.ipynb_checkpoints/
