@@ -28,3 +28,9 @@ for f in tqdm(unpaywall_files):
 
 # next step: move files from the same folder to another folder
 # should this just be part of the loop?
+import shutil
+txt_files = glob.glob('data/cpet_articles/pdfs/unpaywall_oa/*.txt')
+new_folder = 'data/cpet_articles/txts/unpaywall_oa/'
+
+for f in txt_files:
+    shutil.move(f, new_folder)
