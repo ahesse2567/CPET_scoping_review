@@ -17,11 +17,12 @@ crossref_headers = {
     'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:100.0) Gecko/20100101 Firefox/100.0'
     }
 
-doi_url = 'http://dx.doi.org/10.5555/515151' # test url from crossref
-# doi_url = bmj_non_oa_articles.loc[0, 'doi_url']
+# doi_url = 'http://dx.doi.org/10.5555/515151' # test url from crossref
+doi_url = bmj_non_oa_articles.loc[0, 'doi_url']
 doi_url
 
-crossref_response = requests.get(url = doi_url, headers=crossref_headers, allow_redirects=True)
+crossref_response = requests.get(url = doi_url, headers=crossref_headers, allow_redirects=True, verify=False)
+crossref_response.status_code
 # crossref_response.json().keys()
 # for k, v in crossref_response.json().items():
 #     print(k, ': ', v)
@@ -33,13 +34,17 @@ pdf_url
 # for k in crossref_response.json().keys():
 #     print(k)
 
-license = crossref_response.json()['license']
-license_url = crossref_response.json()['license'][1]['URL']
-license_url
+# license = crossref_response.json()['license']
+# license_url = crossref_response.json()['license'][1]['URL']
+# license_url
 
 pdf_headers = {
     'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:100.0) Gecko/20100101 Firefox/100.0',
-    'Content-Type': 'application/pdf'
+    'Content-Type': 'application/pdf',
+    'CR-TDM-Client-Token': 'hZqJDbcbKSSRgRG_PJxSBA',
+    'CR-TDM-Rate-Limit': '5',
+    'CR-TDM-Rate-Limit-Remaining': '4',
+    'CR-TDM-Rate-Limit-Reset': '1375427514'
     }
 pdf_response = requests.get(url = pdf_url, headers=pdf_headers, verify=False, allow_redirects=True)
 pdf_response # currently getting 404 error
