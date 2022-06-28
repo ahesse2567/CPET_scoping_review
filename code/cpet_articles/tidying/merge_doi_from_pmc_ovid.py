@@ -1,6 +1,6 @@
 import pandas as pd
 
-ovid_records = pd.read_csv('/Users/antonhesse/Desktop/Anton/Education/UMN/Lab and Research/HSPL/CPET_scoping_review/data/cpet_articles/ovid/ovid_export_tidy.csv')
+ovid_records = pd.read_csv('/Users/antonhesse/Desktop/Anton/Education/UMN/Lab and Research/HSPL/CPET_scoping_review/data/cpet_articles/ovid/ovid_records_tidy.csv')
 # id_intersect = pd.crosstab(id_df['pmcid'], ovid_records['pmc_clean']) > 0
 # id_intersect.to_csv("/Users/antonhesse/Desktop/Anton/Education/UMN/Lab and Research/HSPL/CPET_data_analysis/data/raw/id_intersect.csv",\
 #     index = True)

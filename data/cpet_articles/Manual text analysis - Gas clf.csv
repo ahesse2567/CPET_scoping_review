@@ -129,7 +129,7 @@ pc.2015.29,e,,n,y
 pes.24.2.187,e,,n,n
 pgmj.67.789.632,e,,n,n
 phm.0000000000000108,e,,n,y
-pnas.1703338114,e,,y,
+pnas.1703338114,e,,y,y
 rimcafd2020.80.012,i,Language,,
 s00018-009-0141-0,e,,n,n
 s00134-010-1754-3,e,,n,n
@@ -140,7 +140,7 @@ nu14010141,e,,n,y
 oem.34.2.126,e,,n,y
 or.2015.4092,e,,n,n
 oxfordjournals.eurheartj.a015352,e,,n,y
-pes.2018-0141,i,Review,,
+pes.2018-0141,i,Not OP-RR,,
 physiolsci.rp011906,e,,n,y
 ppul.21024,e,,n,y
 psyp.12868,e,,n,y
@@ -154,7 +154,7 @@ journal.pone.0208452,e,,n,y
 journal.pone.0247565,e,,n,n
 journal.pone.0249504,e,,n,y
 jrrd.2007.09.0153,e,,n,y
-jsc.0000000000003470,i,Thesis,,
+jsc.0000000000003470,e,,n,y
 jspfsm.55.117,i,Language,,
 jspfsm1949.52.585,i,Language,,
 juoeh.8.11,i,Language,,
@@ -219,7 +219,7 @@ japplphysiol.00498.2015,e,,n,y
 jc.2003-030632,e,,n,y
 jc.2015-1339,e,,n,y
 jcb.95.3.720,e,,n,n
-jci.insight.122247,i,Non-humans,,
+jci.insight.122247,i,Non-human,,
 jci109443,e,,n,n
 jme-16-0159,e,,n,n
 jmg.2007.050070,e,,n,y
@@ -227,7 +227,7 @@ jospt.1998.27.2.154,e,,n,y
 journal.pone.0040949,e,,n,n
 journal.pone.0084554,e,,n,n
 japplphysiol.00767.2016,i,,,
-japplphysiol.00864.2015,i,Review,,
+japplphysiol.00864.2015,i,Not OP-RR,,
 japplphysiol.01121.2007,e,,n,y
 jci106153,e,,n,n
 jci110399,e,,n,n
@@ -235,7 +235,7 @@ jeb.052027,i,,,
 jgp.49.4.743,i,,,
 jhse.2017.124.08,e,,n,y
 jhse.2020.154.11,e,,n,y
-jn,i,Review,,
+jn,i,Not OP-RR,,
 jnnp.34.5.527,e,,n,n
 jomh.2021.111,e,,n,y
 jospt.1994.19.3.140,e,,n,y
@@ -245,7 +245,7 @@ journal.pone.0108690,e,,n,y
 journal.pone.0113541,i,,,
 journal.pone.0125053,e,,n,y
 journal.pone.0154135,e,,n,y
-journal.pone.0159280,e,,y,
+journal.pone.0159280,e,,y,y
 ccd.v8i22.222,i,Language,,
 bg-7-2129-2010,i,,,
 iai.60.2.328-336.1992,i,,,
@@ -309,7 +309,7 @@ bmj.1.5846.138,e,,n,n
 1471-2350-11-84,e,,n,n
 jjphysiol.33.971,e,,n,y
 j.physbeh.2020.113118,e,,n,n
-cep12028,i,Non-humans,,
+cep12028,i,Non-human,,
 ihj.35.301,e,,n,y
 bmj.2.5862.329,e,,n,n
 jnnp.37.11.1236,e,,n,y
@@ -348,12 +348,12 @@ fphys.2019.00629,e,,n,y
 26649837.2020.0603,e,,n,n
 fphys.2021.726414,e,,n,y
 j.ehj.2004.04.034,e,,n,y
-j.freeradbiomed.2015.05.014,i,Thesis,n,y
+j.freeradbiomed.2015.05.014,e,,n,y
 app12052649,e,,n,n
 2052-1847-6-21,e,,n,y
 bjsm.10.1.4,e,,n,y
 apnm-2014-0470,e,,n,y
-nu11020440,i,Review,,
+nu11020440,i,Not OP-RR,,
 bjn20031031,e,,n,y
 nu11071494,e,,n,y
 ejcn.2011.175,e,,n,y
@@ -365,23 +365,23 @@ bjsm.21.3.130,e,,n,y
 15438627.2014.915836,e,,n,n
 fspor.2020.00044,e,,n,y
 bmjopen-2015-010359,e,,n,y
-14651858.cd008435.pub3,i,Review,,
+14651858.cd008435.pub3,i,Not OP-RR,,
 s004240100689,e,,n,n
 adc.50.5.387,e,,n,n
 jc.2002-021674,e,,n,y
-s004210050064,i,Book chapter,,
+s004210050064,i,Not OP-RR,,
 bjsm.25.4.227,e,,n,y
 15438627.2020.1770760,e,,n,n
-s10047-016-0893-x,i,Book chapter,,
+s10047-016-0893-x,i,Not OP-RR,,
 fphys.2019.00262,i,Non-human,,
 thx.37.9.663,e,,n,n
 japplphysiol.00587.2015,e,,n,y
 jeb.024927,e,,n,y
 bf00695018,e,,n,y
 bjha-2014-0023,e,,n,y
-000070750,e,,y,
-14651858.cd011506.pub2,i,Review,,
-bf00421316,i,Book chapter,,
+000070750,e,,y,y
+14651858.cd011506.pub2,i,Not OP-RR,,
+bf00421316,i,Not OP-RR,,
 japplphysiol.00993.2003,e,,n,y
 cfn.v117i3.746,i,Non-human,,
 ijms21228531,e,,n,y
@@ -389,11 +389,11 @@ jeb.02782,e,,n,y
 s00439-009-0731-9,e,,n,y
 jeb.00369,i,Non-human,,
 fishsci.63.655,i,,,
-s40279-017-0794-z,i,Review,,
+s40279-017-0794-z,i,Not OP-RR,,
 journal.pone.0118809,i,Non-human,,
 bf02844004,e,,n,n
 s004210050218,e,,n,y
-s12350-016-0724-8,i,Book chapter,,
+s12350-016-0724-8,i,Not OP-RR,,
 bmjsem-2015-000014,e,,n,y
 journal.pone.0205976,e,,n,y
 s12931-020-01350-y,e,,n,n
@@ -403,25 +403,25 @@ pes.2018-0175,e,,n,y
 jci109431,e,,n,n
 s00421-003-0917-0,e,,n,n
 s001010050342,e,,n,n
-sj.ijo.0802779,i,Review,,
+sj.ijo.0802779,i,Not OP-RR,,
 bf00697597,e,,n,y
-bme-141097,e,,n,y
+bme-141097,e,,n,n
 s00421-003-1021-1,e,,n,n
 adc.59.1.18,e,,y,
 s12662-013-0303-y,i,Language,,
 fphys.2021.769971,e,,n,y
 bcr-2014-207424,e,,n,n
 a0010781,e,,n,n
-bf03324567,i,Commentary,,
+bf03324567,i,Not OP-RR,,
 bf00964120,e,,n,n
 thx.33.6.694,e,,n,n
 s00421-015-3180-2,e,,n,n
 vhrm.s215795,e,,n,n
-s40798-022-00437-8,i,Review,,
+s40798-022-00437-8,i,Not OP-RR,,
 s12889-017-4237-4,e,,n,n
 bf02527670,e,,n,n
 rspb.2004.2702,i,,,
-s00421-009-1120-8,i,Review,,
+s00421-009-1120-8,i,Not OP-RR,,
 1468-4446.12123,e,,n,n
 archinternmed.2011.282,e,,n,n
 s00421-021-04841-y,e,,n,y
@@ -437,7 +437,7 @@ s12906-017-1595-5,e,,n,y
 bf00640658,e,,n,y
 s12889-015-1715-4,e,,n,n
 japplphysiol.00051.2011,e,,y,
-bf00449513,i,Review,,
+bf00449513,i,Not OP-RR,,
 fmars.2018.00465,i,Non-human,,
 ijo.2008.136,i,Non-human,,
 jsc.0000000000003209,e,,n,y
@@ -458,19 +458,19 @@ s00424-003-1020-4,i,,,
 bf00808445,i,Non-human,,
 pku.whxb20090934,i,Language,,
 j.materresbull.2016.05.027,i,Non-human,,
-s12020-013-9969-z,i,Review,,
+s12020-013-9969-z,i,Not OP-RR,,
 fspor.2019.00006,e,,n,y
 journal.pntd.0001239,e,,n,n
 adc.56.2.106,e,,n,n
 s12889-016-3652-2,e,,n,n
 apnm-2015-0152,e,,n,y
-bf00422959,i,Review,,
+bf00422959,i,Not OP-RR,,
 fphys.2017.00264,e,,n,y
 japplphysiol.00092.2018,i,Non-human,,
-s00421-011-2115-9,i,Book chapter,,
-bf00640670,i,Book chapter,,
+s00421-011-2115-9,i,Not OP-RR,,
+bf00640670,i,Not OP-RR,,
 nu13124258,e,,n,n
-s00421-010-1447-1,i,Review,,
+s00421-010-1447-1,i,Not OP-RR,,
 s1047951109991090,i,Letter,,
 1479-5868-4-24,e,,n,n
 fphys.2017.01029,e,,n,y
@@ -494,7 +494,7 @@ jbc.m705015200,i,Non-human,,
 ijms20225554,i,Non-human,,
 ab00668,i,Non-human,,
 meps12629,i,Non-human,,
-666970,i,Review,,
+666970,i,Not OP-RR,,
 bg-14-941-2017,i,Non-human,,
 japplphysiol.00797.2019,e,,n,y
 jhpn.v29i1.7566,e,,n,n
@@ -503,7 +503,7 @@ journal.pone.0045755,e,,n,n
 archpediatrics.2011.15,e,,n,y
 s-0034-1398535,e,,n,n
 archrheumatol.2020.7548,e,,n,y
-14651858.cd012678.pub2,i,Review,,
+14651858.cd012678.pub2,i,Not OP-RR,,
 jsc.0b013e3181bc17fc,e,,n,n
 jsc.0b013e318256bedc,e,,n,y
 0309364615588344,e,,n,y
@@ -514,7 +514,7 @@ s00421-010-1384-z,e,,n,n
 fneur.2014.00191,e,,n,y
 jsc.0000000000001431,e,,n,n
 s12872-018-0839-8,e,,n,n
-bf03167072,i,Review,,
+bf03167072,i,Not OP-RR,,
 bjsm.37.6.516,e,,n,y
 s00421-010-1653-x,e,,n,y
 j.resp.2019.01.007,e,,n,y
@@ -542,7 +542,7 @@ bjsm.35.6.431,e,,n,y
 sj.ijo.0802724,e,,n,y
 09031936.05.00011404,e,,n,y
 ijerph18126547,e,,n,y
-bf00236696,i,Review,,
+bf00236696,i,Not OP-RR,,
 fpsyg.2022.825738,e,,n,y
 ijerph19074227,e,,n,y
 etm.2017.4084,e,,n,y
@@ -552,9 +552,9 @@ ijerph17113865,e,,n,y
 ijerph182111378,e,,n,y
 ijspp.2018-0221,e,,n,y
 10803548.2017.1381468,e,,n,y
-bf00421711,i,Review,,
+bf00421711,i,Not OP-RR,,
 circulationaha.111.032904,e,,y,
-s004210050337,i,Commentary,,
+s004210050337,i,Not OP-RR,,
 ajph.85.12.1702,e,,n,n
 bjsm.22.4.132,e,,n,n
 journal.pone.0072215,e,,n,y
@@ -563,13 +563,13 @@ jc.2010-2735,e,,y,
 circimaging.120.010567,e,,n,y
 bf00618488,e,,n,y
 ajpregu.00182.2018,e,,n,y
-1741-7015-9-74,i,Review,,
+1741-7015-9-74,i,Not OP-RR,,
 bjsm.37.1.89,e,,n,n
-bf00422845,i,Book chapter,,
+bf00422845,i,Not OP-RR,,
 sms.12514,e,,n,y
 japplphysiol.00619.2018,e,,n,n
 hrt.2003.028167,e,,n,y
-bf00417773,i,Review,,
+bf00417773,i,Not OP-RR,,
 bf01075985,e,,n,y
 02640414.2011.562232,e,,n,y
 s00421-011-2040-y,e,,n,n
@@ -578,8 +578,8 @@ ajpregu.00545.2015,e,,n,n
 01.cir.90.6.2877,e,,n,y
 bjsm.17.3.166,e,,n,y
 s00421-004-1048-y,e,,n,n
-bjsports-2013-092741,i,Review,,
-sj.ijo.0801637,i,Review,,
+bjsports-2013-092741,i,Not OP-RR,,
+sj.ijo.0801637,i,Not OP-RR,,
 j.numecd.2011.03.002,e,,y,
 journal.pone.0249786,e,,y,
 000308464,e,,n,n
@@ -592,4 +592,30 @@ bf00714996,e,,n,y
 hrt.2003.025684,e,,n,y
 bm.2018.030707,e,,n,y
 09031936.04.00142903,e,,n,y
-s002850050057,i,Review,,
+s002850050057,i,Not OP-RR,,
+bmj.4.5787.577,e,,n,n
+thx.44.9.716,e,,n,y
+bjsm.25.4.191,e,,n,y
+s00421-010-1709-y,e,,y,y
+bjsm.22.3.109,e,,n,y
+ajcn,i,Not OP-RR,,
+thx.26.4.396,e,,y,y
+bjsm.12.4.176,e,,n,y
+hrt.54.6.562,e,,n,n
+sj.ijo.0802845,i,Not OP-RR,,
+hrt.71.4.391,e,,y,y
+sj.ijo.0801037,i,Not OP-RR,,
+s00464-014-3691-7,e,,n,y
+hrt.61.5.421,e,,n,y
+japplphysiol.01341.2012,e,,n,y
+1351000214y.0000000105,i,Non-human,,
+j.cbpa.2015.08.008,i,Non-human,,
+s004210050488,i,Not OP-RR,,
+jeb.151019,i,Non-human,,
+jeb.02440,i,Non-human,,
+j.msard.2022.103721,e,,n,n
+fendo.2020.531926,e,,n,n
+s00421-006-0181-1,i,Not OP-RR,,
+mss.0000000000001204,i,Not OP-RR,,
+s0066-782x2002001200004,e,,n,n
+jcm10153299,e,,n,y
