@@ -41,7 +41,7 @@ def divisions(dividend, divisor):
             sections.append(list(range(sections[i-1][-1] + 1, (sections[i-1][-1] + 1) + parts[i])))
     return sections
 
-doi_divisions = divisions(len(doi_list), 100)
+doi_divisions = divisions(len(doi_list), 2)
 # %%
 df_list = []
 for i, division in tqdm(enumerate(doi_divisions)):
@@ -52,6 +52,6 @@ for i, division in tqdm(enumerate(doi_divisions)):
 # %%
 
 df = pd.concat(df_list)
-
+df
 df.to_csv('/Users/antonhesse/Desktop/Anton/Education/UMN/Lab and Research/HSPL/CPET_scoping_review/data/cpet_articles/unpaywall/unpaywall_info_new_exer.csv',\
     index=False)
