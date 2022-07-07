@@ -1,3 +1,4 @@
+from os import stat
 import pandas as pd
 import requests
 import json
@@ -33,19 +34,19 @@ status_codes = []
 for idx, row in tqdm(elsevier_non_oa_articles.iterrows(), total=len(elsevier_non_oa_articles)):
     doi = row['doi']    
     doi_url = 'https://api.elsevier.com/content/article/doi/' + doi
-    temp_dict = {'doi', doi}
+    temp_dict = {'doi': doi}
 
     try:
         r = requests.get(url=doi_url, params=elsevier_params, headers=elsevier_headers,
         allow_redirects=True, verify=True)
-        temp_dict.update({'elsevier_status_code': r.status_code})
+        temp_dict.update({'publisher_status_code': r.status_code})
 
-        if r.status_code == 200:
-            doi_suffix = str(doi.split('/')[1:]).strip("[']")
-            filename = f'{folder}/{doi_suffix}.xml'
+        # if r.status_code == 200:
+        #     doi_suffix = str(doi.split('/')[1:]).strip("[']")
+        #     filename = f'{folder}/{doi_suffix}.xml'
             
-            with open(filename, mode='wb') as f:
-                f.write(r.content)
+        #     with open(filename, mode='wb') as f:
+        #         f.write(r.content)
 
     except Exception as e:
         print(f'Exception at DOI {doi}')
@@ -53,3 +54,11 @@ for idx, row in tqdm(elsevier_non_oa_articles.iterrows(), total=len(elsevier_non
         temp_dict.update({'error': e})
     
     status_codes.append(temp_dict)
+
+status_code_df = pd.DataFrame(status_codes)
+status_code_df
+elsevier_non_oa_articles
+
+merge = pd.merge(elsevier_non_oa_articles, status_code_df, how='outer', on='doi')
+merge.to_csv('data/cpet_articles/unpaywall/elsevier_non_oa_articles_status_codes.csv',
+    index=False)
