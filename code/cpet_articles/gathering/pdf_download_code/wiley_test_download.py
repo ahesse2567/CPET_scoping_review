@@ -1,9 +1,8 @@
-from operator import mod
 import requests
 import pandas as pd
 import json
 
-with open('code/cpet_articles/gathering/pdf_download_code/crossref_config.json') as config_file:
+with open('code/cpet_articles/gathering/pdf_download_code/wiley_config.json') as config_file:
     wiley_token = json.load(config_file)['api_key']
 
 test_doi = '10.1111/1467-923X.12168'
