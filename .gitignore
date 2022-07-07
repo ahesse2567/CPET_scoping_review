@@ -5,8 +5,8 @@
 elsevier_config.json
 springer_config.json
 *.log
-data/cpet_articles/pdfs/
-data/cpet_articles/txts/
+data/cpet_articles/full_texts/
 **/unpaywall_cache
 **/.ipynb_checkpoints/
 data/cpet_articles/no_exer/
+**/__pycache__
