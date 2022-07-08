@@ -1,4 +1,3 @@
-from os import stat
 import pandas as pd
 import requests
 import json
@@ -16,6 +15,7 @@ with open("code/cpet_articles/gathering/pdf_download_code/elsevier_config.json")
 
 # see instructions from getting started guide
 # https://dev.elsevier.com/tecdoc_text_mining.html
+# Article retreival API guide: https://dev.elsevier.com/documentation/ArticleRetrievalAPI.wadl#d1e52
 
 # n = random.randint(0, len(elsevier_non_oa_articles))
 # test_doi = elsevier_non_oa_articles.loc[n,'doi']
@@ -41,12 +41,12 @@ for idx, row in tqdm(elsevier_non_oa_articles.iterrows(), total=len(elsevier_non
         allow_redirects=True, verify=True)
         temp_dict.update({'publisher_status_code': r.status_code})
 
-        # if r.status_code == 200:
-        #     doi_suffix = str(doi.split('/')[1:]).strip("[']")
-        #     filename = f'{folder}/{doi_suffix}.xml'
+        if r.status_code == 200:
+            doi_suffix = str(doi.split('/')[1:]).strip("[']")
+            filename = f'{folder}/{doi_suffix}.xml'
             
-        #     with open(filename, mode='wb') as f:
-        #         f.write(r.content)
+            with open(filename, mode='wb') as f:
+                f.write(r.content)
 
     except Exception as e:
         print(f'Exception at DOI {doi}')
