@@ -4,8 +4,8 @@ import json
 doi = '10.1016/j.vph.2022.106978'
 doi_url = 'https://api.elsevier.com/content/article/doi/' + doi
 
-# insert your API key below
-api_key = 
+with open("code/cpet_articles/gathering/pdf_download_code/elsevier_config.json") as config_file:
+    api_key = json.load(config_file)['apikey']
 
 elsevier_params = {
     'apiKey': api_key,

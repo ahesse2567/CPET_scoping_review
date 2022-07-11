@@ -27,7 +27,7 @@ elsevier_params = {
 elsevier_headers ={
     'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:101.0) Gecko/20100101 Firefox/101.0'}
 folder = 'data/cpet_articles/full_texts/txts/eslevier_non_oa_txts'
-file_ext = '.txt'
+file_ext = '.json'
 
 
 status_codes = []
@@ -60,7 +60,7 @@ status_code_df
 elsevier_non_oa_articles
 
 merge = pd.merge(elsevier_non_oa_articles, status_code_df, how='outer', on='doi')
-merge.to_csv('data/cpet_articles/unpaywall/elsevier_non_oa_txt_article_status_codes.csv',
+merge.to_csv('data/cpet_articles/unpaywall/elsevier_non_oa_articles_status_codes.csv',
     index=False)
 
 
