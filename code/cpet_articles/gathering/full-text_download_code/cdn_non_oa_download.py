@@ -38,6 +38,7 @@ for idx, row in tqdm(cdn.iterrows(), total=len(cdn)):
 
         if crossref_response.status_code != 200:
             print(f'Status code {crossref_response.status_code} for DOI {doi}')
+            res.append(out)
             continue
 
         link_info = crossref_response.json()['link']
@@ -48,9 +49,9 @@ for idx, row in tqdm(cdn.iterrows(), total=len(cdn)):
 
         publisher_headers = {
             'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:101.0) Gecko/20100101 Firefox/101.0',
-            'CR-TDM-Rate-Limit': 1500,
-            'CR-TDM-Rate-Limit-Remaining': 76,
-            'CR-TDM-Rate-Limit-Reset': 1378072800
+            'CR-TDM-Rate-Limit': '1500',
+            'CR-TDM-Rate-Limit-Remaining': '76',
+            'CR-TDM-Rate-Limit-Reset': '1378072800'
         }
         publisher_response = requests.get(
             url = full_text_url,
@@ -61,6 +62,7 @@ for idx, row in tqdm(cdn.iterrows(), total=len(cdn)):
 
         if publisher_response.status_code != 200:
             print(f'Status code {publisher_response.status_code} for DOI {doi}')
+            res.append(out)
             continue
 
         doi_suffix = str(doi.split('/')[1:]).strip("[']")
