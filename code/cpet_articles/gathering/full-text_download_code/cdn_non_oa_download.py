@@ -83,3 +83,4 @@ merge = pd.merge(cdn, res_df, how = 'outer', on='doi')
 merge.columns
 merge['publisher_status_code'].value_counts() # most are NOT status code 200
 merge.to_csv('data/cpet_articles/unpaywall/cdn_status_codes.csv', index=False)
+
