@@ -24,11 +24,9 @@ elsevier_params = {
     'httpAccept': 'text/plain',
     'view': 'FULL'
 }
-elsevier_headers ={
-    'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:101.0) Gecko/20100101 Firefox/101.0'}
+elsevier_headers ={'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:101.0) Gecko/20100101 Firefox/101.0'}
 folder = 'data/cpet_articles/full_texts/txts/eslevier_non_oa_txts'
-file_ext = '.json'
-
+file_ext = 'txt'
 
 status_codes = []
 for idx, row in tqdm(elsevier_non_oa_articles.iterrows(), total=len(elsevier_non_oa_articles)):
@@ -43,7 +41,7 @@ for idx, row in tqdm(elsevier_non_oa_articles.iterrows(), total=len(elsevier_non
 
         if r.status_code == 200:
             doi_suffix = str(doi.split('/')[1:]).strip("[']")
-            filename = f'{folder}/{doi_suffix}{file_ext}'
+            filename = f'{folder}/{doi_suffix}.{file_ext}'
             
             with open(filename, mode='wb') as f:
                 f.write(r.content)

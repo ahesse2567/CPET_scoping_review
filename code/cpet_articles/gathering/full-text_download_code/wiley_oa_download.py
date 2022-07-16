@@ -1,7 +1,7 @@
 import sys
-import requests
-sys.path.append('code/cpet_articles/gathering/pdf_download_code')
+sys.path.append('code/cpet_articles/gathering/full-text_download_code/helper_funcs')
 from crossref_pdf_download import crossref_pdf_download
+import requests
 import pandas as pd
 from tqdm import tqdm
 import json
@@ -16,7 +16,7 @@ wiley_articles.shape
 
 user_agent = 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:101.0) Gecko/20100101 Firefox/101.0'
 accept = 'application/vnd.citationstyles.csl+json, application/vnd.crossref.unixref+xml'
-dest_folder = 'data/cpet_articles/pdfs/wiley_oa_pdfs'
+dest_folder = 'data/cpet_articles/full_texts/pdfs/wiley_oa_pdfs'
 
 # uncomment below to redownload wiley oa articles
 # res = []
@@ -36,6 +36,9 @@ dest_folder = 'data/cpet_articles/pdfs/wiley_oa_pdfs'
 # merge.columns
 # merge['publisher_status_code'].value_counts() # most are NOT status code 200
 # # merge.to_csv('data/cpet_articles/unpaywall/wiley_oa_status_codes.csv', index=False)
+
+
+###### Rerun code using URLs from Unpaywall rather than crossref
 
 df_status_codes = pd.read_csv('data/cpet_articles/unpaywall/wiley_oa_status_codes.csv')
 non200 = df_status_codes[df_status_codes['publisher_status_code'] != 200]
@@ -98,4 +101,46 @@ for idx, row in tqdm(non200.iterrows(), total=len(non200)):
 
 res
 res_df = pd.DataFrame(res)
+merge = pd.merge(non200, res_df, how = 'outer', on='doi')
+merge.shape
+merge['publisher_status_code'].value_counts() # most are NOT status code 200
+merge['best_oa_location_status_code'].value_counts() # ok so we got a few more
+merge['first_oa_location_status_code'].value_counts() # and just a couple more
+
+import numpy as np
+
+merge['remaining_non200'] = np.where((merge['best_oa_location_status_code'] != 200) & (merge['first_oa_location_status_code'] != 200), merge['publisher_status_code'], 200)
+merge['remaining_non200'].value_counts() # we still have several left
+
+merge.to_csv('data/cpet_articles/unpaywall/wiley_oa_status_codes.csv', index=False)
+
+
+##### Resolve http errors
+
+## spoiler, not many were fixed
+
+https_errors = df_status_codes[(df_status_codes['error_y'].notna()) & \
+    (df_status_codes['error_y'] != "Invalid URL 'nan': No scheme supplied. Perhaps you meant http://nan?")]
+https_errors['error_y'].value_counts()
+
+publisher_headers = {
+    'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:101.0) Gecko/20100101 Firefox/101.0',
+    'Wiley-TDM-Client-Token': wiley_token
+}
+dest_folder = 'data/cpet_articles/full_texts/pdfs/wiley_oa_pdfs'
+res = []
+for i, row in tqdm(https_errors.iterrows(), total=https_errors.shape[0]):
+    temp = crossref_pdf_download(
+        doi=row['doi'],
+        accept=accept,
+        dest=dest_folder,
+        user_agent=user_agent,
+        TDM_header='Wiley-TDM-Client-Token',
+        TDM_token=wiley_token,
+        verify=False)
+    res.append(temp)
+
+res_df = pd.DataFrame(res)
 res_df
+res_df.columns
+res_df['error'][0]
