@@ -3,10 +3,11 @@ from tqdm import tqdm
 import requests
 import json
 from pathlib import Path
-import sys
 import re
+import sys
 sys.path.append('code/cpet_articles/gathering/full-text_download_code/helper_funcs')
 # from elsevier_full_text_download import elsevier_full_text_download
+from crossref_pdf_download import crossref_pdf_download
 # import random
 import numpy as np
 
@@ -27,6 +28,7 @@ remaining_oa_articles_df = pd.DataFrame({'doi_suffix': remaining_oa_articles})
 merge = pd.merge(remaining_oa_articles_df, cr_articles, how='inner', on='doi_suffix')
 merge['publisher'].value_counts()
 
+"""
 elsevier_oa_articles = merge[merge['publisher'] == 'Elsevier BV'].reset_index(drop=True)
 with open("code/cpet_articles/gathering/full-text_download_code/elsevier_config.json") as config_file:
     api_key = json.load(config_file)['apikey']
@@ -65,6 +67,7 @@ for i, row in tqdm(elsevier_oa_articles.iterrows(), total=len(elsevier_oa_articl
 
 res_df = pd.DataFrame(res)
 res_df
+"""
 
 wiley_oa_articles = merge[merge['publisher'] == 'Wiley'].reset_index(drop=True)
 with open("code/cpet_articles/gathering/full-text_download_code/wiley_config.json") as config_file:
@@ -79,6 +82,19 @@ wiley_headers ={
     'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:101.0) Gecko/20100101 Firefox/101.0',
     'Wiley-TDM-Client-Token': wiley_api_key
 }
+
+# uncomment below to redownload wiley oa articles
+res = []
+for i, row in tqdm(wiley_oa_articles.iterrows(), total=wiley_oa_articles.shape[0]):
+    temp = crossref_pdf_download(
+        doi=row['doi'],
+        accept='application/vnd.citationstyles.csl+json, application/vnd.crossref.unixref+xml',
+        dest=wiley_folder,
+        user_agent='Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:101.0) Gecko/20100101 Firefox/101.0',
+        TDM_header='Wiley-TDM-Client-Token',
+        TDM_token=wiley_api_key,
+        verify=True)
+    res.append(temp)
 
 pdf_re = re.compile(r'http.*pdf.*')
 wiley_res = []
