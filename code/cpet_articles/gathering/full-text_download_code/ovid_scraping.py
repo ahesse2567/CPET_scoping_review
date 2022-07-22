@@ -61,7 +61,7 @@ for idx, row in tqdm(ovid_ca_articles.iloc.iterrows(), total=ovid_ca_articles.sh
             else:
                 epub_button_list = [EPUB_re.search(html) for html in button_html]
                 EPUB_idx = [i for i, val in enumerate(epub_button_list) if val != None]
-                epub_download_icon = inner_buttons[PDF_idx[0]].find_element(By.XPATH,"//*[text()='EPUB']")
+                epub_download_icon = inner_buttons[EPUB_idx[0]].find_element(By.XPATH,"//*[text()='EPUB']")
                 inner_download_button = epub_download_icon.find_element(By.XPATH,'..')
                 outer_download_button.click()
                 inner_download_button.click()
