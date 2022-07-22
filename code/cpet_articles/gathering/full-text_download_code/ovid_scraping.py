@@ -5,9 +5,9 @@ from webdriver_manager.firefox import GeckoDriverManager
 # from selenium.webdriver.support.ui import WebDriverWait
 # from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.common.by import By
-from selenium.webdriver.chrome.options import Options as FirefoxOptions
-firefox_options = FirefoxOptions()
-firefox_options.add_argument("--headless")
+# from selenium.webdriver.chrome.options import Options as FirefoxOptions
+# firefox_options = FirefoxOptions()
+# firefox_options.add_argument("--headless")
 import pandas as pd
 import requests
 import random
@@ -22,35 +22,32 @@ def download_pdf(doi, dest_folder, content):
     with open(filename, mode = 'wb') as f:
         f.write(content)
 
-driver = webdriver.Firefox(service=FirefoxService(GeckoDriverManager().install()))
-driver.implicitly_wait(10) # hopefully let's JS load correctly
-
 articles = pd.read_csv('/Users/antonhesse/Desktop/Anton/Education/UMN/Lab and Research/HSPL/CPET_scoping_review/data/cpet_articles/unpaywall/unpaywall_info.csv')
 ovid_ca_articles = articles[(articles['is_oa'] == False) & (articles['publisher'] == 'Ovid Technologies (Wolters Kluwer Health)')].reset_index(drop=True)
 
 headers = {'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:102.0) Gecko/20100101 Firefox/102.0'}
 
-# n = random.randint(0, ovid_ca_articles.shape[0])
-# doi_url = ovid_ca_articles.loc[n, 'doi_url']
-# r = requests.get(doi_url, headers=headers)
-
 pdf_folder = 'data/cpet_articles/full_texts/pdfs/ovid_non_oa/'
 epub_folder = 'data/cpet_articles/full_texts/epubs/ovid_non_oa/'
-# row = ovid_ca_articles.loc[0,:]
+
 PDF_re = re.compile('PDF')
 EPUB_re = re.compile('EPUB')
 
+driver = webdriver.Firefox(service=FirefoxService(GeckoDriverManager().install()))
+driver.implicitly_wait(10) # hopefully let's JS load correctly
+
+# initial file download
 log = []
-for idx, row in tqdm(ovid_ca_articles.iterrows(), total=ovid_ca_articles.shape[0]):
+for idx, row in tqdm(ovid_ca_articles.iloc.iterrows(), total=ovid_ca_articles.shape[0]):
     doi = row['doi']
     out = {'doi': doi}
     doi_url = row['doi_url']
-    r = requests.get(doi_url, headers=headers)
-    out.update({'doi_redirect_SC': r.status_code})
-    if r.status_code == 200:
-        driver.get(r.url)
-        time.sleep(5)
-        try:
+    try:
+        r = requests.get(doi_url, headers=headers)
+        out.update({'doi_redirect_SC': r.status_code})
+        if r.status_code == 200:
+            driver.get(r.url)
+            time.sleep(3)
             outer_download_button = driver.find_element(By.CLASS_NAME, 'icon-pdf').find_element(By.XPATH, '../../..')
             inner_buttons = outer_download_button.find_elements(By.TAG_NAME, 'i')
             button_html = [i.find_element(By.XPATH, '..').get_attribute('innerHTML') for i in inner_buttons]
@@ -81,15 +78,22 @@ for idx, row in tqdm(ovid_ca_articles.iterrows(), total=ovid_ca_articles.shape[0
                 download_pdf(doi=doi, dest_folder=pdf_folder, content=full_text_resp.content)
             driver.close()
             driver.switch_to.window(parent_tab)
-        except Exception as e:
-            out.update({'error': e})
+    except Exception as e:
+        print(e)
+        out.update({'error': e})
+
     log.append(out)
 
+# idx # got to idx 1146 before it broke
+len(log)
+log_df = pd.DataFrame(log)
+# log_df
+merge = pd.merge(ovid_ca_articles, log_df, on = 'doi')
+# merge.to_csv('data/cpet_articles/unpaywall/ovid_non_oa_status_codes.csv', index=False)
 driver.quit()
+
 
 # move epub files from downloads folder later
 # epub_re = re.compile('\.epub')
 # epub_file = list(filter())
 # shutil.move()
-
-
