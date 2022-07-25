@@ -74,3 +74,6 @@ for idx, row in tqdm(merge.iterrows(), total=merge.shape[0]):
         out.update({'error': e})
     log.append(out)
     # time.sleep(20)
+
+# TODO this code isn't logging an error when the U's license doesn't work
+# What happens is the article still downloads, but it's a broken PDF
