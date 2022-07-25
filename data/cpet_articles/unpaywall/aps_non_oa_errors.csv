@@ -1,0 +1,926 @@
+doi,doi_redirect_SC,error
+10.1152/japplphysiol.00052.2022,200,
+10.1152/japplphysiol.00754.2021,200,
+10.1152/ajpregu.00192.2021,200,
+10.1152/japplphysiol.00881.2020,200,
+10.1152/japplphysiol.00421.2021,200,
+10.1152/japplphysiol.01117.2020,200,
+10.1152/japplphysiol.00506.2021,200,
+10.1152/ajpregu.00198.2021,200,
+10.1152/japplphysiol.00907.2020,200,
+10.1152/ajpregu.00286.2020,200,
+10.1152/japplphysiol.00058.2021,200,
+10.1152/ajpregu.00312.2020,200,
+10.1152/japplphysiol.00384.2020,200,
+10.1152/ajpendo.00263.2020,200,
+10.1152/japplphysiol.00512.2020,200,
+10.1152/japplphysiol.00455.2020,200,
+10.1152/ajpheart.00432.2020,200,
+10.1152/japplphysiol.00478.2020,200,
+10.1152/japplphysiol.00023.2019,200,"Message: Element <a class=""download list-button btn"" href=""/doi/pdf/10.1152/japplphysiol.00023.2019?download=true""> could not be scrolled into view
+Stacktrace:
+WebDriverError@chrome://remote/content/shared/webdriver/Errors.jsm:186:5
+ElementNotInteractableError@chrome://remote/content/shared/webdriver/Errors.jsm:296:5
+webdriverClickElement@chrome://remote/content/marionette/interaction.js:156:11
+interaction.clickElement@chrome://remote/content/marionette/interaction.js:125:11
+clickElement@chrome://remote/content/marionette/actors/MarionetteCommandsChild.jsm:203:24
+receiveMessage@chrome://remote/content/marionette/actors/MarionetteCommandsChild.jsm:91:31
+"
+10.1152/japplphysiol.00030.2019,200,"Message: Element <button id="""" class=""dropdown-trigger btn btn--light btn--cta_roundedColored"" type=""button""> is not clickable at point (1240,30) because another element <nav id=""app-navbar"" class=""navbar isFixed""> obscures it
+Stacktrace:
+WebDriverError@chrome://remote/content/shared/webdriver/Errors.jsm:186:5
+ElementClickInterceptedError@chrome://remote/content/shared/webdriver/Errors.jsm:285:5
+webdriverClickElement@chrome://remote/content/marionette/interaction.js:166:11
+interaction.clickElement@chrome://remote/content/marionette/interaction.js:125:11
+clickElement@chrome://remote/content/marionette/actors/MarionetteCommandsChild.jsm:203:24
+receiveMessage@chrome://remote/content/marionette/actors/MarionetteCommandsChild.jsm:91:31
+"
+10.1152/japplphysiol.00536.2016,200,"Message: Element <a id="""" class=""navbar-download btn btn--cta_roundedColored"" href=""/doi/pdf/10.1152/japplphysiol.00536.2016?download=true""> is not clickable at point (1240,30) because another element <nav id=""app-navbar"" class=""navbar isFixed""> obscures it
+Stacktrace:
+WebDriverError@chrome://remote/content/shared/webdriver/Errors.jsm:186:5
+ElementClickInterceptedError@chrome://remote/content/shared/webdriver/Errors.jsm:285:5
+webdriverClickElement@chrome://remote/content/marionette/interaction.js:166:11
+interaction.clickElement@chrome://remote/content/marionette/interaction.js:125:11
+clickElement@chrome://remote/content/marionette/actors/MarionetteCommandsChild.jsm:203:24
+receiveMessage@chrome://remote/content/marionette/actors/MarionetteCommandsChild.jsm:91:31
+"
+10.1152/japplphysiol.00287.2017,200,
+10.1152/advan.00158.2016,200,
+10.1152/japplphysiol.00569.2016,200,"Message: Element <ul class=""coolBar__drop rlist w-slide--list hidden-xs hidden-sm""> could not be scrolled into view
+Stacktrace:
+WebDriverError@chrome://remote/content/shared/webdriver/Errors.jsm:186:5
+ElementNotInteractableError@chrome://remote/content/shared/webdriver/Errors.jsm:296:5
+webdriverClickElement@chrome://remote/content/marionette/interaction.js:156:11
+interaction.clickElement@chrome://remote/content/marionette/interaction.js:125:11
+clickElement@chrome://remote/content/marionette/actors/MarionetteCommandsChild.jsm:203:24
+receiveMessage@chrome://remote/content/marionette/actors/MarionetteCommandsChild.jsm:91:31
+"
+10.1152/physiolgenomics.00083.2016,200,
+10.1152/japplphysiol.00537.2016,200,"Message: Element <a id="""" class=""navbar-download btn btn--cta_roundedColored"" href=""/doi/pdf/10.1152/japplphysiol.00537.2016?download=true""> is not clickable at point (1240,30) because another element <nav id=""app-navbar"" class=""navbar isFixed""> obscures it
+Stacktrace:
+WebDriverError@chrome://remote/content/shared/webdriver/Errors.jsm:186:5
+ElementClickInterceptedError@chrome://remote/content/shared/webdriver/Errors.jsm:285:5
+webdriverClickElement@chrome://remote/content/marionette/interaction.js:166:11
+interaction.clickElement@chrome://remote/content/marionette/interaction.js:125:11
+clickElement@chrome://remote/content/marionette/actors/MarionetteCommandsChild.jsm:203:24
+receiveMessage@chrome://remote/content/marionette/actors/MarionetteCommandsChild.jsm:91:31
+"
+10.1152/ajpregu.00479.2015,200,"Message: Element <ul class=""coolBar__drop rlist w-slide--list hidden-xs hidden-sm""> could not be scrolled into view
+Stacktrace:
+WebDriverError@chrome://remote/content/shared/webdriver/Errors.jsm:186:5
+ElementNotInteractableError@chrome://remote/content/shared/webdriver/Errors.jsm:296:5
+webdriverClickElement@chrome://remote/content/marionette/interaction.js:156:11
+interaction.clickElement@chrome://remote/content/marionette/interaction.js:125:11
+clickElement@chrome://remote/content/marionette/actors/MarionetteCommandsChild.jsm:203:24
+receiveMessage@chrome://remote/content/marionette/actors/MarionetteCommandsChild.jsm:91:31
+"
+10.1152/japplphysiol.00122.2015,200,"Message: Element <a id="""" class=""navbar-download btn btn--cta_roundedColored"" href=""/doi/pdf/10.1152/japplphysiol.00122.2015?download=true""> is not clickable at point (1240,30) because another element <nav id=""app-navbar"" class=""navbar isFixed""> obscures it
+Stacktrace:
+WebDriverError@chrome://remote/content/shared/webdriver/Errors.jsm:186:5
+ElementClickInterceptedError@chrome://remote/content/shared/webdriver/Errors.jsm:285:5
+webdriverClickElement@chrome://remote/content/marionette/interaction.js:166:11
+interaction.clickElement@chrome://remote/content/marionette/interaction.js:125:11
+clickElement@chrome://remote/content/marionette/actors/MarionetteCommandsChild.jsm:203:24
+receiveMessage@chrome://remote/content/marionette/actors/MarionetteCommandsChild.jsm:91:31
+"
+10.1152/japplphysiol.01122.2014,200,"Message: Element <a id="""" class=""navbar-download btn btn--cta_roundedColored"" href=""/doi/pdf/10.1152/japplphysiol.01122.2014?download=true""> is not clickable at point (1240,30) because another element <nav id=""app-navbar"" class=""navbar isFixed""> obscures it
+Stacktrace:
+WebDriverError@chrome://remote/content/shared/webdriver/Errors.jsm:186:5
+ElementClickInterceptedError@chrome://remote/content/shared/webdriver/Errors.jsm:285:5
+webdriverClickElement@chrome://remote/content/marionette/interaction.js:166:11
+interaction.clickElement@chrome://remote/content/marionette/interaction.js:125:11
+clickElement@chrome://remote/content/marionette/actors/MarionetteCommandsChild.jsm:203:24
+receiveMessage@chrome://remote/content/marionette/actors/MarionetteCommandsChild.jsm:91:31
+"
+10.1152/japplphysiol.00509.2015,200,"Message: Element <a id="""" class=""navbar-download btn btn--cta_roundedColored"" href=""/doi/pdf/10.1152/japplphysiol.00509.2015?download=true""> is not clickable at point (1240,30) because another element <nav id=""app-navbar"" class=""navbar isFixed""> obscures it
+Stacktrace:
+WebDriverError@chrome://remote/content/shared/webdriver/Errors.jsm:186:5
+ElementClickInterceptedError@chrome://remote/content/shared/webdriver/Errors.jsm:285:5
+webdriverClickElement@chrome://remote/content/marionette/interaction.js:166:11
+interaction.clickElement@chrome://remote/content/marionette/interaction.js:125:11
+clickElement@chrome://remote/content/marionette/actors/MarionetteCommandsChild.jsm:203:24
+receiveMessage@chrome://remote/content/marionette/actors/MarionetteCommandsChild.jsm:91:31
+"
+10.1152/ajpregu.00258.2015,200,"Message: Element <a id="""" class=""navbar-download btn btn--cta_roundedColored"" href=""/doi/pdf/10.1152/ajpregu.00258.2015?download=true""> is not clickable at point (1240,30) because another element <nav id=""app-navbar"" class=""navbar isFixed""> obscures it
+Stacktrace:
+WebDriverError@chrome://remote/content/shared/webdriver/Errors.jsm:186:5
+ElementClickInterceptedError@chrome://remote/content/shared/webdriver/Errors.jsm:285:5
+webdriverClickElement@chrome://remote/content/marionette/interaction.js:166:11
+interaction.clickElement@chrome://remote/content/marionette/interaction.js:125:11
+clickElement@chrome://remote/content/marionette/actors/MarionetteCommandsChild.jsm:203:24
+receiveMessage@chrome://remote/content/marionette/actors/MarionetteCommandsChild.jsm:91:31
+"
+10.1152/ajpheart.00360.2015,200,"Message: Element <a id="""" class=""navbar-download btn btn--cta_roundedColored"" href=""/doi/pdf/10.1152/ajpheart.00360.2015?download=true""> is not clickable at point (1240,30) because another element <nav id=""app-navbar"" class=""navbar isFixed""> obscures it
+Stacktrace:
+WebDriverError@chrome://remote/content/shared/webdriver/Errors.jsm:186:5
+ElementClickInterceptedError@chrome://remote/content/shared/webdriver/Errors.jsm:285:5
+webdriverClickElement@chrome://remote/content/marionette/interaction.js:166:11
+interaction.clickElement@chrome://remote/content/marionette/interaction.js:125:11
+clickElement@chrome://remote/content/marionette/actors/MarionetteCommandsChild.jsm:203:24
+receiveMessage@chrome://remote/content/marionette/actors/MarionetteCommandsChild.jsm:91:31
+"
+10.1152/japplphysiol.01049.2014,200,"Message: Element <a id="""" class=""navbar-download btn btn--cta_roundedColored"" href=""/doi/pdf/10.1152/japplphysiol.01049.2014?download=true""> is not clickable at point (1240,30) because another element <nav id=""app-navbar"" class=""navbar isFixed""> obscures it
+Stacktrace:
+WebDriverError@chrome://remote/content/shared/webdriver/Errors.jsm:186:5
+ElementClickInterceptedError@chrome://remote/content/shared/webdriver/Errors.jsm:285:5
+webdriverClickElement@chrome://remote/content/marionette/interaction.js:166:11
+interaction.clickElement@chrome://remote/content/marionette/interaction.js:125:11
+clickElement@chrome://remote/content/marionette/actors/MarionetteCommandsChild.jsm:203:24
+receiveMessage@chrome://remote/content/marionette/actors/MarionetteCommandsChild.jsm:91:31
+"
+10.1152/japplphysiol.00306.2015,200,"Message: Element <a id="""" class=""navbar-download btn btn--cta_roundedColored"" href=""/doi/pdf/10.1152/japplphysiol.00306.2015?download=true""> is not clickable at point (1240,30) because another element <nav id=""app-navbar"" class=""navbar isFixed""> obscures it
+Stacktrace:
+WebDriverError@chrome://remote/content/shared/webdriver/Errors.jsm:186:5
+ElementClickInterceptedError@chrome://remote/content/shared/webdriver/Errors.jsm:285:5
+webdriverClickElement@chrome://remote/content/marionette/interaction.js:166:11
+interaction.clickElement@chrome://remote/content/marionette/interaction.js:125:11
+clickElement@chrome://remote/content/marionette/actors/MarionetteCommandsChild.jsm:203:24
+receiveMessage@chrome://remote/content/marionette/actors/MarionetteCommandsChild.jsm:91:31
+"
+10.1152/japplphysiol.01000.2014,200,"Message: Element <a id="""" class=""navbar-download btn btn--cta_roundedColored"" href=""/doi/pdf/10.1152/japplphysiol.01000.2014?download=true""> is not clickable at point (1240,30) because another element <nav id=""app-navbar"" class=""navbar isFixed""> obscures it
+Stacktrace:
+WebDriverError@chrome://remote/content/shared/webdriver/Errors.jsm:186:5
+ElementClickInterceptedError@chrome://remote/content/shared/webdriver/Errors.jsm:285:5
+webdriverClickElement@chrome://remote/content/marionette/interaction.js:166:11
+interaction.clickElement@chrome://remote/content/marionette/interaction.js:125:11
+clickElement@chrome://remote/content/marionette/actors/MarionetteCommandsChild.jsm:203:24
+receiveMessage@chrome://remote/content/marionette/actors/MarionetteCommandsChild.jsm:91:31
+"
+10.1152/ajpregu.00031.2015,200,"Message: Element <a id="""" class=""navbar-download btn btn--cta_roundedColored"" href=""/doi/pdf/10.1152/ajpregu.00031.2015?download=true""> is not clickable at point (1240,30) because another element <nav id=""app-navbar"" class=""navbar isFixed""> obscures it
+Stacktrace:
+WebDriverError@chrome://remote/content/shared/webdriver/Errors.jsm:186:5
+ElementClickInterceptedError@chrome://remote/content/shared/webdriver/Errors.jsm:285:5
+webdriverClickElement@chrome://remote/content/marionette/interaction.js:166:11
+interaction.clickElement@chrome://remote/content/marionette/interaction.js:125:11
+clickElement@chrome://remote/content/marionette/actors/MarionetteCommandsChild.jsm:203:24
+receiveMessage@chrome://remote/content/marionette/actors/MarionetteCommandsChild.jsm:91:31
+"
+10.1152/japplphysiol.00287.2015,200,"Message: Element <a id="""" class=""navbar-download btn btn--cta_roundedColored"" href=""/doi/pdf/10.1152/japplphysiol.00287.2015?download=true""> is not clickable at point (1240,30) because another element <nav id=""app-navbar"" class=""navbar isFixed""> obscures it
+Stacktrace:
+WebDriverError@chrome://remote/content/shared/webdriver/Errors.jsm:186:5
+ElementClickInterceptedError@chrome://remote/content/shared/webdriver/Errors.jsm:285:5
+webdriverClickElement@chrome://remote/content/marionette/interaction.js:166:11
+interaction.clickElement@chrome://remote/content/marionette/interaction.js:125:11
+clickElement@chrome://remote/content/marionette/actors/MarionetteCommandsChild.jsm:203:24
+receiveMessage@chrome://remote/content/marionette/actors/MarionetteCommandsChild.jsm:91:31
+"
+10.1152/japplphysiol.00192.2014,200,"Message: Element <a id="""" class=""navbar-download btn btn--cta_roundedColored"" href=""/doi/pdf/10.1152/japplphysiol.00192.2014?download=true""> is not clickable at point (1240,30) because another element <nav id=""app-navbar"" class=""navbar isFixed""> obscures it
+Stacktrace:
+WebDriverError@chrome://remote/content/shared/webdriver/Errors.jsm:186:5
+ElementClickInterceptedError@chrome://remote/content/shared/webdriver/Errors.jsm:285:5
+webdriverClickElement@chrome://remote/content/marionette/interaction.js:166:11
+interaction.clickElement@chrome://remote/content/marionette/interaction.js:125:11
+clickElement@chrome://remote/content/marionette/actors/MarionetteCommandsChild.jsm:203:24
+receiveMessage@chrome://remote/content/marionette/actors/MarionetteCommandsChild.jsm:91:31
+"
+10.1152/japplphysiol.00101.2015,200,"Message: Element <a id="""" class=""navbar-download btn btn--cta_roundedColored"" href=""/doi/pdf/10.1152/japplphysiol.00101.2015?download=true""> is not clickable at point (1240,30) because another element <nav id=""app-navbar"" class=""navbar isFixed""> obscures it
+Stacktrace:
+WebDriverError@chrome://remote/content/shared/webdriver/Errors.jsm:186:5
+ElementClickInterceptedError@chrome://remote/content/shared/webdriver/Errors.jsm:285:5
+webdriverClickElement@chrome://remote/content/marionette/interaction.js:166:11
+interaction.clickElement@chrome://remote/content/marionette/interaction.js:125:11
+clickElement@chrome://remote/content/marionette/actors/MarionetteCommandsChild.jsm:203:24
+receiveMessage@chrome://remote/content/marionette/actors/MarionetteCommandsChild.jsm:91:31
+"
+10.1152/japplphysiol.01003.2014,200,
+10.1152/japplphysiol.00084.2015,200,
+10.1152/japplphysiol.01040.2014,200,
+10.1152/ajpregu.00461.2014,200,
+10.1152/japplphysiol.00458.2014,200,
+10.1152/physiolgenomics.00072.2014,200,"Message: Element <ul class=""coolBar__drop rlist w-slide--list hidden-xs hidden-sm""> could not be scrolled into view
+Stacktrace:
+WebDriverError@chrome://remote/content/shared/webdriver/Errors.jsm:186:5
+ElementNotInteractableError@chrome://remote/content/shared/webdriver/Errors.jsm:296:5
+webdriverClickElement@chrome://remote/content/marionette/interaction.js:156:11
+interaction.clickElement@chrome://remote/content/marionette/interaction.js:125:11
+clickElement@chrome://remote/content/marionette/actors/MarionetteCommandsChild.jsm:203:24
+receiveMessage@chrome://remote/content/marionette/actors/MarionetteCommandsChild.jsm:91:31
+"
+10.1152/japplphysiol.00393.2014,200,"Message: Element <a id="""" class=""navbar-download btn btn--cta_roundedColored"" href=""/doi/pdf/10.1152/japplphysiol.00393.2014?download=true""> is not clickable at point (1240,30) because another element <nav id=""app-navbar"" class=""navbar isFixed""> obscures it
+Stacktrace:
+WebDriverError@chrome://remote/content/shared/webdriver/Errors.jsm:186:5
+ElementClickInterceptedError@chrome://remote/content/shared/webdriver/Errors.jsm:285:5
+webdriverClickElement@chrome://remote/content/marionette/interaction.js:166:11
+interaction.clickElement@chrome://remote/content/marionette/interaction.js:125:11
+clickElement@chrome://remote/content/marionette/actors/MarionetteCommandsChild.jsm:203:24
+receiveMessage@chrome://remote/content/marionette/actors/MarionetteCommandsChild.jsm:91:31
+"
+10.1152/japplphysiol.00686.2014,200,"Message: Element <a id="""" class=""navbar-download btn btn--cta_roundedColored"" href=""/doi/pdf/10.1152/japplphysiol.00686.2014?download=true""> is not clickable at point (1240,30) because another element <nav id=""app-navbar"" class=""navbar isFixed""> obscures it
+Stacktrace:
+WebDriverError@chrome://remote/content/shared/webdriver/Errors.jsm:186:5
+ElementClickInterceptedError@chrome://remote/content/shared/webdriver/Errors.jsm:285:5
+webdriverClickElement@chrome://remote/content/marionette/interaction.js:166:11
+interaction.clickElement@chrome://remote/content/marionette/interaction.js:125:11
+clickElement@chrome://remote/content/marionette/actors/MarionetteCommandsChild.jsm:203:24
+receiveMessage@chrome://remote/content/marionette/actors/MarionetteCommandsChild.jsm:91:31
+"
+10.1152/japplphysiol.00518.2014,200,"Message: Element <a id="""" class=""navbar-download btn btn--cta_roundedColored"" href=""/doi/pdf/10.1152/japplphysiol.00518.2014?download=true""> is not clickable at point (1240,30) because another element <nav id=""app-navbar"" class=""navbar isFixed""> obscures it
+Stacktrace:
+WebDriverError@chrome://remote/content/shared/webdriver/Errors.jsm:186:5
+ElementClickInterceptedError@chrome://remote/content/shared/webdriver/Errors.jsm:285:5
+webdriverClickElement@chrome://remote/content/marionette/interaction.js:166:11
+interaction.clickElement@chrome://remote/content/marionette/interaction.js:125:11
+clickElement@chrome://remote/content/marionette/actors/MarionetteCommandsChild.jsm:203:24
+receiveMessage@chrome://remote/content/marionette/actors/MarionetteCommandsChild.jsm:91:31
+"
+10.1152/japplphysiol.01226.2013,200,"Message: Element <a id="""" class=""navbar-download btn btn--cta_roundedColored"" href=""/doi/pdf/10.1152/japplphysiol.01226.2013?download=true""> is not clickable at point (1240,30) because another element <nav id=""app-navbar"" class=""navbar isFixed""> obscures it
+Stacktrace:
+WebDriverError@chrome://remote/content/shared/webdriver/Errors.jsm:186:5
+ElementClickInterceptedError@chrome://remote/content/shared/webdriver/Errors.jsm:285:5
+webdriverClickElement@chrome://remote/content/marionette/interaction.js:166:11
+interaction.clickElement@chrome://remote/content/marionette/interaction.js:125:11
+clickElement@chrome://remote/content/marionette/actors/MarionetteCommandsChild.jsm:203:24
+receiveMessage@chrome://remote/content/marionette/actors/MarionetteCommandsChild.jsm:91:31
+"
+10.1152/ajpregu.00046.2014,200,"Message: Element <a id="""" class=""navbar-download btn btn--cta_roundedColored"" href=""/doi/pdf/10.1152/ajpregu.00046.2014?download=true""> is not clickable at point (1240,30) because another element <nav id=""app-navbar"" class=""navbar isFixed""> obscures it
+Stacktrace:
+WebDriverError@chrome://remote/content/shared/webdriver/Errors.jsm:186:5
+ElementClickInterceptedError@chrome://remote/content/shared/webdriver/Errors.jsm:285:5
+webdriverClickElement@chrome://remote/content/marionette/interaction.js:166:11
+interaction.clickElement@chrome://remote/content/marionette/interaction.js:125:11
+clickElement@chrome://remote/content/marionette/actors/MarionetteCommandsChild.jsm:203:24
+receiveMessage@chrome://remote/content/marionette/actors/MarionetteCommandsChild.jsm:91:31
+"
+10.1152/ajpregu.00004.2014,200,"Message: Element <a id="""" class=""navbar-download btn btn--cta_roundedColored"" href=""/doi/pdf/10.1152/ajpregu.00004.2014?download=true""> is not clickable at point (1240,30) because another element <nav id=""app-navbar"" class=""navbar isFixed""> obscures it
+Stacktrace:
+WebDriverError@chrome://remote/content/shared/webdriver/Errors.jsm:186:5
+ElementClickInterceptedError@chrome://remote/content/shared/webdriver/Errors.jsm:285:5
+webdriverClickElement@chrome://remote/content/marionette/interaction.js:166:11
+interaction.clickElement@chrome://remote/content/marionette/interaction.js:125:11
+clickElement@chrome://remote/content/marionette/actors/MarionetteCommandsChild.jsm:203:24
+receiveMessage@chrome://remote/content/marionette/actors/MarionetteCommandsChild.jsm:91:31
+"
+10.1152/ajpendo.00276.2014,200,"Message: Element <a id="""" class=""navbar-download btn btn--cta_roundedColored"" href=""/doi/pdf/10.1152/ajpendo.00276.2014?download=true""> is not clickable at point (1240,30) because another element <nav id=""app-navbar"" class=""navbar isFixed""> obscures it
+Stacktrace:
+WebDriverError@chrome://remote/content/shared/webdriver/Errors.jsm:186:5
+ElementClickInterceptedError@chrome://remote/content/shared/webdriver/Errors.jsm:285:5
+webdriverClickElement@chrome://remote/content/marionette/interaction.js:166:11
+interaction.clickElement@chrome://remote/content/marionette/interaction.js:125:11
+clickElement@chrome://remote/content/marionette/actors/MarionetteCommandsChild.jsm:203:24
+receiveMessage@chrome://remote/content/marionette/actors/MarionetteCommandsChild.jsm:91:31
+"
+10.1152/ajpregu.00183.2014,200,"Message: Element <a id="""" class=""navbar-download btn btn--cta_roundedColored"" href=""/doi/pdf/10.1152/ajpregu.00183.2014?download=true""> is not clickable at point (1240,30) because another element <nav id=""app-navbar"" class=""navbar isFixed""> obscures it
+Stacktrace:
+WebDriverError@chrome://remote/content/shared/webdriver/Errors.jsm:186:5
+ElementClickInterceptedError@chrome://remote/content/shared/webdriver/Errors.jsm:285:5
+webdriverClickElement@chrome://remote/content/marionette/interaction.js:166:11
+interaction.clickElement@chrome://remote/content/marionette/interaction.js:125:11
+clickElement@chrome://remote/content/marionette/actors/MarionetteCommandsChild.jsm:203:24
+receiveMessage@chrome://remote/content/marionette/actors/MarionetteCommandsChild.jsm:91:31
+"
+10.1152/japplphysiol.00191.2014,200,"Message: Element <a id="""" class=""navbar-download btn btn--cta_roundedColored"" href=""/doi/pdf/10.1152/japplphysiol.00191.2014?download=true""> is not clickable at point (1240,30) because another element <nav id=""app-navbar"" class=""navbar isFixed""> obscures it
+Stacktrace:
+WebDriverError@chrome://remote/content/shared/webdriver/Errors.jsm:186:5
+ElementClickInterceptedError@chrome://remote/content/shared/webdriver/Errors.jsm:285:5
+webdriverClickElement@chrome://remote/content/marionette/interaction.js:166:11
+interaction.clickElement@chrome://remote/content/marionette/interaction.js:125:11
+clickElement@chrome://remote/content/marionette/actors/MarionetteCommandsChild.jsm:203:24
+receiveMessage@chrome://remote/content/marionette/actors/MarionetteCommandsChild.jsm:91:31
+"
+10.1152/japplphysiol.00002.2014,200,"Message: Element <a id="""" class=""navbar-download btn btn--cta_roundedColored"" href=""/doi/pdf/10.1152/japplphysiol.00002.2014?download=true""> is not clickable at point (1240,30) because another element <nav id=""app-navbar"" class=""navbar isFixed""> obscures it
+Stacktrace:
+WebDriverError@chrome://remote/content/shared/webdriver/Errors.jsm:186:5
+ElementClickInterceptedError@chrome://remote/content/shared/webdriver/Errors.jsm:285:5
+webdriverClickElement@chrome://remote/content/marionette/interaction.js:166:11
+interaction.clickElement@chrome://remote/content/marionette/interaction.js:125:11
+clickElement@chrome://remote/content/marionette/actors/MarionetteCommandsChild.jsm:203:24
+receiveMessage@chrome://remote/content/marionette/actors/MarionetteCommandsChild.jsm:91:31
+"
+10.1152/advan.00118.2013,200,"Message: Element <a id="""" class=""navbar-download btn btn--cta_roundedColored"" href=""/doi/pdf/10.1152/advan.00118.2013?download=true""> is not clickable at point (1240,30) because another element <nav id=""app-navbar"" class=""navbar isFixed""> obscures it
+Stacktrace:
+WebDriverError@chrome://remote/content/shared/webdriver/Errors.jsm:186:5
+ElementClickInterceptedError@chrome://remote/content/shared/webdriver/Errors.jsm:285:5
+webdriverClickElement@chrome://remote/content/marionette/interaction.js:166:11
+interaction.clickElement@chrome://remote/content/marionette/interaction.js:125:11
+clickElement@chrome://remote/content/marionette/actors/MarionetteCommandsChild.jsm:203:24
+receiveMessage@chrome://remote/content/marionette/actors/MarionetteCommandsChild.jsm:91:31
+"
+10.1152/japplphysiol.01365.2013,200,"Message: Element <a id="""" class=""navbar-download btn btn--cta_roundedColored"" href=""/doi/pdf/10.1152/japplphysiol.01365.2013?download=true""> is not clickable at point (1240,30) because another element <nav id=""app-navbar"" class=""navbar isFixed""> obscures it
+Stacktrace:
+WebDriverError@chrome://remote/content/shared/webdriver/Errors.jsm:186:5
+ElementClickInterceptedError@chrome://remote/content/shared/webdriver/Errors.jsm:285:5
+webdriverClickElement@chrome://remote/content/marionette/interaction.js:166:11
+interaction.clickElement@chrome://remote/content/marionette/interaction.js:125:11
+clickElement@chrome://remote/content/marionette/actors/MarionetteCommandsChild.jsm:203:24
+receiveMessage@chrome://remote/content/marionette/actors/MarionetteCommandsChild.jsm:91:31
+"
+10.1152/japplphysiol.01177.2013,200,"Message: Element <a id="""" class=""navbar-download btn btn--cta_roundedColored"" href=""/doi/pdf/10.1152/japplphysiol.01177.2013?download=true""> is not clickable at point (1240,30) because another element <nav id=""app-navbar"" class=""navbar isFixed""> obscures it
+Stacktrace:
+WebDriverError@chrome://remote/content/shared/webdriver/Errors.jsm:186:5
+ElementClickInterceptedError@chrome://remote/content/shared/webdriver/Errors.jsm:285:5
+webdriverClickElement@chrome://remote/content/marionette/interaction.js:166:11
+interaction.clickElement@chrome://remote/content/marionette/interaction.js:125:11
+clickElement@chrome://remote/content/marionette/actors/MarionetteCommandsChild.jsm:203:24
+receiveMessage@chrome://remote/content/marionette/actors/MarionetteCommandsChild.jsm:91:31
+"
+10.1152/ajpregu.00467.2012,200,"Message: Element <a id="""" class=""navbar-download btn btn--cta_roundedColored"" href=""/doi/pdf/10.1152/ajpregu.00467.2012?download=true""> is not clickable at point (1240,30) because another element <nav id=""app-navbar"" class=""navbar isFixed""> obscures it
+Stacktrace:
+WebDriverError@chrome://remote/content/shared/webdriver/Errors.jsm:186:5
+ElementClickInterceptedError@chrome://remote/content/shared/webdriver/Errors.jsm:285:5
+webdriverClickElement@chrome://remote/content/marionette/interaction.js:166:11
+interaction.clickElement@chrome://remote/content/marionette/interaction.js:125:11
+clickElement@chrome://remote/content/marionette/actors/MarionetteCommandsChild.jsm:203:24
+receiveMessage@chrome://remote/content/marionette/actors/MarionetteCommandsChild.jsm:91:31
+"
+10.1152/japplphysiol.00592.2013,200,"Message: Element <a id="""" class=""navbar-download btn btn--cta_roundedColored"" href=""/doi/pdf/10.1152/japplphysiol.00592.2013?download=true""> is not clickable at point (1240,30) because another element <nav id=""app-navbar"" class=""navbar isFixed""> obscures it
+Stacktrace:
+WebDriverError@chrome://remote/content/shared/webdriver/Errors.jsm:186:5
+ElementClickInterceptedError@chrome://remote/content/shared/webdriver/Errors.jsm:285:5
+webdriverClickElement@chrome://remote/content/marionette/interaction.js:166:11
+interaction.clickElement@chrome://remote/content/marionette/interaction.js:125:11
+clickElement@chrome://remote/content/marionette/actors/MarionetteCommandsChild.jsm:203:24
+receiveMessage@chrome://remote/content/marionette/actors/MarionetteCommandsChild.jsm:91:31
+"
+10.1152/japplphysiol.00379.2013,200,"Message: Element <a id="""" class=""navbar-download btn btn--cta_roundedColored"" href=""/doi/pdf/10.1152/japplphysiol.00379.2013?download=true""> is not clickable at point (1240,30) because another element <nav id=""app-navbar"" class=""navbar isFixed""> obscures it
+Stacktrace:
+WebDriverError@chrome://remote/content/shared/webdriver/Errors.jsm:186:5
+ElementClickInterceptedError@chrome://remote/content/shared/webdriver/Errors.jsm:285:5
+webdriverClickElement@chrome://remote/content/marionette/interaction.js:166:11
+interaction.clickElement@chrome://remote/content/marionette/interaction.js:125:11
+clickElement@chrome://remote/content/marionette/actors/MarionetteCommandsChild.jsm:203:24
+receiveMessage@chrome://remote/content/marionette/actors/MarionetteCommandsChild.jsm:91:31
+"
+10.1152/japplphysiol.00487.2013,200,"Message: Element <a id="""" class=""navbar-download btn btn--cta_roundedColored"" href=""/doi/pdf/10.1152/japplphysiol.00487.2013?download=true""> is not clickable at point (1240,30) because another element <nav id=""app-navbar"" class=""navbar isFixed""> obscures it
+Stacktrace:
+WebDriverError@chrome://remote/content/shared/webdriver/Errors.jsm:186:5
+ElementClickInterceptedError@chrome://remote/content/shared/webdriver/Errors.jsm:285:5
+webdriverClickElement@chrome://remote/content/marionette/interaction.js:166:11
+interaction.clickElement@chrome://remote/content/marionette/interaction.js:125:11
+clickElement@chrome://remote/content/marionette/actors/MarionetteCommandsChild.jsm:203:24
+receiveMessage@chrome://remote/content/marionette/actors/MarionetteCommandsChild.jsm:91:31
+"
+10.1152/japplphysiol.00445.2013,200,"Message: Element <a id="""" class=""navbar-download btn btn--cta_roundedColored"" href=""/doi/pdf/10.1152/japplphysiol.00445.2013?download=true""> is not clickable at point (1240,30) because another element <nav id=""app-navbar"" class=""navbar isFixed""> obscures it
+Stacktrace:
+WebDriverError@chrome://remote/content/shared/webdriver/Errors.jsm:186:5
+ElementClickInterceptedError@chrome://remote/content/shared/webdriver/Errors.jsm:285:5
+webdriverClickElement@chrome://remote/content/marionette/interaction.js:166:11
+interaction.clickElement@chrome://remote/content/marionette/interaction.js:125:11
+clickElement@chrome://remote/content/marionette/actors/MarionetteCommandsChild.jsm:203:24
+receiveMessage@chrome://remote/content/marionette/actors/MarionetteCommandsChild.jsm:91:31
+"
+10.1152/japplphysiol.01272.2012,200,"Message: Element <a id="""" class=""navbar-download btn btn--cta_roundedColored"" href=""/doi/pdf/10.1152/japplphysiol.01272.2012?download=true""> is not clickable at point (1240,30) because another element <nav id=""app-navbar"" class=""navbar isFixed""> obscures it
+Stacktrace:
+WebDriverError@chrome://remote/content/shared/webdriver/Errors.jsm:186:5
+ElementClickInterceptedError@chrome://remote/content/shared/webdriver/Errors.jsm:285:5
+webdriverClickElement@chrome://remote/content/marionette/interaction.js:166:11
+interaction.clickElement@chrome://remote/content/marionette/interaction.js:125:11
+clickElement@chrome://remote/content/marionette/actors/MarionetteCommandsChild.jsm:203:24
+receiveMessage@chrome://remote/content/marionette/actors/MarionetteCommandsChild.jsm:91:31
+"
+10.1152/japplphysiol.00187.2013,200,"Message: Element <a id="""" class=""navbar-download btn btn--cta_roundedColored"" href=""/doi/pdf/10.1152/japplphysiol.00187.2013?download=true""> is not clickable at point (1240,30) because another element <nav id=""app-navbar"" class=""navbar isFixed""> obscures it
+Stacktrace:
+WebDriverError@chrome://remote/content/shared/webdriver/Errors.jsm:186:5
+ElementClickInterceptedError@chrome://remote/content/shared/webdriver/Errors.jsm:285:5
+webdriverClickElement@chrome://remote/content/marionette/interaction.js:166:11
+interaction.clickElement@chrome://remote/content/marionette/interaction.js:125:11
+clickElement@chrome://remote/content/marionette/actors/MarionetteCommandsChild.jsm:203:24
+receiveMessage@chrome://remote/content/marionette/actors/MarionetteCommandsChild.jsm:91:31
+"
+10.1152/ajpendo.00492.2012,200,"Message: Element <a id="""" class=""navbar-download btn btn--cta_roundedColored"" href=""/doi/pdf/10.1152/ajpendo.00492.2012?download=true""> is not clickable at point (1240,30) because another element <nav id=""app-navbar"" class=""navbar isFixed""> obscures it
+Stacktrace:
+WebDriverError@chrome://remote/content/shared/webdriver/Errors.jsm:186:5
+ElementClickInterceptedError@chrome://remote/content/shared/webdriver/Errors.jsm:285:5
+webdriverClickElement@chrome://remote/content/marionette/interaction.js:166:11
+interaction.clickElement@chrome://remote/content/marionette/interaction.js:125:11
+clickElement@chrome://remote/content/marionette/actors/MarionetteCommandsChild.jsm:203:24
+receiveMessage@chrome://remote/content/marionette/actors/MarionetteCommandsChild.jsm:91:31
+"
+10.1152/japplphysiol.00575.2012,200,"Message: Element <a id="""" class=""navbar-download btn btn--cta_roundedColored"" href=""/doi/pdf/10.1152/japplphysiol.00575.2012?download=true""> is not clickable at point (1240,30) because another element <nav id=""app-navbar"" class=""navbar isFixed""> obscures it
+Stacktrace:
+WebDriverError@chrome://remote/content/shared/webdriver/Errors.jsm:186:5
+ElementClickInterceptedError@chrome://remote/content/shared/webdriver/Errors.jsm:285:5
+webdriverClickElement@chrome://remote/content/marionette/interaction.js:166:11
+interaction.clickElement@chrome://remote/content/marionette/interaction.js:125:11
+clickElement@chrome://remote/content/marionette/actors/MarionetteCommandsChild.jsm:203:24
+receiveMessage@chrome://remote/content/marionette/actors/MarionetteCommandsChild.jsm:91:31
+"
+10.1152/japplphysiol.00556.2012,200,"Message: Element <a id="""" class=""navbar-download btn btn--cta_roundedColored"" href=""/doi/pdf/10.1152/japplphysiol.00556.2012?download=true""> is not clickable at point (1240,30) because another element <nav id=""app-navbar"" class=""navbar isFixed""> obscures it
+Stacktrace:
+WebDriverError@chrome://remote/content/shared/webdriver/Errors.jsm:186:5
+ElementClickInterceptedError@chrome://remote/content/shared/webdriver/Errors.jsm:285:5
+webdriverClickElement@chrome://remote/content/marionette/interaction.js:166:11
+interaction.clickElement@chrome://remote/content/marionette/interaction.js:125:11
+clickElement@chrome://remote/content/marionette/actors/MarionetteCommandsChild.jsm:203:24
+receiveMessage@chrome://remote/content/marionette/actors/MarionetteCommandsChild.jsm:91:31
+"
+10.1152/japplphysiol.00946.2012,200,"Message: Element <a id="""" class=""navbar-download btn btn--cta_roundedColored"" href=""/doi/pdf/10.1152/japplphysiol.00946.2012?download=true""> is not clickable at point (1240,30) because another element <nav id=""app-navbar"" class=""navbar isFixed""> obscures it
+Stacktrace:
+WebDriverError@chrome://remote/content/shared/webdriver/Errors.jsm:186:5
+ElementClickInterceptedError@chrome://remote/content/shared/webdriver/Errors.jsm:285:5
+webdriverClickElement@chrome://remote/content/marionette/interaction.js:166:11
+interaction.clickElement@chrome://remote/content/marionette/interaction.js:125:11
+clickElement@chrome://remote/content/marionette/actors/MarionetteCommandsChild.jsm:203:24
+receiveMessage@chrome://remote/content/marionette/actors/MarionetteCommandsChild.jsm:91:31
+"
+10.1152/japplphysiol.01088.2012,200,"Message: Element <a id="""" class=""navbar-download btn btn--cta_roundedColored"" href=""/doi/pdf/10.1152/japplphysiol.01088.2012?download=true""> is not clickable at point (1240,30) because another element <nav id=""app-navbar"" class=""navbar isFixed""> obscures it
+Stacktrace:
+WebDriverError@chrome://remote/content/shared/webdriver/Errors.jsm:186:5
+ElementClickInterceptedError@chrome://remote/content/shared/webdriver/Errors.jsm:285:5
+webdriverClickElement@chrome://remote/content/marionette/interaction.js:166:11
+interaction.clickElement@chrome://remote/content/marionette/interaction.js:125:11
+clickElement@chrome://remote/content/marionette/actors/MarionetteCommandsChild.jsm:203:24
+receiveMessage@chrome://remote/content/marionette/actors/MarionetteCommandsChild.jsm:91:31
+"
+10.1152/ajpregu.00489.2012,200,"Message: Element <a id="""" class=""navbar-download btn btn--cta_roundedColored"" href=""/doi/pdf/10.1152/ajpregu.00489.2012?download=true""> is not clickable at point (1240,30) because another element <nav id=""app-navbar"" class=""navbar isFixed""> obscures it
+Stacktrace:
+WebDriverError@chrome://remote/content/shared/webdriver/Errors.jsm:186:5
+ElementClickInterceptedError@chrome://remote/content/shared/webdriver/Errors.jsm:285:5
+webdriverClickElement@chrome://remote/content/marionette/interaction.js:166:11
+interaction.clickElement@chrome://remote/content/marionette/interaction.js:125:11
+clickElement@chrome://remote/content/marionette/actors/MarionetteCommandsChild.jsm:203:24
+receiveMessage@chrome://remote/content/marionette/actors/MarionetteCommandsChild.jsm:91:31
+"
+10.1152/ajpregu.00406.2012,200,"Message: Element <a id="""" class=""navbar-download btn btn--cta_roundedColored"" href=""/doi/pdf/10.1152/ajpregu.00406.2012?download=true""> is not clickable at point (1240,30) because another element <nav id=""app-navbar"" class=""navbar isFixed""> obscures it
+Stacktrace:
+WebDriverError@chrome://remote/content/shared/webdriver/Errors.jsm:186:5
+ElementClickInterceptedError@chrome://remote/content/shared/webdriver/Errors.jsm:285:5
+webdriverClickElement@chrome://remote/content/marionette/interaction.js:166:11
+interaction.clickElement@chrome://remote/content/marionette/interaction.js:125:11
+clickElement@chrome://remote/content/marionette/actors/MarionetteCommandsChild.jsm:203:24
+receiveMessage@chrome://remote/content/marionette/actors/MarionetteCommandsChild.jsm:91:31
+"
+10.1152/ajpheart.00435.2012,200,"Message: Element <ul class=""coolBar__drop rlist w-slide--list hidden-xs hidden-sm""> could not be scrolled into view
+Stacktrace:
+WebDriverError@chrome://remote/content/shared/webdriver/Errors.jsm:186:5
+ElementNotInteractableError@chrome://remote/content/shared/webdriver/Errors.jsm:296:5
+webdriverClickElement@chrome://remote/content/marionette/interaction.js:156:11
+interaction.clickElement@chrome://remote/content/marionette/interaction.js:125:11
+clickElement@chrome://remote/content/marionette/actors/MarionetteCommandsChild.jsm:203:24
+receiveMessage@chrome://remote/content/marionette/actors/MarionetteCommandsChild.jsm:91:31
+"
+10.1152/ajpregu.00306.2012,200,"Message: Element <a id="""" class=""navbar-download btn btn--cta_roundedColored"" href=""/doi/pdf/10.1152/ajpregu.00306.2012?download=true""> is not clickable at point (1240,30) because another element <nav id=""app-navbar"" class=""navbar isFixed""> obscures it
+Stacktrace:
+WebDriverError@chrome://remote/content/shared/webdriver/Errors.jsm:186:5
+ElementClickInterceptedError@chrome://remote/content/shared/webdriver/Errors.jsm:285:5
+webdriverClickElement@chrome://remote/content/marionette/interaction.js:166:11
+interaction.clickElement@chrome://remote/content/marionette/interaction.js:125:11
+clickElement@chrome://remote/content/marionette/actors/MarionetteCommandsChild.jsm:203:24
+receiveMessage@chrome://remote/content/marionette/actors/MarionetteCommandsChild.jsm:91:31
+"
+10.1152/japplphysiol.01627.2011,200,"Message: Element <a id="""" class=""navbar-download btn btn--cta_roundedColored"" href=""/doi/pdf/10.1152/japplphysiol.01627.2011?download=true""> is not clickable at point (1240,30) because another element <nav id=""app-navbar"" class=""navbar isFixed""> obscures it
+Stacktrace:
+WebDriverError@chrome://remote/content/shared/webdriver/Errors.jsm:186:5
+ElementClickInterceptedError@chrome://remote/content/shared/webdriver/Errors.jsm:285:5
+webdriverClickElement@chrome://remote/content/marionette/interaction.js:166:11
+interaction.clickElement@chrome://remote/content/marionette/interaction.js:125:11
+clickElement@chrome://remote/content/marionette/actors/MarionetteCommandsChild.jsm:203:24
+receiveMessage@chrome://remote/content/marionette/actors/MarionetteCommandsChild.jsm:91:31
+"
+10.1152/japplphysiol.00329.2012,200,"Message: Element <a id="""" class=""navbar-download btn btn--cta_roundedColored"" href=""/doi/pdf/10.1152/japplphysiol.00329.2012?download=true""> is not clickable at point (1240,30) because another element <nav id=""app-navbar"" class=""navbar isFixed""> obscures it
+Stacktrace:
+WebDriverError@chrome://remote/content/shared/webdriver/Errors.jsm:186:5
+ElementClickInterceptedError@chrome://remote/content/shared/webdriver/Errors.jsm:285:5
+webdriverClickElement@chrome://remote/content/marionette/interaction.js:166:11
+interaction.clickElement@chrome://remote/content/marionette/interaction.js:125:11
+clickElement@chrome://remote/content/marionette/actors/MarionetteCommandsChild.jsm:203:24
+receiveMessage@chrome://remote/content/marionette/actors/MarionetteCommandsChild.jsm:91:31
+"
+10.1152/advan.00106.2011,200,"Message: Element <a id="""" class=""navbar-download btn btn--cta_roundedColored"" href=""/doi/pdf/10.1152/advan.00106.2011?download=true""> is not clickable at point (1240,30) because another element <nav id=""app-navbar"" class=""navbar isFixed""> obscures it
+Stacktrace:
+WebDriverError@chrome://remote/content/shared/webdriver/Errors.jsm:186:5
+ElementClickInterceptedError@chrome://remote/content/shared/webdriver/Errors.jsm:285:5
+webdriverClickElement@chrome://remote/content/marionette/interaction.js:166:11
+interaction.clickElement@chrome://remote/content/marionette/interaction.js:125:11
+clickElement@chrome://remote/content/marionette/actors/MarionetteCommandsChild.jsm:203:24
+receiveMessage@chrome://remote/content/marionette/actors/MarionetteCommandsChild.jsm:91:31
+"
+10.1152/japplphysiol.00668.2011,200,"Message: Element <a id="""" class=""navbar-download btn btn--cta_roundedColored"" href=""/doi/pdf/10.1152/japplphysiol.00668.2011?download=true""> is not clickable at point (1240,30) because another element <nav id=""app-navbar"" class=""navbar isFixed""> obscures it
+Stacktrace:
+WebDriverError@chrome://remote/content/shared/webdriver/Errors.jsm:186:5
+ElementClickInterceptedError@chrome://remote/content/shared/webdriver/Errors.jsm:285:5
+webdriverClickElement@chrome://remote/content/marionette/interaction.js:166:11
+interaction.clickElement@chrome://remote/content/marionette/interaction.js:125:11
+clickElement@chrome://remote/content/marionette/actors/MarionetteCommandsChild.jsm:203:24
+receiveMessage@chrome://remote/content/marionette/actors/MarionetteCommandsChild.jsm:91:31
+"
+10.1152/japplphysiol.00395.2012,200,"Message: Element <a id="""" class=""navbar-download btn btn--cta_roundedColored"" href=""/doi/pdf/10.1152/japplphysiol.00395.2012?download=true""> is not clickable at point (1240,30) because another element <nav id=""app-navbar"" class=""navbar isFixed""> obscures it
+Stacktrace:
+WebDriverError@chrome://remote/content/shared/webdriver/Errors.jsm:186:5
+ElementClickInterceptedError@chrome://remote/content/shared/webdriver/Errors.jsm:285:5
+webdriverClickElement@chrome://remote/content/marionette/interaction.js:166:11
+interaction.clickElement@chrome://remote/content/marionette/interaction.js:125:11
+clickElement@chrome://remote/content/marionette/actors/MarionetteCommandsChild.jsm:203:24
+receiveMessage@chrome://remote/content/marionette/actors/MarionetteCommandsChild.jsm:91:31
+"
+10.1152/japplphysiol.01199.2011,200,"Message: Element <a id="""" class=""navbar-download btn btn--cta_roundedColored"" href=""/doi/pdf/10.1152/japplphysiol.01199.2011?download=true""> is not clickable at point (1240,30) because another element <nav id=""app-navbar"" class=""navbar isFixed""> obscures it
+Stacktrace:
+WebDriverError@chrome://remote/content/shared/webdriver/Errors.jsm:186:5
+ElementClickInterceptedError@chrome://remote/content/shared/webdriver/Errors.jsm:285:5
+webdriverClickElement@chrome://remote/content/marionette/interaction.js:166:11
+interaction.clickElement@chrome://remote/content/marionette/interaction.js:125:11
+clickElement@chrome://remote/content/marionette/actors/MarionetteCommandsChild.jsm:203:24
+receiveMessage@chrome://remote/content/marionette/actors/MarionetteCommandsChild.jsm:91:31
+"
+10.1152/japplphysiol.00334.2012,200,"Message: Element <a id="""" class=""navbar-download btn btn--cta_roundedColored"" href=""/doi/pdf/10.1152/japplphysiol.00334.2012?download=true""> is not clickable at point (1240,30) because another element <nav id=""app-navbar"" class=""navbar isFixed""> obscures it
+Stacktrace:
+WebDriverError@chrome://remote/content/shared/webdriver/Errors.jsm:186:5
+ElementClickInterceptedError@chrome://remote/content/shared/webdriver/Errors.jsm:285:5
+webdriverClickElement@chrome://remote/content/marionette/interaction.js:166:11
+interaction.clickElement@chrome://remote/content/marionette/interaction.js:125:11
+clickElement@chrome://remote/content/marionette/actors/MarionetteCommandsChild.jsm:203:24
+receiveMessage@chrome://remote/content/marionette/actors/MarionetteCommandsChild.jsm:91:31
+"
+10.1152/ajpregu.00012.2012,200,"Message: Element <a id="""" class=""navbar-download btn btn--cta_roundedColored"" href=""/doi/pdf/10.1152/ajpregu.00012.2012?download=true""> is not clickable at point (1240,30) because another element <nav id=""app-navbar"" class=""navbar isFixed""> obscures it
+Stacktrace:
+WebDriverError@chrome://remote/content/shared/webdriver/Errors.jsm:186:5
+ElementClickInterceptedError@chrome://remote/content/shared/webdriver/Errors.jsm:285:5
+webdriverClickElement@chrome://remote/content/marionette/interaction.js:166:11
+interaction.clickElement@chrome://remote/content/marionette/interaction.js:125:11
+clickElement@chrome://remote/content/marionette/actors/MarionetteCommandsChild.jsm:203:24
+receiveMessage@chrome://remote/content/marionette/actors/MarionetteCommandsChild.jsm:91:31
+"
+10.1152/japplphysiol.01353.2011,200,"Message: Element <a id="""" class=""navbar-download btn btn--cta_roundedColored"" href=""/doi/pdf/10.1152/japplphysiol.01353.2011?download=true""> is not clickable at point (1240,30) because another element <nav id=""app-navbar"" class=""navbar isFixed""> obscures it
+Stacktrace:
+WebDriverError@chrome://remote/content/shared/webdriver/Errors.jsm:186:5
+ElementClickInterceptedError@chrome://remote/content/shared/webdriver/Errors.jsm:285:5
+webdriverClickElement@chrome://remote/content/marionette/interaction.js:166:11
+interaction.clickElement@chrome://remote/content/marionette/interaction.js:125:11
+clickElement@chrome://remote/content/marionette/actors/MarionetteCommandsChild.jsm:203:24
+receiveMessage@chrome://remote/content/marionette/actors/MarionetteCommandsChild.jsm:91:31
+"
+10.1152/ajpregu.00006.2012,200,"Message: Element <a id="""" class=""navbar-download btn btn--cta_roundedColored"" href=""/doi/pdf/10.1152/ajpregu.00006.2012?download=true""> is not clickable at point (1240,30) because another element <nav id=""app-navbar"" class=""navbar isFixed""> obscures it
+Stacktrace:
+WebDriverError@chrome://remote/content/shared/webdriver/Errors.jsm:186:5
+ElementClickInterceptedError@chrome://remote/content/shared/webdriver/Errors.jsm:285:5
+webdriverClickElement@chrome://remote/content/marionette/interaction.js:166:11
+interaction.clickElement@chrome://remote/content/marionette/interaction.js:125:11
+clickElement@chrome://remote/content/marionette/actors/MarionetteCommandsChild.jsm:203:24
+receiveMessage@chrome://remote/content/marionette/actors/MarionetteCommandsChild.jsm:91:31
+"
+10.1152/ajpendo.00573.2011,200,
+10.1152/japplphysiol.01040.2011,200,
+10.1152/japplphysiol.00663.2011,200,
+10.1152/ajpheart.00534.2011,200,"Message: Element <a id="""" class=""navbar-download btn btn--cta_roundedColored"" href=""/doi/pdf/10.1152/ajpheart.00534.2011?download=true""> is not clickable at point (1240,30) because another element <nav id=""app-navbar"" class=""navbar isFixed""> obscures it
+Stacktrace:
+WebDriverError@chrome://remote/content/shared/webdriver/Errors.jsm:186:5
+ElementClickInterceptedError@chrome://remote/content/shared/webdriver/Errors.jsm:285:5
+webdriverClickElement@chrome://remote/content/marionette/interaction.js:166:11
+interaction.clickElement@chrome://remote/content/marionette/interaction.js:125:11
+clickElement@chrome://remote/content/marionette/actors/MarionetteCommandsChild.jsm:203:24
+receiveMessage@chrome://remote/content/marionette/actors/MarionetteCommandsChild.jsm:91:31
+"
+10.1152/japplphysiol.01215.2011,200,"Message: Element <a id="""" class=""navbar-download btn btn--cta_roundedColored"" href=""/doi/pdf/10.1152/japplphysiol.01215.2011?download=true""> is not clickable at point (1240,30) because another element <nav id=""app-navbar"" class=""navbar isFixed""> obscures it
+Stacktrace:
+WebDriverError@chrome://remote/content/shared/webdriver/Errors.jsm:186:5
+ElementClickInterceptedError@chrome://remote/content/shared/webdriver/Errors.jsm:285:5
+webdriverClickElement@chrome://remote/content/marionette/interaction.js:166:11
+interaction.clickElement@chrome://remote/content/marionette/interaction.js:125:11
+clickElement@chrome://remote/content/marionette/actors/MarionetteCommandsChild.jsm:203:24
+receiveMessage@chrome://remote/content/marionette/actors/MarionetteCommandsChild.jsm:91:31
+"
+10.1152/ajpendo.00498.2011,200,"Message: Element <a id="""" class=""navbar-download btn btn--cta_roundedColored"" href=""/doi/pdf/10.1152/ajpendo.00498.2011?download=true""> is not clickable at point (1240,30) because another element <nav id=""app-navbar"" class=""navbar isFixed""> obscures it
+Stacktrace:
+WebDriverError@chrome://remote/content/shared/webdriver/Errors.jsm:186:5
+ElementClickInterceptedError@chrome://remote/content/shared/webdriver/Errors.jsm:285:5
+webdriverClickElement@chrome://remote/content/marionette/interaction.js:166:11
+interaction.clickElement@chrome://remote/content/marionette/interaction.js:125:11
+clickElement@chrome://remote/content/marionette/actors/MarionetteCommandsChild.jsm:203:24
+receiveMessage@chrome://remote/content/marionette/actors/MarionetteCommandsChild.jsm:91:31
+"
+10.1152/japplphysiol.00388.2011,200,"Message: Element <a id="""" class=""navbar-download btn btn--cta_roundedColored"" href=""/doi/pdf/10.1152/japplphysiol.00388.2011?download=true""> is not clickable at point (1240,30) because another element <nav id=""app-navbar"" class=""navbar isFixed""> obscures it
+Stacktrace:
+WebDriverError@chrome://remote/content/shared/webdriver/Errors.jsm:186:5
+ElementClickInterceptedError@chrome://remote/content/shared/webdriver/Errors.jsm:285:5
+webdriverClickElement@chrome://remote/content/marionette/interaction.js:166:11
+interaction.clickElement@chrome://remote/content/marionette/interaction.js:125:11
+clickElement@chrome://remote/content/marionette/actors/MarionetteCommandsChild.jsm:203:24
+receiveMessage@chrome://remote/content/marionette/actors/MarionetteCommandsChild.jsm:91:31
+"
+10.1152/japplphysiol.00954.2011,200,"Message: Element <a id="""" class=""navbar-download btn btn--cta_roundedColored"" href=""/doi/pdf/10.1152/japplphysiol.00954.2011?download=true""> is not clickable at point (1240,30) because another element <nav id=""app-navbar"" class=""navbar isFixed""> obscures it
+Stacktrace:
+WebDriverError@chrome://remote/content/shared/webdriver/Errors.jsm:186:5
+ElementClickInterceptedError@chrome://remote/content/shared/webdriver/Errors.jsm:285:5
+webdriverClickElement@chrome://remote/content/marionette/interaction.js:166:11
+interaction.clickElement@chrome://remote/content/marionette/interaction.js:125:11
+clickElement@chrome://remote/content/marionette/actors/MarionetteCommandsChild.jsm:203:24
+receiveMessage@chrome://remote/content/marionette/actors/MarionetteCommandsChild.jsm:91:31
+"
+10.1152/japplphysiol.00625.2011,200,"Message: Element <a id="""" class=""navbar-download btn btn--cta_roundedColored"" href=""/doi/pdf/10.1152/japplphysiol.00625.2011?download=true""> is not clickable at point (1240,30) because another element <nav id=""app-navbar"" class=""navbar isFixed""> obscures it
+Stacktrace:
+WebDriverError@chrome://remote/content/shared/webdriver/Errors.jsm:186:5
+ElementClickInterceptedError@chrome://remote/content/shared/webdriver/Errors.jsm:285:5
+webdriverClickElement@chrome://remote/content/marionette/interaction.js:166:11
+interaction.clickElement@chrome://remote/content/marionette/interaction.js:125:11
+clickElement@chrome://remote/content/marionette/actors/MarionetteCommandsChild.jsm:203:24
+receiveMessage@chrome://remote/content/marionette/actors/MarionetteCommandsChild.jsm:91:31
+"
+10.1152/ajpheart.00479.2010,200,"Message: Element <a id="""" class=""navbar-download btn btn--cta_roundedColored"" href=""/doi/pdf/10.1152/ajpheart.00479.2010?download=true""> is not clickable at point (1240,30) because another element <nav id=""app-navbar"" class=""navbar isFixed""> obscures it
+Stacktrace:
+WebDriverError@chrome://remote/content/shared/webdriver/Errors.jsm:186:5
+ElementClickInterceptedError@chrome://remote/content/shared/webdriver/Errors.jsm:285:5
+webdriverClickElement@chrome://remote/content/marionette/interaction.js:166:11
+interaction.clickElement@chrome://remote/content/marionette/interaction.js:125:11
+clickElement@chrome://remote/content/marionette/actors/MarionetteCommandsChild.jsm:203:24
+receiveMessage@chrome://remote/content/marionette/actors/MarionetteCommandsChild.jsm:91:31
+"
+10.1152/japplphysiol.00594.2011,200,"Message: Element <a id="""" class=""navbar-download btn btn--cta_roundedColored"" href=""/doi/pdf/10.1152/japplphysiol.00594.2011?download=true""> is not clickable at point (1240,30) because another element <nav id=""app-navbar"" class=""navbar isFixed""> obscures it
+Stacktrace:
+WebDriverError@chrome://remote/content/shared/webdriver/Errors.jsm:186:5
+ElementClickInterceptedError@chrome://remote/content/shared/webdriver/Errors.jsm:285:5
+webdriverClickElement@chrome://remote/content/marionette/interaction.js:166:11
+interaction.clickElement@chrome://remote/content/marionette/interaction.js:125:11
+clickElement@chrome://remote/content/marionette/actors/MarionetteCommandsChild.jsm:203:24
+receiveMessage@chrome://remote/content/marionette/actors/MarionetteCommandsChild.jsm:91:31
+"
+10.1152/japplphysiol.00086.2011,200,"Message: Element <a id="""" class=""navbar-download btn btn--cta_roundedColored"" href=""/doi/pdf/10.1152/japplphysiol.00086.2011?download=true""> is not clickable at point (1240,30) because another element <nav id=""app-navbar"" class=""navbar isFixed""> obscures it
+Stacktrace:
+WebDriverError@chrome://remote/content/shared/webdriver/Errors.jsm:186:5
+ElementClickInterceptedError@chrome://remote/content/shared/webdriver/Errors.jsm:285:5
+webdriverClickElement@chrome://remote/content/marionette/interaction.js:166:11
+interaction.clickElement@chrome://remote/content/marionette/interaction.js:125:11
+clickElement@chrome://remote/content/marionette/actors/MarionetteCommandsChild.jsm:203:24
+receiveMessage@chrome://remote/content/marionette/actors/MarionetteCommandsChild.jsm:91:31
+"
+10.1152/japplphysiol.00528.2011,200,"Message: Element <a id="""" class=""navbar-download btn btn--cta_roundedColored"" href=""/doi/pdf/10.1152/japplphysiol.00528.2011?download=true""> is not clickable at point (1240,30) because another element <nav id=""app-navbar"" class=""navbar isFixed""> obscures it
+Stacktrace:
+WebDriverError@chrome://remote/content/shared/webdriver/Errors.jsm:186:5
+ElementClickInterceptedError@chrome://remote/content/shared/webdriver/Errors.jsm:285:5
+webdriverClickElement@chrome://remote/content/marionette/interaction.js:166:11
+interaction.clickElement@chrome://remote/content/marionette/interaction.js:125:11
+clickElement@chrome://remote/content/marionette/actors/MarionetteCommandsChild.jsm:203:24
+receiveMessage@chrome://remote/content/marionette/actors/MarionetteCommandsChild.jsm:91:31
+"
+10.1152/japplphysiol.00212.2011,200,"Message: Element <a id="""" class=""navbar-download btn btn--cta_roundedColored"" href=""/doi/pdf/10.1152/japplphysiol.00212.2011?download=true""> is not clickable at point (1240,30) because another element <nav id=""app-navbar"" class=""navbar isFixed""> obscures it
+Stacktrace:
+WebDriverError@chrome://remote/content/shared/webdriver/Errors.jsm:186:5
+ElementClickInterceptedError@chrome://remote/content/shared/webdriver/Errors.jsm:285:5
+webdriverClickElement@chrome://remote/content/marionette/interaction.js:166:11
+interaction.clickElement@chrome://remote/content/marionette/interaction.js:125:11
+clickElement@chrome://remote/content/marionette/actors/MarionetteCommandsChild.jsm:203:24
+receiveMessage@chrome://remote/content/marionette/actors/MarionetteCommandsChild.jsm:91:31
+"
+10.1152/japplphysiol.00266.2011,200,"Message: Element <a id="""" class=""navbar-download btn btn--cta_roundedColored"" href=""/doi/pdf/10.1152/japplphysiol.00266.2011?download=true""> is not clickable at point (1240,30) because another element <nav id=""app-navbar"" class=""navbar isFixed""> obscures it
+Stacktrace:
+WebDriverError@chrome://remote/content/shared/webdriver/Errors.jsm:186:5
+ElementClickInterceptedError@chrome://remote/content/shared/webdriver/Errors.jsm:285:5
+webdriverClickElement@chrome://remote/content/marionette/interaction.js:166:11
+interaction.clickElement@chrome://remote/content/marionette/interaction.js:125:11
+clickElement@chrome://remote/content/marionette/actors/MarionetteCommandsChild.jsm:203:24
+receiveMessage@chrome://remote/content/marionette/actors/MarionetteCommandsChild.jsm:91:31
+"
+10.1152/ajpregu.00119.2011,200,"Message: Unable to locate element: //div[@class='grouped right']
+Stacktrace:
+WebDriverError@chrome://remote/content/shared/webdriver/Errors.jsm:186:5
+NoSuchElementError@chrome://remote/content/shared/webdriver/Errors.jsm:398:5
+element.find/</<@chrome://remote/content/marionette/element.js:300:16
+"
+10.1152/ajpheart.01283.2010,200,"Message: Unable to locate element: .icon-PDF
+Stacktrace:
+WebDriverError@chrome://remote/content/shared/webdriver/Errors.jsm:186:5
+NoSuchElementError@chrome://remote/content/shared/webdriver/Errors.jsm:398:5
+element.find/</<@chrome://remote/content/marionette/element.js:300:16
+"
+10.1152/japplphysiol.00253.2011,200,"Message: Unable to locate element: .icon-PDF
+Stacktrace:
+WebDriverError@chrome://remote/content/shared/webdriver/Errors.jsm:186:5
+NoSuchElementError@chrome://remote/content/shared/webdriver/Errors.jsm:398:5
+element.find/</<@chrome://remote/content/marionette/element.js:300:16
+"
+10.1152/japplphysiol.00420.2010,200,"Message: Unable to locate element: .icon-PDF
+Stacktrace:
+WebDriverError@chrome://remote/content/shared/webdriver/Errors.jsm:186:5
+NoSuchElementError@chrome://remote/content/shared/webdriver/Errors.jsm:398:5
+element.find/</<@chrome://remote/content/marionette/element.js:300:16
+"
+10.1152/japplphysiol.01092.2010,200,"Message: Unable to locate element: .icon-PDF
+Stacktrace:
+WebDriverError@chrome://remote/content/shared/webdriver/Errors.jsm:186:5
+NoSuchElementError@chrome://remote/content/shared/webdriver/Errors.jsm:398:5
+element.find/</<@chrome://remote/content/marionette/element.js:300:16
+"
+10.1152/japplphysiol.01341.2010,403,
+10.1152/japplphysiol.00010.2010,200,"Message: Unable to locate element: .icon-PDF
+Stacktrace:
+WebDriverError@chrome://remote/content/shared/webdriver/Errors.jsm:186:5
+NoSuchElementError@chrome://remote/content/shared/webdriver/Errors.jsm:398:5
+element.find/</<@chrome://remote/content/marionette/element.js:300:16
+"
+10.1152/advan.00042.2010,200,"Message: Unable to locate element: .icon-PDF
+Stacktrace:
+WebDriverError@chrome://remote/content/shared/webdriver/Errors.jsm:186:5
+NoSuchElementError@chrome://remote/content/shared/webdriver/Errors.jsm:398:5
+element.find/</<@chrome://remote/content/marionette/element.js:300:16
+"
+10.1152/japplphysiol.01247.2010,403,
+10.1152/japplphysiol.00753.2010,403,
+10.1152/ajpregu.00479.2010,200,"Message: Unable to locate element: .icon-PDF
+Stacktrace:
+WebDriverError@chrome://remote/content/shared/webdriver/Errors.jsm:186:5
+NoSuchElementError@chrome://remote/content/shared/webdriver/Errors.jsm:398:5
+element.find/</<@chrome://remote/content/marionette/element.js:300:16
+"
+10.1152/ajpregu.00761.2010,200,"Message: Unable to locate element: .icon-PDF
+Stacktrace:
+WebDriverError@chrome://remote/content/shared/webdriver/Errors.jsm:186:5
+NoSuchElementError@chrome://remote/content/shared/webdriver/Errors.jsm:398:5
+element.find/</<@chrome://remote/content/marionette/element.js:300:16
+"
+10.1152/japplphysiol.00764.2010,200,"Message: Unable to locate element: .icon-PDF
+Stacktrace:
+WebDriverError@chrome://remote/content/shared/webdriver/Errors.jsm:186:5
+NoSuchElementError@chrome://remote/content/shared/webdriver/Errors.jsm:398:5
+element.find/</<@chrome://remote/content/marionette/element.js:300:16
+"
+10.1152/ajpregu.00633.2010,403,
+10.1152/japplphysiol.00950.2010,403,
+10.1152/japplphysiol.00988.2010,403,
+10.1152/japplphysiol.01070.2010,403,
+10.1152/japplphysiol.00145.2010,403,
+10.1152/ajpheart.00762.2010,403,
+10.1152/japplphysiol.00205.2010,403,
+10.1152/japplphysiol.00550.2010,200,"Message: Unable to locate element: .icon-PDF
+Stacktrace:
+WebDriverError@chrome://remote/content/shared/webdriver/Errors.jsm:186:5
+NoSuchElementError@chrome://remote/content/shared/webdriver/Errors.jsm:398:5
+element.find/</<@chrome://remote/content/marionette/element.js:300:16
+"
+10.1152/japplphysiol.00577.2010,200,"Message: Unable to locate element: .icon-PDF
+Stacktrace:
+WebDriverError@chrome://remote/content/shared/webdriver/Errors.jsm:186:5
+NoSuchElementError@chrome://remote/content/shared/webdriver/Errors.jsm:398:5
+element.find/</<@chrome://remote/content/marionette/element.js:300:16
+"
+10.1152/japplphysiol.01025.2009,200,"Message: Unable to locate element: .icon-PDF
+Stacktrace:
+WebDriverError@chrome://remote/content/shared/webdriver/Errors.jsm:186:5
+NoSuchElementError@chrome://remote/content/shared/webdriver/Errors.jsm:398:5
+element.find/</<@chrome://remote/content/marionette/element.js:300:16
+"
+10.1152/japplphysiol.00377.2010,200,"Message: Unable to locate element: .icon-PDF
+Stacktrace:
+WebDriverError@chrome://remote/content/shared/webdriver/Errors.jsm:186:5
+NoSuchElementError@chrome://remote/content/shared/webdriver/Errors.jsm:398:5
+element.find/</<@chrome://remote/content/marionette/element.js:300:16
+"
+10.1152/japplphysiol.01359.2009,403,
+10.1152/japplphysiol.00139.2010,200,"Message: Unable to locate element: .icon-PDF
+Stacktrace:
+WebDriverError@chrome://remote/content/shared/webdriver/Errors.jsm:186:5
+NoSuchElementError@chrome://remote/content/shared/webdriver/Errors.jsm:398:5
+element.find/</<@chrome://remote/content/marionette/element.js:300:16
+"
+10.1152/ajpendo.00073.2010,200,"Message: Unable to locate element: .icon-PDF
+Stacktrace:
+WebDriverError@chrome://remote/content/shared/webdriver/Errors.jsm:186:5
+NoSuchElementError@chrome://remote/content/shared/webdriver/Errors.jsm:398:5
+element.find/</<@chrome://remote/content/marionette/element.js:300:16
+"
+10.1152/ajpendo.00767.2009,403,
+10.1152/japplphysiol.00135.2010,403,
+10.1152/japplphysiol.01206.2009,200,"Message: Unable to locate element: .icon-PDF
+Stacktrace:
+WebDriverError@chrome://remote/content/shared/webdriver/Errors.jsm:186:5
+NoSuchElementError@chrome://remote/content/shared/webdriver/Errors.jsm:398:5
+element.find/</<@chrome://remote/content/marionette/element.js:300:16
+"
+10.1152/japplphysiol.01115.2009,200,"Message: Unable to locate element: .icon-PDF
+Stacktrace:
+WebDriverError@chrome://remote/content/shared/webdriver/Errors.jsm:186:5
+NoSuchElementError@chrome://remote/content/shared/webdriver/Errors.jsm:398:5
+element.find/</<@chrome://remote/content/marionette/element.js:300:16
+"
+10.1152/japplphysiol.01133.2009,403,
+10.1152/japplphysiol.01151.2009,403,
+10.1152/japplphysiol.01269.2009,403,
+10.1152/japplphysiol.91425.2008,200,"Message: Unable to locate element: .icon-PDF
+Stacktrace:
+WebDriverError@chrome://remote/content/shared/webdriver/Errors.jsm:186:5
+NoSuchElementError@chrome://remote/content/shared/webdriver/Errors.jsm:398:5
+element.find/</<@chrome://remote/content/marionette/element.js:300:16
+"
+10.1152/japplphysiol.01152.2009,403,
+10.1152/ajpregu.00216.2009,403,
+10.1152/japplphysiol.01047.2009,200,"Message: Unable to locate element: .icon-PDF
+Stacktrace:
+WebDriverError@chrome://remote/content/shared/webdriver/Errors.jsm:186:5
+NoSuchElementError@chrome://remote/content/shared/webdriver/Errors.jsm:398:5
+element.find/</<@chrome://remote/content/marionette/element.js:300:16
+"
+10.1152/ajpendo.00403.2009,403,
+10.1152/physiolgenomics.00115.2009,403,
+10.1152/japplphysiol.00358.2009,403,
+10.1152/japplphysiol.00810.2009,200,"Message: Unable to locate element: .icon-PDF
+Stacktrace:
+WebDriverError@chrome://remote/content/shared/webdriver/Errors.jsm:186:5
+NoSuchElementError@chrome://remote/content/shared/webdriver/Errors.jsm:398:5
+element.find/</<@chrome://remote/content/marionette/element.js:300:16
+"
+10.1152/ajpregu.00203.2009,403,
+10.1152/ajpregu.00351.2009,403,
+10.1152/japplphysiol.00234.2009,200,"Message: Unable to locate element: .icon-PDF
+Stacktrace:
+WebDriverError@chrome://remote/content/shared/webdriver/Errors.jsm:186:5
+NoSuchElementError@chrome://remote/content/shared/webdriver/Errors.jsm:398:5
+element.find/</<@chrome://remote/content/marionette/element.js:300:16
+"
+10.1152/japplphysiol.00063.2009,403,
+10.1152/japplphysiol.00722.2009,200,"Message: Unable to locate element: .icon-PDF
+Stacktrace:
+WebDriverError@chrome://remote/content/shared/webdriver/Errors.jsm:186:5
+NoSuchElementError@chrome://remote/content/shared/webdriver/Errors.jsm:398:5
+element.find/</<@chrome://remote/content/marionette/element.js:300:16
+"
+10.1152/ajpheart.00267.2009,200,"Message: Unable to locate element: .icon-PDF
+Stacktrace:
+WebDriverError@chrome://remote/content/shared/webdriver/Errors.jsm:186:5
+NoSuchElementError@chrome://remote/content/shared/webdriver/Errors.jsm:398:5
+element.find/</<@chrome://remote/content/marionette/element.js:300:16
+"
+10.1152/japplphysiol.91265.2008,403,
+10.1152/japplphysiol.91264.2008,403,
+10.1152/ajpregu.90959.2008,200,"Message: Unable to locate element: .icon-PDF
+Stacktrace:
+WebDriverError@chrome://remote/content/shared/webdriver/Errors.jsm:186:5
+NoSuchElementError@chrome://remote/content/shared/webdriver/Errors.jsm:398:5
+element.find/</<@chrome://remote/content/marionette/element.js:300:16
+"
+10.1152/japplphysiol.00174.2009,200,"Message: Unable to locate element: .icon-PDF
+Stacktrace:
+WebDriverError@chrome://remote/content/shared/webdriver/Errors.jsm:186:5
+NoSuchElementError@chrome://remote/content/shared/webdriver/Errors.jsm:398:5
+element.find/</<@chrome://remote/content/marionette/element.js:300:16
+"
+10.1152/japplphysiol.90821.2008,403,
+10.1152/japplphysiol.91625.2008,403,
+10.1152/japplphysiol.91296.2008,403,
+10.1152/ajpregu.91035.2008,200,"Message: Unable to locate element: .icon-PDF
+Stacktrace:
+WebDriverError@chrome://remote/content/shared/webdriver/Errors.jsm:186:5
+NoSuchElementError@chrome://remote/content/shared/webdriver/Errors.jsm:398:5
+element.find/</<@chrome://remote/content/marionette/element.js:300:16
+"
+10.1152/japplphysiol.00144.2009,200,"Message: Unable to locate element: .icon-PDF
+Stacktrace:
+WebDriverError@chrome://remote/content/shared/webdriver/Errors.jsm:186:5
+NoSuchElementError@chrome://remote/content/shared/webdriver/Errors.jsm:398:5
+element.find/</<@chrome://remote/content/marionette/element.js:300:16
+"
+10.1152/japplphysiol.00003.2009,200,"Message: Unable to locate element: .icon-PDF
+Stacktrace:
+WebDriverError@chrome://remote/content/shared/webdriver/Errors.jsm:186:5
+NoSuchElementError@chrome://remote/content/shared/webdriver/Errors.jsm:398:5
+element.find/</<@chrome://remote/content/marionette/element.js:300:16
+"
+10.1152/japplphysiol.91566.2008,403,
+10.1152/japplphysiol.91453.2008,403,
+10.1152/ajpregu.90906.2008,403,
+10.1152/japplphysiol.91195.2008,403,
+10.1152/japplphysiol.90795.2008,403,
+10.1152/ajpendo.90690.2008,200,"Message: Unable to locate element: .icon-PDF
+Stacktrace:
+WebDriverError@chrome://remote/content/shared/webdriver/Errors.jsm:186:5
+NoSuchElementError@chrome://remote/content/shared/webdriver/Errors.jsm:398:5
+element.find/</<@chrome://remote/content/marionette/element.js:300:16
+"
+10.1152/japplphysiol.90676.2008,403,
+10.1152/japplphysiol.90430.2008,200,"Message: Unable to locate element: .icon-PDF
+Stacktrace:
+WebDriverError@chrome://remote/content/shared/webdriver/Errors.jsm:186:5
+NoSuchElementError@chrome://remote/content/shared/webdriver/Errors.jsm:398:5
+element.find/</<@chrome://remote/content/marionette/element.js:300:16
+"
+10.1152/ajpheart.01222.2007,403,
+10.1152/ajpregu.90420.2008,403,
+10.1152/japplphysiol.00108.2008,403,
+10.1152/japplphysiol.90743.2008,403,
+10.1152/ajpendo.90545.2008,403,
+10.1152/japplphysiol.90525.2008,200,"Message: Unable to locate element: .icon-PDF
+Stacktrace:
+WebDriverError@chrome://remote/content/shared/webdriver/Errors.jsm:186:5
+NoSuchElementError@chrome://remote/content/shared/webdriver/Errors.jsm:398:5
+element.find/</<@chrome://remote/content/marionette/element.js:300:16
+"
+10.1152/japplphysiol.00995.2007,200,"Message: Unable to locate element: .icon-PDF
+Stacktrace:
+WebDriverError@chrome://remote/content/shared/webdriver/Errors.jsm:186:5
+NoSuchElementError@chrome://remote/content/shared/webdriver/Errors.jsm:398:5
+element.find/</<@chrome://remote/content/marionette/element.js:300:16
+"
+10.1152/japplphysiol.90357.2008,403,
+10.1152/japplphysiol.90394.2008,403,
+10.1152/japplphysiol.00819.2007,200,"Message: Browsing context has been discarded
+Stacktrace:
+WebDriverError@chrome://remote/content/shared/webdriver/Errors.jsm:186:5
+NoSuchWindowError@chrome://remote/content/shared/webdriver/Errors.jsm:440:5
+assert.that/<@chrome://remote/content/shared/webdriver/Assert.jsm:445:13
+assert.open@chrome://remote/content/shared/webdriver/Assert.jsm:153:4
+GeckoDriver.prototype.execute_@chrome://remote/content/marionette/driver.js:735:10
+GeckoDriver.prototype.executeScript@chrome://remote/content/marionette/driver.js:653:30
+despatch@chrome://remote/content/marionette/server.js:306:40
+execute@chrome://remote/content/marionette/server.js:279:16
+onPacket/<@chrome://remote/content/marionette/server.js:252:20
+onPacket@chrome://remote/content/marionette/server.js:253:9
+_onJSONObjectReady/<@chrome://remote/content/marionette/transport.js:500:20
+"
+10.1152/ajpregu.00880.2007,403,
+10.1152/japplphysiol.00079.2008,200,"Message: Failed to decode response from marionette
+"
+10.1152/japplphysiol.01325.2007,403,
+10.1152/ajpregu.00875.2007,403,
+10.1152/ajpendo.00751.2007,403,
+10.1152/japplphysiol.01160.2007,403,
+10.1152/japplphysiol.01210.2007,200,"Message: Tried to run command without establishing a connection
+"
+10.1152/ajpregu.00678.2007,403,
+10.1152/japplphysiol.00146.2007,403,
+10.1152/ajpendo.1999.277.6.e1103,403,
