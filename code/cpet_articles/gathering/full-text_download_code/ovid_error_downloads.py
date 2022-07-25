@@ -1,6 +1,4 @@
 # selenium 4
-from distutils.log import error
-from scipy import rand
 from selenium import webdriver
 from selenium.webdriver.firefox.service import Service as FirefoxService
 from send2trash import send2trash
@@ -28,16 +26,16 @@ def download_ovid_full_text(doi, headers, dest_folder, driver, quit_driver=False
         out.update({'doi_redirect_SC': doi_resp.status_code})
         if doi_resp.status_code == 200:
             driver.get(doi_resp.url)
-            time.sleep(3)
-            driver.execute_script("window.scrollTo(0, 550)")
+            time.sleep(3) # seems to let advertisement close
+            driver.execute_script("window.scrollTo(0, 100)")
             outer_download_button, inner_download_button, button_type = find_buttons(driver)
             outer_download_button.click()
             inner_download_button.click()
             if button_type == 'pdf':
-                time.sleep(15)
+                time.sleep(15) # allow for download time
                 parent_tab = driver.current_window_handle
                 chwd = driver.window_handles
-                time.sleep(1)
+                time.sleep(1) # might help with switching windows
                 driver.switch_to.window(chwd[1])
                 full_text_resp = requests.get(url = driver.current_url, headers = headers)
                 if full_text_resp.status_code == 200:
@@ -45,7 +43,7 @@ def download_ovid_full_text(doi, headers, dest_folder, driver, quit_driver=False
                 driver.close()
                 driver.switch_to.window(parent_tab)
             elif button_type == 'epub':
-                time.sleep(5)
+                time.sleep(5) # allow for download time
                 # epubs are automatically downloaded so I need to change the file name
                 epubs_in_downloads_paths = list(Path('/Users/antonhesse/Downloads').glob('*.epub'))
                 if len(epubs_in_downloads_paths) > 1:
@@ -104,22 +102,18 @@ re_doi_prefix = re.compile(r'(?<=\d/).*')
 error_df['doi_suffix'] = error_df['doi'].apply(lambda x: re_doi_prefix.search(x).group())
 
 full_texts_to_download = [x for x in error_df['doi_suffix'].tolist() if x not in ovid_ca_full_texts]
+len(full_texts_to_download)
 merge = pd.merge(pd.DataFrame({'doi_suffix': full_texts_to_download}), error_df, how='inner', on='doi_suffix')
+# merge.to_csv('data/cpet_articles/unpaywall/ovid_non_oa_errors.csv', index=False)
 
 headers = {'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:102.0) Gecko/20100101 Firefox/102.0'}
 dest_folder = 'data/cpet_articles/full_texts/pdfs/ovid_non_oa/'
 
-re_list_index = re.compile(r'list index out of range')
-merge['list_index'] = merge['error'].apply(lambda x: re_list_index.search(str(x)) != None)
-list_index_df = merge[merge['list_index']].reset_index(drop=True)
-list_index_df.shape
-
-
 driver = webdriver.Firefox(service=FirefoxService(GeckoDriverManager().install()))
-driver.implicitly_wait(10) # hopefully let's JS load correctly
+driver.implicitly_wait(5) # hopefully let's JS load correctly
 
 log = []
-for idx, row in tqdm(list_index_df.iterrows(), total=list_index_df.shape[0]):
+for idx, row in tqdm(merge.iterrows(), total=merge.shape[0]):
     doi = row['doi']
     out = download_ovid_full_text(
         doi=doi,
@@ -129,15 +123,24 @@ for idx, row in tqdm(list_index_df.iterrows(), total=list_index_df.shape[0]):
         quit_driver=False
     )
     log.append(out)
+# idx
+# sometimes it might be scrolling too far down
+log_df = pd.DataFrame(log)
+log_df[~log_df['error'].isnull()]
+
+driver.quit()
+# update errors
+
+
 
 """
 # single download for troubleshooting
 
 driver = webdriver.Firefox(service=FirefoxService(GeckoDriverManager().install()))
-driver.implicitly_wait(10) # hopefully let's JS load correctly
+driver.implicitly_wait(5) # hopefully let's JS load correctly
 
-n = random.randint(0, list_index_df.shape[0])
-doi = list_index_df.loc[n, 'doi']
+n = random.randint(0, not_clickable_df.shape[0])
+doi = not_clickable_df.loc[n, 'doi']
 doi_url = 'https://doi.org/' + doi
 out = {'doi': doi}
 
@@ -146,8 +149,8 @@ out.update({'doi_redirect_SC': doi_resp.status_code})
 if doi_resp.status_code == 200:
     driver.get(doi_resp.url)
     time.sleep(1)
-outer_download_button, inner_download_button, button_type = find_buttons(driver)
 driver.execute_script("window.scrollTo(0, 550)")
+outer_download_button, inner_download_button, button_type = find_buttons(driver)
 
 outer_download_button.click()
 inner_download_button.click()
@@ -171,6 +174,18 @@ elif button_type == 'epub':
     new_epub_path = 'data/cpet_articles/full_texts/epubs/ovid_non_oa/' + doi_suffix + '.epub'
     shutil.move(src=epubs_in_downloads_paths[0], dst=new_epub_path)
 """
+
+# The following code snippets subsetted the articles by error type
+
+# re_not_clickable = re.compile(r'not clickable')
+# merge['not_clickable'] = merge['error'].apply(lambda x: re_not_clickable.search(str(x)) != None)
+# not_clickable_df = merge[merge['not_clickable']]
+# not_clickable_df.shape
+
+# re_list_index = re.compile(r'list index out of range')
+# merge['list_index'] = merge['error'].apply(lambda x: re_list_index.search(str(x)) != None)
+# list_index_df = merge[merge['list_index']].reset_index(drop=True)
+# list_index_df.shape
 
 # re_locate_window = re.compile(r'Unable to locate window')
 # error_df['locate_window'] = error_df['error'].apply(lambda x: re_locate_window.search(str(x)) != None)
