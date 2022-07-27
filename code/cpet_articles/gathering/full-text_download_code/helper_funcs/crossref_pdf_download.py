@@ -40,7 +40,7 @@ def crossref_pdf_download(
         out.update({'publisher_status_code': publisher_response.status_code})
 
         if publisher_response.status_code != 200:
-            print(f'Status code {publisher_response.status_code} for DOI {doi}')
+            # print(f'Status code {publisher_response.status_code} for DOI {doi}')
             return out
         
         doi_suffix = str(doi.split('/')[1:]).strip("[']")
