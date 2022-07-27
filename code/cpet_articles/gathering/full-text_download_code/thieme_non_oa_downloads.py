@@ -60,10 +60,10 @@ for idx, row in tqdm(merge.iterrows(), total=merge.shape[0]):
             # find PDF download button on landing page
             time.sleep(1) # wait in case there's ads or something
             accept_cookies(driver)
-            time.sleep(3) # wait in case there's ads or something
+            time.sleep(2) # wait in case there's ads or something
             pdf_download_link = driver.find_element(By.XPATH, "//a[@class='linkNotUnderlined']")
             pdf_download_link.click()
-            time.sleep(3)
+            time.sleep(2)
             # driver.execute_script("window.scrollTo(0, 200)")
             full_text_resp = requests.get(url = driver.current_url, headers = headers)
             out.update({'full_text_SC': full_text_resp.status_code})
@@ -75,5 +75,8 @@ for idx, row in tqdm(merge.iterrows(), total=merge.shape[0]):
     log.append(out)
     # time.sleep(20)
 
+driver.quit()
+log_df = pd.DataFrame(log)
+log_df
 # TODO this code isn't logging an error when the U's license doesn't work
 # What happens is the article still downloads, but it's a broken PDF

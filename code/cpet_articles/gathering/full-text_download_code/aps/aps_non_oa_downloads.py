@@ -91,7 +91,7 @@ for idx, row in tqdm(merge.iterrows(), total=merge.shape[0]):
         print(e)
         out.update({'error': e})
     log.append(out)
-    time.sleep(20)
+    time.sleep(60) # wait so our IP address isn't blocked
 
 # log_df = pd.DataFrame(log)
 # log_df['doi_redirect_SC'].value_counts()
