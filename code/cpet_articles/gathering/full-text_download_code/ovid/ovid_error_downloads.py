@@ -1,7 +1,7 @@
 # selenium 4
 from selenium import webdriver
 from selenium.webdriver.firefox.service import Service as FirefoxService
-from send2trash import send2trash
+from sympy import rem
 from webdriver_manager.firefox import GeckoDriverManager
 # from selenium.webdriver.support.ui import WebDriverWait
 # from selenium.webdriver.common.keys import Keys
@@ -14,9 +14,16 @@ import re
 import time
 from tqdm import tqdm
 from pathlib import Path
-import send2trash
-#### WARNING #### DELETE ALL EPUBS FROM DOWNLOADS FOLDER PRIOR TO RUNNING THIS CODE
+import sys
+sys.path.append('code/cpet_articles/gathering/full-text_download_code/')
+from helper_funcs.articles import get_current_full_texts
+#### WARNING #### DELETE ALL EPUBS AND PDFS FROM DOWNLOADS FOLDER PRIOR TO RUNNING THIS CODE
 # IF YOU DON'T, YOU'LL MISNAME THE FILES
+
+# For some reason when I used to click on the inner pdf download button, I would get to the
+# page where the pdf was and need to use requests.get() to get the content in bytes
+# now for some reason when I click the download button it downloads straight to the
+# download folder. See previous commits for older code
 
 def download_ovid_full_text(doi, headers, dest_folder, driver, quit_driver=False):
     out = {'doi': doi}
@@ -37,11 +44,20 @@ def download_ovid_full_text(doi, headers, dest_folder, driver, quit_driver=False
                 chwd = driver.window_handles
                 time.sleep(1) # might help with switching windows
                 driver.switch_to.window(chwd[1])
-                full_text_resp = requests.get(url = driver.current_url, headers = headers)
-                if full_text_resp.status_code == 200:
-                    download_pdf(doi=doi, dest_folder=dest_folder, content=full_text_resp.content)
+                # full_text_resp = requests.get(url = driver.current_url, headers = headers)
+                # out.update({'full_text_SC': full_text_resp.status_code})
+                # if full_text_resp.status_code == 200:
+                #     download_pdf(doi=doi, dest_folder=dest_folder, content=full_text_resp.content)
                 driver.close()
                 driver.switch_to.window(parent_tab)
+                pdfs_in_downloads_paths = list(Path('/Users/antonhesse/Downloads').glob('*.pdf'))
+                if len(pdfs_in_downloads_paths) > 1:
+                    for path in pdfs_in_downloads_paths:
+                        Path.unlink(path)
+                else:
+                    doi_suffix = str(doi.split('/', 1)[1:]).strip("[']")
+                    new_path = 'data/cpet_articles/full_texts/pdfs/' + doi_suffix + '.pdf'
+                    shutil.move(src=epubs_in_downloads_paths[0], dst=new_path)
             elif button_type == 'epub':
                 time.sleep(5) # allow for download time
                 # epubs are automatically downloaded so I need to change the file name
@@ -51,8 +67,8 @@ def download_ovid_full_text(doi, headers, dest_folder, driver, quit_driver=False
                         Path.unlink(path)
                 else:
                     doi_suffix = str(doi.split('/', 1)[1:]).strip("[']")
-                    new_epub_path = 'data/cpet_articles/full_texts/epubs/ovid_non_oa/' + doi_suffix + '.epub'
-                    shutil.move(src=epubs_in_downloads_paths[0], dst=new_epub_path)
+                    new_path = 'data/cpet_articles/full_texts/epubs/ovid_non_oa/' + doi_suffix + '.epub'
+                    shutil.move(src=epubs_in_downloads_paths[0], dst=new_path)
     except Exception as e:
         print(e)
         out.update({'error': e})
@@ -88,32 +104,26 @@ def find_buttons(driver):
     return outer_download_button, inner_download_button, button_type
 
 
-ovid_ca_articles = pd.read_csv('/Users/antonhesse/Desktop/Anton/Education/UMN/Lab and Research/HSPL/CPET_scoping_review/data/cpet_articles/unpaywall/ovid_non_oa_status_codes.csv')
-error_df = ovid_ca_articles[~ovid_ca_articles['error'].isnull()].reset_index(drop=True)
+all_articles = pd.read_csv('/Users/antonhesse/Desktop/Anton/Education/UMN/Lab and Research/HSPL/CPET_scoping_review/data/cpet_articles/unpaywall/unpaywall_info.csv')
+re_doi_suffix = re.compile(r'(?<=\d/).*')
+all_articles['doi_suffix'] = all_articles['doi'].apply(lambda x: re_doi_suffix.search(x).group())
 
-ovid_ca_pdf_paths = list(Path('data/cpet_articles/full_texts/pdfs/ovid_non_oa').glob('*.pdf'))
-ovid_ca_pdfs = [path.stem for path in ovid_ca_pdf_paths]
-ovid_ca_epub_paths = list(Path('data/cpet_articles/full_texts/epubs/ovid_non_oa').glob('*.epub'))
-ovid_ca_epubs = [path.stem for path in ovid_ca_epub_paths]
+current_full_texts = get_current_full_texts()
 
-ovid_ca_full_texts = ovid_ca_pdfs + ovid_ca_epubs
+full_texts_to_download = [x for x in all_articles['doi_suffix'].tolist() if x not in current_full_texts]
 
-re_doi_prefix = re.compile(r'(?<=\d/).*')
-error_df['doi_suffix'] = error_df['doi'].apply(lambda x: re_doi_prefix.search(x).group())
+remaining_articles = pd.merge(pd.DataFrame({'doi_suffix': full_texts_to_download}), all_articles, how='inner', on='doi_suffix')
+articles = remaining_articles[remaining_articles['publisher'] == 'Ovid Technologies (Wolters Kluwer Health)'].drop_duplicates().reset_index(drop=True)
 
-full_texts_to_download = [x for x in error_df['doi_suffix'].tolist() if x not in ovid_ca_full_texts]
-len(full_texts_to_download)
-merge = pd.merge(pd.DataFrame({'doi_suffix': full_texts_to_download}), error_df, how='inner', on='doi_suffix')
-# merge.to_csv('data/cpet_articles/unpaywall/ovid_non_oa_errors.csv', index=False)
 
 headers = {'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:102.0) Gecko/20100101 Firefox/102.0'}
-dest_folder = 'data/cpet_articles/full_texts/pdfs/ovid_non_oa/'
+dest_folder = 'data/cpet_articles/full_texts/pdfs/'
 
 driver = webdriver.Firefox(service=FirefoxService(GeckoDriverManager().install()))
 driver.implicitly_wait(5) # hopefully let's JS load correctly
 
 log = []
-for idx, row in tqdm(merge.iterrows(), total=merge.shape[0]):
+for idx, row in tqdm(articles.iterrows(), total=articles.shape[0]):
     doi = row['doi']
     out = download_ovid_full_text(
         doi=doi,
@@ -123,12 +133,13 @@ for idx, row in tqdm(merge.iterrows(), total=merge.shape[0]):
         quit_driver=False
     )
     log.append(out)
+
+driver.quit()
 # idx
 # sometimes it might be scrolling too far down
 log_df = pd.DataFrame(log)
-log_df[~log_df['error'].isnull()]
-
-driver.quit()
+error_df = log_df[(~log_df['error'].isnull()) | (log_df['doi_redirect_SC'] != 200) | (log_df['full_text_SC'] != 200)]
+error_df.to_csv('')
 # update errors
 
 
@@ -139,8 +150,8 @@ driver.quit()
 driver = webdriver.Firefox(service=FirefoxService(GeckoDriverManager().install()))
 driver.implicitly_wait(5) # hopefully let's JS load correctly
 
-n = random.randint(0, not_clickable_df.shape[0])
-doi = not_clickable_df.loc[n, 'doi']
+n = random.randint(0, articles.shape[0])
+doi = articles.loc[n, 'doi']
 doi_url = 'https://doi.org/' + doi
 out = {'doi': doi}
 
