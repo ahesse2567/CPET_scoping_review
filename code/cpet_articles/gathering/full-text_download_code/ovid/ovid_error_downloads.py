@@ -36,6 +36,7 @@ def download_ovid_full_text(doi, headers, dest_folder, driver, quit_driver=False
             time.sleep(3) # seems to let advertisement close
             driver.execute_script("window.scrollTo(0, 100)")
             outer_download_button, inner_download_button, button_type = find_buttons(driver)
+            time.sleep(1)
             outer_download_button.click()
             inner_download_button.click()
             if button_type == 'pdf':
@@ -57,7 +58,7 @@ def download_ovid_full_text(doi, headers, dest_folder, driver, quit_driver=False
                 else:
                     doi_suffix = str(doi.split('/', 1)[1:]).strip("[']")
                     new_path = 'data/cpet_articles/full_texts/pdfs/' + doi_suffix + '.pdf'
-                    shutil.move(src=epubs_in_downloads_paths[0], dst=new_path)
+                    shutil.move(src=pdfs_in_downloads_paths[0], dst=new_path)
             elif button_type == 'epub':
                 time.sleep(5) # allow for download time
                 # epubs are automatically downloaded so I need to change the file name
@@ -162,7 +163,7 @@ if doi_resp.status_code == 200:
     time.sleep(1)
 driver.execute_script("window.scrollTo(0, 550)")
 outer_download_button, inner_download_button, button_type = find_buttons(driver)
-
+time.sleep()
 outer_download_button.click()
 inner_download_button.click()
 

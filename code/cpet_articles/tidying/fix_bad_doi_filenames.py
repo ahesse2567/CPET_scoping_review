@@ -26,3 +26,19 @@ for name in bad_names:
         shutil.move(src=name, dst=new_name)
     except Exception as e:
         print(e)
+
+
+# there were some problems where there was _._ many times in a row
+# e.g. _.__.__.__._
+# the code below removes all but one _._
+pdf_file_paths = list(Path('/Users/antonhesse/Desktop/Anton/Education/UMN/Lab and Research/HSPL/CPET_scoping_review/data/cpet_articles/full_texts/pdfs').glob('*.pdf'))
+txt_file_paths = list(Path('/Users/antonhesse/Desktop/Anton/Education/UMN/Lab and Research/HSPL/CPET_scoping_review/data/cpet_articles/full_texts/txts').glob('*.txt'))
+epub_file_paths = list(Path('/Users/antonhesse/Desktop/Anton/Education/UMN/Lab and Research/HSPL/CPET_scoping_review/data/cpet_articles/full_texts/epubs').glob('*.epub'))
+all_paths = pdf_file_paths + txt_file_paths + epub_file_paths
+
+re_undotun = re.compile(r'(_._){2,}')
+bad_path_names = list(filter(re_undotun.search, list(map(str,pdf_file_paths))))
+
+for path in bad_path_names:
+    fixed_name = re_undotun.sub('_._', str(path))
+    shutil.move(path, fixed_name)
