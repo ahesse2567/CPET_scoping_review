@@ -26,7 +26,7 @@ for idx, row in tqdm(no_unpaywall_url_articles.iterrows(), total=len(no_unpaywal
             out.update({f'status_code_{idx}': r.status_code})
 
             if r.status_code == 200:
-                doi_suffix = str(doi.split('/')[1:]).strip("[']")
+                doi_suffix = str(doi.split('/', 1)[1:]).strip("[']")
                 filename = f'{folder}/{doi_suffix}.pdf'
 
                 with open(filename, 'wb') as f:

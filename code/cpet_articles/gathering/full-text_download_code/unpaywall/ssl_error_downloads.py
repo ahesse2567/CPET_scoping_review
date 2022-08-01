@@ -25,7 +25,7 @@ for idx, row in tqdm(ssl_oa_articles.iterrows()):
                 ssl_status_code.append(response.status_code)
 
                 # drop the doi prefix so you can use the DOI as a filename
-                drop_prefix = row.doi.split('/')[1]
+                drop_prefix = row.doi.split('/', 1)[1:]
                 folder_name = '/Users/antonhesse/Desktop/Anton/Education/UMN/Lab and Research/HSPL/CPET_scoping_review/data/cpet_articles/pdfs/unpaywall_oa_ssl/'
                 filename = folder_name + str(drop_prefix)+'.pdf'
 

@@ -36,7 +36,7 @@ for i, row in tqdm(springer_non_oa_articles.iterrows(), total=springer_non_oa_ar
             if pdf_response.status_code == 200:
                 pdf_status_code.append(pdf_response.status_code)
 
-                # drop_prefix = str(row['doi'].split('/')[1:]).strip("[']")
+                # drop_prefix = str(row['doi'].split('/', 1)[1:]).strip("[']")
                 # filename = folder + str(drop_prefix)+'.pdf'
 
                 # with open(filename, mode = 'wb') as f:
