@@ -1,11 +1,10 @@
-# selenium 4
 from selenium import webdriver
 from selenium.webdriver.firefox.service import Service as FirefoxService
-from sympy import rem
 from webdriver_manager.firefox import GeckoDriverManager
-# from selenium.webdriver.support.ui import WebDriverWait
-# from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.common.by import By
+from selenium.webdriver.chrome.options import Options as FirefoxOptions
+firefox_options = FirefoxOptions()
+firefox_options.add_argument("--headless")
 import pandas as pd
 import requests
 import random
@@ -15,8 +14,8 @@ import time
 from tqdm import tqdm
 from pathlib import Path
 import sys
-sys.path.append('code/cpet_articles/gathering/full-text_download_code/')
-from helper_funcs.articles import get_current_full_texts
+sys.path.append('/Users/antonhesse/Desktop/Anton/Education/UMN/Lab and Research/HSPL/CPET_scoping_review/code/cpet_articles/gathering/full-text_download_code/')
+from helper_funcs.articles import get_current_full_texts, download_pdf
 #### WARNING #### DELETE ALL EPUBS AND PDFS FROM DOWNLOADS FOLDER PRIOR TO RUNNING THIS CODE
 # IF YOU DON'T, YOU'LL MISNAME THE FILES
 
@@ -34,7 +33,7 @@ def download_ovid_full_text(doi, headers, dest_folder, driver, quit_driver=False
         if doi_resp.status_code == 200:
             driver.get(doi_resp.url)
             time.sleep(3) # seems to let advertisement close
-            driver.execute_script("window.scrollTo(0, 100)")
+            driver.execute_script("window.scrollTo(0, 400)") # scrolling amount needs to change
             outer_download_button, inner_download_button, button_type = find_buttons(driver)
             time.sleep(1)
             outer_download_button.click()
@@ -57,7 +56,8 @@ def download_ovid_full_text(doi, headers, dest_folder, driver, quit_driver=False
                         Path.unlink(path)
                 else:
                     doi_suffix = str(doi.split('/', 1)[1:]).strip("[']")
-                    new_path = 'data/cpet_articles/full_texts/pdfs/' + doi_suffix + '.pdf'
+                    fixed_doi_suffix = re.sub(r"""([()\\*,"': /?;<>])""", '_._', doi_suffix)
+                    new_path = '/Users/antonhesse/Desktop/Anton/Education/UMN/Lab and Research/HSPL/CPET_scoping_review/data/cpet_articles/full_texts/pdfs/' + fixed_doi_suffix + '.pdf'
                     shutil.move(src=pdfs_in_downloads_paths[0], dst=new_path)
             elif button_type == 'epub':
                 time.sleep(5) # allow for download time
@@ -68,7 +68,8 @@ def download_ovid_full_text(doi, headers, dest_folder, driver, quit_driver=False
                         Path.unlink(path)
                 else:
                     doi_suffix = str(doi.split('/', 1)[1:]).strip("[']")
-                    new_path = 'data/cpet_articles/full_texts/epubs/ovid_non_oa/' + doi_suffix + '.epub'
+                    fixed_doi_suffix = re.sub(r"""([()\\*,"': /?;<>])""", '_._', doi_suffix)
+                    new_path = '/Users/antonhesse/Desktop/Anton/Education/UMN/Lab and Research/HSPL/CPET_scoping_review/data/cpet_articles/full_texts/epubs/' + fixed_doi_suffix + '.epub'
                     shutil.move(src=epubs_in_downloads_paths[0], dst=new_path)
     except Exception as e:
         print(e)
@@ -76,12 +77,6 @@ def download_ovid_full_text(doi, headers, dest_folder, driver, quit_driver=False
     if quit_driver == True:
         driver.quit()
     return out
-
-def download_pdf(doi, dest_folder, content):
-    doi_suffix = str(doi.split('/', 1)[1:]).strip("[']")
-    filename = dest_folder + str(doi_suffix)+'.pdf'
-    with open(filename, mode = 'wb') as f:
-        f.write(content)
 
 def find_buttons(driver):
     PDF_re = re.compile('PDF')
@@ -106,19 +101,18 @@ def find_buttons(driver):
 
 
 all_articles = pd.read_csv('/Users/antonhesse/Desktop/Anton/Education/UMN/Lab and Research/HSPL/CPET_scoping_review/data/cpet_articles/unpaywall/unpaywall_info.csv')
-re_doi_suffix = re.compile(r'(?<=\d/).*')
-all_articles['doi_suffix'] = all_articles['doi'].apply(lambda x: re_doi_suffix.search(x).group())
+all_articles['doi_suffix'] = all_articles['doi'].apply(lambda x: str(x.split('/', 1)[1:]).strip("[']"))
+all_articles['doi_suffix'] = all_articles['doi_suffix'].apply(lambda x: re.sub(r"""([()\\*,"': /?;<>])""", '_._', x))
 
 current_full_texts = get_current_full_texts()
 
-full_texts_to_download = [x for x in all_articles['doi_suffix'].tolist() if x not in current_full_texts]
+full_texts_to_download = [x for x in tqdm(all_articles['doi_suffix'].tolist()) if x not in current_full_texts]
 
 remaining_articles = pd.merge(pd.DataFrame({'doi_suffix': full_texts_to_download}), all_articles, how='inner', on='doi_suffix')
 articles = remaining_articles[remaining_articles['publisher'] == 'Ovid Technologies (Wolters Kluwer Health)'].drop_duplicates().reset_index(drop=True)
 
-
 headers = {'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:102.0) Gecko/20100101 Firefox/102.0'}
-dest_folder = 'data/cpet_articles/full_texts/pdfs/'
+dest_folder = '/Users/antonhesse/Desktop/Anton/Education/UMN/Lab and Research/HSPL/CPET_scoping_review/data/cpet_articles/full_texts/pdfs/'
 
 driver = webdriver.Firefox(service=FirefoxService(GeckoDriverManager().install()))
 driver.implicitly_wait(5) # hopefully let's JS load correctly
@@ -138,9 +132,9 @@ for idx, row in tqdm(articles.iterrows(), total=articles.shape[0]):
 driver.quit()
 # idx
 # sometimes it might be scrolling too far down
-log_df = pd.DataFrame(log)
-error_df = log_df[(~log_df['error'].isnull()) | (log_df['doi_redirect_SC'] != 200) | (log_df['full_text_SC'] != 200)]
-error_df.to_csv('')
+# log_df = pd.DataFrame(log)
+# error_df = log_df[(~log_df['error'].isnull()) | (log_df['doi_redirect_SC'] != 200) | (log_df['full_text_SC'] != 200)]
+# error_df.to_csv('')
 # update errors
 
 
@@ -161,11 +155,15 @@ out.update({'doi_redirect_SC': doi_resp.status_code})
 if doi_resp.status_code == 200:
     driver.get(doi_resp.url)
     time.sleep(1)
-driver.execute_script("window.scrollTo(0, 550)")
+driver.execute_script("window.scrollTo(0, 500)")
 outer_download_button, inner_download_button, button_type = find_buttons(driver)
 time.sleep()
 outer_download_button.click()
 inner_download_button.click()
+parent_tab = driver.current_window_handle
+chwd = driver.window_handles
+driver.switch_to.window(chwd[1])
+driver.current_url
 
 if button_type == 'pdf':
     time.sleep(15)
