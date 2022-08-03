@@ -22,8 +22,9 @@ def get_current_full_texts(
 
 def get_doi_suffix(doi):
     doi_suffix = str(doi.split('/', 1)[1:]).strip("[']")
-    fixed_doi_suffix = re.sub(r"""([()\\*,"': ?;<>])""", '_._', doi_suffix)
-    return fixed_doi_suffix
+    doi_suffix = re.sub(r"""([()\\*,"': /?;<>])""", '_._', doi_suffix) # remove bad chars
+    doi_suffix = re.sub(r'(_._){2,}', '_._', doi_suffix) # remove multiple sequences of _._
+    return doi_suffix
 
 def download_pdf(doi, dest_folder, content):
     doi_suffix = str(doi.split('/', 1)[1:]).strip("[']")
