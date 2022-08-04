@@ -33,3 +33,12 @@ def download_pdf(doi, dest_folder, content):
     filename = dest_folder_fslash_ending + str(fixed_doi_suffix)+'.pdf'
     with open(filename, mode = 'wb') as f:
         f.write(content)
+
+def close_extra_tabs(driver):
+    driver.switch_to.window(driver.window_handles[0])
+    parent_tab = driver.current_window_handle
+    for handle in driver.window_handles:
+        if handle != parent_tab:
+            driver.switch_to.window(handle)
+            driver.close()
+    driver.switch_to.window(driver.window_handles[0])
