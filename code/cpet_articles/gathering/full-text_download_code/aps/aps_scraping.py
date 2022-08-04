@@ -12,7 +12,7 @@ from pathlib import Path
 import re
 import sys
 sys.path.append('/Users/antonhesse/Desktop/Anton/Education/UMN/Lab and Research/HSPL/CPET_scoping_review/code/cpet_articles/gathering/full-text_download_code/')
-from helper_funcs.articles import get_current_full_texts, get_doi_suffix, download_pdf
+from helper_funcs.articles import *
 import shutil
 
 # As with Oxford(?), clicking the download button now sends the PDF directly to the down
@@ -42,15 +42,6 @@ def click_links_download_page(driver, sleep_time=1):
 def wait(duration=60):
     for i in trange(duration):
         time.sleep(1)
-
-def close_extra_tabs(driver):
-    driver.switch_to.window(driver.window_handles[0])
-    parent_tab = driver.current_window_handle
-    for handle in driver.window_handles:
-        if handle != parent_tab:
-            driver.switch_to.window(handle)
-            driver.close()
-    driver.switch_to.window(driver.window_handles[0])
 
 current_full_texts = get_current_full_texts()
 
