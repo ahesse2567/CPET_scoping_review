@@ -8,6 +8,7 @@ from tqdm import tqdm
 import random
 import re
 from pathlib import Path
+import numpy as np
 
 # see instructions from getting started guide
 # https://dev.elsevier.com/tecdoc_text_mining.html
@@ -71,7 +72,9 @@ for idx, row in tqdm(articles.iterrows(), total=len(articles)):
     log.append(out)
 
 log_df = pd.DataFrame(log)
-log_df['publisher_status_code'].value_counts()
+# log_df['publisher_status_code'].value_counts()
+if 'error' not in log_df.columns:
+    log_df['error'] = np.nan
 
 error_df = log_df[(log_df['publisher_status_code'] != 200) | (~log_df['error'].isna())]
 
@@ -95,8 +98,3 @@ filename = f'{folder}/{doi_suffix}.{file_ext}'
 with open(filename, mode='wb') as f:
     f.write(r.content)
 """
-
-
-
-
-
