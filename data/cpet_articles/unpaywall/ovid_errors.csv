@@ -1,0 +1,738 @@
+doi,doi_redirect_SC,subscribed,error
+10.1519/1533-4287(2002)016<0109:eoriom>2.0.co;2,409,,
+10.1161/01.cir.95.10.2401,200,True,"Message: Unable to locate element: //i[@class='icon-pdf']
+Stacktrace:
+WebDriverError@chrome://remote/content/shared/webdriver/Errors.jsm:188:5
+NoSuchElementError@chrome://remote/content/shared/webdriver/Errors.jsm:400:5
+element.find/</<@chrome://remote/content/marionette/element.js:292:16
+"
+10.1097/01.phm.0000124437.92263.ba,200,,"Message: Element <button class=""primary-button"" type=""button""> is not clickable at point (616,472) because another element <img src=""https://tpc.googlesyndication.com/pagead/imgad?id=CICAgKCX2-nY5AEQARgBMgjUwkoWXw2IlA""> obscures it
+Stacktrace:
+WebDriverError@chrome://remote/content/shared/webdriver/Errors.jsm:188:5
+ElementClickInterceptedError@chrome://remote/content/shared/webdriver/Errors.jsm:287:5
+webdriverClickElement@chrome://remote/content/marionette/interaction.js:166:11
+interaction.clickElement@chrome://remote/content/marionette/interaction.js:125:11
+clickElement@chrome://remote/content/marionette/actors/MarionetteCommandsChild.jsm:205:29
+receiveMessage@chrome://remote/content/marionette/actors/MarionetteCommandsChild.jsm:93:31
+"
+10.1519/r-16554.1,409,,
+10.1097/00008483-198509200-00002,200,True,"Message: Unable to locate element: //i[@class='icon-pdf']
+Stacktrace:
+WebDriverError@chrome://remote/content/shared/webdriver/Errors.jsm:188:5
+NoSuchElementError@chrome://remote/content/shared/webdriver/Errors.jsm:400:5
+element.find/</<@chrome://remote/content/marionette/element.js:292:16
+"
+10.1097/00005344-199800003-00007,200,True,"Message: Unable to locate element: //i[@class='icon-pdf']
+Stacktrace:
+WebDriverError@chrome://remote/content/shared/webdriver/Errors.jsm:188:5
+NoSuchElementError@chrome://remote/content/shared/webdriver/Errors.jsm:400:5
+element.find/</<@chrome://remote/content/marionette/element.js:292:16
+"
+10.1519/1533-4287(2002)016<0606:teeosi>2.0.co;2,409,,
+10.1097/phm.0b013e318238a29c,200,,"Message: Element <button class=""primary-button"" type=""button""> is not clickable at point (616,472) because another element <img src=""https://tpc.googlesyndication.com/pagead/imgad?id=CICAgKCX2-nY5AEQARgBMgjUwkoWXw2IlA""> obscures it
+Stacktrace:
+WebDriverError@chrome://remote/content/shared/webdriver/Errors.jsm:188:5
+ElementClickInterceptedError@chrome://remote/content/shared/webdriver/Errors.jsm:287:5
+webdriverClickElement@chrome://remote/content/marionette/interaction.js:166:11
+interaction.clickElement@chrome://remote/content/marionette/interaction.js:125:11
+clickElement@chrome://remote/content/marionette/actors/MarionetteCommandsChild.jsm:205:29
+receiveMessage@chrome://remote/content/marionette/actors/MarionetteCommandsChild.jsm:93:31
+"
+10.1161/01.cir.95.7.1930,200,True,"Message: Unable to locate element: //i[@class='icon-pdf']
+Stacktrace:
+WebDriverError@chrome://remote/content/shared/webdriver/Errors.jsm:188:5
+NoSuchElementError@chrome://remote/content/shared/webdriver/Errors.jsm:400:5
+element.find/</<@chrome://remote/content/marionette/element.js:292:16
+"
+10.1161/01.cir.94.12.3184,200,True,"Message: Unable to locate element: //i[@class='icon-pdf']
+Stacktrace:
+WebDriverError@chrome://remote/content/shared/webdriver/Errors.jsm:188:5
+NoSuchElementError@chrome://remote/content/shared/webdriver/Errors.jsm:400:5
+element.find/</<@chrome://remote/content/marionette/element.js:292:16
+"
+10.1161/01.cir.94.3.359,200,True,"Message: Unable to locate element: //i[@class='icon-pdf']
+Stacktrace:
+WebDriverError@chrome://remote/content/shared/webdriver/Errors.jsm:188:5
+NoSuchElementError@chrome://remote/content/shared/webdriver/Errors.jsm:400:5
+element.find/</<@chrome://remote/content/marionette/element.js:292:16
+"
+10.1519/1533-4287(2001)015<0309:epaots>2.0.co;2,409,,
+10.1016/s0029-7844(00)01089-9,200,True,"Message: Unable to locate element: //i[@class='icon-pdf']
+Stacktrace:
+WebDriverError@chrome://remote/content/shared/webdriver/Errors.jsm:188:5
+NoSuchElementError@chrome://remote/content/shared/webdriver/Errors.jsm:400:5
+element.find/</<@chrome://remote/content/marionette/element.js:292:16
+"
+10.1519/1533-4287(2003)017<0012:eorbog>2.0.co;2,409,,
+10.1519/11612.1,409,,
+10.1097/ajp.0b013e31828ccd0f,200,,"Message: Element <button class=""primary-button"" type=""button""> is not clickable at point (616,472) because another element <img src=""https://tpc.googlesyndication.com/pagead/imgad?id=CICAgKCX2-nY5AEQARgBMgjUwkoWXw2IlA""> obscures it
+Stacktrace:
+WebDriverError@chrome://remote/content/shared/webdriver/Errors.jsm:188:5
+ElementClickInterceptedError@chrome://remote/content/shared/webdriver/Errors.jsm:287:5
+webdriverClickElement@chrome://remote/content/marionette/interaction.js:166:11
+interaction.clickElement@chrome://remote/content/marionette/interaction.js:125:11
+clickElement@chrome://remote/content/marionette/actors/MarionetteCommandsChild.jsm:205:29
+receiveMessage@chrome://remote/content/marionette/actors/MarionetteCommandsChild.jsm:93:31
+"
+10.1212/wnl.37.7.1217,200,True,"Message: Unable to locate element: //i[@class='icon-pdf']
+Stacktrace:
+WebDriverError@chrome://remote/content/shared/webdriver/Errors.jsm:188:5
+NoSuchElementError@chrome://remote/content/shared/webdriver/Errors.jsm:400:5
+element.find/</<@chrome://remote/content/marionette/element.js:292:16
+"
+10.1519/1533-4287(2003)017<0388:ivomai>2.0.co;2,409,,
+10.1519/1533-4287(2005)19[559:annope]2.0.co;2,409,,
+10.1519/r-15844.1,409,,
+10.1519/1533-4287(2002)016<0500:teocms>2.0.co;2,409,,
+10.1519/1533-4287(2003)017<0549:ioeaon>2.0.co;2,409,,
+10.1519/r-15944.1,409,,
+10.1212/01.wnl.0000090629.40891.4b,200,True,"Message: Unable to locate element: //i[@class='icon-pdf']
+Stacktrace:
+WebDriverError@chrome://remote/content/shared/webdriver/Errors.jsm:188:5
+NoSuchElementError@chrome://remote/content/shared/webdriver/Errors.jsm:400:5
+element.find/</<@chrome://remote/content/marionette/element.js:292:16
+"
+10.1161/circulationaha.115.017119,200,True,"Message: Unable to locate element: //i[@class='icon-pdf']
+Stacktrace:
+WebDriverError@chrome://remote/content/shared/webdriver/Errors.jsm:188:5
+NoSuchElementError@chrome://remote/content/shared/webdriver/Errors.jsm:400:5
+element.find/</<@chrome://remote/content/marionette/element.js:292:16
+"
+10.1161/01.cir.94.7.1567,200,True,"Message: Unable to locate element: //i[@class='icon-pdf']
+Stacktrace:
+WebDriverError@chrome://remote/content/shared/webdriver/Errors.jsm:188:5
+NoSuchElementError@chrome://remote/content/shared/webdriver/Errors.jsm:400:5
+element.find/</<@chrome://remote/content/marionette/element.js:292:16
+"
+10.1519/1533-4287(2003)017<0362:trabfb>2.0.co;2,409,,
+10.1097/00001721-200406000-00005,200,,"Message: Element <button class=""primary-button"" type=""button""> is not clickable at point (616,472) because another element <img src=""https://tpc.googlesyndication.com/pagead/imgad?id=CICAgKCX2-nY5AEQARgBMgjUwkoWXw2IlA""> obscures it
+Stacktrace:
+WebDriverError@chrome://remote/content/shared/webdriver/Errors.jsm:188:5
+ElementClickInterceptedError@chrome://remote/content/shared/webdriver/Errors.jsm:287:5
+webdriverClickElement@chrome://remote/content/marionette/interaction.js:166:11
+interaction.clickElement@chrome://remote/content/marionette/interaction.js:125:11
+clickElement@chrome://remote/content/marionette/actors/MarionetteCommandsChild.jsm:205:29
+receiveMessage@chrome://remote/content/marionette/actors/MarionetteCommandsChild.jsm:93:31
+"
+10.1097/phm.0000000000000935,200,,"Message: Element <button class=""primary-button"" type=""button""> is not clickable at point (616,472) because another element <img src=""https://tpc.googlesyndication.com/pagead/imgad?id=CICAgKCX2-nY5AEQARgBMgjUwkoWXw2IlA""> obscures it
+Stacktrace:
+WebDriverError@chrome://remote/content/shared/webdriver/Errors.jsm:188:5
+ElementClickInterceptedError@chrome://remote/content/shared/webdriver/Errors.jsm:287:5
+webdriverClickElement@chrome://remote/content/marionette/interaction.js:166:11
+interaction.clickElement@chrome://remote/content/marionette/interaction.js:125:11
+clickElement@chrome://remote/content/marionette/actors/MarionetteCommandsChild.jsm:205:29
+receiveMessage@chrome://remote/content/marionette/actors/MarionetteCommandsChild.jsm:93:31
+"
+10.1519/1533-4287(2001)015<0012:macrio>2.0.co;2,409,,
+10.1519/1533-4287(2003)017<0173:ppappo>2.0.co;2,409,,
+10.1097/00008483-198510210-00003,200,True,"Message: Unable to locate element: //i[@class='icon-pdf']
+Stacktrace:
+WebDriverError@chrome://remote/content/shared/webdriver/Errors.jsm:188:5
+NoSuchElementError@chrome://remote/content/shared/webdriver/Errors.jsm:400:5
+element.find/</<@chrome://remote/content/marionette/element.js:292:16
+"
+10.1519/1533-4287(2001)015<0474:peatcm>2.0.co;2,409,,
+10.1519/r-15974.1,409,,
+10.1249/00005768-198820020-00001,200,True,"Message: Unable to locate element: //i[@class='icon-pdf']
+Stacktrace:
+WebDriverError@chrome://remote/content/shared/webdriver/Errors.jsm:188:5
+NoSuchElementError@chrome://remote/content/shared/webdriver/Errors.jsm:400:5
+element.find/</<@chrome://remote/content/marionette/element.js:292:16
+"
+10.1097/00005344-199312002-00004,200,True,"Message: Unable to locate element: //i[@class='icon-pdf']
+Stacktrace:
+WebDriverError@chrome://remote/content/shared/webdriver/Errors.jsm:188:5
+NoSuchElementError@chrome://remote/content/shared/webdriver/Errors.jsm:400:5
+element.find/</<@chrome://remote/content/marionette/element.js:292:16
+"
+10.1161/circulationaha.116.025856,200,True,"Message: Unable to locate element: //i[@class='icon-pdf']
+Stacktrace:
+WebDriverError@chrome://remote/content/shared/webdriver/Errors.jsm:188:5
+NoSuchElementError@chrome://remote/content/shared/webdriver/Errors.jsm:400:5
+element.find/</<@chrome://remote/content/marionette/element.js:292:16
+"
+10.1519/r-19275.1,409,,
+10.1519/1533-4287(2002)016<0451:teorbo>2.0.co;2,409,,
+10.1519/r-18215.1,409,,
+10.1097/00043798-199710000-00009,200,True,"Message: Unable to locate element: //i[@class='icon-pdf']
+Stacktrace:
+WebDriverError@chrome://remote/content/shared/webdriver/Errors.jsm:188:5
+NoSuchElementError@chrome://remote/content/shared/webdriver/Errors.jsm:400:5
+element.find/</<@chrome://remote/content/marionette/element.js:292:16
+"
+10.1519/1533-4287(2002)016<0242:mcoadb>2.0.co;2,409,,
+10.1097/psy.0000000000000301,200,,"Message: Element <button class=""primary-button"" type=""button""> is not clickable at point (616,472) because another element <img src=""https://tpc.googlesyndication.com/pagead/imgad?id=CICAgKCX2-nY5AEQARgBMgjUwkoWXw2IlA""> obscures it
+Stacktrace:
+WebDriverError@chrome://remote/content/shared/webdriver/Errors.jsm:188:5
+ElementClickInterceptedError@chrome://remote/content/shared/webdriver/Errors.jsm:287:5
+webdriverClickElement@chrome://remote/content/marionette/interaction.js:166:11
+interaction.clickElement@chrome://remote/content/marionette/interaction.js:125:11
+clickElement@chrome://remote/content/marionette/actors/MarionetteCommandsChild.jsm:205:29
+receiveMessage@chrome://remote/content/marionette/actors/MarionetteCommandsChild.jsm:93:31
+"
+10.1097/phm.0b013e3181cf5623,200,,"Message: Element <button class=""primary-button"" type=""button""> is not clickable at point (616,472) because another element <img src=""https://tpc.googlesyndication.com/pagead/imgad?id=CICAgKCX2-nY5AEQARgBMgjUwkoWXw2IlA""> obscures it
+Stacktrace:
+WebDriverError@chrome://remote/content/shared/webdriver/Errors.jsm:188:5
+ElementClickInterceptedError@chrome://remote/content/shared/webdriver/Errors.jsm:287:5
+webdriverClickElement@chrome://remote/content/marionette/interaction.js:166:11
+interaction.clickElement@chrome://remote/content/marionette/interaction.js:125:11
+clickElement@chrome://remote/content/marionette/actors/MarionetteCommandsChild.jsm:205:29
+receiveMessage@chrome://remote/content/marionette/actors/MarionetteCommandsChild.jsm:93:31
+"
+10.1161/01.res.79.3.381,200,True,"Message: Unable to locate element: //i[@class='icon-pdf']
+Stacktrace:
+WebDriverError@chrome://remote/content/shared/webdriver/Errors.jsm:188:5
+NoSuchElementError@chrome://remote/content/shared/webdriver/Errors.jsm:400:5
+element.find/</<@chrome://remote/content/marionette/element.js:292:16
+"
+10.1097/phm.0000000000001534,200,,"Message: Element <button class=""primary-button"" type=""button""> is not clickable at point (616,472) because another element <img src=""https://tpc.googlesyndication.com/pagead/imgad?id=CICAgKCX2-nY5AEQARgBMgjUwkoWXw2IlA""> obscures it
+Stacktrace:
+WebDriverError@chrome://remote/content/shared/webdriver/Errors.jsm:188:5
+ElementClickInterceptedError@chrome://remote/content/shared/webdriver/Errors.jsm:287:5
+webdriverClickElement@chrome://remote/content/marionette/interaction.js:166:11
+interaction.clickElement@chrome://remote/content/marionette/interaction.js:125:11
+clickElement@chrome://remote/content/marionette/actors/MarionetteCommandsChild.jsm:205:29
+receiveMessage@chrome://remote/content/marionette/actors/MarionetteCommandsChild.jsm:93:31
+"
+10.1212/wnl.62.1.82,200,True,"Message: Unable to locate element: //i[@class='icon-pdf']
+Stacktrace:
+WebDriverError@chrome://remote/content/shared/webdriver/Errors.jsm:188:5
+NoSuchElementError@chrome://remote/content/shared/webdriver/Errors.jsm:400:5
+element.find/</<@chrome://remote/content/marionette/element.js:292:16
+"
+10.1519/r-22396.1,409,,
+10.1519/ssc.0000000000000569,200,,"Message: Element <button class=""primary-button"" type=""button""> is not clickable at point (616,472) because another element <img src=""https://tpc.googlesyndication.com/pagead/imgad?id=CICAgKCX2-nY5AEQARgBMgjUwkoWXw2IlA""> obscures it
+Stacktrace:
+WebDriverError@chrome://remote/content/shared/webdriver/Errors.jsm:188:5
+ElementClickInterceptedError@chrome://remote/content/shared/webdriver/Errors.jsm:287:5
+webdriverClickElement@chrome://remote/content/marionette/interaction.js:166:11
+interaction.clickElement@chrome://remote/content/marionette/interaction.js:125:11
+clickElement@chrome://remote/content/marionette/actors/MarionetteCommandsChild.jsm:205:29
+receiveMessage@chrome://remote/content/marionette/actors/MarionetteCommandsChild.jsm:93:31
+"
+10.1519/1533-4287(2002)016<0567:nccoas>2.0.co;2,409,,
+10.1212/wnl.30.11.1242,200,True,"Message: Unable to locate element: //i[@class='icon-pdf']
+Stacktrace:
+WebDriverError@chrome://remote/content/shared/webdriver/Errors.jsm:188:5
+NoSuchElementError@chrome://remote/content/shared/webdriver/Errors.jsm:400:5
+element.find/</<@chrome://remote/content/marionette/element.js:292:16
+"
+10.1161/01.cir.92.9.216,200,True,"Message: Unable to locate element: //i[@class='icon-pdf']
+Stacktrace:
+WebDriverError@chrome://remote/content/shared/webdriver/Errors.jsm:188:5
+NoSuchElementError@chrome://remote/content/shared/webdriver/Errors.jsm:400:5
+element.find/</<@chrome://remote/content/marionette/element.js:292:16
+"
+10.1161/01.cir.91.6.1719,200,True,"Message: Unable to locate element: //i[@class='icon-pdf']
+Stacktrace:
+WebDriverError@chrome://remote/content/shared/webdriver/Errors.jsm:188:5
+NoSuchElementError@chrome://remote/content/shared/webdriver/Errors.jsm:400:5
+element.find/</<@chrome://remote/content/marionette/element.js:292:16
+"
+10.1519/r-16334.1,409,,
+10.1519/r-14353.1,409,,
+10.1519/r-18345.1,409,,
+10.1161/01.cir.91.6.1775,200,True,"Message: Unable to locate element: //i[@class='icon-pdf']
+Stacktrace:
+WebDriverError@chrome://remote/content/shared/webdriver/Errors.jsm:188:5
+NoSuchElementError@chrome://remote/content/shared/webdriver/Errors.jsm:400:5
+element.find/</<@chrome://remote/content/marionette/element.js:292:16
+"
+10.1519/r-16534.1,409,,
+10.1097/00005344-199117041-00013,200,True,"Message: Unable to locate element: //i[@class='icon-pdf']
+Stacktrace:
+WebDriverError@chrome://remote/content/shared/webdriver/Errors.jsm:188:5
+NoSuchElementError@chrome://remote/content/shared/webdriver/Errors.jsm:400:5
+element.find/</<@chrome://remote/content/marionette/element.js:292:16
+"
+10.1249/mss.0000000000002041,200,True,
+10.1519/r-18235.1,409,,
+10.1519/r-14984.1,409,,
+10.1519/r-20245.1,409,,
+10.1519/r-21896.1,409,,
+10.1097/00008483-198511200-00006,200,True,"Message: Unable to locate element: //i[@class='icon-pdf']
+Stacktrace:
+WebDriverError@chrome://remote/content/shared/webdriver/Errors.jsm:188:5
+NoSuchElementError@chrome://remote/content/shared/webdriver/Errors.jsm:400:5
+element.find/</<@chrome://remote/content/marionette/element.js:292:16
+"
+10.1519/r-20676.1,409,,
+10.1519/1533-4287(2001)015<0420:eomapo>2.0.co;2,409,,
+10.1161/01.cir.94.10.2492,200,True,"Message: Unable to locate element: //i[@class='icon-pdf']
+Stacktrace:
+WebDriverError@chrome://remote/content/shared/webdriver/Errors.jsm:188:5
+NoSuchElementError@chrome://remote/content/shared/webdriver/Errors.jsm:400:5
+element.find/</<@chrome://remote/content/marionette/element.js:292:16
+"
+10.1519/r-18525.1,409,,
+10.1097/phm.0000000000001618,200,,"Message: Element <button class=""primary-button"" type=""button""> is not clickable at point (616,472) because another element <img src=""https://tpc.googlesyndication.com/pagead/imgad?id=CICAgKCX2-nY5AEQARgBMgjUwkoWXw2IlA""> obscures it
+Stacktrace:
+WebDriverError@chrome://remote/content/shared/webdriver/Errors.jsm:188:5
+ElementClickInterceptedError@chrome://remote/content/shared/webdriver/Errors.jsm:287:5
+webdriverClickElement@chrome://remote/content/marionette/interaction.js:166:11
+interaction.clickElement@chrome://remote/content/marionette/interaction.js:125:11
+clickElement@chrome://remote/content/marionette/actors/MarionetteCommandsChild.jsm:205:29
+receiveMessage@chrome://remote/content/marionette/actors/MarionetteCommandsChild.jsm:93:31
+"
+10.1097/hjh.0b013e3283588d46,200,,"Message: Element <button class=""primary-button"" type=""button""> is not clickable at point (616,472) because another element <img src=""https://tpc.googlesyndication.com/pagead/imgad?id=CICAgKCX2-nY5AEQARgBMgjUwkoWXw2IlA""> obscures it
+Stacktrace:
+WebDriverError@chrome://remote/content/shared/webdriver/Errors.jsm:188:5
+ElementClickInterceptedError@chrome://remote/content/shared/webdriver/Errors.jsm:287:5
+webdriverClickElement@chrome://remote/content/marionette/interaction.js:166:11
+interaction.clickElement@chrome://remote/content/marionette/interaction.js:125:11
+clickElement@chrome://remote/content/marionette/actors/MarionetteCommandsChild.jsm:205:29
+receiveMessage@chrome://remote/content/marionette/actors/MarionetteCommandsChild.jsm:93:31
+"
+10.1519/r-16094.1,409,,
+10.1519/r-19325.1,409,,
+10.1097/00000542-200112000-00019,200,True,"Message: Unable to locate element: //i[@class='icon-pdf']
+Stacktrace:
+WebDriverError@chrome://remote/content/shared/webdriver/Errors.jsm:188:5
+NoSuchElementError@chrome://remote/content/shared/webdriver/Errors.jsm:400:5
+element.find/</<@chrome://remote/content/marionette/element.js:292:16
+"
+10.1519/r-17465.1,409,,
+10.1097/01.phm.0000166883.97562.cd,200,,"Message: Element <button class=""primary-button"" type=""button""> is not clickable at point (616,472) because another element <img src=""https://tpc.googlesyndication.com/pagead/imgad?id=CICAgKCX2-nY5AEQARgBMgjUwkoWXw2IlA""> obscures it
+Stacktrace:
+WebDriverError@chrome://remote/content/shared/webdriver/Errors.jsm:188:5
+ElementClickInterceptedError@chrome://remote/content/shared/webdriver/Errors.jsm:287:5
+webdriverClickElement@chrome://remote/content/marionette/interaction.js:166:11
+interaction.clickElement@chrome://remote/content/marionette/interaction.js:125:11
+clickElement@chrome://remote/content/marionette/actors/MarionetteCommandsChild.jsm:205:29
+receiveMessage@chrome://remote/content/marionette/actors/MarionetteCommandsChild.jsm:93:31
+"
+10.1519/1533-4287(2003)017<0060:iireaw>2.0.co;2,409,,
+10.1519/14713.1,409,,
+10.1519/r-19725.1,409,,
+10.1161/01.cir.94.12.3176,200,True,"Message: Unable to locate element: //i[@class='icon-pdf']
+Stacktrace:
+WebDriverError@chrome://remote/content/shared/webdriver/Errors.jsm:188:5
+NoSuchElementError@chrome://remote/content/shared/webdriver/Errors.jsm:400:5
+element.find/</<@chrome://remote/content/marionette/element.js:292:16
+"
+10.1519/r-16804.1,409,,
+10.1097/mjt.0000000000000166,200,,"Message: Element <button class=""primary-button"" type=""button""> is not clickable at point (616,472) because another element <img src=""https://tpc.googlesyndication.com/pagead/imgad?id=CICAgKCX2-nY5AEQARgBMgjUwkoWXw2IlA""> obscures it
+Stacktrace:
+WebDriverError@chrome://remote/content/shared/webdriver/Errors.jsm:188:5
+ElementClickInterceptedError@chrome://remote/content/shared/webdriver/Errors.jsm:287:5
+webdriverClickElement@chrome://remote/content/marionette/interaction.js:166:11
+interaction.clickElement@chrome://remote/content/marionette/interaction.js:125:11
+clickElement@chrome://remote/content/marionette/actors/MarionetteCommandsChild.jsm:205:29
+receiveMessage@chrome://remote/content/marionette/actors/MarionetteCommandsChild.jsm:93:31
+"
+10.1519/r-20636.1,409,,
+10.1519/r-16394.1,409,,
+10.1097/hjh.0b013e32834f41b1,200,,"Message: Element <button class=""primary-button"" type=""button""> is not clickable at point (616,472) because another element <img src=""https://tpc.googlesyndication.com/pagead/imgad?id=CICAgKCX2-nY5AEQARgBMgjUwkoWXw2IlA""> obscures it
+Stacktrace:
+WebDriverError@chrome://remote/content/shared/webdriver/Errors.jsm:188:5
+ElementClickInterceptedError@chrome://remote/content/shared/webdriver/Errors.jsm:287:5
+webdriverClickElement@chrome://remote/content/marionette/interaction.js:166:11
+interaction.clickElement@chrome://remote/content/marionette/interaction.js:125:11
+clickElement@chrome://remote/content/marionette/actors/MarionetteCommandsChild.jsm:205:29
+receiveMessage@chrome://remote/content/marionette/actors/MarionetteCommandsChild.jsm:93:31
+"
+10.1097/00000542-198709000-00005,200,True,"Message: Unable to locate element: //i[@class='icon-pdf']
+Stacktrace:
+WebDriverError@chrome://remote/content/shared/webdriver/Errors.jsm:188:5
+NoSuchElementError@chrome://remote/content/shared/webdriver/Errors.jsm:400:5
+element.find/</<@chrome://remote/content/marionette/element.js:292:16
+"
+10.1519/1533-4287(2003)017<0599:fcotos>2.0.co;2,409,,
+10.1519/jsc.0000000000003071,200,,"Message: Unable to locate element: //a[contains(text(), 'Predicting V[Combining Dot Above]O2max From Treadmill Performance in American-Style Football Athletes')]
+Stacktrace:
+WebDriverError@chrome://remote/content/shared/webdriver/Errors.jsm:188:5
+NoSuchElementError@chrome://remote/content/shared/webdriver/Errors.jsm:400:5
+element.find/</<@chrome://remote/content/marionette/element.js:292:16
+"
+10.1097/aia.0000000000000306,200,,"Message: Element <button class=""primary-button"" type=""button""> is not clickable at point (616,472) because another element <img src=""https://tpc.googlesyndication.com/pagead/imgad?id=CICAgKCX2-nY5AEQARgBMgjUwkoWXw2IlA""> obscures it
+Stacktrace:
+WebDriverError@chrome://remote/content/shared/webdriver/Errors.jsm:188:5
+ElementClickInterceptedError@chrome://remote/content/shared/webdriver/Errors.jsm:287:5
+webdriverClickElement@chrome://remote/content/marionette/interaction.js:166:11
+interaction.clickElement@chrome://remote/content/marionette/interaction.js:125:11
+clickElement@chrome://remote/content/marionette/actors/MarionetteCommandsChild.jsm:205:29
+receiveMessage@chrome://remote/content/marionette/actors/MarionetteCommandsChild.jsm:93:31
+"
+10.1249/00005768-198820020-00011,200,True,"Message: Unable to locate element: //i[@class='icon-pdf']
+Stacktrace:
+WebDriverError@chrome://remote/content/shared/webdriver/Errors.jsm:188:5
+NoSuchElementError@chrome://remote/content/shared/webdriver/Errors.jsm:400:5
+element.find/</<@chrome://remote/content/marionette/element.js:292:16
+"
+10.1097/hjh.0000000000002125,200,,"Message: Element <button class=""primary-button"" type=""button""> is not clickable at point (616,472) because another element <img src=""https://tpc.googlesyndication.com/pagead/imgad?id=CICAgKCX2-nY5AEQARgBMgjUwkoWXw2IlA""> obscures it
+Stacktrace:
+WebDriverError@chrome://remote/content/shared/webdriver/Errors.jsm:188:5
+ElementClickInterceptedError@chrome://remote/content/shared/webdriver/Errors.jsm:287:5
+webdriverClickElement@chrome://remote/content/marionette/interaction.js:166:11
+interaction.clickElement@chrome://remote/content/marionette/interaction.js:125:11
+clickElement@chrome://remote/content/marionette/actors/MarionetteCommandsChild.jsm:205:29
+receiveMessage@chrome://remote/content/marionette/actors/MarionetteCommandsChild.jsm:93:31
+"
+10.1249/00005768-198820020-00002,200,True,"Message: Unable to locate element: //i[@class='icon-pdf']
+Stacktrace:
+WebDriverError@chrome://remote/content/shared/webdriver/Errors.jsm:188:5
+NoSuchElementError@chrome://remote/content/shared/webdriver/Errors.jsm:400:5
+element.find/</<@chrome://remote/content/marionette/element.js:292:16
+"
+10.1519/15964.1,409,,
+10.1096/fj.201801754rr,503,,
+10.1519/r-16744.1,409,,
+10.1519/14183.1,409,,
+10.1519/r-22106.1,409,,
+10.1161/01.cir.91.2.320,200,True,"Message: Unable to locate element: //i[@class='icon-pdf']
+Stacktrace:
+WebDriverError@chrome://remote/content/shared/webdriver/Errors.jsm:188:5
+NoSuchElementError@chrome://remote/content/shared/webdriver/Errors.jsm:400:5
+element.find/</<@chrome://remote/content/marionette/element.js:292:16
+"
+10.1161/01.cir.91.2.580,200,True,"Message: Unable to locate element: //i[@class='icon-pdf']
+Stacktrace:
+WebDriverError@chrome://remote/content/shared/webdriver/Errors.jsm:188:5
+NoSuchElementError@chrome://remote/content/shared/webdriver/Errors.jsm:400:5
+element.find/</<@chrome://remote/content/marionette/element.js:292:16
+"
+10.1519/1533-4287(2003)017<0307:eoseal>2.0.co;2,409,,
+10.1097/phm.0b013e31821f6e32,200,,"Message: Element <button class=""primary-button"" type=""button""> is not clickable at point (616,472) because another element <img src=""https://tpc.googlesyndication.com/pagead/imgad?id=CICAgKCX2-nY5AEQARgBMgjUwkoWXw2IlA""> obscures it
+Stacktrace:
+WebDriverError@chrome://remote/content/shared/webdriver/Errors.jsm:188:5
+ElementClickInterceptedError@chrome://remote/content/shared/webdriver/Errors.jsm:287:5
+webdriverClickElement@chrome://remote/content/marionette/interaction.js:166:11
+interaction.clickElement@chrome://remote/content/marionette/interaction.js:125:11
+clickElement@chrome://remote/content/marionette/actors/MarionetteCommandsChild.jsm:205:29
+receiveMessage@chrome://remote/content/marionette/actors/MarionetteCommandsChild.jsm:93:31
+"
+10.1212/wnl.49.3.837,200,True,"Message: Unable to locate element: //i[@class='icon-pdf']
+Stacktrace:
+WebDriverError@chrome://remote/content/shared/webdriver/Errors.jsm:188:5
+NoSuchElementError@chrome://remote/content/shared/webdriver/Errors.jsm:400:5
+element.find/</<@chrome://remote/content/marionette/element.js:292:16
+"
+10.1519/1533-4287(2002)016<0152:eoasnb>2.0.co;2,409,,
+10.1519/15144.1,409,,
+10.1519/r-22666.1,409,,
+10.1519/15444.1,409,,
+10.1519/1533-4287(2000)014<0062:voftfe>2.0.co;2,409,,
+10.1097/phm.0b013e31815b2738,200,,"Message: Element <button class=""primary-button"" type=""button""> is not clickable at point (616,472) because another element <img src=""https://tpc.googlesyndication.com/pagead/imgad?id=CICAgKCX2-nY5AEQARgBMgjUwkoWXw2IlA""> obscures it
+Stacktrace:
+WebDriverError@chrome://remote/content/shared/webdriver/Errors.jsm:188:5
+ElementClickInterceptedError@chrome://remote/content/shared/webdriver/Errors.jsm:287:5
+webdriverClickElement@chrome://remote/content/marionette/interaction.js:166:11
+interaction.clickElement@chrome://remote/content/marionette/interaction.js:125:11
+clickElement@chrome://remote/content/marionette/actors/MarionetteCommandsChild.jsm:205:29
+receiveMessage@chrome://remote/content/marionette/actors/MarionetteCommandsChild.jsm:93:31
+"
+10.1519/r-18065.1,409,,
+10.1519/1533-4287(2002)016<0491:eoiaop>2.0.co;2,409,,
+10.1519/r-18881.1,409,,
+10.1097/hjh.0000000000002581,200,,"Message: Element <button class=""primary-button"" type=""button""> is not clickable at point (616,472) because another element <img src=""https://tpc.googlesyndication.com/pagead/imgad?id=CICAgKCX2-nY5AEQARgBMgjUwkoWXw2IlA""> obscures it
+Stacktrace:
+WebDriverError@chrome://remote/content/shared/webdriver/Errors.jsm:188:5
+ElementClickInterceptedError@chrome://remote/content/shared/webdriver/Errors.jsm:287:5
+webdriverClickElement@chrome://remote/content/marionette/interaction.js:166:11
+interaction.clickElement@chrome://remote/content/marionette/interaction.js:125:11
+clickElement@chrome://remote/content/marionette/actors/MarionetteCommandsChild.jsm:205:29
+receiveMessage@chrome://remote/content/marionette/actors/MarionetteCommandsChild.jsm:93:31
+"
+10.1097/phm.0b013e318269d9bb,200,,"Message: Element <button class=""primary-button"" type=""button""> is not clickable at point (616,472) because another element <img src=""https://tpc.googlesyndication.com/pagead/imgad?id=CICAgKCX2-nY5AEQARgBMgjUwkoWXw2IlA""> obscures it
+Stacktrace:
+WebDriverError@chrome://remote/content/shared/webdriver/Errors.jsm:188:5
+ElementClickInterceptedError@chrome://remote/content/shared/webdriver/Errors.jsm:287:5
+webdriverClickElement@chrome://remote/content/marionette/interaction.js:166:11
+interaction.clickElement@chrome://remote/content/marionette/interaction.js:125:11
+clickElement@chrome://remote/content/marionette/actors/MarionetteCommandsChild.jsm:205:29
+receiveMessage@chrome://remote/content/marionette/actors/MarionetteCommandsChild.jsm:93:31
+"
+10.1519/r-20045.1,409,,
+10.1097/phm.0b013e3182465f5f,200,,"Message: Element <button class=""primary-button"" type=""button""> is not clickable at point (616,472) because another element <img src=""https://tpc.googlesyndication.com/pagead/imgad?id=CICAgKCX2-nY5AEQARgBMgjUwkoWXw2IlA""> obscures it
+Stacktrace:
+WebDriverError@chrome://remote/content/shared/webdriver/Errors.jsm:188:5
+ElementClickInterceptedError@chrome://remote/content/shared/webdriver/Errors.jsm:287:5
+webdriverClickElement@chrome://remote/content/marionette/interaction.js:166:11
+interaction.clickElement@chrome://remote/content/marionette/interaction.js:125:11
+clickElement@chrome://remote/content/marionette/actors/MarionetteCommandsChild.jsm:205:29
+receiveMessage@chrome://remote/content/marionette/actors/MarionetteCommandsChild.jsm:93:31
+"
+10.1519/r-16724.1,409,,
+10.1161/01.cir.102.suppl_3.iii-154,404,,
+10.1519/1533-4287(2004)18<463:peococ>2.0.co;2,409,,
+10.1097/00043798-200212000-00013,200,True,"Message: Unable to locate element: //i[@class='icon-pdf']
+Stacktrace:
+WebDriverError@chrome://remote/content/shared/webdriver/Errors.jsm:188:5
+NoSuchElementError@chrome://remote/content/shared/webdriver/Errors.jsm:400:5
+element.find/</<@chrome://remote/content/marionette/element.js:292:16
+"
+10.1097/phm.0000000000001874,200,,"Message: Element <button class=""primary-button"" type=""button""> is not clickable at point (616,472) because another element <img src=""https://tpc.googlesyndication.com/pagead/imgad?id=CICAgKCX2-nY5AEQARgBMgjUwkoWXw2IlA""> obscures it
+Stacktrace:
+WebDriverError@chrome://remote/content/shared/webdriver/Errors.jsm:188:5
+ElementClickInterceptedError@chrome://remote/content/shared/webdriver/Errors.jsm:287:5
+webdriverClickElement@chrome://remote/content/marionette/interaction.js:166:11
+interaction.clickElement@chrome://remote/content/marionette/interaction.js:125:11
+clickElement@chrome://remote/content/marionette/actors/MarionetteCommandsChild.jsm:205:29
+receiveMessage@chrome://remote/content/marionette/actors/MarionetteCommandsChild.jsm:93:31
+"
+10.1161/01.cir.92.10.2886,200,True,"Message: Unable to locate element: //i[@class='icon-pdf']
+Stacktrace:
+WebDriverError@chrome://remote/content/shared/webdriver/Errors.jsm:188:5
+NoSuchElementError@chrome://remote/content/shared/webdriver/Errors.jsm:400:5
+element.find/</<@chrome://remote/content/marionette/element.js:292:16
+"
+10.1519/ssc.0000000000000542,200,,"Message: Element <button class=""primary-button"" type=""button""> is not clickable at point (616,472) because another element <img src=""https://tpc.googlesyndication.com/pagead/imgad?id=CICAgKCX2-nY5AEQARgBMgjUwkoWXw2IlA""> obscures it
+Stacktrace:
+WebDriverError@chrome://remote/content/shared/webdriver/Errors.jsm:188:5
+ElementClickInterceptedError@chrome://remote/content/shared/webdriver/Errors.jsm:287:5
+webdriverClickElement@chrome://remote/content/marionette/interaction.js:166:11
+interaction.clickElement@chrome://remote/content/marionette/interaction.js:125:11
+clickElement@chrome://remote/content/marionette/actors/MarionetteCommandsChild.jsm:205:29
+receiveMessage@chrome://remote/content/marionette/actors/MarionetteCommandsChild.jsm:93:31
+"
+10.1519/13042.1,409,,
+10.1519/r-18705.1,409,,
+10.1519/1533-4287(2002)016<0623:trbsbl>2.0.co;2,409,,
+10.1097/01.phm.0000124438.04443.de,200,,"Message: Element <button class=""primary-button"" type=""button""> is not clickable at point (616,472) because another element <img src=""https://tpc.googlesyndication.com/pagead/imgad?id=CICAgKCX2-nY5AEQARgBMgjUwkoWXw2IlA""> obscures it
+Stacktrace:
+WebDriverError@chrome://remote/content/shared/webdriver/Errors.jsm:188:5
+ElementClickInterceptedError@chrome://remote/content/shared/webdriver/Errors.jsm:287:5
+webdriverClickElement@chrome://remote/content/marionette/interaction.js:166:11
+interaction.clickElement@chrome://remote/content/marionette/interaction.js:125:11
+clickElement@chrome://remote/content/marionette/actors/MarionetteCommandsChild.jsm:205:29
+receiveMessage@chrome://remote/content/marionette/actors/MarionetteCommandsChild.jsm:93:31
+"
+10.1097/00004694-199905000-00015,200,True,"Message: Unable to locate element: //i[@class='icon-pdf']
+Stacktrace:
+WebDriverError@chrome://remote/content/shared/webdriver/Errors.jsm:188:5
+NoSuchElementError@chrome://remote/content/shared/webdriver/Errors.jsm:400:5
+element.find/</<@chrome://remote/content/marionette/element.js:292:16
+"
+10.1519/1533-4287(2003)017<0314:pcorww>2.0.co;2,409,,
+10.1161/01.cir.91.12.2924,200,True,"Message: Unable to locate element: //i[@class='icon-pdf']
+Stacktrace:
+WebDriverError@chrome://remote/content/shared/webdriver/Errors.jsm:188:5
+NoSuchElementError@chrome://remote/content/shared/webdriver/Errors.jsm:400:5
+element.find/</<@chrome://remote/content/marionette/element.js:292:16
+"
+10.1519/1533-4287(2002)016<0184:teoakr>2.0.co;2,409,,
+10.1519/1533-4287(2002)016<0038:haalti>2.0.co;2,409,,
+10.1097/00043798-199810000-00004,200,True,"Message: Unable to locate element: //i[@class='icon-pdf']
+Stacktrace:
+WebDriverError@chrome://remote/content/shared/webdriver/Errors.jsm:188:5
+NoSuchElementError@chrome://remote/content/shared/webdriver/Errors.jsm:400:5
+element.find/</<@chrome://remote/content/marionette/element.js:292:16
+"
+10.1161/01.cir.94.6.1475,200,True,"Message: Unable to locate element: //i[@class='icon-pdf']
+Stacktrace:
+WebDriverError@chrome://remote/content/shared/webdriver/Errors.jsm:188:5
+NoSuchElementError@chrome://remote/content/shared/webdriver/Errors.jsm:400:5
+element.find/</<@chrome://remote/content/marionette/element.js:292:16
+"
+10.1519/r-21176.1,409,,
+10.1519/1533-4287(2002)016<0286:eoeate>2.0.co;2,409,,
+10.1519/1533-4287(2002)016<0641:aotaot>2.0.co;2,409,,
+10.1519/1533-4287(2002)016<0573:trothr>2.0.co;2,409,,
+10.1212/wnl.58.7.1088,200,True,"Message: Unable to locate element: //i[@class='icon-pdf']
+Stacktrace:
+WebDriverError@chrome://remote/content/shared/webdriver/Errors.jsm:188:5
+NoSuchElementError@chrome://remote/content/shared/webdriver/Errors.jsm:400:5
+element.find/</<@chrome://remote/content/marionette/element.js:292:16
+"
+10.1212/wnl.42.6.1203,200,True,"Message: Unable to locate element: //i[@class='icon-pdf']
+Stacktrace:
+WebDriverError@chrome://remote/content/shared/webdriver/Errors.jsm:188:5
+NoSuchElementError@chrome://remote/content/shared/webdriver/Errors.jsm:400:5
+element.find/</<@chrome://remote/content/marionette/element.js:292:16
+"
+10.1097/phm.0000000000000603,200,,"Message: Element <button class=""primary-button"" type=""button""> is not clickable at point (616,472) because another element <img src=""https://tpc.googlesyndication.com/pagead/imgad?id=CICAgKCX2-nY5AEQARgBMgjUwkoWXw2IlA""> obscures it
+Stacktrace:
+WebDriverError@chrome://remote/content/shared/webdriver/Errors.jsm:188:5
+ElementClickInterceptedError@chrome://remote/content/shared/webdriver/Errors.jsm:287:5
+webdriverClickElement@chrome://remote/content/marionette/interaction.js:166:11
+interaction.clickElement@chrome://remote/content/marionette/interaction.js:125:11
+clickElement@chrome://remote/content/marionette/actors/MarionetteCommandsChild.jsm:205:29
+receiveMessage@chrome://remote/content/marionette/actors/MarionetteCommandsChild.jsm:93:31
+"
+10.1519/r-18335.1,409,,
+10.1519/r-22606.1,409,,
+10.1161/01.cir.96.1.238,200,True,"Message: Unable to locate element: //i[@class='icon-pdf']
+Stacktrace:
+WebDriverError@chrome://remote/content/shared/webdriver/Errors.jsm:188:5
+NoSuchElementError@chrome://remote/content/shared/webdriver/Errors.jsm:400:5
+element.find/</<@chrome://remote/content/marionette/element.js:292:16
+"
+10.1097/00008483-198511000-00002,200,True,"Message: Unable to locate element: //i[@class='icon-pdf']
+Stacktrace:
+WebDriverError@chrome://remote/content/shared/webdriver/Errors.jsm:188:5
+NoSuchElementError@chrome://remote/content/shared/webdriver/Errors.jsm:400:5
+element.find/</<@chrome://remote/content/marionette/element.js:292:16
+"
+10.1519/1533-4287(2004)18<522:teossb>2.0.co;2,409,,
+10.1097/hjh.0000000000001752,200,,"Message: Element <button class=""primary-button"" type=""button""> is not clickable at point (616,472) because another element <img src=""https://tpc.googlesyndication.com/pagead/imgad?id=CICAgKCX2-nY5AEQARgBMgjUwkoWXw2IlA""> obscures it
+Stacktrace:
+WebDriverError@chrome://remote/content/shared/webdriver/Errors.jsm:188:5
+ElementClickInterceptedError@chrome://remote/content/shared/webdriver/Errors.jsm:287:5
+webdriverClickElement@chrome://remote/content/marionette/interaction.js:166:11
+interaction.clickElement@chrome://remote/content/marionette/interaction.js:125:11
+clickElement@chrome://remote/content/marionette/actors/MarionetteCommandsChild.jsm:205:29
+receiveMessage@chrome://remote/content/marionette/actors/MarionetteCommandsChild.jsm:93:31
+"
+10.1519/r-20376.1,409,,
+10.1519/r-18275.1,409,,
+10.1519/r-20326.1,409,,
+10.1519/13723.1,409,,
+10.1097/coc.0000000000000422,200,,"Message: Element <button class=""primary-button"" type=""button""> is not clickable at point (616,472) because another element <img src=""https://tpc.googlesyndication.com/pagead/imgad?id=CICAgKCX2-nY5AEQARgBMgjUwkoWXw2IlA""> obscures it
+Stacktrace:
+WebDriverError@chrome://remote/content/shared/webdriver/Errors.jsm:188:5
+ElementClickInterceptedError@chrome://remote/content/shared/webdriver/Errors.jsm:287:5
+webdriverClickElement@chrome://remote/content/marionette/interaction.js:166:11
+interaction.clickElement@chrome://remote/content/marionette/interaction.js:125:11
+clickElement@chrome://remote/content/marionette/actors/MarionetteCommandsChild.jsm:205:29
+receiveMessage@chrome://remote/content/marionette/actors/MarionetteCommandsChild.jsm:93:31
+"
+10.1519/1533-4287(2001)015<0341:nsdnac>2.0.co;2,409,,
+10.1161/01.cir.94.4.755,200,True,"Message: Unable to locate element: //i[@class='icon-pdf']
+Stacktrace:
+WebDriverError@chrome://remote/content/shared/webdriver/Errors.jsm:188:5
+NoSuchElementError@chrome://remote/content/shared/webdriver/Errors.jsm:400:5
+element.find/</<@chrome://remote/content/marionette/element.js:292:16
+"
+10.1212/01.wnl.0000341274.61236.02,200,True,"Message: Unable to locate element: //i[@class='icon-pdf']
+Stacktrace:
+WebDriverError@chrome://remote/content/shared/webdriver/Errors.jsm:188:5
+NoSuchElementError@chrome://remote/content/shared/webdriver/Errors.jsm:400:5
+element.find/</<@chrome://remote/content/marionette/element.js:292:16
+"
+10.1519/1533-4287(2003)017<0020:teolci>2.0.co;2,409,,
+10.1519/14823.1,409,,
+10.1519/1533-4287(2002)016<0050:taweot>2.0.co;2,409,,
+10.1519/r-17525.1,409,,
+10.1097/00008483-198507000-00002,200,True,"Message: Unable to locate element: //i[@class='icon-pdf']
+Stacktrace:
+WebDriverError@chrome://remote/content/shared/webdriver/Errors.jsm:188:5
+NoSuchElementError@chrome://remote/content/shared/webdriver/Errors.jsm:400:5
+element.find/</<@chrome://remote/content/marionette/element.js:292:16
+"
+10.1161/01.hyp.26.6.1129,200,True,"Message: Unable to locate element: //i[@class='icon-pdf']
+Stacktrace:
+WebDriverError@chrome://remote/content/shared/webdriver/Errors.jsm:188:5
+NoSuchElementError@chrome://remote/content/shared/webdriver/Errors.jsm:400:5
+element.find/</<@chrome://remote/content/marionette/element.js:292:16
+"
+10.1519/r-17124.1,409,,
+10.1519/14523.1,409,,
+10.1519/r-19905.1,409,,
+10.1161/01.cir.92.1.47,200,True,"Message: Unable to locate element: //i[@class='icon-pdf']
+Stacktrace:
+WebDriverError@chrome://remote/content/shared/webdriver/Errors.jsm:188:5
+NoSuchElementError@chrome://remote/content/shared/webdriver/Errors.jsm:400:5
+element.find/</<@chrome://remote/content/marionette/element.js:292:16
+"
+10.1161/01.cir.95.8.2060,200,True,"Message: Unable to locate element: //i[@class='icon-pdf']
+Stacktrace:
+WebDriverError@chrome://remote/content/shared/webdriver/Errors.jsm:188:5
+NoSuchElementError@chrome://remote/content/shared/webdriver/Errors.jsm:400:5
+element.find/</<@chrome://remote/content/marionette/element.js:292:16
+"
+10.1519/1533-4287(2003)017<0319:eoccbc>2.0.co;2,409,,
+10.1519/r-14543.1,409,,
+10.1519/r-13513.1,409,,
+10.1519/jsc.0000000000004019,200,True,
+10.1519/r-19095.1,409,,
+10.1519/1533-4287(2003)017<0785:eostup>2.0.co;2,409,,
+10.1212/wnl.33.10.1283,200,True,"Message: Unable to locate element: //i[@class='icon-pdf']
+Stacktrace:
+WebDriverError@chrome://remote/content/shared/webdriver/Errors.jsm:188:5
+NoSuchElementError@chrome://remote/content/shared/webdriver/Errors.jsm:400:5
+element.find/</<@chrome://remote/content/marionette/element.js:292:16
+"
+10.1519/r-19545.1,409,,
+10.1097/00004630-198907000-00009,200,True,"Message: Unable to locate element: //i[@class='icon-pdf']
+Stacktrace:
+WebDriverError@chrome://remote/content/shared/webdriver/Errors.jsm:188:5
+NoSuchElementError@chrome://remote/content/shared/webdriver/Errors.jsm:400:5
+element.find/</<@chrome://remote/content/marionette/element.js:292:16
+"
+10.1519/1533-4287(2005)19[364:trboob]2.0.co;2,409,,
+10.1519/r-17144.1,409,,
+10.1519/14954.1,409,,
+10.1161/jaha.119.012008,200,True,"Message: Unable to locate element: //i[@class='icon-pdf']
+Stacktrace:
+WebDriverError@chrome://remote/content/shared/webdriver/Errors.jsm:188:5
+NoSuchElementError@chrome://remote/content/shared/webdriver/Errors.jsm:400:5
+element.find/</<@chrome://remote/content/marionette/element.js:292:16
+"
+10.1519/1533-4287(2002)016<0561:teocwi>2.0.co;2,409,,
+10.1519/14153.1,409,,
+10.1097/brs.0000000000001335,200,True,
+10.1097/phm.0000000000001416,200,,"Message: Element <button class=""primary-button"" type=""button""> is not clickable at point (616,472) because another element <img src=""https://tpc.googlesyndication.com/pagead/imgad?id=CICAgKCX2-nY5AEQARgBMgjUwkoWXw2IlA""> obscures it
+Stacktrace:
+WebDriverError@chrome://remote/content/shared/webdriver/Errors.jsm:188:5
+ElementClickInterceptedError@chrome://remote/content/shared/webdriver/Errors.jsm:287:5
+webdriverClickElement@chrome://remote/content/marionette/interaction.js:166:11
+interaction.clickElement@chrome://remote/content/marionette/interaction.js:125:11
+clickElement@chrome://remote/content/marionette/actors/MarionetteCommandsChild.jsm:205:29
+receiveMessage@chrome://remote/content/marionette/actors/MarionetteCommandsChild.jsm:93:31
+"
+10.1097/01.phm.0000133436.61009.02,200,,"Message: Element <button class=""primary-button"" type=""button""> is not clickable at point (616,472) because another element <img src=""https://tpc.googlesyndication.com/pagead/imgad?id=CICAgKCX2-nY5AEQARgBMgjUwkoWXw2IlA""> obscures it
+Stacktrace:
+WebDriverError@chrome://remote/content/shared/webdriver/Errors.jsm:188:5
+ElementClickInterceptedError@chrome://remote/content/shared/webdriver/Errors.jsm:287:5
+webdriverClickElement@chrome://remote/content/marionette/interaction.js:166:11
+interaction.clickElement@chrome://remote/content/marionette/interaction.js:125:11
+clickElement@chrome://remote/content/marionette/actors/MarionetteCommandsChild.jsm:205:29
+receiveMessage@chrome://remote/content/marionette/actors/MarionetteCommandsChild.jsm:93:31
+"
+10.1519/r-16084.1,409,,
+10.1161/01.cir.91.11.2769,200,True,"Message: Unable to locate element: //i[@class='icon-pdf']
+Stacktrace:
+WebDriverError@chrome://remote/content/shared/webdriver/Errors.jsm:188:5
+NoSuchElementError@chrome://remote/content/shared/webdriver/Errors.jsm:400:5
+element.find/</<@chrome://remote/content/marionette/element.js:292:16
+"
+10.1097/phm.0000000000000046,200,,"Message: Element <button class=""primary-button"" type=""button""> is not clickable at point (616,472) because another element <img src=""https://tpc.googlesyndication.com/pagead/imgad?id=CICAgKCX2-nY5AEQARgBMgjUwkoWXw2IlA""> obscures it
+Stacktrace:
+WebDriverError@chrome://remote/content/shared/webdriver/Errors.jsm:188:5
+ElementClickInterceptedError@chrome://remote/content/shared/webdriver/Errors.jsm:287:5
+webdriverClickElement@chrome://remote/content/marionette/interaction.js:166:11
+interaction.clickElement@chrome://remote/content/marionette/interaction.js:125:11
+clickElement@chrome://remote/content/marionette/actors/MarionetteCommandsChild.jsm:205:29
+receiveMessage@chrome://remote/content/marionette/actors/MarionetteCommandsChild.jsm:93:31
+"
+10.1519/1533-4287(2003)017<0652:eodoms>2.0.co;2,409,,
+10.1097/01.mbc.0000245301.10387.83,200,,"Message: Element <button class=""primary-button"" type=""button""> is not clickable at point (616,472) because another element <img src=""https://tpc.googlesyndication.com/pagead/imgad?id=CICAgKCX2-nY5AEQARgBMgjUwkoWXw2IlA""> obscures it
+Stacktrace:
+WebDriverError@chrome://remote/content/shared/webdriver/Errors.jsm:188:5
+ElementClickInterceptedError@chrome://remote/content/shared/webdriver/Errors.jsm:287:5
+webdriverClickElement@chrome://remote/content/marionette/interaction.js:166:11
+interaction.clickElement@chrome://remote/content/marionette/interaction.js:125:11
+clickElement@chrome://remote/content/marionette/actors/MarionetteCommandsChild.jsm:205:29
+receiveMessage@chrome://remote/content/marionette/actors/MarionetteCommandsChild.jsm:93:31
+"
+10.1519/r-12722.1,409,,
+10.1519/r-17194.1,409,,
+10.1519/r-13503.1,409,,
+10.1519/r-17985.1,409,,
+10.1097/ajp.0b013e318262ddfe,200,,"Message: Element <button class=""primary-button"" type=""button""> is not clickable at point (616,472) because another element <img src=""https://tpc.googlesyndication.com/pagead/imgad?id=CICAgKCX2-nY5AEQARgBMgjUwkoWXw2IlA""> obscures it
+Stacktrace:
+WebDriverError@chrome://remote/content/shared/webdriver/Errors.jsm:188:5
+ElementClickInterceptedError@chrome://remote/content/shared/webdriver/Errors.jsm:287:5
+webdriverClickElement@chrome://remote/content/marionette/interaction.js:166:11
+interaction.clickElement@chrome://remote/content/marionette/interaction.js:125:11
+clickElement@chrome://remote/content/marionette/actors/MarionetteCommandsChild.jsm:205:29
+receiveMessage@chrome://remote/content/marionette/actors/MarionetteCommandsChild.jsm:93:31
+"
+10.1097/phm.0000000000000626,200,,"Message: Element <button class=""primary-button"" type=""button""> is not clickable at point (616,472) because another element <img src=""https://tpc.googlesyndication.com/pagead/imgad?id=CICAgKCX2-nY5AEQARgBMgjUwkoWXw2IlA""> obscures it
+Stacktrace:
+WebDriverError@chrome://remote/content/shared/webdriver/Errors.jsm:188:5
+ElementClickInterceptedError@chrome://remote/content/shared/webdriver/Errors.jsm:287:5
+webdriverClickElement@chrome://remote/content/marionette/interaction.js:166:11
+interaction.clickElement@chrome://remote/content/marionette/interaction.js:125:11
+clickElement@chrome://remote/content/marionette/actors/MarionetteCommandsChild.jsm:205:29
+receiveMessage@chrome://remote/content/marionette/actors/MarionetteCommandsChild.jsm:93:31
+"
+10.1097/phm.0b013e31820f960f,200,,"Message: Element <button class=""primary-button"" type=""button""> is not clickable at point (616,472) because another element <img src=""https://tpc.googlesyndication.com/pagead/imgad?id=CICAgKCX2-nY5AEQARgBMgjUwkoWXw2IlA""> obscures it
+Stacktrace:
+WebDriverError@chrome://remote/content/shared/webdriver/Errors.jsm:188:5
+ElementClickInterceptedError@chrome://remote/content/shared/webdriver/Errors.jsm:287:5
+webdriverClickElement@chrome://remote/content/marionette/interaction.js:166:11
+interaction.clickElement@chrome://remote/content/marionette/interaction.js:125:11
+clickElement@chrome://remote/content/marionette/actors/MarionetteCommandsChild.jsm:205:29
+receiveMessage@chrome://remote/content/marionette/actors/MarionetteCommandsChild.jsm:93:31
+"
