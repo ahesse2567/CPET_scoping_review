@@ -24,3 +24,9 @@ if choice == 'y':
     manual_download_df.to_csv('/Users/antonhesse/Desktop/Anton/Education/UMN/Lab and Research/HSPL/CPET_scoping_review/data/cpet_articles/unpaywall/manual_downloads.csv',
     index=False)
 
+
+# manual_download_publishers = remaining_articles['publisher'].value_counts()[remaining_articles['publisher'].value_counts() < 100].index.to_list()
+# manual_download_df = remaining_articles[remaining_articles['publisher'].isin(manual_download_publishers)].drop_duplicates().reset_index(drop=True)
+# manual_download_df.shape
+# manual_download_df.to_csv('/Users/antonhesse/Desktop/Anton/Education/UMN/Lab and Research/HSPL/CPET_scoping_review/data/cpet_articles/unpaywall/manual_downloads.csv',
+# index=False)
