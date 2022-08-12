@@ -87,6 +87,11 @@ test_df['pred'] = test_df.apply(lambda x: 'y' if x['pred_n'] < 0.5 else 'n', axi
 pred_n_df = test_df[test_df['pred'] == 'n'].reset_index(drop=True)
 pred_n_df.to_clipboard(index=False)
 
+
+"""
+I'm not sure we need to copy files into the prediction folder because we only need to document if they have gas data or not.
+Only if we're doing a full analysis do we need to copy them into Google Drive.
+
 dest_folder = Path('/Users/antonhesse/Desktop/Anton/Education/UMN/Lab and Research/HSPL/CPET_scoping_review/data/cpet_articles/full_texts/manual_analysis/prediction_articles')
 pdf_paths = list(Path('/Users/antonhesse/Desktop/Anton/Education/UMN/Lab and Research/HSPL/CPET_scoping_review/data/cpet_articles/full_texts/pdfs').glob('*.pdf'))
 epub_paths = list(Path('/Users/antonhesse/Desktop/Anton/Education/UMN/Lab and Research/HSPL/CPET_scoping_review/data/cpet_articles/full_texts/epubs').glob('*.epub'))
@@ -108,3 +113,4 @@ for idx, row in pred_n_df.iterrows():
         source = Path(list(filter(article_re.search, list(map(str, txt_paths))))[0])
         dest = dest_folder / str(row['doi_suffix'] + source.suffix)
         shutil.copy(source, dest)
+"""

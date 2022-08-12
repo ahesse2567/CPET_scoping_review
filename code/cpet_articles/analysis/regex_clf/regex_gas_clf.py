@@ -64,4 +64,20 @@ manual_analysis_df[(manual_analysis_df['gas_collection_methods'] == True) & (man
 
 n = len(remaining_article_paths)
 random_n = random.sample(remaining_article_paths, n)
-test_texts = [' '.join(tokenize_file(path, mode='lemm')) for path in tqdm(random_n)]
+test_tokens = [tokenize_file(path, mode='lemm') for path in tqdm(random_n)]
+test_joined_tokens = [' '.join(tokens) for tokens in tqdm(test_tokens)]
+
+test_df = pd.DataFrame(
+    {'doi_suffix': [path.stem for path in random_n],
+    'file_path': [path for path in random_n],
+    'tokens': test_tokens,
+    'joined_tokens': test_joined_tokens}
+    )
+
+test_df['o2_uptake'] = test_df['joined_tokens'].progress_apply(lambda x: oxygen_uptake_re(x))
+test_df['vo2_units'] = test_df['joined_tokens'].progress_apply(lambda x: vo2_units_re(x))
+test_df['gas_collection_methods'] = test_df['joined_tokens'].progress_apply(lambda x: gas_collection_methods_re(x))
+
+test_df['o2_uptake'].value_counts()
+
+test_df[test_df['o2_uptake'] == False].reset_index(drop=True)[['doi_suffix', 'file_path']].to_clipboard(index=False)
