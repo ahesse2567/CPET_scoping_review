@@ -1,27 +1,26 @@
-import imp
+import fasttext
 from pathlib import Path
 import pandas as pd
 from tqdm import tqdm
 import shutil
 import numpy as np
 import sys
-from textblob import TextBlob
-sys.path.append('/Users/antonhesse/Desktop/Anton/Education/UMN/Lab and Research/HSPL/CPET_scoping_review/code/cpet_articles/analysis/helper_funcs')
-from text_analysis import tokenize_file, process_file_one_string
+sys.path.append('/Users/antonhesse/Desktop/Anton/Education/UMN/Lab and Research/HSPL/CPET_scoping_review/code/cpet_articles/analysis/')
+from helper_funcs.text_analysis import tokenize_file, read_raw_text
 
-txt_file_paths = list(Path('/Users/antonhesse/Desktop/Anton/Education/UMN/Lab and Research/HSPL/CPET_scoping_review/data/cpet_articles/full_texts/txts').glob('*.txt'))
+txt_file_paths = list(Path('/Users/antonhesse/Desktop/Anton/Education/UMN/Lab and Research/HSPL/CPET_scoping_review/data/cpet_articles/full_texts/txts').rglob('*.txt'))
 
 raw_text = []
 token_lists = []
 for f in tqdm(txt_file_paths):
     try:
-        rt = process_file_one_string(f.stem, list(map(str, txt_file_paths)))
+        rt = read_raw_text(f)
         raw_text.append(rt)
-        tl = tokenize_file(f.stem, list(map(str, txt_file_paths)))
+        tl = tokenize_file(f)
         token_lists.append(tl)
     except IndexError as e:
         print(e)
-        token_lists.append((f.stem, e))
+        token_lists.append((f, e))
 
 
 txt_files = [path.stem for path in txt_file_paths]
@@ -70,7 +69,6 @@ for idx, row in tqdm(words_df.iterrows(), total=words_df.shape[0]):
 # detector.detect_language_of(' '.join(words_df.loc[4561,'tokens']))
 # words_df['language'] = words_df.progress_apply(lambda x: detector.detect_language_of(x['text']) if x['text'] != None else np.nan, axis=1)
 
-import fasttext
 PRETRAINED_MODEL_PATH = '/Users/antonhesse/opt/anaconda3/bin/lid.176.bin'
 model = fasttext.load_model(PRETRAINED_MODEL_PATH)
 model.predict(' '.join(words_df.loc[0,'tokens']))
