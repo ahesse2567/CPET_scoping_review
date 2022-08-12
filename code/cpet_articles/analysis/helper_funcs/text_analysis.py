@@ -4,16 +4,13 @@ from nltk.tokenize import sent_tokenize, word_tokenize
 from nltk.corpus import stopwords
 from nltk.stem import PorterStemmer, WordNetLemmatizer
 
-def tokenize_file(file_name, file_list, mode = 'lemm'):
-    txt_re = re.compile(re.escape(file_name))
-    fname = list(filter(txt_re.search, file_list))[0]
-    
+def tokenize_file(file_path, mode = 'lemm'):
     # check file size to make sure the txt file actually has text
     file_size = 0
     while file_size == 0:
-        file_size = Path(fname).stat().st_size
+        file_size = Path(file_path).stat().st_size
         if file_size != 0: # check if conversion to txt didn't work
-            with open(fname, 'r') as f:
+            with open(str(file_path), 'r') as f:
                 text = f.read()
         else:
             print('Empty file, returning None')
@@ -36,16 +33,13 @@ def tokenize_file(file_name, file_list, mode = 'lemm'):
     
         return stemmed_words
 
-def process_file_one_string(file_name, file_list):
-    txt_re = re.compile(file_name)
-    fname = list(filter(txt_re.search, file_list))[0]
-    
+def read_raw_text(file_path):
     # check file size to make sure the txt file actually has text
     file_size = 0
     while file_size == 0:
-        file_size = Path(fname).stat().st_size
+        file_size = Path(file_path).stat().st_size
         if file_size != 0: # check if conversion to txt didn't work
-            with open(fname, 'r') as f:
+            with open(str(file_path), 'r') as f:
                 text = f.read()
         else:
             print('Empty file, returning None')
