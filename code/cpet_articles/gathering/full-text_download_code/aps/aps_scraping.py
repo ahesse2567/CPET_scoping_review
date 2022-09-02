@@ -89,7 +89,7 @@ for idx, row in tqdm(articles.iterrows(), total=articles.shape[0]):
                 new_path = '/Users/antonhesse/Desktop/Anton/Education/UMN/Lab and Research/HSPL/CPET_scoping_review/data/cpet_articles/full_texts/pdfs/' + doi_suffix + '.pdf'
                 shutil.move(src=pdfs_in_downloads_paths[0], dst=new_path)
                 time.sleep(2)
-            wait(40) # wait so our IP address isn't blocked
+            wait(5) # wait so our IP address isn't blocked
     except Exception as e:
         print(e)
         out.update({'error': e})
@@ -109,48 +109,48 @@ log_df.to_csv('/Users/antonhesse/Desktop/Anton/Education/UMN/Lab and Research/HS
 # driver = webdriver.Firefox(service=FirefoxService(GeckoDriverManager().install()))
 # driver.implicitly_wait(1) # hopefully let's JS load correctly
 
-n = random.randint(0, articles.shape[0])
-row = articles.loc[n,:]
+# n = random.randint(0, articles.shape[0])
+# row = articles.loc[n,:]
 
-log = []
-for idx, row in tqdm(articles.iterrows(), total=articles.shape[0]):
-    doi = row['doi']
-    doi_url = 'https://doi.org/' + doi
-    out = {'doi': doi}
-    try:
-        # use DOI to get to publisher landing page
-        doi_resp = requests.get(doi_url, headers=headers)
-        out.update({'doi_redirect_SC': doi_resp.status_code})
-        if doi_resp.status_code == 200:
-            driver.get(doi_resp.url) # load publisher landing page
-            time.sleep(1) # wait in case there's ads or something
-            # find PDF download button on landing page
-            driver.execute_script("window.scrollTo(0, 200)")
-            click_links_landing_page(driver)
-            time.sleep(5) # let download page load
-            click_links_download_page(driver)
-            parent_tab = driver.current_window_handle
-            chwd = driver.window_handles
-            time.sleep(1) # might help with switching windows
-            driver.switch_to.window(chwd[1])
-            # this code used to work for some reason
-            # download byte content
-            # full_text_resp = requests.get(url = driver.current_url, headers = headers)
-            # out.update({'full_text_SC': full_text_resp.status_code})
-            # if full_text_resp.status_code == 200:
-            #     download_pdf(doi = doi, dest_folder=dest_folder, content=full_text_resp.content)
-            driver.close()
-            driver.switch_to.window(parent_tab)
-            # move PDF from downloads to pdf folder
-            pdfs_in_downloads_paths = list(Path('/Users/antonhesse/Downloads').glob('*.pdf'))
-            if len(pdfs_in_downloads_paths) > 1:
-                for path in pdfs_in_downloads_paths:
-                    Path.unlink(path)
-            else:
-                doi_suffix = get_doi_suffix(doi)
-                new_path = '/Users/antonhesse/Desktop/Anton/Education/UMN/Lab and Research/HSPL/CPET_scoping_review/data/cpet_articles/full_texts/pdfs/' + doi_suffix + '.pdf'
-                shutil.move(src=pdfs_in_downloads_paths[0], dst=new_path)
-    except Exception as e:
-        print(e)
-        out.update({'error': e})
-    log.append(out)
+# log = []
+# for idx, row in tqdm(articles.iterrows(), total=articles.shape[0]):
+#     doi = row['doi']
+#     doi_url = 'https://doi.org/' + doi
+#     out = {'doi': doi}
+#     try:
+#         # use DOI to get to publisher landing page
+#         doi_resp = requests.get(doi_url, headers=headers)
+#         out.update({'doi_redirect_SC': doi_resp.status_code})
+#         if doi_resp.status_code == 200:
+#             driver.get(doi_resp.url) # load publisher landing page
+#             time.sleep(1) # wait in case there's ads or something
+#             # find PDF download button on landing page
+#             driver.execute_script("window.scrollTo(0, 200)")
+#             click_links_landing_page(driver)
+#             time.sleep(5) # let download page load
+#             click_links_download_page(driver)
+#             parent_tab = driver.current_window_handle
+#             chwd = driver.window_handles
+#             time.sleep(1) # might help with switching windows
+#             driver.switch_to.window(chwd[1])
+#             # this code used to work for some reason
+#             # download byte content
+#             # full_text_resp = requests.get(url = driver.current_url, headers = headers)
+#             # out.update({'full_text_SC': full_text_resp.status_code})
+#             # if full_text_resp.status_code == 200:
+#             #     download_pdf(doi = doi, dest_folder=dest_folder, content=full_text_resp.content)
+#             driver.close()
+#             driver.switch_to.window(parent_tab)
+#             # move PDF from downloads to pdf folder
+#             pdfs_in_downloads_paths = list(Path('/Users/antonhesse/Downloads').glob('*.pdf'))
+#             if len(pdfs_in_downloads_paths) > 1:
+#                 for path in pdfs_in_downloads_paths:
+#                     Path.unlink(path)
+#             else:
+#                 doi_suffix = get_doi_suffix(doi)
+#                 new_path = '/Users/antonhesse/Desktop/Anton/Education/UMN/Lab and Research/HSPL/CPET_scoping_review/data/cpet_articles/full_texts/pdfs/' + doi_suffix + '.pdf'
+#                 shutil.move(src=pdfs_in_downloads_paths[0], dst=new_path)
+#     except Exception as e:
+#         print(e)
+#         out.update({'error': e})
+#     log.append(out)
