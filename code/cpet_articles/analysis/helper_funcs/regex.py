@@ -64,3 +64,33 @@ def estimated_vo2_re(text):
     
     return est_vo2
     # assessment of aerobic capacity
+
+def non_OPRR_re(text):
+    invited_review_re = re.compile(r'''(invited.{0,30}review)''', re.DOTALL | re.VERBOSE)
+    # letter_to_editor_re = re.compile(r'''(invited.{0,30}review)''', re.DOTALL | re.VERBOSE)
+    commentary_re = re.compile(r'''(commentary)''', re.DOTALL | re.VERBOSE)
+
+    mo_list = [invited_review_re.search(text), commentary_re.search(text)]
+    res = any(mo is not None for mo in mo_list)
+    return res
+
+def methods_res_disc(text):
+    # checks to see if all four of the most comment original research paper sections exist
+    # if all exist, then it's probably original research
+    # intro_re = re.compile(r'introduction|background')
+    methods_re = re.compile(r'm.{0,2}.{0,2}e.{0,2}t.{0,2}h.{0,2}o.{0,2}d', re.DOTALL)
+    results_re = re.compile(r'r.{0,2}e.{0,2}s.{0,2}u.{0,2}l.{0,2}t.{0,2}s', re.DOTALL)
+    discussion_re = re.compile(r'd.{0,2}i.{0,2}s.{0,2}c.{0,2}u.{0,2}s.{0,2}s.{0,2}i.{0,2}o.{0,2}n', re.DOTALL)
+
+    mo_list = [
+        methods_re.search(text),
+        results_re.search(text),discussion_re.search(text)
+    ]
+    res = all(mo is not None for mo in mo_list)
+    return res
+
+def non_human(text):
+    animal_re = re.compile(r'a.{0,2}n.{0,2}i.{0,2}m.{0,2}a.{0,2}l', re.DOTALL)
+    mo_list = [animal_re.search(text)]
+    res = any(mo is not None for mo in mo_list)
+    return res

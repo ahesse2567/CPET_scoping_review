@@ -24,11 +24,7 @@ full_texts_to_download = [x for x in tqdm(all_articles['doi_suffix'].tolist()) i
 
 remaining_articles = pd.merge(pd.DataFrame({'doi_suffix': full_texts_to_download}), all_articles, how='inner', on='doi_suffix')
 
-articles = remaining_articles[
-    (remaining_articles['publisher'] == 'Springer Science and Business Media LLC') | \
-    (remaining_articles['publisher'] == 'Springer Nature') | \
-    (remaining_articles['publisher'] == 'Springer International Publishing')].drop_duplicates().reset_index(drop=True)
-articles.shape
+articles = remaining_articles[remaining_articles['publisher'].str.contains('Springer')].drop_duplicates().reset_index(drop=True)
 
 with open('/Users/antonhesse/Desktop/Anton/Education/UMN/Lab and Research/HSPL/CPET_scoping_review/code/cpet_articles/gathering/full-text_download_code/springer/springer_config.json') as config_file:
     api_key = json.load(config_file)['api_key']
