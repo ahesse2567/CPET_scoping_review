@@ -1,4 +1,3 @@
-from cgi import test
 from nltk.tokenize import sent_tokenize, word_tokenize
 from nltk.corpus import stopwords
 from nltk.stem import PorterStemmer, WordNetLemmatizer
@@ -27,8 +26,8 @@ txt_file_stems = [path.stem for path in txt_file_paths]
 manual_analysis_df = pd.read_csv('/Users/antonhesse/Desktop/Anton/Education/UMN/Lab and Research/HSPL/CPET_scoping_review/data/cpet_articles/text_analysis/Manual text analysis - Data.csv')
 manual_analysis_df = manual_analysis_df[~manual_analysis_df['Gas data'].isna()].reset_index(drop=True)
 
-eligibility_df = pd.read_csv('/Users/antonhesse/Desktop/Anton/Education/UMN/Lab and Research/HSPL/CPET_scoping_review/data/cpet_articles/text_analysis/Manual text analysis - Non-human pred.csv')
-eligibility_df = eligibility_df[~eligibility_df['Eligible'].isna()].reset_index(drop=True)
+eligibility_df = pd.read_csv('/Users/antonhesse/Desktop/Anton/Education/UMN/Lab and Research/HSPL/CPET_scoping_review/data/cpet_articles/text_analysis/Manual text analysis - eligibility.csv')
+# eligibility_df = eligibility_df[~eligibility_df['Eligible'].isna()].reset_index(drop=True) # delete this?
 
 comb_df = pd.concat([manual_analysis_df, eligibility_df[['doi_suffix', 'Eligible', 'Eligibility note']]])
 comb_df = comb_df[(comb_df['Eligibility note'] == 'Non-human') | (comb_df['Eligibility note'].isna())]
