@@ -1,4 +1,4 @@
-doi_suffix,file_path,pred_op-rr,pred_human,OP-RR,Human,eligible
+doi_suffix,file_path,pred_op-rr,pred_human,op-rr,human,eligible
 1.2825395,/Users/antonhesse/Desktop/Anton/Education/UMN/Lab and Research/HSPL/CPET_scoping_review/data/cpet_articles/full_texts/txts/1.2825395.txt,,,FALSE,TRUE,FALSE
 28124,/Users/antonhesse/Desktop/Anton/Education/UMN/Lab and Research/HSPL/CPET_scoping_review/data/cpet_articles/full_texts/txts/28124.txt,,,FALSE,TRUE,FALSE
 28380,/Users/antonhesse/Desktop/Anton/Education/UMN/Lab and Research/HSPL/CPET_scoping_review/data/cpet_articles/full_texts/txts/000028380.txt,,,,FALSE,FALSE
@@ -18,7 +18,7 @@ doi_suffix,file_path,pred_op-rr,pred_human,OP-RR,Human,eligible
 523857,/Users/antonhesse/Desktop/Anton/Education/UMN/Lab and Research/HSPL/CPET_scoping_review/data/cpet_articles/full_texts/txts/523857.txt,,,,FALSE,FALSE
 648434,/Users/antonhesse/Desktop/Anton/Education/UMN/Lab and Research/HSPL/CPET_scoping_review/data/cpet_articles/full_texts/txts/648434.txt,,,,FALSE,FALSE
 689598,/Users/antonhesse/Desktop/Anton/Education/UMN/Lab and Research/HSPL/CPET_scoping_review/data/cpet_articles/full_texts/txts/689598.txt,,,TRUE,FALSE,FALSE
-689775,/Users/antonhesse/Desktop/Anton/Education/UMN/Lab and Research/HSPL/CPET_scoping_review/data/cpet_articles/full_texts/txts/689775.txt,,,FALSE,TRUE,FALSE
+689775,/Users/antonhesse/Desktop/Anton/Education/UMN/Lab and Research/HSPL/CPET_scoping_review/data/cpet_articles/full_texts/txts/689775.txt,,,FALSE,,FALSE
 699219,/Users/antonhesse/Desktop/Anton/Education/UMN/Lab and Research/HSPL/CPET_scoping_review/data/cpet_articles/full_texts/txts/699219.txt,,,TRUE,FALSE,FALSE
 716042,/Users/antonhesse/Desktop/Anton/Education/UMN/Lab and Research/HSPL/CPET_scoping_review/data/cpet_articles/full_texts/txts/716042.txt,,,,FALSE,FALSE
 2390559,/Users/antonhesse/Desktop/Anton/Education/UMN/Lab and Research/HSPL/CPET_scoping_review/data/cpet_articles/full_texts/txts/2390559.txt,,,,FALSE,FALSE
@@ -298,7 +298,7 @@ archpedi.160.10.1005,/Users/antonhesse/Desktop/Anton/Education/UMN/Lab and Resea
 arrd.1984.129.2p2.s47,/Users/antonhesse/Desktop/Anton/Education/UMN/Lab and Research/HSPL/CPET_scoping_review/data/cpet_articles/full_texts/txts/arrd.1984.129.2p2.s47.txt,,,TRUE,TRUE,TRUE
 art.39624,/Users/antonhesse/Desktop/Anton/Education/UMN/Lab and Research/HSPL/CPET_scoping_review/data/cpet_articles/full_texts/txts/art.39624.txt,,,TRUE,TRUE,TRUE
 b_._hrev.0000046363.59374.23,/Users/antonhesse/Desktop/Anton/Education/UMN/Lab and Research/HSPL/CPET_scoping_review/data/cpet_articles/full_texts/txts/b_._hrev.0000046363.59374.23.txt,,,FALSE,TRUE,FALSE
-b978-0-12-802728-8.00007-2,/Users/antonhesse/Desktop/Anton/Education/UMN/Lab and Research/HSPL/CPET_scoping_review/data/cpet_articles/full_texts/txts/b978-0-12-802728-8.00007-2.txt,,,FALSE,TRUE,FALSE
+b978-0-12-802728-8.00007-2,/Users/antonhesse/Desktop/Anton/Education/UMN/Lab and Research/HSPL/CPET_scoping_review/data/cpet_articles/full_texts/txts/b978-0-12-802728-8.00007-2.txt,,,FALSE,,FALSE
 b978-0-12-814593-7.00022-0,/Users/antonhesse/Desktop/Anton/Education/UMN/Lab and Research/HSPL/CPET_scoping_review/data/cpet_articles/full_texts/txts/b978-0-12-814593-7.00022-0.txt,,,FALSE,TRUE,FALSE
 bblv224n2p79,/Users/antonhesse/Desktop/Anton/Education/UMN/Lab and Research/HSPL/CPET_scoping_review/data/cpet_articles/full_texts/txts/bblv224n2p79.txt,,,,FALSE,FALSE
 bf00002504,/Users/antonhesse/Desktop/Anton/Education/UMN/Lab and Research/HSPL/CPET_scoping_review/data/cpet_articles/full_texts/txts/bf00002504.txt,,,,FALSE,FALSE
@@ -1274,7 +1274,7 @@ s0144-8609_._98_._00012-0,/Users/antonhesse/Desktop/Anton/Education/UMN/Lab and 
 s0165-1781_._00_._00138-4,/Users/antonhesse/Desktop/Anton/Education/UMN/Lab and Research/HSPL/CPET_scoping_review/data/cpet_articles/full_texts/txts/s0165-1781_._00_._00138-4.txt,,,TRUE,TRUE,TRUE
 s0166-445x_._01_._00155-2,/Users/antonhesse/Desktop/Anton/Education/UMN/Lab and Research/HSPL/CPET_scoping_review/data/cpet_articles/full_texts/txts/s0166-445x_._01_._00155-2.txt,,,,FALSE,FALSE
 s0166-445x_._03_._00157-7,/Users/antonhesse/Desktop/Anton/Education/UMN/Lab and Research/HSPL/CPET_scoping_review/data/cpet_articles/full_texts/txts/s0166-445x_._03_._00157-7.txt,,,,FALSE,FALSE
-s0166-445x_._96_._00836-3,/Users/antonhesse/Desktop/Anton/Education/UMN/Lab and Research/HSPL/CPET_scoping_review/data/cpet_articles/full_texts/txts/s0166-445x_._96_._00836-3.txt,,,FALSE,TRUE,FALSE
+s0166-445x_._96_._00836-3,/Users/antonhesse/Desktop/Anton/Education/UMN/Lab and Research/HSPL/CPET_scoping_review/data/cpet_articles/full_texts/txts/s0166-445x_._96_._00836-3.txt,,,TRUE,FALSE,FALSE
 s0166-445x_._99_._00004-1,/Users/antonhesse/Desktop/Anton/Education/UMN/Lab and Research/HSPL/CPET_scoping_review/data/cpet_articles/full_texts/txts/s0166-445x_._99_._00004-1.txt,,,,FALSE,FALSE
 s0166-445x_._99_._00021-1,/Users/antonhesse/Desktop/Anton/Education/UMN/Lab and Research/HSPL/CPET_scoping_review/data/cpet_articles/full_texts/txts/s0166-445x_._99_._00021-1.txt,,,,FALSE,FALSE
 s0166-445x_._99_._00105-8,/Users/antonhesse/Desktop/Anton/Education/UMN/Lab and Research/HSPL/CPET_scoping_review/data/cpet_articles/full_texts/txts/s0166-445x_._99_._00105-8.txt,,,,FALSE,FALSE
@@ -1518,3 +1518,210 @@ v10078-012-0029-1,/Users/antonhesse/Desktop/Anton/Education/UMN/Lab and Research
 wjcc.v7.i18.2760,/Users/antonhesse/Desktop/Anton/Education/UMN/Lab and Research/HSPL/CPET_scoping_review/data/cpet_articles/full_texts/txts/wjcc.v7.i18.2760.txt,,,FALSE,TRUE,FALSE
 wjcc.v9.i19.4939,/Users/antonhesse/Desktop/Anton/Education/UMN/Lab and Research/HSPL/CPET_scoping_review/data/cpet_articles/full_texts/txts/wjcc.v9.i19.4939.txt,,,FALSE,TRUE,FALSE
 zo99073,/Users/antonhesse/Desktop/Anton/Education/UMN/Lab and Research/HSPL/CPET_scoping_review/data/cpet_articles/full_texts/txts/zo99073.txt,,,,FALSE,FALSE
+j.1095-8649.2003.00057.x,,,,,FALSE,FALSE
+j.1095-8649.2006.01152.x,,,,,FALSE,FALSE
+jfbi.2002.2106,,,,,FALSE,FALSE
+jfb.14561,,,,,FALSE,FALSE
+j.1095-8649.2011.03182.x,,,,,FALSE,FALSE
+jfb.12795,,,,,FALSE,FALSE
+j.aquaculture.2016.05.015,,,,,FALSE,FALSE
+s0044-8486_._01_._00523-3,,,,,FALSE,FALSE
+jbc.m706540200,,,,,FALSE,FALSE
+jbc.m117.806786,,,,,FALSE,FALSE
+jbc.m115.691741,,,,,FALSE,FALSE
+jbc.m115.636878,,,,,FALSE,FALSE
+jbc.m806744200,,,,,FALSE,FALSE
+jbc.m800163200,,,,,FALSE,FALSE
+jbc.m109.069054,,,,,FALSE,FALSE
+jbc.m209702200,,,,,FALSE,FALSE
+jbc.273.45.29530,,,,,FALSE,FALSE
+jbc.m606114200,,,,,FALSE,FALSE
+jbc.m407120200,,,,,FALSE,FALSE
+jbc.ra118.006684,,,,,FALSE,FALSE
+s1095-6433_._01_._00531-1,,,,,TRUE,TRUE
+s1095-6433_._01_._00281-1,,,,,TRUE,TRUE
+s1095-6433_._01_._00283-5,,,,,TRUE,TRUE
+0300-9629_._94_._90255-0,,,,,FALSE,FALSE
+s0742-8413_._97_._00078-9,,,,,FALSE,FALSE
+0010-406x_._69_._91025-1,,,,,FALSE,FALSE
+0300-9629_._92_._90214-b,,,,,FALSE,FALSE
+0300-9629_._91_._90294-m,,,,,FALSE,FALSE
+0300-9629_._95_._00103-4,,,,,FALSE,FALSE
+s1095-6433_._00_._00286-5,,,,,FALSE,FALSE
+bf01875590,,,,,FALSE,FALSE
+bf01875604,,,,,FALSE,FALSE
+bf02044316,,,,,FALSE,FALSE
+a_._1007730308184,,,,,FALSE,FALSE
+a_._1015047208108,,,,,FALSE,FALSE
+a_._1007805322097,,,,,FALSE,FALSE
+bf02265150,,,,,FALSE,FALSE
+s10695-011-9499-7,,,,,FALSE,FALSE
+s0166-445x_._03_._00028-6,,,,,FALSE,FALSE
+667809,,,,,FALSE,FALSE
+662664,,,,,FALSE,FALSE
+648485,,,,,FALSE,FALSE
+685435,,,,,FALSE,FALSE
+376430,,,,,FALSE,FALSE
+430034,,,,,FALSE,FALSE
+316710,,,,,FALSE,FALSE
+316666,,,,,FALSE,FALSE
+316665,,,,,FALSE,FALSE
+341815,,,,,FALSE,FALSE
+498187,,,,,FALSE,FALSE
+jez.2322,,,,,FALSE,FALSE
+j.zool.2007.07.011,,,,,TRUE,TRUE
+cz_._zow026,,,,,FALSE,FALSE
+z09-031,,,,,FALSE,FALSE
+zo04026,,,,,FALSE,FALSE
+physzool.67.4.30163869,,,,,FALSE,FALSE
+156854202760405168,,,,,FALSE,FALSE
+1548-8659_._2000_._129_._0126_._tuoett_._2.0.co_._2,,,,,FALSE,FALSE
+cjfas-57-s3-59,,,,,FALSE,FALSE
+f2011-016,,,,,FALSE,FALSE
+f07-079,,,,,FALSE,FALSE
+cjfas-54-3-566,,,,,FALSE,FALSE
+f02-046,,,,,FALSE,FALSE
+1548-8659_._2002_._131_._0855_._mrojsb_._2.0.co_._2,,,,,FALSE,FALSE
+t04-016.1,,,,,FALSE,FALSE
+cjfas-58-6-1113,,,,,FALSE,FALSE
+cjfas-2013-0450,,,,,FALSE,FALSE
+a_._1019602403098,,,,,FALSE,FALSE
+a_._1007649931414,,,,,FALSE,FALSE
+1548-8659_._1993_._122_._0977_._mspeil_._2.3.co_._2,,,,,FALSE,FALSE
+f05-126,,,,,FALSE,FALSE
+t04-181.1,,,,,FALSE,FALSE
+f05-007,,,,,FALSE,FALSE
+t09-085.1,,,,,FALSE,FALSE
+t03-038,,,,,FALSE,FALSE
+f03-101,,,,,FALSE,FALSE
+0730-8000_._2007_._26_._17_._abplws_._2.0.co_._2,,,,,FALSE,FALSE
+f09-062,,,,,FALSE,FALSE
+f04-211,,,,,FALSE,FALSE
+j.fishres.2021.106084,,,,,FALSE,FALSE
+1548-8659_._2001_._130_._0783_._crtvfe_._2.0.co_._2,,,,,FALSE,FALSE
+a_._1007657019696,,,,,FALSE,FALSE
+f11-009,,,,,FALSE,FALSE
+cjfas-2019-0289,,,,,FALSE,FALSE
+f07-007,,,,,FALSE,FALSE
+f10-120,,,,,FALSE,FALSE
+t04-010.1,,,,,FALSE,FALSE
+f08-080,,,,,FALSE,FALSE
+t04-156.1,,,,,FALSE,FALSE
+t04-108.1,,,,,FALSE,FALSE
+a_._1007362018352,,,,,FALSE,FALSE
+a_._1011641302048,,,,,FALSE,FALSE
+1548-8659_._1966_._95_._71_._eopfoo_._2.0.co_._2,,,,,FALSE,FALSE
+cjfas-55-9-2028,,,,,FALSE,FALSE
+cjfas-58-6-1104,,,,,FALSE,FALSE
+t02-144.1,,,,,FALSE,FALSE
+cjfas-53-9-2093,,,,,FALSE,FALSE
+00028487.2015.1007163,,,,,FALSE,FALSE
+1548-8659_._1990_._119_._0585_._mtcbrt_._2.3.co_._2,,,,,FALSE,FALSE
+j.marenvres.2020.105224,,,,,,
+md17050309,,,,,TRUE,TRUE
+s0022-0981_._01_._00381-1,,,,,,
+s0022-0981_._01_._00308-2,,,,,,
+s0022-0981_._97_._00073-7,,,,,,
+bf00349133,,,,,FALSE,FALSE
+j.jembe.2016.10.019,,,,,,
+j.jembe.2010.01.012,,,,,,
+s00227-014-2526-3,,,,,FALSE,FALSE
+s0022-0981_._02_._00331-3,,,,,,
+meps10528,,,,,FALSE,FALSE
+10236244.2017.1416269,,,,,,
+s0025-326x_._00_._00031-x,,,,,,
+s0022-0981_._98_._00153-1,,,,,,
+s0924-7963_._00_._00029-4,,,,,,
+bf01313429,,,,,FALSE,FALSE
+s1054-3139_._03_._00070-5,,,,,FALSE,FALSE
+s0924-7963_._96_._00065-6,,,,,,
+bf00347453,,,,,FALSE,FALSE
+mf20363,,,,,FALSE,FALSE
+s0924-7963_._97_._00034-1,,,,,,
+j.jembe.2015.06.003,,,,,,
+bf01313100,,,,,FALSE,FALSE
+j.jembe.2018.04.002,,,,,,
+s0025315400002319,,,,,FALSE,FALSE
+bf00393900,,,,,FALSE,FALSE
+s0022-0981_._02_._00306-4,,,,,,
+fmars.2014.00076,,,,,FALSE,FALSE
+s0022-0981_._99_._00004-0,,,,,,
+bf00351042,,,,,FALSE,FALSE
+s0025-326x_._02_._00048-6,,,,,,
+s0022-0981_._00_._00319-1,,,,,,
+2014jc010422,,,,,FALSE,FALSE
+s0422-9894_._06_._74011-9,,,,,,
+0967-0637_._93_._90067-d,,,,,FALSE,FALSE
+lol2.10107,,,,,,
+s0967-0637_._99_._00103-x,,,,,FALSE,FALSE
+dao02056,,,,,FALSE,FALSE
+ab00584,,,,,FALSE,FALSE
+10454438.2019.1678545,,,,,,
+a07-046.1,,,,,,
+a07-079.1,,,,,,
+16085914.2010.466593,,,,,,
+1365-2656.13501,,,,,,
+mec.15304,,,,,,
+jez.1780,,,,,,
+j.1365-2656.2010.01758.x,,,,,,
+jez.627,,,,,,
+2390167,,,,,FALSE,FALSE
+j.2041-210x.2010.00057.x,,,,,,
+2390088,,,,,FALSE,FALSE
+bf00167746,,,,,FALSE,FALSE
+2390015,,,,,FALSE,FALSE
+bf00216599,,,,,FALSE,FALSE
+2041-210x.13674,,,,,,
+1365-2435.12527,,,,,,
+jpn.12391,,,,,FALSE,FALSE
+j.1439-0396.2010.01053.x,,,,,,
+s1357729800016003,,,,,FALSE,FALSE
+bf03179113,,,,,FALSE,FALSE
+j.1439-0396.1994.tb00377.x,,,,,FALSE,FALSE
+1992.7092809x,,,,,FALSE,FALSE
+1994.7251306x,,,,,FALSE,FALSE
+jpn.12242,,,,,FALSE,FALSE
+crd.0000000000000154,,,,FALSE,,FALSE
+jes.0000000000000033,,,,FALSE,,FALSE
+14651858.cd009607.pub2,,,,,,
+j.1469-185x.2008.00038.x,,,,,,
+14651858.cd008008.pub2,,,,,,
+fmpcr.2019.84547,,,,TRUE,TRUE,TRUE
+1573404812666161027143806,,,,TRUE,TRUE,TRUE
+1573398x14666180221112846,,,,,,
+obr.12395,,,,,,
+1573396311666150501003435,,,,,,
+1573399811666141229151421,,,,,,
+s0959259813000166,,,,,,
+157339712802083812,,,,,,
+157339811794927860,,,,,,
+dmrr.608,,,,TRUE,TRUE,TRUE
+ajrccm_._148.6_pt_1.1571,,,,,,
+ajrccm_._148.5.1272,,,,,,
+ajrccm_._147.5.1185,,,,,,
+ajrccm_._145.5.1052,,,,,,
+ajrccm_._144.4.833,,,,,,
+ajrccm_._143.3.462,,,,,,
+ajrccm_._144.3_pt_1.507,,,,,,
+ajrccm_._144.1.113,,,,,,
+ajrccm_._142.4.807,,,,,,
+ajrccm_._140.6.1544,,,,,,
+ajrccm_._139.1.126,,,,,,
+ajrccm_._138.6.1488,,,,,,
+ajrccm_._137.1.206,,,,,,
+ajrccm_._138.4.856,,,,,,
+arrd.1986.134.5.1005,,,,TRUE,TRUE,TRUE
+arrd.1984.129.2p2.s49,,,,,,
+arrd.1984.129.2p2.s25,,,,,,
+arrd.1984.129.5.730,,,,,,
+00003677-197700050-00004,,,,FALSE,,FALSE
+s0074-7742_._08_._60703-5,,,,,,
+physrevb.75.195102,,,,TRUE,FALSE,FALSE
+par.2016.04.03,,,,,,
+physrevb.70.045422,,,,TRUE,FALSE,FALSE
+10833196.2017.1287647,,,,,,
+par.2017.05.16,,,,,,
+physrevb.93.125132,,,,TRUE,FALSE,FALSE
+par.2019.07.05,,,,,,
+physrevb.90.165109,,,,TRUE,FALSE,FALSE
+ajrccm_._143.1.9,,,,,,
