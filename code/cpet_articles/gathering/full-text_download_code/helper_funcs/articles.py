@@ -1,6 +1,7 @@
 from pathlib import Path
 import pandas as pd
 import re
+from tqdm import tqdm
 
 def get_current_full_texts(
     folder='/Users/antonhesse/Desktop/Anton/Education/UMN/Lab and Research/HSPL/CPET_scoping_review/data/cpet_articles/full_texts',
@@ -10,7 +11,7 @@ def get_current_full_texts(
     folder = re.sub(r'/$', '', folder) # remove trailing '/' if present
     full_text_stems = []
     
-    for type in file_types:
+    for type in tqdm(file_types):
         paths = list(Path(f'{folder}/{type}s').glob(f'*.{type}'))
         stems = [path.stem for path in paths]
         full_text_stems.append(stems)
