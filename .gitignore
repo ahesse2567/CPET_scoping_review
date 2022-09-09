@@ -12,3 +12,4 @@ data/cpet_articles/full_texts/
 **/.ipynb_checkpoints/
 data/cpet_articles/no_exer/
 **/__pycache__
+.venv
