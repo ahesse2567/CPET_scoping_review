@@ -1,7 +1,3 @@
-from nltk.tokenize import sent_tokenize, word_tokenize
-from nltk.corpus import stopwords
-from nltk.stem import PorterStemmer, WordNetLemmatizer
-# from nltk.probability import FreqDist
 from pathlib import Path
 import random
 import pandas as pd
