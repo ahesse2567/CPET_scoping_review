@@ -40,20 +40,42 @@ gas analyzer (AE300S, Minato Medical Science, Osaka,
 Japan).'''
 text=text.lower()
 
-
-def time_bin_average(text):
-    mo_list = [
-        re.search(r'(\s\d{1,2}[\s-]s)', text)
-    ]
-
-    
-    out = any(mo is not None for mo in mo_list)
-
-    return out
-
 # \d{1,2}[\s-]?s(ec(ond(s)?)?)?\s
+time_bin_avg_re = re.compile(r'')
 # regular expression for time-bin averages below
+# older
 # (((average(d)?|mean|interval|period|sample[(ds)]?|every|over|into|each|last)+.{0,5})+\s\d{1,2}[\s-]{0,2}(s(ec(ond(s)?)?)?[\s-]?|(min(ute)?)))|(\s\d{1,2}[\s-]{0,2}(s(ec(ond(s)?)?)?[\s-]?|(min(ute)?))((average(d)?|mean|interval|period|sample(d)?|every|over|into|each|last)+.{0,5})+)
+# most recent
+# (((average[ds]{0,1}|mean|interval|period|sample[ds]{0,1}|every|over|into|each|last|during|highest|frequency)+.{0,5})+[\s\(\)]\d{1,2}[\s-]{0,2}((s(ec)?(econd)?(econds)?)+|(m(in)?(inute)?(inutes)?)+)[\(\)\s.,;?-])|([\s\(\)]\d{1,2}[\s-]{0,2}((s(ec)?(econd)?(econds)?)+|(m(in)?(inute)?(inutes)?)+)[\(\)\s.,;?-].{0,5}((average[ds]{0,1}|mean|interval|periods{0,1}|sample[ds]{0,1}|every|over|into|each|last)+)+)
+time_bin_avg_re = re.compile(r'''(
+    (((average[ds]{0,1}|mean|interval|period|sample[ds]{0,1}|every|over|into|each|last|during|highest|frequency)+.{0,5})+[\s\(\)]\d{1,2}[\s-]{0,2}((s(ec)?(econd)?(econds)?)+|(m(in)?(inute)?(inutes)?)+)[\(\)\s.,;?-])|([\s\(\)]\d{1,2}[\s-]{0,2}((s(ec)?(econd)?(econds)?)+|(m(in)?(inute)?(inutes)?)+)[\(\)\s.,;?-].{0,5}((average[ds]{0,1}|mean|interval|periods{0,1}|sample[ds]{0,1}|every|over|into|each|last)+)+)
+    )''', re.IGNORECASE | re.DOTALL | re.VERBOSE)
+
+# I think I might first search by units in seconds, and later in units that include minutes
+
+time_bin_avg_re.findall(text)
+
+text_df['time_bin_avg'] = text_df['text'].progress_apply(lambda x: time_bin_avg_re.findall(x) if time_bin_avg_re.findall(x) is not None else False)
+
+time_bin_avg_phrase = text_df.loc[5,'time_bin_avg']
+time_bin_avg_phrase
+doi_suffix = text_df.loc[1,'doi_suffix']
+doi_suffix
+# find groups that contain DIGITS.
+# if all digits are the same, record what the digits are
+
+text_df['time_bin_avg_phrase'] = 
+# rolling breath average
+# if breath number appears BEFORE "smoothing, rolling, etc."
+# (\d{1,2}|three|four|five|six|seven|eight|nine|ten|eleven|twelve|thirteen|fourteen|fifteen)[\s-]{0,2}breathe{0,1}[\s-]{0,2}(smooth(ing)?|roll(ing)?|sliding|running)+
+
+breath_roll_re = re.compile(r'''(
+    (\d{1,2}|three|four|five|six|seven|eight|nine|ten|eleven|twelve|thirteen|fourteen|fifteen)[\s-]{0,2}(breathe{0,1}|points{0,1})[\s-]{0,2}(smooth(ing)?(ed)?|roll(ing)?|sliding|running)+|(smooth(ing)?(ed)?|roll(ing)?|sliding|running|filter(ed)?)+\s{0,2}(each)?\s{0,2}(\d{1,2}|three|four|five|six|seven|eight|nine|ten|eleven|twelve|thirteen|fourteen|fifteen)[\s-]{0,2}(breathe{0,1}|points{0,1})
+    )''', re.VERBOSE)
+
+# how do we deal with a MOS as a median?
+
+# digital filters will be tough because they almost ALWAYS refer to EMG data
 
 text_df['time_bin_average'] = text_df['text'].progress_apply(lambda x: time_bin_average(x))
 text_df['time_bin_average'].value_counts()
@@ -62,3 +84,11 @@ text_df[text_df['time_bin_average']]
 time_bin_re = re.compile(r'\s\d{1,2}[\s-]s')
 text_df['time_bin_average'] = text_df['text'].progress_apply(lambda x: time_bin_re.findall(x))
 text_df[~text_df['time_bin_average'].isna()]
+
+
+
+
+
+# (((average[ds]{0,1}|mean|interval|period|sample[ds]{0,1}|every|over|into|each|last)+.{0,5})+\s\d{1,2}[\s-]{0,2}
+
+# ((s(ec)?(econd)?(econds)?)+|(m(in)?(inute)?(inutes)?)+)\s
