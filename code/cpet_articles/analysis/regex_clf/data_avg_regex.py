@@ -39,56 +39,80 @@ text='''Expired air was analyzed every 30 second using an automatic
 gas analyzer (AE300S, Minato Medical Science, Osaka,
 Japan).'''
 text=text.lower()
+# full regex below for easy copy and paste
+# (((average[ds]?|mean|interval|periods?|sample[ds]?|every|over|into|each|last|during|highest|frequency)+.{0,5})+[\s\(\)]\d{1,2}[\s-]{0,2}((s(ec)?(econd)?(econds)?)+)[\(\)\s.,;?-])|([\s\(\)]\d{1,2}[\s-]{0,2}((s(ec)?(econd)?(econds)?)+)[\(\)\s.,;?-].{0,5}((average[ds]?|mean|interval|periods?|sample[ds]?|every|over|into|each|last)+)+)
 
-# \d{1,2}[\s-]?s(ec(ond(s)?)?)?\s
-time_bin_avg_re = re.compile(r'')
-# regular expression for time-bin averages below
-# older
-# (((average(d)?|mean|interval|period|sample[(ds)]?|every|over|into|each|last)+.{0,5})+\s\d{1,2}[\s-]{0,2}(s(ec(ond(s)?)?)?[\s-]?|(min(ute)?)))|(\s\d{1,2}[\s-]{0,2}(s(ec(ond(s)?)?)?[\s-]?|(min(ute)?))((average(d)?|mean|interval|period|sample(d)?|every|over|into|each|last)+.{0,5})+)
-# most recent
-# (((average[ds]{0,1}|mean|interval|period|sample[ds]{0,1}|every|over|into|each|last|during|highest|frequency)+.{0,5})+[\s\(\)]\d{1,2}[\s-]{0,2}((s(ec)?(econd)?(econds)?)+|(m(in)?(inute)?(inutes)?)+)[\(\)\s.,;?-])|([\s\(\)]\d{1,2}[\s-]{0,2}((s(ec)?(econd)?(econds)?)+|(m(in)?(inute)?(inutes)?)+)[\(\)\s.,;?-].{0,5}((average[ds]{0,1}|mean|interval|periods{0,1}|sample[ds]{0,1}|every|over|into|each|last)+)+)
-time_bin_avg_re = re.compile(r'''(
-    (((average[ds]{0,1}|mean|interval|period|sample[ds]{0,1}|every|over|into|each|last|during|highest|frequency)+.{0,5})+[\s\(\)]\d{1,2}[\s-]{0,2}((s(ec)?(econd)?(econds)?)+|(m(in)?(inute)?(inutes)?)+)[\(\)\s.,;?-])|([\s\(\)]\d{1,2}[\s-]{0,2}((s(ec)?(econd)?(econds)?)+|(m(in)?(inute)?(inutes)?)+)[\(\)\s.,;?-].{0,5}((average[ds]{0,1}|mean|interval|periods{0,1}|sample[ds]{0,1}|every|over|into|each|last)+)+)
+time_bin_avg_sec_re = re.compile(r'''(
+    # avg keywords
+    (((average[ds]?|mean|interval|periods?|sample[ds]?|every|over|into|each|last|during|highest|frequency)+.{0,5})+
+    # numbers and seconds.
+    [\s\(\)]\d{1,2}[\s-]{0,2}((s(ec)?(econd)?(econds)?)+)[\(\)\s.,;?-])
+    # numbers and seconds, if they come first
+    |([\s\(\)]\d{1,2}[\s-]{0,2}((s(ec)?(econd)?(econds)?)+)[\(\)\s.,;?-]
+    # averaging keywords. There doesn't seem to be as many keywords that come after the numbers
+    .{0,5}((average[ds]?|mean|interval|periods?|sample[ds]?|every|over|into|each|last)+)+)
     )''', re.IGNORECASE | re.DOTALL | re.VERBOSE)
 
 # I think I might first search by units in seconds, and later in units that include minutes
 
-time_bin_avg_re.findall(text)
+time_bin_avg_sec_re.findall(text)
 
-text_df['time_bin_avg'] = text_df['text'].progress_apply(lambda x: time_bin_avg_re.findall(x) if time_bin_avg_re.findall(x) is not None else False)
-
-time_bin_avg_phrase = text_df.loc[5,'time_bin_avg']
+text_df['time_bin_avg_sec'] = text_df['text'].progress_apply(lambda x: time_bin_avg_sec_re.findall(x) if len(time_bin_avg_sec_re.findall(x)) > 0 else False)
+text_df['time_bin_avg_sec']
+n = 99
+time_bin_avg_phrase = text_df.loc[n,'time_bin_avg_sec']
 time_bin_avg_phrase
-doi_suffix = text_df.loc[1,'doi_suffix']
-doi_suffix
-# find groups that contain DIGITS.
-# if all digits are the same, record what the digits are
+len(time_bin_avg_phrase)
 
-text_df['time_bin_avg_phrase'] = 
+doi_suffix = text_df.loc[n,'doi_suffix']
+doi_suffix
+
+text_list = time_bin_avg_phrase
+def extract_avgs(text_list):
+    # function returns matches from averaging method regex that contains numbers
+    if not isinstance(text_list, list):
+        return False
+    # this needs updating to capture values like "five", not just numbers
+    num_phrase_re = re.compile(r'(\d+.?[a-zA-Z]+)|([a-zA-Z]+.?\d+)', re.DOTALL)
+    phrases_with_nums = []
+    for l in text_list:
+        for t in l:
+            if num_phrase_re.search(t):
+                phrases_with_nums.append(t)
+                
+    unique_phrases = list(set(phrases_with_nums))
+    # find exactly what numbers there are
+    just_nums_re = re.compile(r'\d+')
+    nums = []
+    for phrase in unique_phrases:
+        num = just_nums_re.search(phrase).group()
+        nums.append(num)
+    res = list(zip(unique_phrases, nums))
+    return res
+
+extract_avgs(text_list)
+
+# do we need to get the text near the averaging phrase so we can tellif it's about
+# gas exchange or not?
+
+text_df['time_bin_avg_nums'] = text_df['time_bin_avg_sec'].apply(lambda x: extract_avgs(x))
+text_df['time_bin_avg_nums']
+
 # rolling breath average
 # if breath number appears BEFORE "smoothing, rolling, etc."
-# (\d{1,2}|three|four|five|six|seven|eight|nine|ten|eleven|twelve|thirteen|fourteen|fifteen)[\s-]{0,2}breathe{0,1}[\s-]{0,2}(smooth(ing)?|roll(ing)?|sliding|running)+
+# ((\d{1,2}|three|four|five|six|seven|eight|nine|ten|eleven|twelve|thirteen|fourteen|fifteen)[\s-]{0,2}(breath[es]?|points{0,1})[\s-]{0,2}(smooth(ing)?(ed)?|roll(ing)?|sliding|running|moving)+)+|((smooth(ing)?(ed)?|roll(ing)?|sliding|running|moving|filter(ed)?)+\s{0,2}(each)?\s{0,2}(\d{1,2}|three|four|five|six|seven|eight|nine|ten|eleven|twelve|thirteen|fourteen|fifteen)[\s-]{0,2}(breath[es]?|points?))+
 
 breath_roll_re = re.compile(r'''(
-    (\d{1,2}|three|four|five|six|seven|eight|nine|ten|eleven|twelve|thirteen|fourteen|fifteen)[\s-]{0,2}(breathe{0,1}|points{0,1})[\s-]{0,2}(smooth(ing)?(ed)?|roll(ing)?|sliding|running)+|(smooth(ing)?(ed)?|roll(ing)?|sliding|running|filter(ed)?)+\s{0,2}(each)?\s{0,2}(\d{1,2}|three|four|five|six|seven|eight|nine|ten|eleven|twelve|thirteen|fourteen|fifteen)[\s-]{0,2}(breathe{0,1}|points{0,1})
-    )''', re.VERBOSE)
+    ((\d{1,2}|three|four|five|six|seven|eight|nine|ten|eleven|twelve|thirteen|fourteen|fifteen)[\s-]{0,2}(breath[es]?|points{0,1})[\s-]{0,2}(smooth(ing)?(ed)?|roll(ing)?|sliding|running|moving)+)+
+    |((smooth(ing)?(ed)?|roll(ing)?|sliding|running|moving|filter(ed)?)+\s{0,2}(each)?\s{0,2}(\d{1,2}|three|four|five|six|seven|eight|nine|ten|eleven|twelve|thirteen|fourteen|fifteen)[\s-]{0,2}(breath[es]?|points?))+
+    )''', re.IGNORECASE | re.VERBOSE)
 
+text_df['breath_roll_avg'] = text_df['text'].progress_apply(lambda x: breath_roll_re.findall(x) if len(breath_roll_re.findall(x)) > 0 else False)
+text_df['breath_roll_avg']
+text_df['breath_roll_avg_nums'] = text_df['breath_roll_avg'].apply(lambda x: extract_avgs(x))
+text_df['breath_roll_avg_nums']
+text_df[text_df['breath_roll_avg_nums'] != False]
 # how do we deal with a MOS as a median?
 
 # digital filters will be tough because they almost ALWAYS refer to EMG data
 
-text_df['time_bin_average'] = text_df['text'].progress_apply(lambda x: time_bin_average(x))
-text_df['time_bin_average'].value_counts()
-text_df[text_df['time_bin_average']]
-
-time_bin_re = re.compile(r'\s\d{1,2}[\s-]s')
-text_df['time_bin_average'] = text_df['text'].progress_apply(lambda x: time_bin_re.findall(x))
-text_df[~text_df['time_bin_average'].isna()]
-
-
-
-
-
-# (((average[ds]{0,1}|mean|interval|period|sample[ds]{0,1}|every|over|into|each|last)+.{0,5})+\s\d{1,2}[\s-]{0,2}
-
-# ((s(ec)?(econd)?(econds)?)+|(m(in)?(inute)?(inutes)?)+)\s
