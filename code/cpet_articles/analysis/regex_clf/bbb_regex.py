@@ -1,4 +1,3 @@
-from cgitb import text
 from pathlib import Path
 import pandas as pd
 import re
@@ -49,10 +48,10 @@ text_df['parvomedics'] = text_df['text'].progress_apply(lambda x: True if parvom
 text_df['parvomedics'].value_counts()
 
 def medgraphics_bbb(text):
-    medgraphics_brand_re = re.compile(r'medgraphics|medical.{0,2}graphics', re.DOTALL)
-    medgraphics_model_re = re.compile(r'ultima|cpx|pfx|ccm|cardio2')
+    brand_re = re.compile(r'medgraphics|medical.{0,2}graphics', re.DOTALL)
+    model_re = re.compile(r'ultima|cpx|pfx|ccm|cardio2')
 
-    mo_list = [medgraphics_brand_re.search(text), medgraphics_model_re.search(text)]
+    mo_list = [brand_re.search(text), model_re.search(text)]
     out = all(mo is not None for mo in mo_list)
 
     return out
@@ -73,10 +72,10 @@ text_df['sensormedics'] = text_df['text'].progress_apply(lambda x: sensormedics_
 text_df['sensormedics'].value_counts()
 
 def cosmed_bbb(text):
-    cosmed_brand_re = re.compile(r'cosmed')
-    cosmed_model_re = re.compile(r'quark|k[4,5]')
+    brand_re = re.compile(r'cosmed')
+    model_re = re.compile(r'quark|k[4,5]')
 
-    mo_list = [cosmed_brand_re.search(text), cosmed_model_re.search(text)]
+    mo_list = [brand_re.search(text), model_re.search(text)]
     out = all(mo is not None for mo in mo_list)
     
     return out
@@ -84,12 +83,33 @@ def cosmed_bbb(text):
 text_df['cosmed'] = text_df['text'].progress_apply(lambda x: cosmed_bbb(x))
 text_df['cosmed'].value_counts()
 
+def minato_bbb(text):
+    brand_re = re.compile(r'minato')
+    model_re = re.compile(r'ae-{0,1}[2,3][0,1]0|rm-{0,1}[2,3]00')
 
+    mo_list = [brand_re.search(text), model_re.search(text)]
+    out = all(mo is not None for mo in mo_list)
+    
+    return out
+
+text_df['minato'] = text_df['text'].progress_apply(lambda x: minato_bbb(x))
+text_df['minato'].value_counts()
+
+text_df['pred_bbb'] = text_df[['bbb', 'oxycon', 'cosmed', 'carefusion', 'parvomedics', 'medgraphics', 'sensormedics', 'minato']].any(axis=1)
+text_df['pred_bbb'].value_counts()
 
 unpaywall_info_path = Path('/Users/antonhesse/Desktop/Anton/Education/UMN/Lab and Research/HSPL/CPET_scoping_review/data/cpet_articles/unpaywall/unpaywall_info.csv')
 all_articles = pd.read_csv(unpaywall_info_path)
 all_articles['doi_suffix'] = all_articles['doi'].apply(lambda x: get_doi_suffix(x))
 
 merge_df = pd.merge(text_df, all_articles, how='inner', on='doi_suffix').drop_duplicates()
-bbb_df = merge_df[merge_df['bbb'] == True].drop('text', axis=1).reset_index(drop=True)
+
+# load known ineligible articles
+eligibility_path = Path('/Users/antonhesse/Desktop/Anton/Education/UMN/Lab and Research/HSPL/CPET_scoping_review/data/cpet_articles/text_analysis/Manual text analysis - eligibility.csv')
+elgibility_df = pd.read_csv(eligibility_path)
+ineligible_articles = elgibility_df[elgibility_df['eligible']==False]['doi_suffix'].to_list()
+
+merge_df = merge_df[~merge_df['doi_suffix'].isin(ineligible_articles)] # remove inelgible articles
+bbb_df = merge_df[merge_df['pred_bbb'] == True].drop('text', axis=1).reset_index(drop=True)
+bbb_df = bbb_df.sample(frac=1, random_state=22).reset_index(drop=True)
 bbb_df.to_csv('/Users/antonhesse/Desktop/Anton/Education/UMN/Lab and Research/HSPL/CPET_scoping_review/data/cpet_articles/text_analysis/bbb_articles.csv', index=False)
