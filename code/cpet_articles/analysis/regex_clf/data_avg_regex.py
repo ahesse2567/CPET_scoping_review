@@ -16,8 +16,9 @@ def get_doi_suffix(doi):
 
 txt_file_paths = list(Path('/Users/antonhesse/Desktop/Anton/Education/UMN/Lab and Research/HSPL/CPET_scoping_review/data/cpet_articles/full_texts/txts').rglob('*.txt'))
 
-bbb_df = pd.read_csv('/Users/antonhesse/Desktop/Anton/Education/UMN/Lab and Research/HSPL/CPET_scoping_review/data/cpet_articles/text_analysis/bbb_articles.csv')
-bbb_df['doi_suffix'] = bbb_df['doi'].apply(lambda x: get_doi_suffix(x))
+bbb_df_path = Path('/Users/antonhesse/Desktop/Anton/Education/UMN/Lab and Research/HSPL/CPET_scoping_review/data/cpet_articles/text_analysis/bbb_articles.csv')
+bbb_df = pd.read_csv(bbb_df_path, dtype='str')
+# bbb_df['doi_suffix'] = bbb_df['doi'].apply(lambda x: get_doi_suffix(x))
 
 bbb_article_paths = [path for path in txt_file_paths if path.stem in bbb_df['doi_suffix'].to_list()]
 
@@ -35,31 +36,31 @@ text_df = pd.DataFrame({
     'path': bbb_article_paths,
     'text': raw_text})
 
-text='''Expired air was analyzed every 30 second using an automatic
-gas analyzer (AE300S, Minato Medical Science, Osaka,
-Japan).'''
-text=text.lower()
+# [str(path) for path in txt_file_paths if path.stem == 'mss.0000000000001353'][0]
+
 # full regex below for easy copy and paste
 # (((average[ds]?|mean|interval|periods?|sample[ds]?|every|over|into|each|last|during|highest|frequency)+.{0,5})+[\s\(\)]\d{1,2}[\s-]{0,2}((s(ec)?(econd)?(econds)?)+)[\(\)\s.,;?-])|([\s\(\)]\d{1,2}[\s-]{0,2}((s(ec)?(econd)?(econds)?)+)[\(\)\s.,;?-].{0,5}((average[ds]?|mean|interval|periods?|sample[ds]?|every|over|into|each|last)+)+)
 
 time_bin_avg_sec_re = re.compile(r'''(
     # avg keywords
-    (((average[ds]?|mean|interval|periods?|sample[ds]?|every|over|into|each|last|during|highest|frequency)+.{0,5})+
+    (((average[ds]?|mean|intervals?|periods?|sample[ds]?|every|over|into|each|last|during|highest|frequency)+.{0,5})+
     # numbers and seconds.
     [\s\(\)]\d{1,2}[\s-]{0,2}((s(ec)?(econd)?(econds)?)+)[\(\)\s.,;?-])
     # numbers and seconds, if they come first
     |([\s\(\)]\d{1,2}[\s-]{0,2}((s(ec)?(econd)?(econds)?)+)[\(\)\s.,;?-]
     # averaging keywords. There doesn't seem to be as many keywords that come after the numbers
-    .{0,5}((average[ds]?|mean|interval|periods?|sample[ds]?|every|over|into|each|last)+)+)
+    .{0,5}((average[ds]?|mean|intervals?|periods?|sample[ds]?|every|over|into|each|last)+)+)
     )''', re.IGNORECASE | re.DOTALL | re.VERBOSE)
 
 # I think I might first search by units in seconds, and later in units that include minutes
-
+text = text_df.loc[text_df['doi_suffix'] == 'mss.0000000000001429']
+text = text.lower()
 time_bin_avg_sec_re.findall(text)
 
 text_df['time_bin_avg_sec'] = text_df['text'].progress_apply(lambda x: time_bin_avg_sec_re.findall(x) if len(time_bin_avg_sec_re.findall(x)) > 0 else False)
-text_df['time_bin_avg_sec']
-n = 99
+text_df['time_bin_avg_sec'][0:10]
+text_df.loc[text_df['doi_suffix'] == 'mss.0000000000001353']['time_bin_avg_sec']
+n = 102
 time_bin_avg_phrase = text_df.loc[n,'time_bin_avg_sec']
 time_bin_avg_phrase
 len(time_bin_avg_phrase)
@@ -96,8 +97,15 @@ extract_avgs(text_list)
 # gas exchange or not?
 
 text_df['time_bin_avg_nums'] = text_df['time_bin_avg_sec'].apply(lambda x: extract_avgs(x))
-text_df['time_bin_avg_nums']
+text_df['time_bin_avg_nums'][0]
 
+manual_text_analysis_path = Path('/Users/antonhesse/Desktop/Anton/Education/UMN/Lab and Research/HSPL/CPET_scoping_review/data/cpet_articles/text_analysis/Manual text analysis - Data.csv')
+manual_text_analysis_df = pd.read_csv(manual_text_analysis_path, dtype='str')
+
+# copy this into the Google Sheet
+merge_df = pd.merge(manual_text_analysis_df, text_df[['doi_suffix', 'time_bin_avg_nums']], how='outer', on='doi_suffix').drop_duplicates(subset='doi_suffix')
+merge_df['doi_suffix'] = merge_df['doi_suffix'].astype('str')
+merge_df.to_clipboard(index=False)
 # rolling breath average
 # if breath number appears BEFORE "smoothing, rolling, etc."
 # ((\d{1,2}|three|four|five|six|seven|eight|nine|ten|eleven|twelve|thirteen|fourteen|fifteen)[\s-]{0,2}(breath[es]?|points{0,1})[\s-]{0,2}(smooth(ing)?(ed)?|roll(ing)?|sliding|running|moving)+)+|((smooth(ing)?(ed)?|roll(ing)?|sliding|running|moving|filter(ed)?)+\s{0,2}(each)?\s{0,2}(\d{1,2}|three|four|five|six|seven|eight|nine|ten|eleven|twelve|thirteen|fourteen|fifteen)[\s-]{0,2}(breath[es]?|points?))+
@@ -115,4 +123,6 @@ text_df[text_df['breath_roll_avg_nums'] != False]
 # how do we deal with a MOS as a median?
 
 # digital filters will be tough because they almost ALWAYS refer to EMG data
+
+
 
