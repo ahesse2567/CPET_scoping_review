@@ -172,6 +172,13 @@ merge_df['doi_suffix'] = merge_df['doi_suffix'].astype('str')
 merge_df = reorder_columns(merge_df, 'time_bin_avg_nums', position=10)
 merge_df = reorder_columns(merge_df, 'time_bin_surrounding_text', position=11)
 merge_df.to_clipboard(index=False)
+
+# regex to find if avg phrases are actually referring to VO2
+# (v.{0,2}o2|respirat|gas|air|ventilat|pulmonary|(oxygen|o2).{0,2}(consumption|uptake)).{0,100} 30 s of each| 30 s of each.{0,100}(v.{0,2}o2|respirat|gas|air|ventilat|pulmonary|(oxygen|o2).{0,2}(consumption|uptake))
+
+
+
+
 # rolling breath average
 # if breath number appears BEFORE "smoothing, rolling, etc."
 # ((\d{1,2}|three|four|five|six|seven|eight|nine|ten|eleven|twelve|thirteen|fourteen|fifteen)[\s-]{0,2}(breath[es]?|points{0,1})[\s-]{0,2}(smooth(ing)?(ed)?|roll(ing)?|sliding|running|moving)+)+|((smooth(ing)?(ed)?|roll(ing)?|sliding|running|moving|filter(ed)?)+\s{0,2}(each)?\s{0,2}(\d{1,2}|three|four|five|six|seven|eight|nine|ten|eleven|twelve|thirteen|fourteen|fifteen)[\s-]{0,2}(breath[es]?|points?))+
