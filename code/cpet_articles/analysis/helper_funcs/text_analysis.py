@@ -46,4 +46,7 @@ def read_raw_text(file_path):
             return None
     text_lower = text.lower()
     
+    # remove end of line hyphenations. This work b/c lookaround 'consume' their characters
+    text_lower = re.sub(r'(?<=[a-zA-Z])-\n(?=[a-zA-Z])', '', text_lower)
+
     return text_lower
