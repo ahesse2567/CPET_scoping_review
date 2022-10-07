@@ -30,3 +30,7 @@ if choice == 'y':
 # manual_download_df.shape
 # manual_download_df.to_csv('/Users/antonhesse/Desktop/Anton/Education/UMN/Lab and Research/HSPL/CPET_scoping_review/data/cpet_articles/unpaywall/manual_downloads.csv',
 # index=False)
+
+
+# manual_downloads_df = remaining_articles[~remaining_articles['publisher'].isin(['Informa UK Limited', 'Wiley', 'American Physiological Society'])].drop_duplicates().reset_index(drop=True)
+# manual_downloads_df[['doi_url', 'doi', 'doi_suffix', 'journal_name', 'publisher']].to_clipboard(index=False)
