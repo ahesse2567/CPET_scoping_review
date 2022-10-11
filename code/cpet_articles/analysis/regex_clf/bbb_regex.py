@@ -5,7 +5,7 @@ from tqdm import tqdm
 import sys
 helper_funcs_path = Path('/Users/antonhesse/Desktop/Anton/Education/UMN/Lab and Research/HSPL/CPET_scoping_review/code/cpet_articles/analysis/')
 sys.path.append(str(helper_funcs_path))
-from helper_funcs.text_analysis import tokenize_file, read_raw_text
+from helper_funcs.text_analysis import read_raw_text
 tqdm.pandas()
 
 def get_doi_suffix(doi):

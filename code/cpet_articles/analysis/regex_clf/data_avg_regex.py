@@ -29,17 +29,9 @@ def get_doi_suffix(doi):
     return doi_suffix
 
 def reorder_columns(dataframe, col_name, position):
-    """Reorder a dataframe's column.
-    Args:
-        dataframe (pd.DataFrame): dataframe to use
-        col_name (string): column name to move
-        position (0-indexed position): where to relocate column to
-    Returns:
-        pd.DataFrame: re-assigned dataframe
-    """
-    temp_col = dataframe[col_name]
-    dataframe = dataframe.drop(columns=[col_name])
-    dataframe.insert(loc=position, column=col_name, value=temp_col)
+    temp_col = dataframe[col_name] # store col to move
+    dataframe = dataframe.drop(columns=[col_name]) # drop old position
+    dataframe.insert(loc=position, column=col_name, value=temp_col) # insert at new position
     return dataframe
 
 
@@ -68,11 +60,11 @@ text_df = pd.DataFrame({
 # [str(path) for path in txt_file_paths if path.stem == 'mss.0000000000001353'][0]
 
 # full regex below for easy copy and paste
-# (((average[ds]?|mean|interval|periods?|sample[ds]?|every|over|into|each|last|during|highest|frequency)+.{0,5})+[\s\(\)]\d{1,2}[\s-]{0,2}((s(ec)?(econd)?(econds)?)+)[\(\)\s.,;?-])|([\s\(\)]\d{1,2}[\s-]{0,2}((s(ec)?(econd)?(econds)?)+)[\(\)\s.,;?-].{0,5}((average[ds]?|mean|interval|periods?|sample[ds]?|every|over|into|each|last)+)+)
+# (((average[ds]?|mean|interval|periods?|sample[ds]?|every|over|into|each|last|during|highest|frequency|record)+.{0,5})+[\s\(\)]\d{1,2}[\s-]{0,2}((s(ec)?(econd)?(econds)?)+)[\(\)\s.,;?-])|([\s\(\)]\d{1,2}[\s-]{0,2}((s(ec)?(econd)?(econds)?)+)[\(\)\s.,;?-].{0,5}((average[ds]?|mean|interval|periods?|sample[ds]?|every|over|into|each|last)+)+)
 
 time_bin_avg_sec_re = re.compile(r'''(
     # avg keywords
-    (((average[ds]?|mean|intervals?|periods?|sample[ds]?|every|over|into|each|last|during|highest|frequency)+.{0,5})+
+    (((average[ds]?|mean|intervals?|periods?|sample[ds]?|every|over|into|each|last|during|highest|frequency|record)+.{0,5})+
     # numbers and seconds.
     [\s\(\)]\d{1,2}[\s-]{0,2}((s(ec)?(econd)?(econds)?)+)[\(\)\s.,;?-])
     # numbers and seconds, if they come first
@@ -87,7 +79,7 @@ time_bin_avg_sec_re = re.compile(r'''(
 # time_bin_avg_sec_re.findall(text)
 
 text_df['time_bin_avg_sec'] = text_df['text'].progress_apply(lambda x: time_bin_avg_sec_re.findall(x) if len(time_bin_avg_sec_re.findall(x)) > 0 else False)
-text_df['time_bin_avg_sec'][0:10]
+# text_df['time_bin_avg_sec'][0:10]
 text_df.loc[text_df['doi_suffix'] == 'mss.0000000000001353']['time_bin_avg_sec']
 n = 102
 time_bin_avg_phrase = text_df.loc[n,'time_bin_avg_sec']
@@ -134,12 +126,26 @@ single_row = text_df.loc[0,:]
 
 
 def get_surrounding_text(phrase, text, chars=100):
-    phrase = re.escape(phrase)
-    surrounding_text_re = re.compile(fr'.{{0,{chars}}}{phrase}.{{0,{chars}}}', re.IGNORECASE | re.DOTALL)
+    phrase = re.escape(phrase) # prevent escape character issues
+
+    surrounding_text_re = re.compile(fr'''(.{{0,{chars}}}{phrase}.{{0,{chars}}}
+        ''', re.IGNORECASE | re.DOTALL | re.VERBOSE)
+    
     if surrounding_text_re.search(text):
         return surrounding_text_re.search(text).group()
     else:
         return None
+
+    # # reference to gas exchange before avg phrase
+    # (v.{0,2}o2|respirat|gas|air|ventilat|pulmonary|(oxygen|o2).{0,2}(consumption|uptake)|metabolic.{0,2}cart)
+    # .{{0,{chars}}}{phrase}
+    # | # also check in case the gas exchange words came after the avg phrase
+    # {phrase}.{{0,{chars}}}
+    # (v.{0,2}o2|respirat|gas|air|ventilat|pulmonary|(oxygen|o2).{0,2}(consumption|uptake)|metabolic.{0,2}cart)
+    # )
+    # example regex to find if avg phrases are actually referring to VO2
+    # this does not have as many {} as the f string would
+    # (v.{0,2}o2|respirat|gas|air|ventilat|pulmonary|(oxygen|o2).{0,2}(consumption|uptake)|metabolic.{0,2}cart).{0,100} 30 seconds into| 30 seconds into.{0,100}(v.{0,2}o2|respirat|gas|air|ventilat|pulmonary|(oxygen|o2).{0,2}(consumption|uptake)|metabolic.{0,2}cart)
 
 
 row = text_df.loc[22,:]
@@ -152,7 +158,11 @@ for idx, row in tqdm(text_df.iterrows(), total=text_df.shape[0]):
         for ph, num in row['time_bin_avg_nums']:
             temp = get_surrounding_text(phrase=ph, text=row['text'])
             temp_list.append(temp)
-        surrounding_text.append(temp_list)
+        temp_list = [item for item in temp_list if item is not None]
+        if temp_list:
+            surrounding_text.append(temp_list)
+        else:
+            surrounding_text.append(False)
     else:
         surrounding_text.append(False)
     
@@ -173,8 +183,7 @@ merge_df = reorder_columns(merge_df, 'time_bin_avg_nums', position=10)
 merge_df = reorder_columns(merge_df, 'time_bin_surrounding_text', position=11)
 merge_df.to_clipboard(index=False)
 
-# regex to find if avg phrases are actually referring to VO2
-# (v.{0,2}o2|respirat|gas|air|ventilat|pulmonary|(oxygen|o2).{0,2}(consumption|uptake)).{0,100} 30 s of each| 30 s of each.{0,100}(v.{0,2}o2|respirat|gas|air|ventilat|pulmonary|(oxygen|o2).{0,2}(consumption|uptake))
+merge_df['time_bin_surrounding_text'].to_clipboard(index=False)
 
 
 
