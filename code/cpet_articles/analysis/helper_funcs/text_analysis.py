@@ -46,7 +46,9 @@ def read_raw_text(file_path):
             return None
     text_lower = text.lower()
     
-    # remove end of line hyphenations. This work b/c lookaround 'consume' their characters
-    text_lower = re.sub(r'(?<=[a-zA-Z])-\n(?=[a-zA-Z])', '', text_lower)
+    # remove end of line hyphenations. This works b/c lookarounds don't(?) 'consume' their characters
+    text_lower = re.sub(r'(?<=[a-zA-Z])-\n(?=[a-zA-Z])', '', text_lower, re.IGNORECASE)
+    # fix errors related to parsing V̇O2 (i.e. V with a dot above it?)
+    # text_lower = re.sub(r'v\W{0,3}o2\b', 'vo2', re.IGNORECASE)
 
     return text_lower
