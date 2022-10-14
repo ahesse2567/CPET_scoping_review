@@ -1,4 +1,5 @@
 from pathlib import Path
+from tabnanny import verbose
 import pandas as pd
 import re
 from tqdm import tqdm
@@ -35,8 +36,6 @@ text_df = pd.DataFrame({
     'path': bbb_article_paths,
     'text': raw_text})
 
-text = text_df.loc[text_df['doi_suffix'] == 'mss.0000000000000568',:]['text'].values[0]
-
 def find_outlier_text(text):
     cough_re = re.compile(r'\s(cough(ing)?)', re.IGNORECASE) # cough is always included
     # at least one other term is required to accompany 'cough' in order to reference outliers
@@ -45,25 +44,36 @@ def find_outlier_text(text):
     error_synosyms_re = re.compile(r'\serrant|\saberrant', re.IGNORECASE) # these almost always refer to breaths
     # outlying, outlier, deviating, erroneous. These options sometimes appear but aren't reliable
     local_mean_re = re.compile(r'\slocal.{0,2}(mean|average)', re.DOTALL | re.IGNORECASE) # 'local mean' always refers to outliers
-    sd_re = re.compile(r'')
+    # sd_re = re.compile(r'') # may need to search for terms related to finding standard deviations
     # \W(three|four|3|4).{0,2}(sd|standard.{0,2}deviations?)\W
-    prediction_interval_re = re.compile(r'prediction.{0,2}(interval|band)', re.DOTALL | re.IGNORECASE) 
+    # v?\W{0,3}o2\b.{0,300}?out.{0,50}prediction.{0,2}(interval|band) |prediction.{0,2}(interval|band).{0,50}out.{0,300}?v\W{0,3}o2\b
+    prediction_interval_re = re.compile(r'''(
+        v?\W{0,3}o2\b.{0,300}?out.{0,50}prediction.{0,2}(interval|band)
+        |prediction.{0,2}(interval|band).{0,50}out.{0,300}?v\W{0,3}o2\b)''', re.DOTALL | re.IGNORECASE | re.VERBOSE)
     # out.{0,20} needs to incldue 'out' as in outlier, outside, etc
-    if all([cough_re.search(text), weird_breath_re.search(text)]) or any([error_synosyms_re.search(text), local_mean_re.search(text)]):
-        mo_list = [cough_re.search(text), weird_breath_re.search(text), error_synosyms_re.search(text), local_mean_re.search(text)]
+    if all([cough_re.search(text), weird_breath_re.search(text)]) or any([error_synosyms_re.search(text), local_mean_re.search(text), prediction_interval_re.search(text)]):
+        mo_list = [
+            cough_re.search(text),
+            weird_breath_re.search(text),
+            error_synosyms_re.search(text),
+            local_mean_re.search(text),
+            prediction_interval_re.search(text)]
         out = [mo.group() for mo in mo_list if mo]
         return out
     else:
         return False
+
+text = text_df.loc[text_df['doi_suffix'] == 'japplphysiol.01040.2014',:]['text'].values[0]
+
 find_outlier_text(text)
 
 
-
-text_df['prediction_int'] = text_df['text'].progress_apply(lambda x: prediction_interval_re.search(x).group() if prediction_interval_re.search(x) else False)
-text_df[text_df['prediction_int'] != False]
+# prediction_interval_re = re.compile(r'prediction.{0,2}(interval|band)', re.DOTALL | re.IGNORECASE)
+# text_df['prediction_int'] = text_df['text'].progress_apply(lambda x: prediction_interval_re.search(x).group() if prediction_interval_re.search(x) else False)
+# text_df[text_df['prediction_int'] != False]
 
 text_df['outlier_terms'] = text_df['text'].progress_apply(lambda x: find_outlier_text(x))
-
+text_df['outlier_terms'].value_counts()
 
 # load then merge with manual analysis df
 manual_text_analysis_path = Path('/Users/antonhesse/Desktop/Anton/Education/UMN/Lab and Research/HSPL/CPET_scoping_review/data/cpet_articles/text_analysis/Manual text analysis - Data.csv')
@@ -74,3 +84,7 @@ merge_df['doi_suffix'] = merge_df['doi_suffix'].astype('str')
 merge_df['outlier_terms'].to_clipboard(index=False)
 
 merge_df.loc[merge_df['doi_suffix'] == 'ajpregu.00015.2019',:]
+
+
+# lump different cutoff amounts using the empiricle rule (68, 95, 99%)
+# 95% = 2 SD (yes, it's techincally 1.96), 99% = 3 SD, 99.99% = 4 SD
