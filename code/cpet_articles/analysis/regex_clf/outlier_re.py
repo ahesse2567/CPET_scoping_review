@@ -35,7 +35,7 @@ text_df = pd.DataFrame({
     'path': bbb_article_paths,
     'text': raw_text})
 
-text = text_df.loc[text_df['doi_suffix'] == 'japplphysiol.00498.2015',:]['text'].values[0]
+text = text_df.loc[text_df['doi_suffix'] == 'mss.0000000000000568',:]['text'].values[0]
 
 def find_outlier_text(text):
     cough_re = re.compile(r'\s(cough(ing)?)', re.IGNORECASE) # cough is always included
@@ -44,8 +44,11 @@ def find_outlier_text(text):
 
     error_synosyms_re = re.compile(r'\serrant|\saberrant', re.IGNORECASE) # these almost always refer to breaths
     # outlying, outlier, deviating, erroneous. These options sometimes appear but aren't reliable
-    local_mean_re = re.compile(r'\slocal.{0,2}mean', re.DOTALL | re.IGNORECASE) # 'local mean' always refers to outliers
-    # (three|four|3|4).{0,2}(sd|standard deviation).{0,50}(local|midpoint)
+    local_mean_re = re.compile(r'\slocal.{0,2}(mean|average)', re.DOTALL | re.IGNORECASE) # 'local mean' always refers to outliers
+    sd_re = re.compile(r'')
+    # \W(three|four|3|4).{0,2}(sd|standard.{0,2}deviations?)\W
+    prediction_interval_re = re.compile(r'prediction.{0,2}(interval|band)', re.DOTALL | re.IGNORECASE) 
+    # out.{0,20} needs to incldue 'out' as in outlier, outside, etc
     if all([cough_re.search(text), weird_breath_re.search(text)]) or any([error_synosyms_re.search(text), local_mean_re.search(text)]):
         mo_list = [cough_re.search(text), weird_breath_re.search(text), error_synosyms_re.search(text), local_mean_re.search(text)]
         out = [mo.group() for mo in mo_list if mo]
@@ -54,7 +57,20 @@ def find_outlier_text(text):
         return False
 find_outlier_text(text)
 
-text_df['outlier'] = text_df['text'].progress_apply(lambda x: find_outlier_text(x))
-text_df['outlier'].value_counts()
 
-# now merge this with existing manual analysis data frame
+
+text_df['prediction_int'] = text_df['text'].progress_apply(lambda x: prediction_interval_re.search(x).group() if prediction_interval_re.search(x) else False)
+text_df[text_df['prediction_int'] != False]
+
+text_df['outlier_terms'] = text_df['text'].progress_apply(lambda x: find_outlier_text(x))
+
+
+# load then merge with manual analysis df
+manual_text_analysis_path = Path('/Users/antonhesse/Desktop/Anton/Education/UMN/Lab and Research/HSPL/CPET_scoping_review/data/cpet_articles/text_analysis/Manual text analysis - Data.csv')
+manual_text_analysis_df = pd.read_csv(manual_text_analysis_path, dtype='str')
+
+merge_df = pd.merge(manual_text_analysis_df, text_df[['doi_suffix', 'outlier_terms']], how='outer', on='doi_suffix').drop_duplicates(subset='doi_suffix')
+merge_df['doi_suffix'] = merge_df['doi_suffix'].astype('str')
+merge_df['outlier_terms'].to_clipboard(index=False)
+
+merge_df.loc[merge_df['doi_suffix'] == 'ajpregu.00015.2019',:]
