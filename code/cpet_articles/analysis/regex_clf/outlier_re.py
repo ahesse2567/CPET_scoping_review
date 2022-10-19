@@ -84,16 +84,27 @@ text_df['outlier_terms'] = text_df['text'].progress_apply(lambda x: find_outlier
 
 text_df[text_df['outlier_terms'] != False]
 
+
+def reorder_columns(dataframe, col_name, position):
+    temp_col = dataframe[col_name] # store col to move
+    dataframe = dataframe.drop(columns=[col_name]) # drop old position
+    dataframe.insert(loc=position, column=col_name, value=temp_col) # insert at new position
+    print(dataframe.columns)
+    return dataframe
 # load then merge with manual analysis df
 manual_text_analysis_path = Path('/Users/antonhesse/Desktop/Anton/Education/UMN/Lab and Research/HSPL/CPET_scoping_review/data/cpet_articles/text_analysis/Manual text analysis - Data.csv')
 manual_text_analysis_df = pd.read_csv(manual_text_analysis_path, dtype='str')
 
-merge_df = pd.merge(manual_text_analysis_df, text_df[['doi_suffix', 'outlier_terms']], how='outer', on='doi_suffix').drop_duplicates(subset='doi_suffix')
+merge_df = pd.merge(manual_text_analysis_df.drop('outlier_terms', axis=1), text_df[['doi_suffix', 'outlier_terms']], how='outer', on='doi_suffix').drop_duplicates(subset='doi_suffix')
+merge_df = reorder_columns(merge_df, 'outlier_terms', position=12)
 merge_df['doi_suffix'] = merge_df['doi_suffix'].astype('str')
+merge_df.to_clipboard(index=False)
 merge_df['outlier_terms'].to_clipboard(index=False)
+merge_df['doi_suffix'].to_clipboard(index=False)
 
 # merge_df.loc[merge_df['doi_suffix'] == 'ajpregu.00015.2019',:]
 
 
 # lump different cutoff amounts using the empiricle rule (68, 95, 99%)
 # 95% = 2 SD (yes, it's techincally 1.96), 99% = 3 SD, 99.99% = 4 SD
+
