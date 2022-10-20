@@ -94,3 +94,14 @@ def non_human(text):
     mo_list = [animal_re.search(text)]
     res = any(mo is not None for mo in mo_list)
     return res
+
+# for some reason, this does NOT work when you try to import it
+def get_surrounding_text(phrase, text, chars=100):
+    esc_phrase = re.escape(phrase) # prevent escape character issues
+
+    surrounding_text_re = re.compile(
+        fr'''(.{{0,{chars}}}{esc_phrase}.{{0,{chars}}})''',
+        re.IGNORECASE | re.DOTALL)
+    
+    if surrounding_text_re.search(text):
+        return surrounding_text_re.findall(text)

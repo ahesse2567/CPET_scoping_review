@@ -13,10 +13,17 @@ def overlap(s1, s2):
     elif max_backwards > max_forward:
         out = s2[:-max_backwards] + s1
         return out
+    elif s1 in s2 or s2 in s1:
+        if len(s1) >= len(s2):
+            return s1
+        elif len(s2) > len(s1):
+            return s2
 
 def string_list_overlap(str_list, full_text=None):
+    if not isinstance(str_list, list):
+        return None
     if len(str_list) < 2: # return list if there's only one element
-        return set(str_list)
+        return str_list
     out = []
     for i, longest_string in enumerate(str_list):
         other_strings = [x for n, x in enumerate(str_list) if n != i]
@@ -30,6 +37,13 @@ def string_list_overlap(str_list, full_text=None):
             out.append(longest_string)
     out = list(set(out)) # remove duplicates
     # check if any strings are substrings of any other strings. If so, enter function again
+    # test = []
+    # for i, o in enumerate(out):
+    #     sublist = out[:i] + out[i+1:]
+    #     for s in sublist:
+    #         res = o in s
+    #         test.append(res)
+    # if any(test):
     if any([o in other_o for i, o in enumerate(out) for other_o in out[:i] + out[i+1:]]):
         out = string_list_overlap(out)
 
@@ -38,6 +52,16 @@ def string_list_overlap(str_list, full_text=None):
         out = [o for o in out if o in full_text]
     return out
 
+s1 = 'ne flowmeter was calibrated using a 3l syringe. breath-by-breath gas-exchange data were filtered for aberrant data points (data point out of the range mean ± 4sd). earlobe capillary blood samples (25 µl) were '
+s2 = 'diody- namic component (0–360 seconds) with td constrained at zero in the fitting window. occasional errant breath values were deleted from the data set if they fell more than four standard deviations outsid'
+s3 = 'he manufacturer’s instructions, while the k4b2 turbine flowmeter was calibrated using a 3l syringe. breath-by-breath gas-exchange data were filtered for aberrant data points (data point out of the range mean ± 4sd). earlobe capillary blood samples (25 µl) were collected and analyzed for lactate concen- tration us'
+s4 = 'amic component (0–360 seconds) with td constrained at zero in the fitting window. occasional errant breath values were deleted from the data set if they fell more than four standard deviations outside the mean 30- second periods (ozyener et al. 2001). in order to in- crease the confidence of '
+
+str_list = [s1, s2, s3, s4]
+
+comb_lists = string_list_overlap(str_list)
+comb_lists
+len(comb_lists)
 # s1 = '''
 
 # Data points outside of the computed 99% prediction bands
