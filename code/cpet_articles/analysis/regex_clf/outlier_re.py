@@ -1,13 +1,10 @@
 from pathlib import Path
-from tabnanny import verbose
 import pandas as pd
 import re
 from tqdm import tqdm
-import sys
-helper_funcs_path = Path('/Users/antonhesse/Desktop/Anton/Education/UMN/Lab and Research/HSPL/CPET_scoping_review/code/cpet_articles/analysis/')
-sys.path.append(str(helper_funcs_path))
-from helper_funcs.text_analysis import read_raw_text
 tqdm.pandas()
+from code.cpet_articles.analysis.helper_funcs.comb_overlapping_str import *
+from code.cpet_articles.analysis.helper_funcs.text_analysis import read_raw_text
 
 def get_doi_suffix(doi):
     doi_suffix = str(doi.split('/', 1)[1:]).strip("[']")
@@ -79,11 +76,40 @@ def find_outlier_text(text):
 text = text_df.loc[text_df['doi_suffix'] == 'japplphysiol.90357.2008',:]['text'].values[0]
 find_outlier_text(text)
 
+def get_surrounding_text(phrase, text, chars=100):
+    esc_phrase = re.escape(phrase) # prevent escape character issues
+
+    surrounding_text_re = re.compile(
+        fr'''(.{{0,{chars}}}{esc_phrase}.{{0,{chars}}})''',
+        re.IGNORECASE | re.DOTALL | re.VERBOSE)
+    
+    if surrounding_text_re.search(text):
+        return surrounding_text_re.findall(text)
+
+get_surrounding_text(' coughing', text, chars=100)
+
 text_df['outlier_terms'] = text_df['text'].progress_apply(lambda x: find_outlier_text(x))
+
+row = text_df.loc[6691,:]
+row
+outlier_text = []
+for i, row in tqdm(text_df.iterrows(), total=text_df.shape[0]):
+    outlier_terms = row['outlier_terms']
+    if outlier_terms:
+        surrounding_text_lists = [get_surrounding_text(item, text=row['text'], chars=100) for terms in outlier_terms for item in terms]
+        surrounding_texts = [text[0] for text in surrounding_text_lists]
+        outlier_text.append(string_list_overlap(surrounding_texts, full_text=row['text']))
+    else:
+        outlier_text.append(False)
+
+text_df['outlier_text'] = outlier_text
+
+# text_df['outlier_text'] = text_df.progress_apply(lambda x: string_list_overlap(x['outlier_terms'], full_text=x['text']) if isinstance(x['text'], list) else False, axis=1)
+
 # text_df['outlier_terms'].value_counts()
 
 text_df[text_df['outlier_terms'] != False]
-
+text_df.loc[6691, 'outlier_text']
 
 def reorder_columns(dataframe, col_name, position):
     temp_col = dataframe[col_name] # store col to move
