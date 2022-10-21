@@ -73,7 +73,7 @@ def find_outlier_text(text):
 # import random
 # n = random.randint(0, text_df.shape[0])
 # text = text_df.loc[n,:]['text']
-text = text_df.loc[text_df['doi_suffix'] == 'japplphysiol.90357.2008',:]['text'].values[0]
+text = text_df.loc[text_df['doi_suffix'] == 'mss.0b013e318217d439',:]['text'].values[0]
 find_outlier_text(text)
 
 def get_surrounding_text(phrase, text, chars=100):
@@ -86,30 +86,58 @@ def get_surrounding_text(phrase, text, chars=100):
     if surrounding_text_re.search(text):
         return surrounding_text_re.findall(text)
 
-get_surrounding_text(' coughing', text, chars=100)
+get_surrounding_text(' aberrant', text, chars=100)
 
 text_df['outlier_terms'] = text_df['text'].progress_apply(lambda x: find_outlier_text(x))
 
-row = text_df.loc[6691,:]
+row = text_df.loc[139,:]
+row = text_df.loc[text_df['doi_suffix'] == 'mss.0b013e318217d439',:]
 row
+
 outlier_text = []
 for i, row in tqdm(text_df.iterrows(), total=text_df.shape[0]):
     outlier_terms = row['outlier_terms']
     if outlier_terms:
         surrounding_text_lists = [get_surrounding_text(item, text=row['text'], chars=100) for terms in outlier_terms for item in terms]
-        surrounding_texts = [text[0] for text in surrounding_text_lists]
-        outlier_text.append(string_list_overlap(surrounding_texts, full_text=row['text']))
+        flat_list = [item for sublist in surrounding_text_lists for item in sublist]
+        flat_list = list(set(flat_list)) # remove some duplicates
+
+        # [o in other_o for i, o in enumerate(out) for other_o in out[:i] + out[i+1:]]
+        substring_list = []
+        for i, l in enumerate(flat_list):
+            sub_list = flat_list[:i] + flat_list[i+1:]
+            for s in sub_list:
+                if l in s:
+                    substring_list.append(l)
+
+        flat_list = [l for l in flat_list if l not in substring_list]
+        
+        for i, l in enumerate(flat_list):
+            print(f's{i} = """{l}"""')
+
+        overlapping_strings = string_list_overlap(flat_list, full_text=row['text'])
+        outlier_text.append(overlapping_strings)
+        
     else:
         outlier_text.append(False)
 
 text_df['outlier_text'] = outlier_text
 
-# text_df['outlier_text'] = text_df.progress_apply(lambda x: string_list_overlap(x['outlier_terms'], full_text=x['text']) if isinstance(x['text'], list) else False, axis=1)
+# search the outlier text for the specific number of SD's they used as their cutoff?
+# (?:prediction.{0,2}(?:band|interval))|(?:two|three|four|[2-4]).{0,2}(?:sd|standard.{0,2}deviations?)
 
-# text_df['outlier_terms'].value_counts()
+# note, researchers appear to create a local mean based on a rolling average of a certain number of breaths
+# It does not seem like they make a crazy GAM model with multiple inputs
 
+# text_df[text_df['outlier_terms'] != False]
 text_df[text_df['outlier_terms'] != False]
-text_df.loc[6691, 'outlier_text']
+text_df[text_df['outlier_terms'] != False]['outlier_text'].apply(lambda x: len(x))
+text_df[text_df['outlier_terms'] != False]['outlier_text'].apply(lambda x: len(x)).value_counts()
+
+list_lens = text_df[text_df['outlier_terms'] != False]['outlier_text'].apply(lambda x: len(x))
+
+text_df['list_lens'] = list_lens
+
 
 def reorder_columns(dataframe, col_name, position):
     temp_col = dataframe[col_name] # store col to move
@@ -121,11 +149,13 @@ def reorder_columns(dataframe, col_name, position):
 manual_text_analysis_path = Path('/Users/antonhesse/Desktop/Anton/Education/UMN/Lab and Research/HSPL/CPET_scoping_review/data/cpet_articles/text_analysis/Manual text analysis - Data.csv')
 manual_text_analysis_df = pd.read_csv(manual_text_analysis_path, dtype='str')
 
-merge_df = pd.merge(manual_text_analysis_df.drop('outlier_terms', axis=1), text_df[['doi_suffix', 'outlier_terms']], how='outer', on='doi_suffix').drop_duplicates(subset='doi_suffix')
+merge_df = pd.merge(manual_text_analysis_df.drop('outlier_terms', axis=1), text_df[['doi_suffix', 'outlier_terms', 'outlier_text']], how='outer', on='doi_suffix').drop_duplicates(subset='doi_suffix')
 merge_df = reorder_columns(merge_df, 'outlier_terms', position=12)
+merge_df = reorder_columns(merge_df, 'outlier_text', position=13)
 merge_df['doi_suffix'] = merge_df['doi_suffix'].astype('str')
 merge_df.to_clipboard(index=False)
 merge_df['outlier_terms'].to_clipboard(index=False)
+merge_df['outlier_text'].to_clipboard(index=False)
 merge_df['doi_suffix'].to_clipboard(index=False)
 
 # merge_df.loc[merge_df['doi_suffix'] == 'ajpregu.00015.2019',:]
@@ -134,3 +164,4 @@ merge_df['doi_suffix'].to_clipboard(index=False)
 # lump different cutoff amounts using the empiricle rule (68, 95, 99%)
 # 95% = 2 SD (yes, it's techincally 1.96), 99% = 3 SD, 99.99% = 4 SD
 
+# REMEMBER TO CLEAR THE NA VALUES IN THE OUTLIERS COLUMN LATER!
