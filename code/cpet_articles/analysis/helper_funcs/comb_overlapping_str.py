@@ -2,22 +2,31 @@
 
 # https://stackoverflow.com/questions/52528744/how-to-merge-strings-with-overlapping-characters-in-python
 
-def overlap(s1, s2):
+def overlap(s1, s2, full_text=None): # add param for minimum required overlap?
     # what is the index in string two with the max overlap in string one?
     max_forward = max(i for i in range(len(s2)+1) if s1.endswith(s2[:i]))
     max_backwards = max(i for i in range(len(s1)+1) if s2.endswith(s1[:i]))
     # using that overlap, merge the two strings together
+    # there's a problem when the overlap is by exactly one character. This joins strings
+    # together that should NOT go together
+    # compare against full_text?
     if (max_forward >= max_backwards) & (max_forward > 0):
         out = s1[:-max_forward] + s2
-        return out
     elif max_backwards > max_forward:
         out = s2[:-max_backwards] + s1
-        return out
     elif s1 in s2 or s2 in s1:
         if len(s1) >= len(s2):
             return s1
         elif len(s2) > len(s1):
             return s2
+    else:
+        return None
+    if full_text:
+        if out in full_text:
+            return out
+        else:
+            return None
+    return out # in case you don't want to reference against the full text
 
 def string_list_overlap(str_list, full_text=None):
     if not isinstance(str_list, list):
@@ -28,7 +37,7 @@ def string_list_overlap(str_list, full_text=None):
     for i, longest_string in enumerate(str_list):
         other_strings = [x for n, x in enumerate(str_list) if n != i]
         for string in other_strings: 
-            if overlap(longest_string, string):
+            if overlap(longest_string, string, full_text=full_text):
                 longest_string = overlap(longest_string, string)
         # if the longest string contains all others, be done with it
         if all([x in longest_string for x in other_strings]):
@@ -52,16 +61,6 @@ def string_list_overlap(str_list, full_text=None):
         out = [o for o in out if o in full_text]
     return out
 
-s1 = 'ne flowmeter was calibrated using a 3l syringe. breath-by-breath gas-exchange data were filtered for aberrant data points (data point out of the range mean ± 4sd). earlobe capillary blood samples (25 µl) were '
-s2 = 'diody- namic component (0–360 seconds) with td constrained at zero in the fitting window. occasional errant breath values were deleted from the data set if they fell more than four standard deviations outsid'
-s3 = 'he manufacturer’s instructions, while the k4b2 turbine flowmeter was calibrated using a 3l syringe. breath-by-breath gas-exchange data were filtered for aberrant data points (data point out of the range mean ± 4sd). earlobe capillary blood samples (25 µl) were collected and analyzed for lactate concen- tration us'
-s4 = 'amic component (0–360 seconds) with td constrained at zero in the fitting window. occasional errant breath values were deleted from the data set if they fell more than four standard deviations outside the mean 30- second periods (ozyener et al. 2001). in order to in- crease the confidence of '
-
-str_list = [s1, s2, s3, s4]
-
-comb_lists = string_list_overlap(str_list)
-comb_lists
-len(comb_lists)
 # s1 = '''
 
 # Data points outside of the computed 99% prediction bands
