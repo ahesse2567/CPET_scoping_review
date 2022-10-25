@@ -129,7 +129,7 @@ def get_surrounding_text(phrase, text, chars=100):
     phrase = re.escape(phrase) # prevent escape character issues
 
     surrounding_text_re = re.compile(fr'''(.{{0,{chars}}}{phrase}.{{0,{chars}}}
-        ''', re.IGNORECASE | re.DOTALL | re.VERBOSE)
+        )''', re.IGNORECASE | re.DOTALL | re.VERBOSE)
     
     if surrounding_text_re.search(text):
         return surrounding_text_re.search(text).group()
