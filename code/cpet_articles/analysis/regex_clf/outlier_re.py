@@ -86,12 +86,12 @@ def get_surrounding_text(phrase, text, chars=100):
     if surrounding_text_re.search(text):
         return surrounding_text_re.findall(text)
 
-get_surrounding_text(' aberrant', text, chars=100)
+get_surrounding_text(' swallow', text, chars=150)
 
 text_df['outlier_terms'] = text_df['text'].progress_apply(lambda x: find_outlier_text(x))
 
 row = text_df.loc[139,:]
-row = text_df.loc[text_df['doi_suffix'] == 'mss.0b013e318217d439',:]
+# row = text_df.loc[text_df['doi_suffix'] == 'mss.0b013e318217d439',:]
 row
 
 outlier_text = []
@@ -101,20 +101,10 @@ for i, row in tqdm(text_df.iterrows(), total=text_df.shape[0]):
         surrounding_text_lists = [get_surrounding_text(item, text=row['text'], chars=100) for terms in outlier_terms for item in terms]
         flat_list = [item for sublist in surrounding_text_lists for item in sublist]
         flat_list = list(set(flat_list)) # remove some duplicates
-
-        # [o in other_o for i, o in enumerate(out) for other_o in out[:i] + out[i+1:]]
-        substring_list = []
-        for i, l in enumerate(flat_list):
-            sub_list = flat_list[:i] + flat_list[i+1:]
-            for s in sub_list:
-                if l in s:
-                    substring_list.append(l)
-
-        flat_list = [l for l in flat_list if l not in substring_list]
+        # identify strings that are substrings of other strings
+        substring_list = [l for i, l in enumerate(flat_list) for s in flat_list[:i] + flat_list[i+1:] if l in s]
+        flat_list = [l for l in flat_list if l not in substring_list] # remove those substrings
         
-        for i, l in enumerate(flat_list):
-            print(f's{i} = """{l}"""')
-
         overlapping_strings = string_list_overlap(flat_list, full_text=row['text'])
         outlier_text.append(overlapping_strings)
         
@@ -134,9 +124,9 @@ text_df[text_df['outlier_terms'] != False]
 text_df[text_df['outlier_terms'] != False]['outlier_text'].apply(lambda x: len(x))
 text_df[text_df['outlier_terms'] != False]['outlier_text'].apply(lambda x: len(x)).value_counts()
 
-list_lens = text_df[text_df['outlier_terms'] != False]['outlier_text'].apply(lambda x: len(x))
+# list_lens = text_df[text_df['outlier_terms'] != False]['outlier_text'].apply(lambda x: len(x))
 
-text_df['list_lens'] = list_lens
+# text_df['list_lens'] = list_lens
 
 
 def reorder_columns(dataframe, col_name, position):
@@ -153,7 +143,7 @@ merge_df = pd.merge(manual_text_analysis_df.drop('outlier_terms', axis=1), text_
 merge_df = reorder_columns(merge_df, 'outlier_terms', position=12)
 merge_df = reorder_columns(merge_df, 'outlier_text', position=13)
 merge_df['doi_suffix'] = merge_df['doi_suffix'].astype('str')
-merge_df.to_clipboard(index=False)
+# merge_df.to_clipboard(index=False)
 merge_df['outlier_terms'].to_clipboard(index=False)
 merge_df['outlier_text'].to_clipboard(index=False)
 merge_df['doi_suffix'].to_clipboard(index=False)
