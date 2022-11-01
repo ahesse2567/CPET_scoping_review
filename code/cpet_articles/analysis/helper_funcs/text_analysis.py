@@ -59,12 +59,13 @@ def read_raw_text(file_path):
 
 
 def get_surrounding_text(phrase, text, chars=200):
+    # get surrounding text if it is near words like vo2, breath, or metabolic
     phrase = re.escape(phrase) # prevent escape character issues
 
     surrounding_text_re = re.compile(fr'''(.{{0,{chars}}}{phrase}.{{0,{chars}}}
         )''', re.DOTALL | re.VERBOSE)
 
-    vo2_breath_re = re.compile(r'(?:v.{0,2})?o2|breath', re.DOTALL)
+    vo2_breath_re = re.compile(r'(?:v.{0,2})?o2|breath|metaboli', re.DOTALL)
     
     if surrounding_text_re.search(text):
         res = surrounding_text_re.findall(text)
