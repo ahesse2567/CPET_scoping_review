@@ -1,6 +1,6 @@
 from pathlib import Path
 import re
-from nltk.tokenize import sent_tokenize, word_tokenize
+from nltk.tokenize import word_tokenize
 from nltk.corpus import stopwords
 from nltk.stem import PorterStemmer, WordNetLemmatizer
 
@@ -56,3 +56,22 @@ def read_raw_text(file_path):
     # text_lower = re.sub(r'v\W{0,3}o2\b', 'vo2', re.IGNORECASE)
 
     return text_lower
+
+
+def get_surrounding_text(phrase, text, chars=200):
+    phrase = re.escape(phrase) # prevent escape character issues
+
+    surrounding_text_re = re.compile(fr'''(.{{0,{chars}}}{phrase}.{{0,{chars}}}
+        )''', re.DOTALL | re.VERBOSE)
+
+    vo2_breath_re = re.compile(r'(?:v.{0,2})?o2|breath', re.DOTALL)
+    
+    if surrounding_text_re.search(text):
+        res = surrounding_text_re.findall(text)
+        res = [r for r in res if vo2_breath_re.search(r)]
+        if res:
+            return res
+        else:
+            return None
+    else:
+        return None
