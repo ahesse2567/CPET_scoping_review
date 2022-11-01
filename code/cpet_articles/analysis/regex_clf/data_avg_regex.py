@@ -38,7 +38,19 @@ text_df = pd.DataFrame({
 
 # [str(path) for path in txt_file_paths if path.stem == 'mss.0000000000001353'][0]
 
-def find_avg_methods(text):
+def flatten_list(lst):
+    out = []
+    for l in lst:
+        if isinstance(l, list):
+            for item in l:
+                out.append(item)
+        else:
+            out.append(l)
+    if any([isinstance(o, list) for o in out]):
+        out = flatten_list(out)
+    return out
+
+def find_avg_text(text):
     # time-bin average with NUMBERS
     time_bin_avg_sec_re = re.compile(r'''(
     # avg keywords
@@ -50,6 +62,19 @@ def find_avg_methods(text):
     # averaging keywords. There doesn't seem to be as many keywords that come after the numbers
     .{0,5}(?:(?:average[ds]?|mean|intervals?|periods?|sample[ds]?|every|over|into|each|last)+)+)
     )''', re.DOTALL | re.VERBOSE)
+
+    time_bin_avg_min_re = re.compile(r'''(
+        # order is avg-time
+        (?:average[ds]?|mean|intervals?|periods?|sample[ds]?|every|over|into|each|last|during|highest|frequency|record|per)+
+        .{0,10}
+        (?:\d{0,1}|one)(?:[\W\s]){0,2}
+        min(?:ute|utes)?
+        | # order is time_avg
+        (?:\d{0,1}|one)(?:[\W\s]){0,2}
+        min(?:ute|utes)?
+        .{0,10}
+        (?:average[ds]?|mean|intervals?|periods?|sample[ds]?|every|over|into|each|last|during|highest|frequency|record|per)+
+        )''', re.DOTALL | re.VERBOSE)
 
     time_bin_avg_words_re = re.compile(r'''(
         (?:
@@ -65,7 +90,29 @@ def find_avg_methods(text):
         )
         )''', re.DOTALL | re.VERBOSE)
     
-    # TODO time-rolling
+    # time rolling will be split into the order in which the phrasing can appear. That is roll-time-avg, time-roll-avg, etc.
+    roll_time_avg_re = re.compile(r'''(
+        (?:roll(?:ing)?|smooth(?:ed|ing)|running|moving|sliding|roll(?:ing|ed))
+        .{0,15}
+        (?:(?:[\s\(\)]\d{1,2}[\s-]{0,2}(?:(?:s(?:ec)?(?:econd)?(?:econds)?)+)\b)|(?:one|two|three|four|(?:fi|ﬁ)ve|six|seven|eight|nine|ten|eleven|fifteen|twenty|thirty|sixty))+
+        .{0,15}
+        (?:(?:average[ds]?|mean|intervals?|periods?|sample[ds]?|every|over|into|each|last|points?)+)+
+        )''', re.DOTALL | re.VERBOSE)
+
+    time_roll_avg_re = re.compile(r'''(
+        (?:(?:[\s\(\)]\d{1,2}[\s-]{0,2}(?:(?:s(?:ec)?(?:econd)?(?:econds)?)+)\b)|(?:one|two|three|four|(?:fi|ﬁ)ve|six|seven|eight|nine|ten|eleven|fifteen|twenty|thirty|sixty))+
+        .{0,15}
+        (?:roll(?:ing)?|smooth(?:ed|ing)|running|moving|sliding|roll(?:ing|ed))+
+        .{0,15}(?:(?:average[ds]?|mean|intervals?|periods?|sample[ds]?|every|over|into|each|last|points?)+)+
+        )''', re.DOTALL | re.VERBOSE)
+
+    roll_avg_time_re = re.compile(r'''(
+        (?:roll(?:ing)?|smooth(?:ed|ing)|running|moving|sliding|roll(?:ing|ed))+
+        .{0,15}
+        (?:(?:average[ds]?|mean|intervals?|periods?|sample[ds]?|every|over|into|each|last|points?)+)+
+        .{0,15}
+        (?:(?:[\s\(\)]\d{1,2}[\s-]{0,2}(?:(?:s(?:ec)?(?:econd)?(?:econds)?)+)\b)|(?:one|two|three|four|(?:fi|ﬁ)ve|six|seven|eight|nine|ten|eleven|fifteen|twenty|thirty|sixty))+
+        )''')
 
     # rolling breath average
     # if breath number appears BEFORE "smoothing, rolling, etc."
@@ -75,22 +122,30 @@ def find_avg_methods(text):
         |(?:(?:smooth(?:ing)?(?:ed)?|roll(?:ing)?|sliding|running|moving|filter(?:ed)?)+\s{0,2}(?:each)?\s{0,2}(?:\d{1,2}|three|four|(?:fi|ﬁ)ve|six|seven|eight|nine|ten|eleven|twelve|thirteen|fourteen|fifteen)[\s-]{0,2}(?:breath[es]?|points?))+
         )''', re.IGNORECASE | re.VERBOSE)
 
-    # TODO digital filter
+    digital_filter_re = re.compile(r'''(
+        butterworth|savitzky[\s\W]{0,2}golay|(?:fast\W{0,2}fourier\W{0,2}transform|fft)
+        )''', re.DOTALL | re.VERBOSE)
 
     re_list = [
         time_bin_avg_sec_re,
-        breath_roll_re
+        time_bin_avg_min_re,
+        time_bin_avg_words_re,
+        roll_time_avg_re,
+        time_roll_avg_re,
+        roll_avg_time_re,
+        breath_roll_re,
+        digital_filter_re
     ]
 
     out = [rl.findall(text) for rl in re_list if rl.search(text)]
+    out = flatten_list(out)
 
     if out:
         return out
     else:
         return False
-    
 
-    # out = list map of compiled expressions?
+find_avg_text('The breath-by-breathV̇ O2 data collected by the gas analysis system was averaged per minute for further analysis')
 
 
     
