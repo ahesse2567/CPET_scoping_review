@@ -36,59 +36,27 @@ def string_list_overlap(str_list, full_text=None):
     out = []
     for i, longest_string in enumerate(str_list):
         other_strings = [x for n, x in enumerate(str_list) if n != i]
-        for string in other_strings: 
-            if overlap(longest_string, string, full_text=full_text):
-                longest_string = overlap(longest_string, string)
+        for string in other_strings:
+            temp_str = overlap(longest_string, string, full_text=full_text)
+            if temp_str is not None:
+                if longest_string in temp_str or temp_str in longest_string:
+                    if len(temp_str) > len(longest_string):
+                        longest_string = temp_str
+            # if overlap(longest_string, string, full_text=full_text):
+                # longest_string = overlap(longest_string, string)
         # if the longest string contains all others, be done with it
         if all([x in longest_string for x in other_strings]):
             return [longest_string]
         else:
             out.append(longest_string)
     out = list(set(out)) # remove duplicates
-    # check if any strings are substrings of any other strings. If so, enter function again
-    # test = []
-    # for i, o in enumerate(out):
-    #     sublist = out[:i] + out[i+1:]
-    #     for s in sublist:
-    #         res = o in s
-    #         test.append(res)
-    # if any(test):
-    if any([o in other_o for i, o in enumerate(out) for other_o in out[:i] + out[i+1:]]):
-        out = string_list_overlap(out)
+
+    any_substrings = any([o in other_o for i, o in enumerate(out) for other_o in out[:i] + out[i+1:]])
+
+    if any_substrings and len(out) != len(str_list): # comparing string lengths prevents corner case infinite loops
+        out = string_list_overlap(out, full_text=full_text)
 
     if full_text:
         # remove combinations of text just in case they aren't in the reference text
         out = [o for o in out if o in full_text]
     return out
-
-# s1 = '''
-
-# Data points outside of the computed 99% prediction bands
-# were deemed to be aberrant breaths (e.g., sighing, coughing)
-# and were removed from the analysis. After the regression was
-# recomputed, no additiona'''
-
-# s2 = '''ints outside of the computed 99% prediction bands
-# were deemed to be aberrant breaths (e.g., sighing, coughing)
-# and were removed from the analysis. After the regression was
-# recomputed, no additional data points'''
-
-# s3 = '''e
-
-#  ðt   TDpÞ=τpÞÞ:
-
-# ð1Þ
-
-# Data points outside of the computed 99% prediction bands
-# were deemed to be aberrant breaths (e.g., sighing, coughing)
-# and were removed from the analysis. After the regression was
-# reco'''
-
-# s4 = ''' were computed by taking the observed data and sub-
-# tracting it from the best ﬁt regression line obtained from Eq. 1.'''
-
-# str_list = [s1, s2, s3, s4]
-
-# overlapping_strings = string_list_overlap(str_list)
-# overlapping_strings
-# len(overlapping_strings)

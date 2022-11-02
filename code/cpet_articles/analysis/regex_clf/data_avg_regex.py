@@ -50,7 +50,7 @@ def flatten_list(lst):
         out = flatten_list(out)
     return out
 
-def find_avg_text(text):
+def find_avg_terms(text):
     # time-bin average with NUMBERS
     time_bin_avg_sec_re = re.compile(r'''(
     # avg keywords
@@ -65,15 +65,15 @@ def find_avg_text(text):
 
     time_bin_avg_min_re = re.compile(r'''(
         # order is avg-time
-        (?:average[ds]?|mean|intervals?|periods?|sample[ds]?|every|over|into|each|last|during|highest|frequency|record|per)+
+        (?:average[ds]?|mean|intervals?|periods?|sample[ds]?|every|over|into|each|last|during|highest|frequency|record)+
         .{0,10}
-        (?:\d{0,1}|one)(?:[\W\s]){0,2}
+        (?:1|one)(?:[\W\s]){0,2} # I think we only need 1-minute averages
         min(?:ute|utes)?
         | # order is time_avg
-        (?:\d{0,1}|one)(?:[\W\s]){0,2}
+        (?:1|one)(?:[\W\s]){0,2}
         min(?:ute|utes)?
         .{0,10}
-        (?:average[ds]?|mean|intervals?|periods?|sample[ds]?|every|over|into|each|last|during|highest|frequency|record|per)+
+        (?:average[ds]?|mean|intervals?|periods?|sample[ds]?|every|over|into|each|last|during|highest|frequency|record)+
         )''', re.DOTALL | re.VERBOSE)
 
     time_bin_avg_words_re = re.compile(r'''(
@@ -85,8 +85,8 @@ def find_avg_text(text):
         |
         (?:
         (?:one|two|three|four|(?:fi|ﬁ)ve|six|seven|eight|nine|ten|eleven|fifteen|twenty|thirty|sixty)
-        (?:(?:[\s-]{0,2}(?:(?:s(?:ec)?(?:econd)?(?:econds)?)+)[\(\)\s.,;?-])|(?:[\s-]{0,2}min(?:ute)?s?))
-        (?:(?:average[ds]?|mean|intervals?|periods?|sample[ds]?|every|over|into|each|last|during|highest|frequency|record)+.{0,5})+
+        (?:(?:[\s-]{0,2}(?:(?:s(?:ec)?(?:econd)?(?:econds)?)+)[\(\)\s.,;?-])|(?:[\s-]{0,2}min(?:ute)?s?)).{0,5}
+        (?:(?:average[ds]?|mean|intervals?|periods?|sample[ds]?|every|over|into|each|last|during|highest|frequency|record)+)+
         )
         )''', re.DOTALL | re.VERBOSE)
     
@@ -112,7 +112,7 @@ def find_avg_text(text):
         (?:(?:average[ds]?|mean|intervals?|periods?|sample[ds]?|every|over|into|each|last|points?)+)+
         .{0,15}
         (?:(?:[\s\(\)]\d{1,2}[\s-]{0,2}(?:(?:s(?:ec)?(?:econd)?(?:econds)?)+)\b)|(?:one|two|three|four|(?:fi|ﬁ)ve|six|seven|eight|nine|ten|eleven|fifteen|twenty|thirty|sixty))+
-        )''')
+        )''', re.DOTALL | re.VERBOSE)
 
     # rolling breath average
     # if breath number appears BEFORE "smoothing, rolling, etc."
@@ -139,110 +139,35 @@ def find_avg_text(text):
 
     out = [rl.findall(text) for rl in re_list if rl.search(text)]
     out = flatten_list(out)
+    out = list(set(out)) # remove duplicates
 
     if out:
         return out
     else:
         return False
 
-find_avg_text('The breath-by-breathV̇ O2 data collected by the gas analysis system was averaged per minute for further analysis')
+find_avg_terms('The breath-by-breathV̇ O2 data collected by the gas analysis system was averaged per minute for further analysis')
 
+text_df['avg_terms'] = text_df['text'].progress_apply(lambda x: find_avg_terms(x))
+text_df[text_df['avg_terms'] != False]
 
-    
-
-
-# full regex below for easy copy and paste
-# (((average[ds]?|mean|interval|periods?|sample[ds]?|every|over|into|each|last|during|highest|frequency|record)+.{0,5})+[\s\(\)]\d{1,2}[\s-]{0,2}((s(ec)?(econd)?(econds)?)+)[\(\)\s.,;?-])|([\s\(\)]\d{1,2}[\s-]{0,2}((s(ec)?(econd)?(econds)?)+)[\(\)\s.,;?-].{0,5}((average[ds]?|mean|interval|periods?|sample[ds]?|every|over|into|each|last)+)+)
-
-time_bin_avg_sec_re = re.compile(r'''(
-    # avg keywords
-    (?:(?:(?:average[ds]?|mean|intervals?|periods?|sample[ds]?|every|over|into|each|last|during|highest|frequency|record)+.{0,5})+
-    # numbers and seconds.
-    [\s\(\)]\d{1,2}[\s-]{0,2}((?:s(?:ec)?(?:econd)?(?:econds)?)+)[\(\)\s.,;?-])
-    # numbers and seconds, if they come first
-    |(?:[\s\(\)]\d{1,2}[\s-]{0,2}(?:(?:s(?:ec)?(?:econd)?(?:econds)?)+)[\(\)\s.,;?-]
-    # averaging keywords. There doesn't seem to be as many keywords that come after the numbers
-    .{0,5}(?:(?:average[ds]?|mean|intervals?|periods?|sample[ds]?|every|over|into|each|last)+)+)
-    )''', re.DOTALL | re.VERBOSE)
-
-
-
-# I think I might first search by units in seconds, and later in units that include minutes
-# text = text_df.loc[text_df['doi_suffix'] == 'mss.mss.0000000000001353']
-# text = text.lower()
-# time_bin_avg_sec_re.findall(text)
-
-text_df['time_bin_avg_sec'] = text_df['text'].progress_apply(lambda x: time_bin_avg_sec_re.findall(x) if time_bin_avg_sec_re.search(x) else False)
-text_df[text_df['time_bin_avg_sec'] != False]
-# text_df['time_bin_avg_sec'][0:10]
-text_df.loc[text_df['doi_suffix'] == 'mss.0000000000001353']['time_bin_avg_sec']
-n = 102
-time_bin_avg_phrase = text_df.loc[n,'time_bin_avg_sec']
-time_bin_avg_phrase
-len(time_bin_avg_phrase)
-
-doi_suffix = text_df.loc[n,'doi_suffix']
-doi_suffix
-
-text_list = time_bin_avg_phrase
-def extract_avgs(text_list):
-    # function returns matches from averaging method regex that contains numbers
-    if not isinstance(text_list, list):
-        return False
-    # this needs updating to capture values like "five", not just numbers
-    num_phrase_re = re.compile(r'(?:\d+.?[a-zA-Z]+)|(?:[a-zA-Z]+.?\d+)', re.DOTALL)
-    phrases_with_nums = []
-    for l in text_list:
-        for t in l:
-            if num_phrase_re.search(t):
-                phrases_with_nums.append(t)
-                
-    unique_phrases = list(set(phrases_with_nums))
-    # find exactly what numbers there are
-    just_nums_re = re.compile(r'\d+')
-    nums = []
-    for phrase in unique_phrases:
-        num = just_nums_re.search(phrase).group()
-        nums.append(num)
-    res = list(zip(unique_phrases, nums))
-    return res
-
-extract_avgs(text_list)
-
-# do we need to get the text near the averaging phrase so we can tellif it's about
-# gas exchange or not?
-
-text_df['time_bin_avg_nums'] = text_df['time_bin_avg_sec'].apply(lambda x: extract_avgs(x))
-text_df['time_bin_avg_nums'][0]
-
-
-    # # reference to gas exchange before avg phrase
-    # (v.{0,2}o2|respirat|gas|air|ventilat|pulmonary|(oxygen|o2).{0,2}(consumption|uptake)|metabolic.{0,2}cart)
-    # .{{0,{chars}}}{phrase}
-    # | # also check in case the gas exchange words came after the avg phrase
-    # {phrase}.{{0,{chars}}}
-    # (v.{0,2}o2|respirat|gas|air|ventilat|pulmonary|(oxygen|o2).{0,2}(consumption|uptake)|metabolic.{0,2}cart)
-    # )
-    # example regex to find if avg phrases are actually referring to VO2
-    # this does not have as many {} as the f string would
-    # (v.{0,2}o2|respirat|gas|air|ventilat|pulmonary|(oxygen|o2).{0,2}(consumption|uptake)|metabolic.{0,2}cart).{0,100} 30 seconds into| 30 seconds into.{0,100}(v.{0,2}o2|respirat|gas|air|ventilat|pulmonary|(oxygen|o2).{0,2}(consumption|uptake)|metabolic.{0,2}cart)
-
-
-import random
-n = random.randint(0, text_df.shape[0])
-row = text_df.loc[0,:]
-row
+row = text_df[text_df['doi_suffix'] == 'srep44590']
+row = row.loc[row.index[0],:]
+text = row['text']
+find_avg_terms(row['text'])
+# this found the word "performin" somehow...
 
 surrounding_text = []
 for idx, row in tqdm(text_df.iterrows(), total=text_df.shape[0]):
     temp_list = []
-    if isinstance(row['time_bin_avg_nums'], list):
-        for ph, num in row['time_bin_avg_nums']:
-            temp = get_surrounding_text(phrase=ph, text=row['text'], chars=200)
+    if isinstance(row['avg_terms'], list):
+        for avg_term in row['avg_terms']:
+            temp = get_surrounding_text(phrase=avg_term, text=row['text'], chars=200)
             temp_list.append(temp)
         temp_list = [item for item in temp_list if item is not None]
-        temp_list = [item for sublist in temp_list for item in sublist]
-        comb_text_list = string_list_overlap(temp_list, row['text']) # combine text together to eliminate some later reading
+        flat_list = flatten_list(temp_list)
+        unique_list = list(set(flat_list))
+        comb_text_list = string_list_overlap(unique_list, row['text']) # combine text together to eliminate some later reading
         if comb_text_list:
             surrounding_text.append(comb_text_list)
         else:
@@ -250,12 +175,39 @@ for idx, row in tqdm(text_df.iterrows(), total=text_df.shape[0]):
     else:
         surrounding_text.append(False)
 
+text_df['avg_text'] = surrounding_text
 
+# there's an issue where it's not getting the correct strings anymore
 
-for i in range(20):
-    print(surrounding_text[i])
+def capitalize_substring(main_string, sub_string):
+    out = main_string.replace(sub_string, sub_string.upper())
+    return out
 
-text_df['time_bin_surrounding_text'] = surrounding_text
+# this will help with reading later
+surrounding_text_cap = []
+for idx, row in tqdm(text_df.iterrows(), total=text_df.shape[0]):
+    temp = []
+    if row['avg_text']:
+        for text in row['avg_text']:
+            for term in row['avg_terms']:
+                if term in text:
+                    text = capitalize_substring(text, term)
+            temp.append(text)
+        surrounding_text_cap.append(temp)
+    else:
+        surrounding_text_cap.append(row['avg_text'])
+
+text_df['avg_text'] = surrounding_text_cap
+
+res = text_df[text_df['doi_suffix'] == 'srep44590'].loc[text_df[text_df['doi_suffix'] == 'srep44590'].index[0], 'avg_text']
+for r in res:
+    print(r)
+    print('\n\n******')
+
+# import random
+# n = random.randint(0, text_df.shape[0])
+# row = text_df.loc[0,:]
+# row
 
 manual_text_analysis_path = Path('/Users/antonhesse/Desktop/Anton/Education/UMN/Lab and Research/HSPL/CPET_scoping_review/data/cpet_articles/text_analysis/Manual text analysis - Data.csv')
 manual_text_analysis_df = pd.read_csv(manual_text_analysis_path, dtype='str')
@@ -263,30 +215,13 @@ manual_text_analysis_df = pd.read_csv(manual_text_analysis_path, dtype='str')
 # copy this into the Google Sheet
 merge_df = pd.merge(
     manual_text_analysis_df.drop(['time_bin_avg_nums', 'time_bin_surrounding_text'], axis=1),\
-    text_df[['doi_suffix', 'time_bin_avg_nums', 'time_bin_surrounding_text']],\
+    text_df[['doi_suffix', 'avg_terms', 'avg_text']],\
     how='outer', on='doi_suffix').drop_duplicates(subset='doi_suffix')
 merge_df['doi_suffix'] = merge_df['doi_suffix'].astype('str')
-merge_df = reorder_columns(merge_df, 'time_bin_avg_nums', position=10)
-merge_df = reorder_columns(merge_df, 'time_bin_surrounding_text', position=11)
+merge_df = reorder_columns(merge_df, 'avg_terms', position=10)
+merge_df = reorder_columns(merge_df, 'avg_text', position=11)
 # merge_df.to_clipboard(index=False)
 
-merge_df[['time_bin_avg_nums','time_bin_surrounding_text']].to_clipboard(index=False)
+merge_df[['avg_terms','avg_text']].to_clipboard(index=False)
 merge_df.columns
-
-avg_df = merge_df[['doi_suffix', 'time_bin_avg_nums', 'time_bin_surrounding_text', 'Avg type', 'Avg subtype', 'Avg amount',
-       'Avg MOS', 'Avg mean type', 'avg_details']]
-
-import pyperclip
-pyperclip.copy(text_df.loc[text_df['doi_suffix'] == 's00421-005-1350-3',:].reset_index().loc[0,'text'])
-
-text_df['breath_roll_avg'] = text_df['text'].progress_apply(lambda x: breath_roll_re.findall(x) if len(breath_roll_re.findall(x)) > 0 else False)
-text_df['breath_roll_avg']
-text_df['breath_roll_avg_nums'] = text_df['breath_roll_avg'].apply(lambda x: extract_avgs(x))
-text_df['breath_roll_avg_nums']
-text_df[text_df['breath_roll_avg_nums'] != False]
-# how do we deal with a MOS as a median?
-
-# digital filters will be tough because they almost ALWAYS refer to EMG data
-
-
-
+merge_df
