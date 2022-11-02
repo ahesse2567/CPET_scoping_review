@@ -66,6 +66,8 @@ def get_surrounding_text(phrase, text, chars=200):
         )''', re.DOTALL | re.VERBOSE)
 
     vo2_breath_re = re.compile(r'(?:v.{0,2})?o2|breath|metaboli', re.DOTALL)
+    # additional terms to consider:
+    # respirat|gas|air|ventilat|pulmonary|(oxygen|o2).{0,2}(consumption|uptake)
     
     if surrounding_text_re.search(text):
         res = surrounding_text_re.findall(text)
