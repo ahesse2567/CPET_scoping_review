@@ -79,7 +79,7 @@ def find_avg_terms(text):
     time_bin_avg_words_re = re.compile(r'''(
         (?:
         (?:(?:average[ds]?|mean|intervals?|periods?|sample[ds]?|every|over|into|each|last|during|highest|frequency|record)+.{0,5})+
-        (?:one|two|three|four|(?:fi|ﬁ)ve|six|seven|eight|nine|ten|eleven|fifteen|twenty|thirty|sixty)
+        \b(?:one|two|three|four|(?:fi|ﬁ)ve|six|seven|eight|nine|ten|eleven|fifteen|twenty|thirty|sixty)\b # tried adding word boundary to prevent his like "inTENsity"
         (?:(?:[\s-]{0,2}(?:(?:s(?:ec)?(?:econd)?(?:econds)?)+)[\(\)\s.,;?-])|(?:[\s-]{0,2}min(?:ute)?s?))
         )
         |
@@ -88,6 +88,15 @@ def find_avg_terms(text):
         (?:(?:[\s-]{0,2}(?:(?:s(?:ec)?(?:econd)?(?:econds)?)+)[\(\)\s.,;?-])|(?:[\s-]{0,2}min(?:ute)?s?)).{0,5}
         (?:(?:average[ds]?|mean|intervals?|periods?|sample[ds]?|every|over|into|each|last|during|highest|frequency|record)+)+
         )
+        )''', re.DOTALL | re.VERBOSE)
+
+    # This regex is for phrases like "The breath-by-breathV̇ O2 data collected by the gas analysis system was averaged per minute"
+    avg_per_min_re = re.compile(r'''(
+        (?:average[ds]?|mean|display(?:ed)?)
+        .{0,50}
+        (?:last|once|each|per|every)
+        .{0,5}
+        min(?:ute)?s?
         )''', re.DOTALL | re.VERBOSE)
     
     # time rolling will be split into the order in which the phrasing can appear. That is roll-time-avg, time-roll-avg, etc.
@@ -130,6 +139,7 @@ def find_avg_terms(text):
         time_bin_avg_sec_re,
         time_bin_avg_min_re,
         time_bin_avg_words_re,
+        avg_per_min_re,
         roll_time_avg_re,
         time_roll_avg_re,
         roll_avg_time_re,
