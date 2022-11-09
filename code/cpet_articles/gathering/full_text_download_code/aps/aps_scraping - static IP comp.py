@@ -113,7 +113,9 @@ for idx, row in tqdm(articles.iterrows(), total=articles.shape[0]):
         out.update({'error': e})
         close_extra_tabs(driver)
     log.append(out)
-    
+
+driver.quit()
+
 log_df = pd.DataFrame(log)
 log_df.to_csv('/Users/antonhesse/Desktop/Anton/Education/UMN/Lab and Research/HSPL/CPET_scoping_review/data/cpet_articles/unpaywall/aps_errors.csv', index=False)
 # log_df['doi_redirect_SC'].value_counts()
