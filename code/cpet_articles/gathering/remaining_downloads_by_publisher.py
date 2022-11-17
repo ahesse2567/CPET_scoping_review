@@ -1,12 +1,12 @@
-from pathlib import Path
+# from pathlib import Path
 import pandas as pd
-import re
+# import re
 from tqdm import tqdm
-import sys
-sys.path.append('/Users/antonhesse/Desktop/Anton/Education/UMN/Lab and Research/HSPL/CPET_scoping_review/code/cpet_articles/gathering/full-text_download_code/')
-from helper_funcs.articles import get_current_full_texts, get_doi_suffix
+from code.cpet_articles.gathering.full_text_download_code.helper_funcs.articles import get_current_full_texts
+from code.cpet_articles.utils.article_names import get_doi_suffix
 
 current_full_texts = get_current_full_texts()
+
 all_articles = pd.read_csv('/Users/antonhesse/Desktop/Anton/Education/UMN/Lab and Research/HSPL/CPET_scoping_review/data/cpet_articles/unpaywall/unpaywall_info.csv')
 all_articles['doi_suffix'] = all_articles['doi'].apply(lambda x: get_doi_suffix(x))
 full_texts_to_download = [x for x in tqdm(all_articles['doi_suffix'].tolist()) if x not in current_full_texts]
