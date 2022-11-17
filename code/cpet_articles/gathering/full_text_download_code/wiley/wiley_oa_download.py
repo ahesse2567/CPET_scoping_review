@@ -1,35 +1,42 @@
-import sys
-sys.path.append('code/cpet_articles/gathering/full-text_download_code/helper_funcs')
-from crossref_pdf_download import crossref_pdf_download
 import requests
 import pandas as pd
 from tqdm import tqdm
 import json
+from code.cpet_articles.gathering.full_text_download_code.helper_funcs.articles import get_current_full_texts
+from code.cpet_articles.gathering.full_text_download_code.helper_funcs.crossref_pdf_download import crossref_pdf_download
+from code.cpet_articles.utils.article_names import get_doi_suffix
 
-with open('code/cpet_articles/gathering/full-text_download_code/wiley_config.json') as config_file:
+current_full_texts = get_current_full_texts()
+
+all_articles = pd.read_csv('/Users/antonhesse/Desktop/Anton/Education/UMN/Lab and Research/HSPL/CPET_scoping_review/data/cpet_articles/unpaywall/unpaywall_info.csv')
+all_articles['doi_suffix'] = all_articles['doi'].apply(lambda x: get_doi_suffix(x))
+
+remaining_articles = all_articles[~all_articles['doi_suffix'].isin(current_full_texts)]
+articles = remaining_articles[remaining_articles['publisher'] == 'Wiley'].reset_index(drop=True)
+articles.shape
+
+with open('code/cpet_articles/gathering/full_text_download_code/wiley/wiley_config.json') as config_file:
     wiley_token = json.load(config_file)['api_key']
 
-articles = pd.read_csv('/Users/antonhesse/Desktop/Anton/Education/UMN/Lab and Research/HSPL/CPET_scoping_review/data/cpet_articles/unpaywall/unpaywall_info.csv')
-wiley_articles = articles[(articles['is_oa'] == True) & \
-    (articles['publisher'] == 'Wiley')].reset_index(drop=True)
-wiley_articles.shape
-
-user_agent = 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:101.0) Gecko/20100101 Firefox/101.0'
+user_agent = 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:107.0) Gecko/20100101 Firefox/107.0'
 accept = 'application/vnd.citationstyles.csl+json, application/vnd.crossref.unixref+xml'
-dest_folder = 'data/cpet_articles/full_texts/pdfs/wiley_oa_pdfs'
+dest_folder = 'data/cpet_articles/full_texts/pdfs/'
+
 
 # uncomment below to redownload wiley oa articles
-# res = []
-# for i, row in tqdm(wiley_articles.iterrows(), total=wiley_articles.shape[0]):
-#     temp = crossref_pdf_download(
-#         doi=row['doi'],
-#         accept=accept,
-#         dest=dest_folder,
-#         user_agent=user_agent,
-#         TDM_header='Wiley-TDM-Client-Token',
-#         TDM_token=wiley_token,
-#         verify=True)
-#     res.append(temp)
+res = []
+for i, row in tqdm(articles.iterrows(), total=articles.shape[0]):
+    temp = crossref_pdf_download(
+        doi=row['doi'],
+        accept=accept,
+        dest=dest_folder,
+        user_agent=user_agent,
+        TDM_header='Wiley-TDM-Client-Token',
+        TDM_token=wiley_token,
+        verify=True)
+    res.append(temp)
+
+res_df = pd.DataFrame(res)
 
 # res_df = pd.DataFrame(res)
 # merge = pd.merge(wiley_articles, res_df, how = 'outer', on='doi')

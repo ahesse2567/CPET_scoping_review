@@ -1,4 +1,6 @@
 import requests
+from code.cpet_articles.utils.article_names import get_doi_suffix
+from code.cpet_articles.gathering.full_text_download_code.helper_funcs.articles import download_pdf
 
 def crossref_pdf_download(
     doi,
@@ -43,11 +45,14 @@ def crossref_pdf_download(
             # print(f'Status code {publisher_response.status_code} for DOI {doi}')
             return out
         
-        doi_suffix = str(doi.split('/')[1:]).strip("[']")
-        filename = f'{dest}/{doi_suffix}.{application}'
+        doi_suffix = get_doi_suffix(doi)
 
-        with open(filename, mode='wb') as f:
-            f.write(publisher_response.content)
+        download_pdf(doi=doi, dest_folder=dest, content=publisher_response.content)
+
+        # filename = f'{dest}/{doi_suffix}.{application}'
+
+        # with open(filename, mode='wb') as f:
+        #     f.write(publisher_response.content)
 
     except Exception as e:
         print(f'Exception at DOI {doi}')
