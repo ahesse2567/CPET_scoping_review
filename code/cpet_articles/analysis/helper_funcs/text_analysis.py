@@ -77,3 +77,7 @@ def get_surrounding_text(phrase, text, chars=200):
             return None
     else:
         return None
+
+def capitalize_substring(main_string, sub_string):
+    out = main_string.replace(sub_string, sub_string.upper())
+    return out
