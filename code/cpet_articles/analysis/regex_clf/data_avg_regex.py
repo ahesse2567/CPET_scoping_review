@@ -6,13 +6,7 @@ tqdm.pandas()
 from code.cpet_articles.analysis.helper_funcs.text_analysis import read_raw_text, get_surrounding_text
 # from code.cpet_articles.utils.article_names import get_doi_suffix
 from code.cpet_articles.analysis.helper_funcs.comb_overlapping_str import *
-
-def reorder_columns(dataframe, col_name, position):
-    temp_col = dataframe[col_name] # store col to move
-    dataframe = dataframe.drop(columns=[col_name]) # drop old position
-    dataframe.insert(loc=position, column=col_name, value=temp_col) # insert at new position
-    print(dataframe.columns)
-    return dataframe
+from code.cpet_articles.analysis.helper_funcs.reorder_columns import reorder_columns
 
 txt_file_paths = list(Path('/Users/antonhesse/Desktop/Anton/Education/UMN/Lab and Research/HSPL/CPET_scoping_review/data/cpet_articles/full_texts/txts').rglob('*.txt'))
 
@@ -156,15 +150,15 @@ def find_avg_terms(text):
     else:
         return False
 
-find_avg_terms('The breath-by-breathV̇ O2 data collected by the gas analysis system was averaged per minute for further analysis')
+# find_avg_terms('The breath-by-breathV̇ O2 data collected by the gas analysis system was averaged per minute for further analysis')
 
 text_df['avg_terms'] = text_df['text'].progress_apply(lambda x: find_avg_terms(x))
 text_df[text_df['avg_terms'] != False]
 
-row = text_df[text_df['doi_suffix'] == 'srep44590']
-row = row.loc[row.index[0],:]
-text = row['text']
-find_avg_terms(row['text'])
+# row = text_df[text_df['doi_suffix'] == 'srep44590']
+# row = row.loc[row.index[0],:]
+# text = row['text']
+# find_avg_terms(row['text'])
 # this found the word "performin" somehow...
 
 surrounding_text = []
@@ -209,10 +203,10 @@ for idx, row in tqdm(text_df.iterrows(), total=text_df.shape[0]):
 
 text_df['avg_text'] = surrounding_text_cap
 
-res = text_df[text_df['doi_suffix'] == 'srep44590'].loc[text_df[text_df['doi_suffix'] == 'srep44590'].index[0], 'avg_text']
-for r in res:
-    print(r)
-    print('\n\n******')
+# res = text_df[text_df['doi_suffix'] == 'srep44590'].loc[text_df[text_df['doi_suffix'] == 'srep44590'].index[0], 'avg_text']
+# for r in res:
+#     print(r)
+#     print('\n\n******')
 
 # import random
 # n = random.randint(0, text_df.shape[0])
@@ -224,8 +218,7 @@ manual_text_analysis_df = pd.read_csv(manual_text_analysis_path, dtype='str')
 
 # copy this into the Google Sheet
 merge_df = pd.merge(
-    manual_text_analysis_df.drop(['time_bin_avg_nums', 'time_bin_surrounding_text'], axis=1),\
-    text_df[['doi_suffix', 'avg_terms', 'avg_text']],\
+    manual_text_analysis_df, text_df[['doi_suffix', 'avg_terms', 'avg_text']],\
     how='outer', on='doi_suffix').drop_duplicates(subset='doi_suffix')
 merge_df['doi_suffix'] = merge_df['doi_suffix'].astype('str')
 merge_df = reorder_columns(merge_df, 'avg_terms', position=10)
