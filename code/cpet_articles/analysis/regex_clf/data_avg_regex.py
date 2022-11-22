@@ -120,10 +120,16 @@ def find_avg_terms(text):
     # rolling breath average
     # if breath number appears BEFORE "smoothing, rolling, etc."
     # (?:(?:\d{1,2}|three|four|[(?:fi)|ﬁ]ve|six|seven|eight|nine|ten|eleven|twelve|thirteen|fourteen|fifteen)[\s-]{0,2}?:breath[es]?|points{0,1})[\s-]{0,2}(?:smooth(?:ing)?(?:ed)?|roll(?:ing)?|sliding|running|moving)+)+|(?:(?:smooth(?:ing)?(?:ed)?|roll(?:ing)?|sliding|running|moving|filter(?:ed)?)+\s{0,2}(?:each)?\s{0,2}(?:\d{1,2}|three|four|[(?:fi)|ﬁ]ve|six|seven|eight|nine|ten|eleven|twelve|thirteen|fourteen|fifteen)[\s-]{0,2}(?:breath[es]?|points?))+
-    breath_roll_re = re.compile(r'''( # TODO make these noncapturing groups for speed
+    breath_roll_re = re.compile(r'''( 
         (?:(?:\d{1,2}|three|four|(?:fi|ﬁ)ve|six|seven|eight|nine|ten|eleven|twelve|thirteen|fourteen|fifteen)[\s-]{0,2}(?:breath[es]?|points{0,1})[\s-]{0,2}(?:smooth(?:ing)?(?:ed)?|roll(?:ing)?|sliding|running|moving)+)+
         |(?:(?:smooth(?:ing)?(?:ed)?|roll(?:ing)?|sliding|running|moving|filter(?:ed)?)+\s{0,2}(?:each)?\s{0,2}(?:\d{1,2}|three|four|(?:fi|ﬁ)ve|six|seven|eight|nine|ten|eleven|twelve|thirteen|fourteen|fifteen)[\s-]{0,2}(?:breath[es]?|points?))+
-        )''', re.IGNORECASE | re.VERBOSE)
+        )''', re.DOTALL | re.VERBOSE)
+
+    breath_bin_re = re.compile(r'''(
+        (?:every|each)[\s-]{0,2}
+        (?:three|four|(?:fi|ﬁ)ve|six|seven|eight|nine|ten|eleven|twelve|thirteen|fourteen|fifteen|twenty|thirty)[\s-]{0,2}
+        (?:breath[es]?|points{0,1})
+        )''', re.DOTALL | re.VERBOSE)
 
     digital_filter_re = re.compile(r'''(
         butterworth|savitzky[\s\W]{0,2}golay|(?:fast\W{0,2}fourier\W{0,2}transform|fft)
@@ -138,6 +144,7 @@ def find_avg_terms(text):
         time_roll_avg_re,
         roll_avg_time_re,
         breath_roll_re,
+        breath_bin_re,
         digital_filter_re
     ]
 
@@ -150,6 +157,10 @@ def find_avg_terms(text):
     else:
         return False
 
+text = """
+Minute  ventilation  (VE),  oxy­ gen uptake (VO,), and carbon dioxide output (VCO:) were  calculated  for  each  four  breaths  according  to previously described and validated methods [9]
+"""
+find_avg_terms(text)
 # find_avg_terms('The breath-by-breathV̇ O2 data collected by the gas analysis system was averaged per minute for further analysis')
 
 text_df['avg_terms'] = text_df['text'].progress_apply(lambda x: find_avg_terms(x))
@@ -218,7 +229,8 @@ manual_text_analysis_df = pd.read_csv(manual_text_analysis_path, dtype='str')
 
 # copy this into the Google Sheet
 merge_df = pd.merge(
-    manual_text_analysis_df, text_df[['doi_suffix', 'avg_terms', 'avg_text']],\
+    manual_text_analysis_df.drop(['avg_terms', 'avg_text'], axis=1),\
+    text_df[['doi_suffix', 'avg_terms', 'avg_text']],\
     how='outer', on='doi_suffix').drop_duplicates(subset='doi_suffix')
 merge_df['doi_suffix'] = merge_df['doi_suffix'].astype('str')
 merge_df = reorder_columns(merge_df, 'avg_terms', position=10)
