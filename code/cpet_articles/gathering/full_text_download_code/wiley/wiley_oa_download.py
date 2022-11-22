@@ -38,6 +38,8 @@ for i, row in tqdm(articles.iterrows(), total=articles.shape[0]):
 
 res_df = pd.DataFrame(res)
 
+res_df['publisher_status_code'].value_counts()
+
 # res_df = pd.DataFrame(res)
 # merge = pd.merge(wiley_articles, res_df, how = 'outer', on='doi')
 # merge.columns
