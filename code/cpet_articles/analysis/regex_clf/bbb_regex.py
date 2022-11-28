@@ -35,6 +35,7 @@ carefusion_re = re.compile(r'carefusion')
 text_df['carefusion'] = text_df['text'].progress_apply(lambda x: True if carefusion_re.search(x) is not None else False)
 text_df['carefusion'].value_counts()
 
+# parvo trueone 2400 might actually be a mixing chamber
 parvomedics_re = re.compile(r'parvo\s?medics')
 text_df['parvomedics'] = text_df['text'].progress_apply(lambda x: True if parvomedics_re.search(x) is not None else False)
 text_df['parvomedics'].value_counts()
