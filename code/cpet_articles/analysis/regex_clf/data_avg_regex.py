@@ -48,13 +48,13 @@ def find_avg_terms(text):
     # time-bin average with NUMBERS
     time_bin_avg_sec_re = re.compile(r'''(
     # avg keywords
-    (?:(?:(?:average[ds]?|mean|intervals?|periods?|sample[ds]?|every|over|into|each|last|during|highest|frequency|record)+.{0,5})+
+    (?:(?:(?:average[ds]?|mean|intervals?|value|segment|periods?|sample[ds]?|every|over|into|each|last|during|highest|frequency|record)+.{0,5})+
     # numbers and seconds
     [\s\(\)]\d{1,2}[\s-]{0,2}(?:(?:s(?:ec)?(?:econd)?(?:econds)?)+)[\(\)\s.,;?-])
     # numbers and seconds, if they come first
     |(?:[\s\(\)]\d{1,2}[\s-]{0,2}(?:(?:s(?:ec)?(?:econd)?(?:econds)?)+)[\(\)\s.,;?-]
     # averaging keywords. There doesn't seem to be as many keywords that come after the numbers
-    .{0,5}(?:(?:average[ds]?|mean|intervals?|periods?|sample[ds]?|every|over|into|each|last)+)+)
+    .{0,5}(?:(?:average[ds]?|mean|intervals?|periods?|value|segment|sample[ds]?|every|over|into|each|last)+)+)
     )''', re.DOTALL | re.VERBOSE)
 
     time_bin_avg_min_re = re.compile(r'''(
@@ -80,7 +80,7 @@ def find_avg_terms(text):
         (?:
         (?:one|two|three|four|(?:fi|ﬁ)ve|six|seven|eight|nine|ten|eleven|fifteen|twenty|thirty|sixty)
         (?:(?:[\s-]{0,2}(?:(?:s(?:ec)?(?:econd)?(?:econds)?)+)[\(\)\s.,;?-])|(?:[\s-]{0,2}min(?:ute)?s?)).{0,5}
-        (?:(?:average[ds]?|mean|intervals?|periods?|sample[ds]?|every|over|into|each|last|during|highest|frequency|record)+)+
+        (?:(?:average[ds]?|mean|intervals?|periods?|value|segment|sample[ds]?|every|over|into|each|last|during|highest|frequency|record)+)+
         )
         )''', re.DOTALL | re.VERBOSE)
 
@@ -99,14 +99,14 @@ def find_avg_terms(text):
         .{0,15}
         (?:(?:[\s\(\)]\d{1,2}[\s-]{0,2}(?:(?:s(?:ec)?(?:econd)?(?:econds)?)+)\b)|(?:one|two|three|four|(?:fi|ﬁ)ve|six|seven|eight|nine|ten|eleven|fifteen|twenty|thirty|sixty))+
         .{0,15}
-        (?:(?:average[ds]?|mean|intervals?|periods?|sample[ds]?|every|over|into|each|last|points?)+)+
+        (?:(?:average[ds]?|mean|intervals?|periods?|value|segment|sample[ds]?|every|over|into|each|last|points?)+)+
         )''', re.DOTALL | re.VERBOSE)
 
     time_roll_avg_re = re.compile(r'''(
         (?:(?:[\s\(\)]\d{1,2}[\s-]{0,2}(?:(?:s(?:ec)?(?:econd)?(?:econds)?)+)\b)|(?:one|two|three|four|(?:fi|ﬁ)ve|six|seven|eight|nine|ten|eleven|fifteen|twenty|thirty|sixty))+
         .{0,15}
         (?:roll(?:ing)?|smooth(?:ed|ing)|running|moving|sliding|roll(?:ing|ed))+
-        .{0,15}(?:(?:average[ds]?|mean|intervals?|periods?|sample[ds]?|every|over|into|each|last|points?)+)+
+        .{0,15}(?:(?:average[ds]?|mean|intervals?|value|segment|periods?|sample[ds]?|every|over|into|each|last|points?)+)+
         )''', re.DOTALL | re.VERBOSE)
 
     roll_avg_time_re = re.compile(r'''(
