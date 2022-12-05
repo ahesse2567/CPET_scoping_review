@@ -3,7 +3,7 @@ library(stringr)
 library(scales)
 library(janitor)
 
-text_data <- read_csv("data/cpet_articles/text_analysis/Manual text analysis - Avg.csv",
+avg_data <- read_csv("data/cpet_articles/text_analysis/Manual text analysis - Avg.csv",
                       show_col_types = FALSE) %>% 
     clean_names()
 
@@ -18,8 +18,8 @@ bbb_articles <- read_csv("data/cpet_articles/text_analysis/bbb_articles.csv",
     distinct(doi_suffix, .keep_all = TRUE) %>% 
     filter(!(doi_suffix %in% douglas_bag_mixing_chamber_articles$doi_suffix))
 
-merge_df <- inner_join(text_data, bbb_articles, by = "doi_suffix") %>% 
-    select(colnames(text_data)) %>% 
+merge_df <- inner_join(avg_data, bbb_articles, by = "doi_suffix") %>% 
+    select(colnames(avg_data)) %>% 
     rowwise() %>%
     mutate(all_NA = all(is.na(
         c(avg_type, avg_subtype, avg_amount,
@@ -37,7 +37,6 @@ total_articles <- merge_df %>%
 
 # initial estimate of how many articles have averaging methods
 # only considering if they have avg details or not
-
 merge_df %>%
     distinct(doi_suffix, .keep_all = TRUE) %>%
     mutate(has_avg_details = case_when(
@@ -138,11 +137,12 @@ overall_avg_documentation_rate_plot <-
     geom_text(aes(label = scales::percent(prop)), vjust = -0.5) +
     ylim(0, plyr::round_any(max(avg_documentation_tib$estimate), 1000, f = ceiling)) +
     theme_minimal() +
-    labs(caption = str_wrap(
-        paste("Estimated counts and percentages of data averaging reporting. N = ",
-              total_articles, ".", sep = ""), width = 100)) +
+    # labs(caption = str_wrap(
+    #     paste("Estimated counts and percentages of data averaging reporting. N = ",
+    #           total_articles, ".", sep = ""), width = 100)) +
     theme(plot.caption = element_text(hjust=0))
 overall_avg_documentation_rate_plot
+# ggsave("graphics/overall_avg_documentation_rate_plot.tiff", device = "tiff")
 
 # count by averaging type
 n_avg <- merge_df %>% 
@@ -170,8 +170,6 @@ calc_upper_y_lim <- function(x) {
     upper_y_lim
 }
 
-x <- 563
-
 # avg by type plot
 avg_by_type_plot <- avg_by_type_tab %>% 
     mutate(avg_type = if_else(pct < 0.01, "Other", avg_type)) %>% 
@@ -187,10 +185,10 @@ avg_by_type_plot <- avg_by_type_tab %>%
     ylab("Count") +
     ylim(0,calc_upper_y_lim(max(avg_by_type_tab$n))) +
     theme_minimal() +
-    labs(caption = str_wrap(
-        paste("Averaging method by type. Data are expressed as counts and percentages.\nN = ",
-              n_avg, ".", sep = ""), width = 100)) +
-    theme(plot.caption = element_text(hjust=0)) +
+    # labs(caption = str_wrap(
+    #     paste("Averaging method by type. Data are expressed as counts and percentages.\nN = ",
+    #           n_avg, ".", sep = ""), width = 100)) +
+    # theme(plot.caption = element_text(hjust=0)) +
     theme(axis.text.x = element_text(angle=45, hjust=1))
 avg_by_type_plot
 
@@ -222,23 +220,33 @@ avg_by_subtype_tab %>%
     ylab("Count") +
     ylim(0, calc_upper_y_lim(max(avg_by_subtype_tab$n))) +
     theme_minimal() +
-    labs(caption = str_wrap(
-        paste("Averaging method by subtype. Data are expressed as counts and percentages. N = ",
-              n_avg_subtype, ".", sep = ""), width = 100)) +
-    theme(plot.caption = element_text(hjust=0)) +
+    # labs(caption = str_wrap(
+    #     paste("Averaging method by subtype. Data are expressed as counts and percentages. N = ",
+    #           n_avg_subtype, ".", sep = ""), width = 100)) +
+    # theme(plot.caption = element_text(hjust=0)) +
     theme(axis.text.x = element_text(angle=45, hjust=1))
 
+# avg by type and subtype
+avg_by_type_subtype_tab <- merge_df %>% 
+    filter(!is.na(avg_subtype) | !is.na(avg_type)) %>% 
+    count(avg_type, avg_subtype) %>% 
+    ungroup() %>% 
+    mutate(pct = prop.table(n)) %>% 
+    mutate(avg_type_subtype = paste(avg_type, "-", avg_subtype, sep = ""),
+           avg_type_subtype = str_to_title(avg_type_subtype)) %>% 
+    arrange(desc(pct))
+avg_by_type_subtype_tab
 
 # avg by full avg method plot
 avg_by_full_method_tab <- merge_df %>% 
     filter(!is.na(avg_type)) %>% 
-    group_by(avg_type, avg_subtype, avg_amount, avg_mos, avg_mean_type) %>% 
+    group_by(avg_type, axvg_subtype, avg_amount, avg_mos, avg_mean_type) %>% 
     summarize(n = n()) %>% 
     ungroup() %>% 
     mutate(pct = prop.table(n))
 avg_by_full_method_tab
 
-avg_by_full_method_tab %>% 
+avg_by_full_method_plot <- avg_by_full_method_tab %>% 
     mutate(avg_procedure = paste(
     avg_type, avg_subtype, avg_amount, avg_mos, avg_mean_type, sep = "-"),
     avg_procedure = if_else(pct < 0.01, "Other", str_to_title(avg_procedure))) %>% 
@@ -255,11 +263,11 @@ avg_by_full_method_tab %>%
     ylab("Count") +
     ylim(0, calc_upper_y_lim(max(avg_by_full_method_tab$n)) + 50) +
     theme_minimal() +
-    labs(caption = str_wrap(
-        paste(
-            "Prevalence of averaging method by full procedure. 
-            Data are expressed as counts and percentages. ",
-            sum(avg_by_full_method_tab$n), ".", sep = ""), width = 100)) +
-    theme(plot.caption = element_text(hjust=0)) +
+    # labs(caption = str_wrap(
+    #     paste(
+    #         "Prevalence of averaging method by full procedure. 
+    #         Data are expressed as counts and percentages. ",
+    #         sum(avg_by_full_method_tab$n), ".", sep = ""), width = 100)) +
+    # theme(plot.caption = element_text(hjust=0)) +
     theme(axis.text.x = element_text(angle=90, hjust=1))
-
+avg_by_full_method_plot

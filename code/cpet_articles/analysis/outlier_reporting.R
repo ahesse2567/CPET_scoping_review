@@ -2,7 +2,6 @@ library(tidyverse)
 library(stringr)
 library(scales)
 library(janitor)
-library(stringr)
 
 text_data <- read_csv("data/cpet_articles/text_analysis/Manual text analysis - Data.csv",
                       show_col_types = FALSE) %>% 
@@ -28,6 +27,14 @@ total_articles <- merge_df %>%
     distinct(doi_suffix, .keep_all = FALSE) %>% 
     nrow()
 
+articles_reporting_outliers <- merge_df %>% 
+    distinct(doi_suffix, .keep_all = TRUE) %>% 
+    mutate(outlier_documentation = is.na(outlier_limit)) %>% 
+    count(outlier_documentation) %>% 
+    ungroup() %>% 
+    mutate(pct = prop.table(n))
+articles_reporting_outliers
+
 # count by outlier cutoff type
 outlier_cutoff_by_type <- merge_df %>% 
     group_by(outlier_limit) %>% 
@@ -39,7 +46,12 @@ outlier_reporting_frequency_plot <- merge_df %>%
     count(outlier_limit) %>% 
     mutate(pct = round(prop.table(n),4)) %>% 
     mutate(outlier_limit = if_else(
-        is.na(outlier_limit), "Unspecified", str_to_title(outlier_limit))) %>% 
+        is.na(outlier_limit), "Unspecified", str_to_title(outlier_limit)),
+        outlier_limit = if_else(pct < 0.01, "other", outlier_limit)) %>% 
+    group_by(outlier_limit) %>% 
+    summarize(n = sum(n)) %>% 
+    ungroup() %>% 
+    mutate(pct = prop.table(n)) %>% 
     ggplot(aes(x = outlier_limit, y = n)) +
     geom_col() +
     geom_text(aes(label = scales::percent(pct)), vjust = -0.5) +
@@ -48,11 +60,11 @@ outlier_reporting_frequency_plot <- merge_df %>%
     ylab("Count") +
     ylim(0, 2000 * ceiling(max(outlier_cutoff_by_type$n) / 2000)) +
     theme_minimal() +
-    labs(
-        caption = str_wrap(
-            paste(
-                "Outlier cutoff reporting frequency. Data are expressed as counts and percentages. N = ",
-                total_articles, ".", sep = ""), width = 100)) +
+    # labs(
+    #     caption = str_wrap(
+    #         paste(
+    #             "Outlier cutoff reporting frequency. Data are expressed as counts and percentages. N = ",
+    #             total_articles, ".", sep = ""), width = 100)) +
     theme(plot.caption = element_text(hjust=0))
 outlier_reporting_frequency_plot
 
@@ -71,11 +83,16 @@ count_outlier_procedure_described <- merge_df %>%
     summarize_all(list(count_outlier_procedure_described = ~ sum(!is.na(.)))) %>% 
     pull()
 
-pct_outlier_limits <- merge_df %>% 
+pct_outlier_limits_plot <- merge_df %>% 
     select(outlier_limit) %>% 
     drop_na() %>% 
     group_by(outlier_limit) %>% 
     summarize(n = n()) %>% 
+    mutate(pct = prop.table(n),
+           outlier_limit = if_else(pct < 0.02, "other", outlier_limit)) %>%
+    group_by(outlier_limit) %>% 
+    summarize(n = sum(n)) %>% 
+    ungroup() %>% 
     mutate(pct = prop.table(n)) %>% 
     mutate(outlier_limit = str_to_title(outlier_limit)) %>% 
     ggplot(aes(x = outlier_limit, y = n)) +
@@ -86,14 +103,12 @@ pct_outlier_limits <- merge_df %>%
     ylab("Count") +
     ylim(0, 200 * ceiling(max(specified_outlier_cutoffs_by_type$n) / 200)) +
     theme_minimal() +
-    labs(
-        caption = str_wrap(
-            paste("Outlier cutoff frequencies. Data are expressed as counts and percentages. N = ",
-                  count_outlier_procedure_described, ".", sep = ""), width = 100)) +
+    # labs(
+    #     caption = str_wrap(
+    #         paste("Outlier cutoff frequencies. Data are expressed as counts and percentages. N = ",
+    #               count_outlier_procedure_described, ".", sep = ""), width = 100)) +
     theme(plot.caption = element_text(hjust=0))
-pct_outlier_limits
-
-
+pct_outlier_limits_plot
 
 
 # percentage of articles that specify outlier removal
