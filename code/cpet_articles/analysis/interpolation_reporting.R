@@ -2,7 +2,6 @@ library(tidyverse)
 library(stringr)
 library(scales)
 library(janitor)
-library(stringr)
 
 text_data <- read_csv("data/cpet_articles/text_analysis/Manual text analysis - Data.csv",
                       show_col_types = FALSE) %>% 
@@ -36,8 +35,6 @@ interpolation_specification_summary <- merge_df %>%
     ungroup() %>% 
     mutate(freq = prop.table(n))
 interpolation_specification_summary
-
-
 
 count_specified_interpolation <- interpolation_specification_summary %>% 
     filter(interpolation_details == TRUE) %>% 
@@ -88,7 +85,10 @@ interpolation_reproting_frequency_plot <- condensed_interpolation_summary %>%
     ylab("Count") +
     ylim(0, 2000 * ceiling(max(condensed_interpolation_summary$n) / 2000)) +
     theme_minimal() +
-    labs(caption = "Interpolation method reporting frequencies. Data are expressed as counts and \npercentages. N = 7833.") +
+    # labs(caption = str_wrap(
+    #     paste("Interpolation method reporting frequencies. 
+    #           Data are expressed as counts and percentages. N = ",
+    #           total_articles, ".", sep = ""), width = 100)) +
     theme(plot.caption = element_text(hjust=0))
 interpolation_reproting_frequency_plot
 
@@ -130,11 +130,11 @@ condensed_interpolation_by_specified_procedure_plot <-
     ylab("Count") +
     ylim(0, 150 * ceiling(max(interpolation_by_specified_procedure$n) / 150)) +
     theme_minimal() +
-    labs(caption = str_wrap(
-        paste(
-            "Interpolation method by time and type. Data are expressed as counts and \npercentages. N = ",
-            count_specified_interpolation, ".", sep = ""), width = 100)) +
-    theme(plot.caption = element_text(hjust=0)) +
+    # labs(caption = str_wrap(
+    #     paste(
+    #         "Interpolation method by time and type. Data are expressed as counts and \npercentages. N = ",
+    #         count_specified_interpolation, ".", sep = ""), width = 100)) +
+    # theme(plot.caption = element_text(hjust=0)) +
     theme(axis.text.x = element_text(angle=90, hjust=1))
 condensed_interpolation_by_specified_procedure_plot
 
@@ -171,9 +171,9 @@ interpolation_by_time_plot <- condensed_interpolation_times %>%
     ylab("Count") +
     ylim(0,100 * ceiling(max(condensed_interpolation_times$n) / 100)) +
     theme_minimal() +
-    labs(caption = str_wrap(
-        paste("Interpolation methods by time. Data are expressed as counts and percentages. N = ",
-              sum(condensed_interpolation_times$n), ".", sep = ""), width = 100)) +
+    # labs(caption = str_wrap(
+    #     paste("Interpolation methods by time. Data are expressed as counts and percentages. N = ",
+    #           sum(condensed_interpolation_times$n), ".", sep = ""), width = 100)) +
     theme(plot.caption = element_text(hjust=0))
 interpolation_by_time_plot
 
@@ -204,8 +204,8 @@ condensed_interpolation_types_plot <- condensed_interpolation_types %>%
     ylab("Count") +
     ylim(0, plyr::round_any(max(condensed_interpolation_types$n), 50, f = ceiling)) +
     theme_minimal() +
-    labs(caption = str_wrap(
-        paste("Interpolation methods by type. Data are expressed as counts and percentages. N = ",
-        sum(condensed_interpolation_types$n), ".", sep = ""), width = 100)) +
+    # labs(caption = str_wrap(
+    #     paste("Interpolation methods by type. Data are expressed as counts and percentages. N = ",
+    #     sum(condensed_interpolation_types$n), ".", sep = ""), width = 100)) +
     theme(plot.caption = element_text(hjust=0))
 condensed_interpolation_types_plot
