@@ -13,7 +13,7 @@ all_paths = pdf_file_paths + txt_file_paths + epub_file_paths
 
 bad_chars_re = re.compile(r"""([()\\*,"': /?;<>]+)""")
 for path in tqdm(all_paths):
-    if bad_chars_re.search(str(path)):
+    if bad_chars_re.search(str(path.stem)):
         stem = path.stem
         stem = bad_chars_re.sub('_._', stem) # fix bad chars
         stem = re.sub(r'(_._){2,}', '_._', stem) + path.suffix # replace _.__._ with _._
