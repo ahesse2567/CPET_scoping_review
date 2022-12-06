@@ -4,21 +4,7 @@ from nltk.tokenize import word_tokenize
 from nltk.corpus import stopwords
 from nltk.stem import PorterStemmer, WordNetLemmatizer
 
-def read_raw_text(file_path):
-    # check file size to make sure the txt file actually has text
-    file_size = 0
-    while file_size == 0:
-        file_size = Path(file_path).stat().st_size
-        if file_size != 0: # check if conversion to txt didn't work
-            with open(str(file_path), 'r') as f:
-                text = f.read()
-        else:
-            print('Empty file, returning None')
-            return None
-    text = normalize_text(text)
-
-    return text
-
+# make text easy to work with
 def normalize_text(text):
     text_lower = text.lower()
     # remove excessive space characters
@@ -39,6 +25,43 @@ def normalize_text(text):
     # fix errors related to parsi,ng V̇O2 (i.e. V with a dot above it?) # unsure if needed
     # text_lower = re.sub(r'v\W{0,3}o2\b', 'vo2', re.IGNORECASE)
     return text_lower
+
+# read the file if the file isn't empty
+def read_raw_text(file_path):
+    # check file size to make sure the txt file actually has text
+    if Path(file_path).stat().st_size > 0:
+        with open(str(file_path), 'r') as f:
+            text = f.read()
+        text = normalize_text(text)
+        return text
+    else:
+        return None
+
+def tokenize_text(text, mode = 'lemm'):
+    if text:
+        tokens = word_tokenize(text)
+        stop_words = set(stopwords.words('english'))
+
+        filtered_tokens = [t for t in tokens if t not in stop_words]
+        
+        if mode == 'lemm':
+            lemmatizer = WordNetLemmatizer()
+            lemmatized_words = [lemmatizer.lemmatize(t) for t in filtered_tokens]
+
+            return lemmatized_words
+        
+        elif mode == 'stem':
+            stemmer = PorterStemmer()
+            stemmed_words = [stemmer.stem(t) for t in filtered_tokens]
+        
+            return stemmed_words
+    else:
+        return None
+
+def tokenize_file(file_path, mode = 'lemm'):
+    text = read_raw_text(file_path)
+    text = tokenize_text(text, mode = mode)
+    return text
 
 def get_surrounding_text(phrase, text, chars=200):
     # get surrounding text if it is near words like vo2, breath, or metabolic
@@ -63,32 +86,3 @@ def get_surrounding_text(phrase, text, chars=200):
 def capitalize_substring(main_string, sub_string):
     out = main_string.replace(sub_string, sub_string.upper())
     return out
-
-def tokenize_file(file_path, mode = 'lemm'):
-    # check file size to make sure the txt file actually has text
-    file_size = 0
-    while file_size == 0:
-        file_size = Path(file_path).stat().st_size
-        if file_size != 0: # check if conversion to txt didn't work
-            with open(str(file_path), 'r') as f:
-                text = f.read()
-        else:
-            print('Empty file, returning None')
-            return None
-    text_lower = text.lower()
-    tokens = word_tokenize(text_lower)
-    stop_words = set(stopwords.words('english'))
-
-    filtered_tokens = [t for t in tokens if t not in stop_words]
-    
-    if mode == 'lemm':
-        lemmatizer = WordNetLemmatizer()
-        lemmatized_words = [lemmatizer.lemmatize(t) for t in filtered_tokens]
-
-        return lemmatized_words
-    
-    elif mode == 'stem':
-        stemmer = PorterStemmer()
-        stemmed_words = [stemmer.stem(t) for t in filtered_tokens]
-    
-        return stemmed_words
