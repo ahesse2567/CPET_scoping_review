@@ -1,12 +1,11 @@
-# this script removes non-English articles and those with txt conversion errors
-
+# This script removes non-English articles and those with txt conversion errors
 import fasttext
 from pathlib import Path
 import pandas as pd
 from tqdm import tqdm
 import shutil
 import numpy as np
-from code.cpet_articles.analysis.helper_funcs.text_analysis import tokenize_file, read_raw_text
+from code.cpet_articles.analysis.helper_funcs.text_analysis import tokenize_text, read_raw_text
 
 txt_file_paths = list(Path('/Users/antonhesse/Desktop/Anton/Education/UMN/Lab and Research/HSPL/CPET_scoping_review/data/cpet_articles/full_texts/txts').rglob('*.txt'))
 
@@ -16,7 +15,7 @@ for f in tqdm(txt_file_paths):
     try:
         rt = read_raw_text(f)
         raw_text.append(rt)
-        tl = tokenize_file(f)
+        tl = tokenize_text(rt)
         token_lists.append(tl)
     except IndexError as e:
         print(e)
@@ -76,6 +75,8 @@ model.predict(' '.join(words_df.loc[0,'tokens']))
 words_df['language'] = words_df.progress_apply(lambda x: model.predict(' '.join(x['tokens'])) if x['text'] != None else np.nan, axis=1)
 words_df['lang_code'] = words_df.progress_apply(lambda x: x['language'][0][0], axis=1)
 words_df['lang_code'].value_counts()
+
+words_df['language'].value_counts()
 
 words_df[(words_df['lang_code'] != '__label__en') & (words_df['lang_code'] != '__label__de')]
 # words_df[words_df['lang_code'] == '__label__fr']
