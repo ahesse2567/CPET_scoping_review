@@ -4,6 +4,7 @@ from tqdm import tqdm
 import re
 import pandas as pd
 import itertools
+import os
 
 """
 Flow of this file
