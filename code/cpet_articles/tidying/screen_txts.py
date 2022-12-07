@@ -73,15 +73,16 @@ model = fasttext.load_model(PRETRAINED_MODEL_PATH)
 model.predict(' '.join(words_df.loc[0,'tokens']))
 
 words_df['language'] = words_df.progress_apply(lambda x: model.predict(' '.join(x['tokens'])) if x['text'] != None else np.nan, axis=1)
-words_df['lang_code'] = words_df.progress_apply(lambda x: x['language'][0][0], axis=1)
+words_df['lang_code'] = words_df.progress_apply(lambda x: x['language'][0][0] if isinstance(x['language'], tuple) else np.nan, axis=1)
 words_df['lang_code'].value_counts()
-
-words_df['language'].value_counts()
 
 words_df[(words_df['lang_code'] != '__label__en') & (words_df['lang_code'] != '__label__de')]
 # words_df[words_df['lang_code'] == '__label__fr']
 # most languages specified as 'de' are actually english
-non_eng_df = words_df[(words_df['lang_code'] != '__label__en') & (words_df['lang_code'] != '__label__de')].reset_index(drop=True)
+non_eng_df = words_df[
+    (words_df['lang_code'] != '__label__en') & \
+        (words_df['lang_code'] != '__label__de') & \
+            (~words_df['lang_code'].isnull())].reset_index(drop=True)
 
 row = non_eng_df.loc[0,:]
 for idx, row in non_eng_df.iterrows():
