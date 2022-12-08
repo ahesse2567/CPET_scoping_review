@@ -22,6 +22,8 @@ text_df = pd.DataFrame({
     'path': txt_file_paths,
     'text': raw_text})
 
+text_df = text_df[~text_df['text'].isnull()].reset_index(drop=True)
+
 bbb_re = re.compile(r'(breath.{0,5}breath)|(b[btx]b)', re.DOTALL)
 
 text_df['bbb'] = text_df['text'].progress_apply(lambda x: True if bbb_re.search(x) is not None else False)
@@ -36,9 +38,9 @@ text_df['carefusion'] = text_df['text'].progress_apply(lambda x: True if carefus
 text_df['carefusion'].value_counts()
 
 # parvo trueone 2400 might actually be a mixing chamber
-parvomedics_re = re.compile(r'parvo\s?medics')
-text_df['parvomedics'] = text_df['text'].progress_apply(lambda x: True if parvomedics_re.search(x) is not None else False)
-text_df['parvomedics'].value_counts()
+# parvomedics_re = re.compile(r'parvo\s?medics')
+# text_df['parvomedics'] = text_df['text'].progress_apply(lambda x: True if parvomedics_re.search(x) is not None else False)
+# text_df['parvomedics'].value_counts()
 
 def medgraphics_bbb(text):
     brand_re = re.compile(r'medgraphics|medical.{0,2}graphics|\smgc\s', re.DOTALL)
@@ -88,7 +90,8 @@ def minato_bbb(text):
 text_df['minato'] = text_df['text'].progress_apply(lambda x: minato_bbb(x))
 text_df['minato'].value_counts()
 
-text_df['pred_bbb'] = text_df[['bbb', 'oxycon', 'cosmed', 'carefusion', 'parvomedics', 'medgraphics', 'sensormedics', 'minato']].any(axis=1)
+# potentially return 'parvomedics', 
+text_df['pred_bbb'] = text_df[['bbb', 'oxycon', 'cosmed', 'carefusion', 'medgraphics', 'sensormedics', 'minato']].any(axis=1)
 text_df['pred_bbb'].value_counts()
 
 unpaywall_info_path = Path('/Users/antonhesse/Desktop/Anton/Education/UMN/Lab and Research/HSPL/CPET_scoping_review/data/cpet_articles/unpaywall/unpaywall_info.csv')
@@ -105,7 +108,7 @@ ineligible_articles = elgibility_df[elgibility_df['eligible']==False]['doi_suffi
 # [str(path) for path in txt_file_paths if path.stem == 'mss.0000000000001353'][0]
 
 merge_df = merge_df[~merge_df['doi_suffix'].isin(ineligible_articles)] # remove inelgible articles
-bbb_df = merge_df[merge_df['pred_bbb'] == True].drop('text', axis=1).reset_index(drop=True)
+bbb_df = merge_df[merge_df['pred_bbb'] == True].drop('text', axis=1).drop_duplicates('doi_suffix').reset_index(drop=True)
 bbb_df = bbb_df.sample(frac=1, random_state=22).reset_index(drop=True)
 bbb_df['doi_suffix'] = bbb_df['doi_suffix'].astype('str')
 bbb_df.to_csv('/Users/antonhesse/Desktop/Anton/Education/UMN/Lab and Research/HSPL/CPET_scoping_review/data/cpet_articles/text_analysis/bbb_articles.csv', index=False)

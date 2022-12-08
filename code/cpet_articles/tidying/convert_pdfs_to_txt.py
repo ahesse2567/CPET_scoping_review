@@ -1,12 +1,10 @@
 import subprocess
 from pathlib import Path
-import sys
 from tqdm import tqdm
 import re
 import pandas as pd
 import itertools
-import pandas as pd
-import random
+import os
 
 """
 Flow of this file
@@ -37,23 +35,16 @@ txt_error_files = [path.stem for path in txt_error_file_paths]
 pdfs_to_convert = [pdf for pdf in existing_pdf_files if pdf not in existing_txt_files and pdf not in txt_error_files]
 len(pdfs_to_convert)
 
-# pdf = pdfs_to_convert[0]
-# pdf
-existing_pdf_file_path_strings = list(map(str, existing_pdf_file_paths))
 pdf_file_paths_to_convert = []
-for pdf in tqdm(pdfs_to_convert):
-    pdf_re = re.compile('.*' + re.escape(pdf) + '.*')
-    file_path = list(filter(pdf_re.match, existing_pdf_file_path_strings))[0]
-    pdf_file_paths_to_convert.append(file_path)
-
-# n = random.randint(0, len(pdf_file_paths_to_convert))
-# file_path = pdf_file_paths_to_convert[n]
-# file_path
+for pdf in pdfs_to_convert:
+    pdf_path_list = [path for path in existing_pdf_file_paths if pdf + '.pdf' == path.name]
+    if len(pdf_path_list) == 1:
+        pdf_file_paths_to_convert.append(pdf_path_list[0])
 
 def pdf_to_txt(file_path):
     pdf_stem = Path(file_path).stem
     log = {'doi_suffix': pdf_stem}
-    txt_folder_path = re.sub(r'/pdfs/', '/txts/', file_path)
+    txt_folder_path = re.sub(fr'{os.sep}pdfs{os.sep}', f'{os.sep}txts{os.sep}', str(file_path))
     txt_file_path = re.sub(r'.pdf', '.txt', txt_folder_path)
     cmd = f"'/Users/antonhesse/opt/anaconda3/bin/pdf2txt.py' -o '{txt_file_path}' '{file_path}'"
     run = subprocess.Popen(cmd, shell=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
