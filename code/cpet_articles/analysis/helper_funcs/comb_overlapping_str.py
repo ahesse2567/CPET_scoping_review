@@ -9,7 +9,7 @@ def overlap(s1, s2, full_text=None, min_overlap=2):
             return out if full_text.find(out) >= 0 else None
         else:
             return out
-        
+
     if s2 in s1:
         out = s1
         if full_text is not None:
@@ -42,7 +42,9 @@ def overlap(s1, s2, full_text=None, min_overlap=2):
 def string_list_overlap(str_list, full_text=None):
     if not isinstance(str_list, list):
         return None
-    str_list = set(str_list) # remove potential duplicates before starting
+    if len(str_list) < 2:
+        return str_list
+    str_list = list(set(str_list)) # remove potential duplicates before starting
     out = []
     for longest_string in str_list:
         other_strings = set(str_list) - {longest_string}
