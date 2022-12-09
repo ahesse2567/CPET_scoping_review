@@ -8,7 +8,7 @@ import random
 import time
 from tqdm import tqdm
 from pathlib import Path
-import shutil
+# import shutil
 from code.cpet_articles.utils.article_names import get_doi_suffix
 from code.cpet_articles.gathering.full_text_download_code.helper_funcs.articles import download_pdf, close_extra_tabs
 
@@ -28,9 +28,12 @@ driver = webdriver.Firefox(service=FirefoxService(GeckoDriverManager().install()
 driver.implicitly_wait(1) # hopefully let's JS load correctly
 
 
-import random
-n = random.randint(0, articles.shape[0])
-row = articles.loc[n,:]
+# import random
+# n = random.randint(0, articles.shape[0])
+# row = articles.loc[n,:]
+
+# n = 3
+# row = articles.loc[n,:]
 
 log = []
 for idx, row in tqdm(articles.iterrows(), total=articles.shape[0]):
@@ -52,7 +55,7 @@ for idx, row in tqdm(articles.iterrows(), total=articles.shape[0]):
             # pdf_link
             # r = requests.get(pdf_link, headers=headers, allow_redirects=True)
             
-            time.sleep(1) # might help with switching windows
+            time.sleep(2) # might help with switching windows
 
             # driver.current_window_handle
 
@@ -67,15 +70,12 @@ for idx, row in tqdm(articles.iterrows(), total=articles.shape[0]):
             # download_button.click()
 
             r = requests.get(driver.current_url, headers=headers, allow_redirects=True, verify=True)
+            out.update({'download_SC': r.status_code})
             pdf_folder_path = Path.cwd() / 'data' / 'cpet_articles' / 'full_texts' / 'pdfs'
             doi_suffix = get_doi_suffix(doi)
             download_pdf(doi=doi, dest_folder=pdf_folder_path, content=r.content)
 
             close_extra_tabs(driver=driver)
-
-    except Exception as e:
-        out.update({'error': e})
-
             # close_extra_tabs(driver)
             # # move PDF from downloads to pdf folder
             # pdfs_in_downloads_paths = list(Path('/Users/antonhesse/Downloads').glob('*.pdf'))
@@ -93,3 +93,6 @@ for idx, row in tqdm(articles.iterrows(), total=articles.shape[0]):
         out.update({'error': e})
         close_extra_tabs(driver)
     log.append(out)
+
+log_df = pd.DataFrame(log)
+log_df[~log_df['download_SC'].isnull()]
