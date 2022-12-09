@@ -74,3 +74,32 @@ def string_list_overlap(str_list, full_text=None):
         # remove combinations of text just in case they aren't in the reference text
         out = [o for o in out if o in full_text]
     return out
+
+
+# Test cases
+"""
+s1 = "Hello, my name is Anton"
+s2 = "is Anton"
+s3 = "I like to rollerblade"
+s4 = "I hope I can finish my PhD by the spring semester."
+s5 = "rollerblade. I also like to fish"
+s6 = "I can"
+s7 = "I like"
+s8 = "to fish"
+overlap(s1, s2)
+overlap(s2, s1)
+
+full_text = "Hello, my name is Anton, and I like to rollerblade. I also like to fish. I hope I can finish my PhD by the spring semester."
+string_list = [s1, s2, s3, s4, s5, s6, s7, s8]
+
+string_list_overlap(str_list=string_list, full_text=full_text)
+list3 = [
+    'Hello, my name is Anton',
+    'I can',
+    'I hope I can finish my PhD by the spring semester.']
+
+string_list_overlap(list3)
+
+
+string_list_overlap(['I can', 'I hope I can finish my PhD by the spring semester.'], full_text=full_text)
+"""
