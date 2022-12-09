@@ -1,5 +1,3 @@
-# combining overlapping strings
-
 # https://stackoverflow.com/questions/52528744/how-to-merge-strings-with-overlapping-characters-in-python
 
 # combining overlapping strings
@@ -20,17 +18,17 @@ def overlap(s1, s2, full_text=None, min_overlap=2):
             return out
 
     # Find the maximum overlap in s2 with the end of s1
-    max_forward = max([i for i in range(len(s2)+1) if s1.endswith(s2[:i])], default=0)
+    max_forwards = max([i for i in range(len(s2)+1) if s1.endswith(s2[:i])], default=0)
 
     # Find the maximum overlap in s1 with the end of s2
     max_backwards = max([i for i in range(len(s1)+1) if s2.endswith(s1[:i])], default=0)
 
     # Use the maximum overlap to merge the two strings together
-    if any([max_forward >= max_backwards, max_forward > 0]) and max_forward >= min_overlap:
-        out = s1.replace(s2[:max_forward], "") + s2
-    elif max_backwards > max_forward and max_backwards >= min_overlap:
+    if any([max_forwards >= max_backwards, max_forwards > 0]) and max_forwards >= min_overlap:
+        out = s1.replace(s2[:max_forwards], "") + s2
+    elif max_backwards > max_forwards and max_backwards >= min_overlap:
         out = s2.replace(s1[:max_backwards], "") + s1
-    elif any([s1.find(s2) >= 0, s2.find(s1) >= 0]) and max(max_forward, max_backwards) >= min_overlap:
+    elif any([s2 in s1, s1 in s2]) and max(max_forwards, max_backwards) >= min_overlap:
         return s1 if len(s1) >= len(s2) else s2
     else:
         return None
@@ -41,15 +39,13 @@ def overlap(s1, s2, full_text=None, min_overlap=2):
 
     return out
 
-# My original implementation of string_list_overlap
 def string_list_overlap(str_list, full_text=None):
     if not isinstance(str_list, list):
         return None
-
-    str_list = list(set(str_list))
+    str_list = set(str_list) # remove potential duplicates before starting
     out = []
-    for i, longest_string in enumerate(str_list):
-        other_strings = [x for n, x in enumerate(str_list) if n != i]
+    for longest_string in str_list:
+        other_strings = set(str_list) - {longest_string}
         for string in other_strings:
             temp_str = overlap(longest_string, string, full_text=full_text)
             if temp_str is not None:
@@ -99,7 +95,6 @@ list3 = [
     'I hope I can finish my PhD by the spring semester.']
 
 string_list_overlap(list3)
-
 
 string_list_overlap(['I can', 'I hope I can finish my PhD by the spring semester.'], full_text=full_text)
 """
