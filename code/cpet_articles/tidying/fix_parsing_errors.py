@@ -15,6 +15,7 @@ for path in tqdm(parsing_error_txt_file_paths):
     text = text.lower()
     text = re.sub(r'(?<=\S)\n(?=\S)', '', text) # rm excessive newlines between non-space chars
     text = re.sub(r'(?<= \w) (?=\w )', '', text) # remove excessive spaces
+    text = re.sub(r'(?<=[^.?!])\s{2,}', ' ', text) # remove excessive whitespace (mostly newlines) between words
     # text = normalize_text(text)
     file_name = dest_folder / path.name
     with open(file_name, 'w') as f:

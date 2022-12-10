@@ -84,10 +84,11 @@ non_eng_df = words_df[
         (words_df['lang_code'] != '__label__de') & \
             (~words_df['lang_code'].isnull())].reset_index(drop=True)
 
-row = non_eng_df.loc[0,:]
-for idx, row in non_eng_df.iterrows():
-    new_dest = row['path'].parent.parent / 'non-english' / row['path'].name
-    try:
-        shutil.move(row['path'], new_dest)
-    except FileNotFoundError as e: # in case I already moved the file previously
-        print(e)
+if non_eng_df.shape[0] > 0:
+    row = non_eng_df.loc[0,:]
+    for idx, row in non_eng_df.iterrows():
+        new_dest = row['path'].parent.parent / 'non-english' / row['path'].name
+        try:
+            shutil.move(row['path'], new_dest)
+        except FileNotFoundError as e: # in case I already moved the file previously
+            print(e)
