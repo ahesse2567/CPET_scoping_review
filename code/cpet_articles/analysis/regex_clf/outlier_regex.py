@@ -3,14 +3,9 @@ import pandas as pd
 import re
 from tqdm import tqdm
 tqdm.pandas()
-from code.cpet_articles.analysis.helper_funcs.comb_overlapping_str import *
+from code.cpet_articles.analysis.helper_funcs.comb_overlapping_str import overlap, string_list_overlap
 from code.cpet_articles.analysis.helper_funcs.text_analysis import read_raw_text
-
-def get_doi_suffix(doi):
-    doi_suffix = str(doi.split('/', 1)[1:]).strip("[']")
-    doi_suffix = re.sub(r"""([()\\*,"': /?;<>])""", '_._', doi_suffix) # remove bad chars
-    doi_suffix = re.sub(r'(_._){2,}', '_._', doi_suffix) # remove multiple sequences of _._
-    return doi_suffix
+from code.cpet_articles.utils.article_names import get_doi_suffix
 
 txt_file_paths = list(Path('/Users/antonhesse/Desktop/Anton/Education/UMN/Lab and Research/HSPL/CPET_scoping_review/data/cpet_articles/full_texts/txts').rglob('*.txt'))
 
@@ -34,25 +29,30 @@ text_df = pd.DataFrame({
     'text': raw_text})
 
 def find_outlier_text(text):
-    cough_re = re.compile(r'\s(?:cough(?:ing)?)', re.IGNORECASE) # cough is always included
+    # cough is always included
+    cough_re = re.compile(r'\s(?:cough(?:ing)?)') 
+
     # at least one other term is required to accompany 'cough' in order to reference outliers
     weird_breath_re = re.compile(r'\s(?:swallow|sigh|talk|(?:throat.{0,2}clear|clear(?:ing)?.{0,2}throat))', re.DOTALL| re.IGNORECASE)
 
-    error_synosyms_re = re.compile(r'\serrant|\saberrant', re.IGNORECASE) # these almost always refer to breaths
+    # ererant or aberrant almost always refer to breaths
+    error_synosyms_re = re.compile(r'\serrant|\saberrant') 
+
     # outlying, outlier, deviating, erroneous. These options sometimes appear but aren't reliable
-    local_mean_re = re.compile(r'\slocal.{0,2}(?:mean|average)', re.DOTALL | re.IGNORECASE) # 'local mean' always refers to outliers
+    local_mean_re = re.compile(r'\slocal.{0,2}(?:mean|average)', re.DOTALL) # 'local mean' always refers to outliers
     
     # search for terms related to finding standard deviations
     # (?:breath|v.{0,3}o2).{0,175}?[^a-zA-Z0-9_.](?:three|four|3|4)\D{0,2}(?:sd|standard.{0,2}deviations?)\W|[^a-zA-Z0-9_.](?:three|four|3|4)\D{0,2}(?:sd|standard.{0,2}deviations?)\W(?:breath|v.{0,3}o2).{0,175}?
     sd_re = re.compile(r'''(
         (?:breath|v.{0,3}o2).{0,175}?[^a-zA-Z0-9_.](?:three|four|3|4)\D{0,2}(?:sd|standard.{0,2}deviations?)\W|
         [^a-zA-Z0-9_.](?:three|four|3|4)\D{0,2}(?:sd|standard.{0,2}deviations?)\W(?:breath|v.{0,3}o2).{0,175}?
-    )''', re.IGNORECASE | re.DOTALL | re.VERBOSE)
+    )''', re.DOTALL | re.VERBOSE)
 
+    # the term "prediction interval" is common
     # v?\W{0,3}o2\b.{0,300}?out.{0,50}prediction.{0,2}(interval|band) |prediction.{0,2}(interval|band).{0,50}out.{0,300}?v\W{0,3}o2\b
     prediction_interval_re = re.compile(r'''(
         v?\W{0,3}o2\b.{0,300}?out.{0,50}prediction.{0,2}(?:interval|band)
-        |prediction.{0,2}(?:interval|band).{0,50}out.{0,300}?v\W{0,3}o2\b)''', re.DOTALL | re.IGNORECASE | re.VERBOSE)
+        |prediction.{0,2}(?:interval|band).{0,50}out.{0,300}?v\W{0,3}o2\b)''', re.DOTALL | re.VERBOSE)
     # out.{0,20} needs to incldue 'out' as in outlier, outside, etc
     cough_breath_bool = all([cough_re.search(text), weird_breath_re.search(text)])
     other_bool = any([error_synosyms_re.search(text), local_mean_re.search(text),prediction_interval_re.search(text),sd_re.search(text)])
@@ -76,7 +76,7 @@ def find_outlier_text(text):
 text = text_df.loc[text_df['doi_suffix'] == 'mss.0b013e318217d439',:]['text'].values[0]
 find_outlier_text(text)
 
-def get_surrounding_text(phrase, text, chars=100):
+def get_surrounding_text(phrase, text, chars=200):
     esc_phrase = re.escape(phrase) # prevent escape character issues
 
     surrounding_text_re = re.compile(
@@ -90,9 +90,9 @@ get_surrounding_text(' swallow', text, chars=150)
 
 text_df['outlier_terms'] = text_df['text'].progress_apply(lambda x: find_outlier_text(x))
 
-row = text_df.loc[139,:]
+# row = text_df.loc[139,:]
 # row = text_df.loc[text_df['doi_suffix'] == 'mss.0b013e318217d439',:]
-row
+# row
 
 outlier_text = []
 for i, row in tqdm(text_df.iterrows(), total=text_df.shape[0]):
@@ -105,7 +105,7 @@ for i, row in tqdm(text_df.iterrows(), total=text_df.shape[0]):
         substring_list = [l for i, l in enumerate(flat_list) for s in flat_list[:i] + flat_list[i+1:] if l in s]
         flat_list = [l for l in flat_list if l not in substring_list] # remove those substrings
         
-        overlapping_strings = string_list_overlap(flat_list, full_text=row['text'])
+        overlapping_strings = string_list_overlap(str_list=flat_list, full_text=row['text'])
         outlier_text.append(overlapping_strings)
         
     else:
@@ -136,17 +136,20 @@ def reorder_columns(dataframe, col_name, position):
     print(dataframe.columns)
     return dataframe
 # load then merge with manual analysis df
-manual_text_analysis_path = Path('/Users/antonhesse/Desktop/Anton/Education/UMN/Lab and Research/HSPL/CPET_scoping_review/data/cpet_articles/text_analysis/Manual text analysis - Data.csv')
+manual_text_analysis_path = Path('/Users/antonhesse/Desktop/Anton/Education/UMN/Lab and Research/HSPL/CPET_scoping_review/data/cpet_articles/text_analysis/Manual text analysis - Outliers.csv')
 manual_text_analysis_df = pd.read_csv(manual_text_analysis_path, dtype='str')
+manual_text_analysis_df.columns
 
-merge_df = pd.merge(manual_text_analysis_df.drop('outlier_terms', axis=1), text_df[['doi_suffix', 'outlier_terms', 'outlier_text']], how='outer', on='doi_suffix').drop_duplicates(subset='doi_suffix')
-merge_df = reorder_columns(merge_df, 'outlier_terms', position=12)
-merge_df = reorder_columns(merge_df, 'outlier_text', position=13)
+
+merge_df = pd.merge(manual_text_analysis_df.drop(['outlier_terms', 'outlier_text'], axis=1), text_df[['doi_suffix', 'outlier_terms', 'outlier_text']], how='outer', on='doi_suffix').drop_duplicates(subset='doi_suffix')
+merge_df = reorder_columns(merge_df, 'outlier_terms', position=10)
+merge_df = reorder_columns(merge_df, 'outlier_text', position=11)
 merge_df['doi_suffix'] = merge_df['doi_suffix'].astype('str')
 # merge_df.to_clipboard(index=False)
-merge_df['outlier_terms'].to_clipboard(index=False)
-merge_df['outlier_text'].to_clipboard(index=False)
-merge_df['doi_suffix'].to_clipboard(index=False)
+# merge_df['outlier_terms'].to_clipboard(index=False)
+# merge_df['outlier_text'].to_clipboard(index=False)
+merge_df[['outlier_terms', 'outlier_text']].to_clipboard(index=False) # copy this to Google drive
+merge_df['doi_suffix'].to_clipboard(index=False) # copy this to Google drive
 
 # merge_df.loc[merge_df['doi_suffix'] == 'ajpregu.00015.2019',:]
 
