@@ -5,7 +5,7 @@ from nltk.corpus import stopwords
 from nltk.stem import PorterStemmer, WordNetLemmatizer
 
 # make text easy to work with
-def normalize_text(text):
+def clean_text(text):
     text_lower = text.lower()
     # remove excessive space characters
     text_lower = re.sub(r' {2,}', ' ', text_lower)
@@ -32,7 +32,7 @@ def read_raw_text(file_path):
     if Path(file_path).stat().st_size > 0:
         with open(str(file_path), 'r') as f:
             text = f.read()
-        text = normalize_text(text)
+        text = clean_text(text)
         return text
     else:
         return None
