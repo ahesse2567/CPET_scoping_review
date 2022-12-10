@@ -3,7 +3,7 @@ import pandas as pd
 import re
 from tqdm import tqdm
 tqdm.pandas()
-from code.cpet_articles.analysis.helper_funcs.comb_overlapping_str import *
+from code.cpet_articles.analysis.helper_funcs.comb_overlapping_str import overlap, string_list_overlap
 from code.cpet_articles.analysis.helper_funcs.text_analysis import read_raw_text
 from code.cpet_articles.utils.article_names import get_doi_suffix
 
