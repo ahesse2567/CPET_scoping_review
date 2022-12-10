@@ -52,14 +52,19 @@ for i, row in tqdm(text_df.iterrows(), total=text_df.shape[0]):
 text_df['interpolation_text'] = comb_text_list
 text_df['gas_interpolation_text'] = gas_texts
 
-text_df[text_df['interpolation_text'] != False][['interpolation_text', 'gas_interpolation_text']]
-
+interpolation_df = text_df[text_df['interpolation_text'] != False][['interpolation_text', 'gas_interpolation_text']]
+interpolation_df
 # text_df['interpolation_details'] = text_df['interpolation_text'].progress_apply(lambda x: [l for l in x if interpolation_details_re.search(l) else False])
 
-manual_text_analysis_path = Path('/Users/antonhesse/Desktop/Anton/Education/UMN/Lab and Research/HSPL/CPET_scoping_review/data/cpet_articles/text_analysis/Manual text analysis - Data.csv')
+manual_text_analysis_path = Path('/Users/antonhesse/Desktop/Anton/Education/UMN/Lab and Research/HSPL/CPET_scoping_review/data/cpet_articles/text_analysis/Manual text analysis - Interpolation.csv')
 manual_text_analysis_df = pd.read_csv(manual_text_analysis_path, dtype='str')
 
-merge_df = pd.merge(manual_text_analysis_df.drop('interpolation_text', axis=1), text_df[['doi_suffix', 'interpolation_text', 'gas_interpolation_text']], how='outer', on='doi_suffix').drop_duplicates(subset='doi_suffix')
+manual_text_analysis_df = manual_text_analysis_df[['done', 'doi_suffix', 'op-rr', 'human',
+'english', 'eligible',
+'gas_data', 'ext_ref', 'gas_analyzer', 'Data Processing Text',
+'Interpolation type', 'Interpolation time (s)', 'Notes']]
+
+merge_df = pd.merge(manual_text_analysis_df, text_df[['doi_suffix', 'interpolation_text', 'gas_interpolation_text']], how='outer', on='doi_suffix').drop_duplicates(subset='doi_suffix')
 
 def reorder_columns(dataframe, col_name, position):
     temp_col = dataframe[col_name] # store col to move
@@ -68,13 +73,15 @@ def reorder_columns(dataframe, col_name, position):
     print(dataframe.columns)
     return dataframe
 
-merge_df = reorder_columns(merge_df, 'interpolation_text', position=14)
-merge_df = reorder_columns(merge_df, 'gas_interpolation_text', position=15)
+merge_df = reorder_columns(merge_df, 'interpolation_text', position=10)
+merge_df = reorder_columns(merge_df, 'gas_interpolation_text', position=11)
 merge_df
 merge_df['doi_suffix'] = merge_df['doi_suffix'].astype('str')
+merge_df['doi_suffix'].to_clipboard(index=False) # copy this to Google Sheet
 merge_df[['doi_suffix', 'interpolation_text']]
-merge_df['interpolation_text'].to_clipboard(index=False)
-merge_df['gas_interpolation_text'].to_clipboard(index=False)
+merge_df['interpolation_text'].to_clipboard(index=False) # copy this to Google Sheet
+# merge_df['gas_interpolation_text'].to_clipboard(index=False)
+
 # merge_df.to_clipboard(index=False)
 # text_df[text_df['interpolate'] != False][['doi_suffix', 'interpolate']].to_clipboard(index=False)
 
