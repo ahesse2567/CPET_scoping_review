@@ -3,8 +3,8 @@ import pandas as pd
 import re
 from tqdm import tqdm
 tqdm.pandas()
-from code.cpet_articles.analysis.helper_funcs.comb_overlapping_str import overlap, string_list_overlap
-from code.cpet_articles.analysis.helper_funcs.text_analysis import read_raw_text
+from code.cpet_articles.analysis.helper_funcs.comb_overlapping_str import string_list_overlap
+from code.cpet_articles.analysis.helper_funcs.text_analysis import read_raw_text, capitalize_substring
 from code.cpet_articles.utils.article_names import get_doi_suffix
 
 txt_file_paths = list(Path('/Users/antonhesse/Desktop/Anton/Education/UMN/Lab and Research/HSPL/CPET_scoping_review/data/cpet_articles/full_texts/txts').rglob('*.txt'))
@@ -50,21 +50,33 @@ for i, row in tqdm(text_df.iterrows(), total=text_df.shape[0]):
         gas_texts.append(False)
 
 text_df['interpolation_text'] = comb_text_list
-text_df['gas_interpolation_text'] = gas_texts
+# text_df['gas_interpolation_text'] = gas_texts
 
-interpolation_df = text_df[text_df['interpolation_text'] != False][['interpolation_text', 'gas_interpolation_text']]
-interpolation_df
+# this will help with reading later
+surrounding_text_cap = []
+for idx, row in tqdm(text_df.iterrows(), total=text_df.shape[0]):
+    temp = []
+    if row['interpolation_text']:
+        for text in row['interpolation_text']:
+            text = capitalize_substring(main_string=text, sub_string='interpolat')
+            temp.append(text)
+        surrounding_text_cap.append(temp)
+    else:
+        surrounding_text_cap.append(row['interpolation_text'])
+
+text_df['interpolation_text'] = surrounding_text_cap
+
+# interpolation_df = text_df[text_df['interpolation_text'] != False]['interpolation_text']
+# interpolation_df
 # text_df['interpolation_details'] = text_df['interpolation_text'].progress_apply(lambda x: [l for l in x if interpolation_details_re.search(l) else False])
 
-manual_text_analysis_path = Path('/Users/antonhesse/Desktop/Anton/Education/UMN/Lab and Research/HSPL/CPET_scoping_review/data/cpet_articles/text_analysis/Manual text analysis - Interpolation.csv')
+manual_text_analysis_path = Path('/Users/antonhesse/Desktop/Anton/Education/UMN/Lab and Research/HSPL/CPET_scoping_review/data/cpet_articles/text_analysis/Interpolation - Interpolation.csv')
 manual_text_analysis_df = pd.read_csv(manual_text_analysis_path, dtype='str')
 
-manual_text_analysis_df = manual_text_analysis_df[['done', 'doi_suffix', 'op-rr', 'human',
-'english', 'eligible',
-'gas_data', 'ext_ref', 'gas_analyzer', 'Data Processing Text',
+manual_text_analysis_df = manual_text_analysis_df[['done', 'doi_suffix','Data Processing Text',
 'Interpolation type', 'Interpolation time (s)', 'Notes']]
 
-merge_df = pd.merge(manual_text_analysis_df, text_df[['doi_suffix', 'interpolation_text', 'gas_interpolation_text']], how='outer', on='doi_suffix').drop_duplicates(subset='doi_suffix')
+merge_df = pd.merge(manual_text_analysis_df, text_df[['doi_suffix', 'interpolation_text']], how='outer', on='doi_suffix').drop_duplicates(subset='doi_suffix')
 
 def reorder_columns(dataframe, col_name, position):
     temp_col = dataframe[col_name] # store col to move
@@ -73,25 +85,7 @@ def reorder_columns(dataframe, col_name, position):
     print(dataframe.columns)
     return dataframe
 
-merge_df = reorder_columns(merge_df, 'interpolation_text', position=10)
-merge_df = reorder_columns(merge_df, 'gas_interpolation_text', position=11)
-merge_df
+merge_df = reorder_columns(merge_df, 'interpolation_text', position=3)
+merge_df.columns
 merge_df['doi_suffix'] = merge_df['doi_suffix'].astype('str')
-merge_df['doi_suffix'].to_clipboard(index=False) # copy this to Google Sheet
-merge_df[['doi_suffix', 'interpolation_text']]
-merge_df['interpolation_text'].to_clipboard(index=False) # copy this to Google Sheet
-# merge_df['gas_interpolation_text'].to_clipboard(index=False)
-
-# merge_df.to_clipboard(index=False)
-# text_df[text_df['interpolate'] != False][['doi_suffix', 'interpolate']].to_clipboard(index=False)
-
-# import pyperclip
-# n = 2
-# interpolation_text = text_df[text_df['interpolation_text'] != False].reset_index().loc[n,'interpolation_text']
-# pyperclip.copy('\n\n************************************\n\n'.join(interpolation_text))
-
-# surrounding text needs to reference respiratory variables
-
-
-# ^(?=.*(gas|breath|v.{0,2}o2))(?=.*(\d.{0,2}s(?:econd)?\b|second.{0,2}by.{0,2}second|\d.{0,2}hz)).*$
-# take out the v in v.{0,3}o2?
+merge_df.to_clipboard(index=False)
