@@ -63,7 +63,7 @@ def tokenize_file(file_path, mode = 'lemm'):
     text = tokenize_text(text, mode = mode)
     return text
 
-def get_surrounding_text(phrase, text, chars=200):
+def get_surrounding_text(phrase, text, chars=200, gas_context = True):
     # get surrounding text if it is near words like vo2, breath, or metabolic
     phrase = re.escape(phrase) # prevent escape character issues
 
@@ -75,7 +75,8 @@ def get_surrounding_text(phrase, text, chars=200):
     
     if surrounding_text_re.search(text):
         res = surrounding_text_re.findall(text)
-        res = [r for r in res if vo2_breath_re.search(r)]
+        if gas_context:
+            res = [r for r in res if vo2_breath_re.search(r)]
         if res:
             return res
         else:
