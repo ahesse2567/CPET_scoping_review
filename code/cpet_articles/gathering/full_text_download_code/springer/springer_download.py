@@ -3,9 +3,8 @@ import pandas as pd
 import requests
 import json
 from tqdm import tqdm
-import sys
-sys.path.append('/Users/antonhesse/Desktop/Anton/Education/UMN/Lab and Research/HSPL/CPET_scoping_review/code/cpet_articles/gathering/full-text_download_code/')
-from helper_funcs.articles import get_current_full_texts, get_doi_suffix, download_pdf
+from code.cpet_articles.gathering.full_text_download_code.helper_funcs.articles import get_current_full_texts, download_pdf
+from code.cpet_articles.utils.article_names import get_doi_suffix
 import random
 
 def find_springer_download_link(response):
@@ -26,7 +25,8 @@ remaining_articles = pd.merge(pd.DataFrame({'doi_suffix': full_texts_to_download
 
 articles = remaining_articles[remaining_articles['publisher'].str.contains('Springer')].drop_duplicates().reset_index(drop=True)
 
-with open('/Users/antonhesse/Desktop/Anton/Education/UMN/Lab and Research/HSPL/CPET_scoping_review/code/cpet_articles/gathering/full-text_download_code/springer/springer_config.json') as config_file:
+spring_api_key_path = Path('/Users/antonhesse/Desktop/Anton/Education/UMN/Lab and Research/HSPL/CPET_scoping_review/code/cpet_articles/gathering/full_text_download_code/springer/springer_config.json')
+with open(spring_api_key_path) as config_file:
     api_key = json.load(config_file)['api_key']
 # api_key
 
@@ -38,14 +38,19 @@ folder = '/Users/antonhesse/Desktop/Anton/Education/UMN/Lab and Research/HSPL/CP
 n = random.randint(0, articles.shape[0])
 row = articles.loc[n,:]
 """
-
+doi = '10.1007/bf00599516'
 log = []
 for i, row in tqdm(articles.iterrows(), total=articles.shape[0]):
     doi = row['doi']
     out = {'doi': doi}
-    params = {'api_key': api_key, 'q': doi}
+    params = {'api_key': api_key, 'q': doi, 'p': 10}
     try:
         response = requests.get(url = springer_api_url, params = params, headers=headers, allow_redirects=True)
+        out.update({'query_status_code': response.status_code})
+        total_records = int(response.json()['result'][0]['total'])
+        if total_records > 10:
+            params = {'api_key': api_key, 'q': doi, 'p': total_records}
+            response = requests.get(url = springer_api_url, params = params, headers=headers, allow_redirects=True)
         out.update({'query_status_code': response.status_code})
         if response.status_code == 200:
             pdf_url = find_springer_download_link(response)
@@ -58,6 +63,7 @@ for i, row in tqdm(articles.iterrows(), total=articles.shape[0]):
         out.update({'error': e})
 
     log.append(out)
+
 
 log_df = pd.DataFrame(log)
 log_df['query_status_code'].value_counts()
