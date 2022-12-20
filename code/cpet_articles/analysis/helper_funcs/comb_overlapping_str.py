@@ -73,7 +73,6 @@ def string_list_overlap(str_list, full_text=None):
         out = [o for o in out if o in full_text]
     return out
 
-
 # Test cases
 """
 s1 = "Hello, my name is Anton"
