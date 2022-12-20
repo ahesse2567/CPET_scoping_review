@@ -5,6 +5,7 @@ import json
 from tqdm import tqdm
 from code.cpet_articles.gathering.full_text_download_code.helper_funcs.articles import get_current_full_texts, download_pdf
 from code.cpet_articles.utils.article_names import get_doi_suffix
+from pathlib import Path
 import random
 
 def find_springer_download_link(response):

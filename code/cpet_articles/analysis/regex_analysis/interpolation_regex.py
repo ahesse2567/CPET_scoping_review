@@ -5,6 +5,7 @@ from tqdm import tqdm
 tqdm.pandas()
 from code.cpet_articles.analysis.helper_funcs.comb_overlapping_str import string_list_overlap
 from code.cpet_articles.analysis.helper_funcs.text_analysis import read_raw_text, capitalize_substring
+from code.cpet_articles.analysis.helper_funcs.reorder_columns import reorder_columns
 from code.cpet_articles.utils.article_names import get_doi_suffix
 
 txt_file_paths = list(Path('/Users/antonhesse/Desktop/Anton/Education/UMN/Lab and Research/HSPL/CPET_scoping_review/data/cpet_articles/full_texts/txts').rglob('*.txt'))
@@ -77,13 +78,7 @@ manual_text_analysis_df = manual_text_analysis_df[['done', 'doi_suffix','Data Pr
 'Interpolation type', 'Interpolation time (s)', 'Notes']]
 
 merge_df = pd.merge(manual_text_analysis_df, text_df[['doi_suffix', 'interpolation_text']], how='outer', on='doi_suffix').drop_duplicates(subset='doi_suffix')
-
-def reorder_columns(dataframe, col_name, position):
-    temp_col = dataframe[col_name] # store col to move
-    dataframe = dataframe.drop(columns=[col_name]) # drop old position
-    dataframe.insert(loc=position, column=col_name, value=temp_col) # insert at new position
-    print(dataframe.columns)
-    return dataframe
+merge_df
 
 merge_df = reorder_columns(merge_df, 'interpolation_text', position=3)
 merge_df.columns

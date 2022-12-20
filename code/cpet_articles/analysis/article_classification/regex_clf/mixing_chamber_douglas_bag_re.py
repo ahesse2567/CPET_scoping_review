@@ -144,7 +144,7 @@ mc_db_df.to_clipboard(file_path, index=False)
 # TODO add specific systems that are known NOT to be breath-by-breath
 # e.g. Parvo 2400
 # MedGraphics VO2000
-
+"""
 def find_specific_systems(text):
     medgraphics_brand_re = re.compile(r'medgraphics|medical.{0,2}graphics|\smgc\s', re.DOTALL)
     megraphics_vo2000_re = re.compile(r'vo2000')
@@ -161,3 +161,4 @@ def find_specific_systems(text):
     out = list(set(out))
 
     return out if out else False
+"""
