@@ -158,8 +158,9 @@ def find_avg_terms(text):
         return False
 
 text = """
-Minute  ventilation  (VE),  oxy­ gen uptake (VO,), and carbon dioxide output (VCO:) were  calculated  for  each  four  breaths  according  to previously described and validated methods [9]
+Minute ventilation ( E) and oxygen and carbon dioxide tensions in the expired air were determined every eight breaths, and from these measurements the mean E, oxygen uptake ( O2), and carbon dioxide production ( CO2) were rapidly calculated.
 """
+
 find_avg_terms(text)
 # find_avg_terms('The breath-by-breathV̇ O2 data collected by the gas analysis system was averaged per minute for further analysis')
 

@@ -3,24 +3,24 @@ library(stringr)
 library(scales)
 library(janitor)
 
-text_data <- read_csv("data/cpet_articles/text_analysis/Manual text analysis - Data.csv",
-                      show_col_types = FALSE) %>% 
-    clean_names()
-
-douglas_bag_mixing_chamber_articles <- read_csv(
-    "data/cpet_articles/text_analysis/Manual text analysis - DB or MC.csv",
-    show_col_types = FALSE) %>% 
+ineligible_articles <- read_csv("data/cpet_articles/text_analysis/combined_ineligible_articles.csv") %>% 
     clean_names()
 
 # load_bbb articles, removing potential douglas bag or mixing chamber articles
 bbb_articles <- read_csv("data/cpet_articles/text_analysis/bbb_articles.csv",
                          show_col_types = FALSE) %>% 
     distinct(doi_suffix, .keep_all = TRUE) %>% 
-    filter(!(doi_suffix %in% douglas_bag_mixing_chamber_articles$doi_suffix))
+    filter(!(doi_suffix %in% ineligible_articles$doi_suffix))
 
-merge_df <- inner_join(text_data, bbb_articles, by = "doi_suffix") %>% 
-    select(colnames(text_data))
-                                      
+interpolation_data <- read_csv("data/cpet_articles/text_analysis/Interpolation - Interpolation.csv",
+                               show_col_types = FALSE) %>% 
+    clean_names()
+
+merge_df <- full_join(bbb_articles, interpolation_data, by = "doi_suffix") %>% 
+    select(colnames(interpolation_data)) %>% 
+    filter(doi_suffix %in% bbb_articles$doi_suffix)
+
+
 ############### INTERPOLATION #################
 
 total_articles <- merge_df %>% 

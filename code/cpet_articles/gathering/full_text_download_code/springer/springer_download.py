@@ -39,6 +39,9 @@ folder = '/Users/antonhesse/Desktop/Anton/Education/UMN/Lab and Research/HSPL/CP
 n = random.randint(0, articles.shape[0])
 row = articles.loc[n,:]
 """
+"""
+s00421-002-0623-3 was really s00421-021-04874-3
+"""
 doi = '10.1007/bf00599516'
 log = []
 for i, row in tqdm(articles.iterrows(), total=articles.shape[0]):
