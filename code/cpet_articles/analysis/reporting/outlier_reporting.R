@@ -3,23 +3,23 @@ library(stringr)
 library(scales)
 library(janitor)
 
-text_data <- read_csv("data/cpet_articles/text_analysis/Manual text analysis - Data.csv",
-                      show_col_types = FALSE) %>% 
-    clean_names()
-
-douglas_bag_mixing_chamber_articles <- read_csv(
-    "data/cpet_articles/text_analysis/Manual text analysis - DB or MC.csv",
-    show_col_types = FALSE) %>% 
+ineligible_articles <- read_csv("data/cpet_articles/text_analysis/combined_ineligible_articles.csv") %>% 
     clean_names()
 
 # load_bbb articles, removing potential douglas bag or mixing chamber articles
 bbb_articles <- read_csv("data/cpet_articles/text_analysis/bbb_articles.csv",
                          show_col_types = FALSE) %>% 
     distinct(doi_suffix, .keep_all = TRUE) %>% 
-    filter(!(doi_suffix %in% douglas_bag_mixing_chamber_articles$doi_suffix))
+    filter(!(doi_suffix %in% ineligible_articles$doi_suffix))
 
-merge_df <- inner_join(text_data, bbb_articles, by = "doi_suffix") %>% 
-    select(colnames(text_data))
+outlier_data <- read_csv("data/cpet_articles/text_analysis/Outliers - Outliers.csv",
+                         show_col_types = FALSE) %>% 
+    clean_names()
+
+merge_df <- full_join(bbb_articles, outlier_data, by = "doi_suffix") %>% 
+    select(colnames(outlier_data)) %>% 
+    filter(doi_suffix %in% bbb_articles$doi_suffix)
+    
 
 ############### OUTLIERS #################
 
@@ -40,7 +40,9 @@ outlier_cutoff_by_type <- merge_df %>%
     group_by(outlier_limit) %>% 
     summarize(n = n()) %>% 
     ungroup() %>% 
-    mutate(freq = prop.table(n))
+    mutate(freq = prop.table(n)) %>% 
+    arrange(desc(n))
+outlier_cutoff_by_type
 
 outlier_reporting_frequency_plot <- merge_df %>% 
     count(outlier_limit) %>% 
@@ -76,6 +78,7 @@ specified_outlier_cutoffs_by_type <- merge_df %>%
     group_by(outlier_limit) %>% 
     summarize(n = n()) %>% 
     mutate(freq = n / sum(n) * 100)
+specified_outlier_cutoffs_by_type
 
 # count of articles that specify outlier removal
 count_outlier_procedure_described <- merge_df %>% 
