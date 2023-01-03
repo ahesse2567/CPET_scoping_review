@@ -218,10 +218,10 @@ avg_by_type_subtype_tab <- merge_df %>%
     arrange(desc(pct))
 avg_by_type_subtype_tab
 
-# avg by full avg method plot
+# avg by full avg method
 avg_by_full_method_tab <- merge_df %>% 
     filter(!is.na(avg_type)) %>% 
-    group_by(avg_type, axvg_subtype, avg_amount, avg_mos, avg_mean_type) %>% 
+    group_by(avg_type, avg_subtype, avg_amount, avg_mos, avg_mean_type) %>% 
     summarize(n = n()) %>% 
     ungroup() %>% 
     mutate(pct = prop.table(n))
