@@ -97,12 +97,16 @@ merge_df %>%
     select(interpolation_time_s) %>% 
     filter(!is.na(interpolation_time_s)) %>% 
     count(interpolation_time_s) %>% 
+    ungroup() %>% 
+    mutate(prop = prop.table(n)) %>% 
     arrange(desc(n))
 
 merge_df %>% 
     select(interpolation_type) %>% 
     filter(!is.na(interpolation_type)) %>% 
     count(interpolation_type) %>% 
+    ungroup() %>% 
+    mutate(prop = prop.table(n)) %>% 
     arrange(desc(n))
 
 condensed_interpolation_by_specified_procedure <-

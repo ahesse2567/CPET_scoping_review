@@ -40,7 +40,7 @@ z <- qnorm(0.025, lower.tail = FALSE)
 margin_of_error <- z * sqrt(
     pct_reporting_avg_methods * (1 - pct_reporting_avg_methods) / 
         total_articles) * 100
-
+margin_of_error
 
 #### Averaging method types
 
