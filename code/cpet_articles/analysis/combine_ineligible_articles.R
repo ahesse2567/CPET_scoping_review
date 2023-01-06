@@ -26,7 +26,8 @@ not_op_rr <- read_csv("data/cpet_articles/text_analysis/Not OP-RR - Sheet1.csv",
 comb_ineligible <- bind_rows(douglas_bag_mixing_chamber_articles,
           eligibility,
           no_gas_data,
-          not_op_rr)
+          not_op_rr) %>% 
+    distinct(doi_suffix)
 
 write_csv(comb_ineligible,
           "data/cpet_articles/text_analysis/combined_ineligible_articles.csv")
