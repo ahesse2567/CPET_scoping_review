@@ -6,7 +6,7 @@ from code.cpet_articles.analysis.helper_funcs.text_analysis import read_raw_text
 from code.cpet_articles.utils.article_names import get_doi_suffix
 tqdm.pandas()
 
-txt_file_paths = list(Path('/Users/antonhesse/Desktop/Anton/Education/UMN/Lab and Research/HSPL/CPET_scoping_review/data/cpet_articles/full_texts/txts').rglob('*.txt'))
+txt_file_paths = list(Path('/Users/antonhesse/Desktop/Anton/Education/UMN/PhD/Dissertation/CPET_scoping_review/data/cpet_articles/full_texts/txts').rglob('*.txt'))
 
 raw_text = []
 for path in tqdm(txt_file_paths):
@@ -94,23 +94,24 @@ text_df['minato'].value_counts()
 text_df['pred_bbb'] = text_df[['bbb', 'oxycon', 'cosmed', 'carefusion', 'medgraphics', 'sensormedics', 'minato']].any(axis=1)
 text_df['pred_bbb'].value_counts()
 
-unpaywall_info_path = Path('/Users/antonhesse/Desktop/Anton/Education/UMN/Lab and Research/HSPL/CPET_scoping_review/data/cpet_articles/unpaywall/unpaywall_info.csv')
+unpaywall_info_path = Path('/Users/antonhesse/Desktop/Anton/Education/UMN/PhD/Dissertation/CPET_scoping_review/data/cpet_articles/unpaywall/unpaywall_info.csv')
 all_articles = pd.read_csv(unpaywall_info_path, dtype='str')
 all_articles['doi_suffix'] = all_articles['doi'].apply(lambda x: get_doi_suffix(x))
 
 merge_df = pd.merge(text_df, all_articles, how='inner', on='doi_suffix').drop_duplicates()
 
 # load known ineligible articles
-eligibility_path = Path('/Users/antonhesse/Desktop/Anton/Education/UMN/Lab and Research/HSPL/CPET_scoping_review/data/cpet_articles/text_analysis/Manual text analysis - eligibility.csv')
-elgibility_df = pd.read_csv(eligibility_path)
-ineligible_articles = elgibility_df[elgibility_df['eligible']==False]['doi_suffix'].to_list()
+ineligibility_path = Path('/Users/antonhesse/Desktop/Anton/Education/UMN/PhD/Dissertation/CPET_scoping_review/data/cpet_articles/text_analysis/combined_ineligible_articles.csv')
+inelgibility_df = pd.read_csv(ineligibility_path)
 
 # [str(path) for path in txt_file_paths if path.stem == 'mss.0000000000001353'][0]
 
-merge_df = merge_df[~merge_df['doi_suffix'].isin(ineligible_articles)] # remove inelgible articles
+merge_df = merge_df[~merge_df['doi_suffix'].isin(inelgibility_df['doi_suffix'].to_list())] # remove inelgible articles
 bbb_df = merge_df[merge_df['pred_bbb'] == True].drop('text', axis=1).drop_duplicates('doi_suffix').reset_index(drop=True)
 bbb_df = bbb_df.sample(frac=1, random_state=22).reset_index(drop=True)
 bbb_df['doi_suffix'] = bbb_df['doi_suffix'].astype('str')
-bbb_df.to_csv('/Users/antonhesse/Desktop/Anton/Education/UMN/Lab and Research/HSPL/CPET_scoping_review/data/cpet_articles/text_analysis/bbb_articles.csv', index=False)
+bbb_df.to_csv(
+    '/Users/antonhesse/Desktop/Anton/Education/UMN/PhD/Dissertation/CPET_scoping_review/data/cpet_articles/text_analysis/bbb_articles.csv',
+    index=False)
 
 # 'mss.0000000000001353' in bbb_df['doi_suffix'].to_list()
