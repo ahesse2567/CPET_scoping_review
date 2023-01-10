@@ -13,12 +13,12 @@ import numpy as np
 # import pickle
 import time
 import sys
-sys.path.append('/Users/antonhesse/Desktop/Anton/Education/UMN/Lab and Research/HSPL/CPET_scoping_review/code/cpet_articles/analysis/')
-from helper_funcs.text_analysis import tokenize_file
+sys.path.append('/Users/antonhesse/Desktop/Anton/Education/UMN/PhD/Dissertation/CPET_scoping_review/code/cpet_articles/analysis/helper_funcs')
+from text_analysis import tokenize_file
 import shutil
 tqdm.pandas()
 
-txt_file_paths = list(Path('/Users/antonhesse/Desktop/Anton/Education/UMN/Lab and Research/HSPL/CPET_scoping_review/data/cpet_articles/full_texts/txts').glob('*.txt'))
+txt_file_paths = list(Path('/Users/antonhesse/Desktop/Anton/Education/UMN/PhD/Dissertation/CPET_scoping_review/data/cpet_articles/full_texts/txts').glob('*.txt'))
 txt_file_stems = [path.stem for path in txt_file_paths]
 
 manual_analysis_df = pd.read_csv('/Users/antonhesse/Desktop/Anton/Education/UMN/Lab and Research/HSPL/CPET_scoping_review/data/cpet_articles/text_analysis/Manual text analysis - Data.csv')
