@@ -7,7 +7,7 @@ ineligible_articles <- read_csv("data/cpet_articles/text_analysis/combined_ineli
     clean_names()
 
 # load_bbb articles, removing potential douglas bag or mixing chamber articles
-bbb_articles <- read_csv("data/cpet_articles/text_analysis/bbb_articles.csv",
+bbb_articles <- read_csv("data/cpet_articles/text_analysis/all_bbb_articles.csv",
          show_col_types = FALSE) %>% 
     distinct(doi_suffix, .keep_all = TRUE) %>% 
     filter(!(doi_suffix %in% ineligible_articles$doi_suffix))
