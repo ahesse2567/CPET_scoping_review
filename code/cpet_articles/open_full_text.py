@@ -11,7 +11,7 @@ def open_full_text_file():
     file_name = str(input('Enter the file name (DOI suffix) of the file you wish to open, or enter "q" to quit: '))
     check_quit(file_name)
 
-    full_text_folder_path = Path('/Users/antonhesse/Desktop/Anton/Education/UMN/Lab and Research/HSPL/CPET_scoping_review/data/cpet_articles/full_texts')
+    full_text_folder_path = Path('/Users/antonhesse/Desktop/Anton/Education/UMN/PhD/Dissertation/CPET_scoping_review/data/cpet_articles/full_texts')
 
     full_text_file_extensions = ['pdf', 'epub', 'txt']
 
