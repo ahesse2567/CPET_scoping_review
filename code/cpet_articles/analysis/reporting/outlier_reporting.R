@@ -2,6 +2,9 @@ library(tidyverse)
 library(stringr)
 library(scales)
 library(janitor)
+# load fonts so Times New Roman works with ggplot2 + pdf rendering
+extrafont::loadfonts(quiet = TRUE)
+theme_update(text = element_text(family = "Times New Roman"))
 
 # re-find which articles are ineligible in case I forgot to update this manaully
 source("code/cpet_articles/tidying/combine_ineligible_articles.R")
@@ -76,19 +79,21 @@ outlier_reporting_frequency_plot <- outlier_df %>%
     mutate(pct = prop.table(n)) %>% 
     ggplot(aes(x = outlier_limit, y = n)) +
     geom_col() +
-    geom_text(aes(label = scales::percent(pct)), vjust = -0.5) +
-    geom_text(aes(label = n), vjust = -2) +
+    geom_text(aes(label = scales::percent(pct)),
+              family = "Times New Roman", vjust = -0.5) +
+    geom_text(aes(label = n),
+              family = "Times New Roman", vjust = -2) +
     xlab("Outlier Limit") +
     ylab("Count") +
-    ylim(0, 2000 * ceiling(max(outlier_cutoff_by_type$n) / 2000)) +
+    ylim(0, 2500 * ceiling(max(outlier_cutoff_by_type$n) / 2500)) +
     theme_minimal() +
     # labs(
     #     caption = str_wrap(
     #         paste(
     #             "Outlier cutoff reporting frequency. Data are expressed as counts and percentages. N = ",
     #             total_articles, ".", sep = ""), width = 100)) +
-    theme(plot.caption = element_text(hjust=0),
-          text=element_text(family="Times New Roman", size=12))
+    # theme(plot.caption = element_text(hjust=0)) +
+    theme(text=element_text(family="Times New Roman", size=12))
 outlier_reporting_frequency_plot
 
 
@@ -124,8 +129,10 @@ pct_outlier_limits_plot <- outlier_df %>%
                                    outlier_limit)) %>% 
     ggplot(aes(x = outlier_limit, y = n)) +
     geom_col() +
-    geom_text(aes(label = scales::percent(pct)), vjust = -0.5) +
-    geom_text(aes(label = n), vjust = -2) +
+    geom_text(aes(label = scales::percent(pct)),
+              family = "Times New Roman", vjust = -0.5) +
+    geom_text(aes(label = n),
+              family = "Times New Roman", vjust = -2) +
     xlab("Outlier Limit") +
     ylab("Count") +
     ylim(0, 250) +
@@ -134,8 +141,8 @@ pct_outlier_limits_plot <- outlier_df %>%
     #     caption = str_wrap(
     #         paste("Outlier cutoff frequencies. Data are expressed as counts and percentages. N = ",
     #               count_outlier_procedure_described, ".", sep = ""), width = 100)) +
-    theme(plot.caption = element_text(hjust=0),
-          text=element_text(family="Times New Roman", size=12))
+    # theme(plot.caption = element_text(hjust=0)) +
+    theme(text=element_text(family="Times New Roman", size=12))
 pct_outlier_limits_plot
 
 
