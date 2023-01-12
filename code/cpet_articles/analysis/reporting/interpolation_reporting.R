@@ -3,7 +3,10 @@ library(stringr)
 library(scales)
 library(janitor)
 
-ineligible_articles <- read_csv("data/cpet_articles/text_analysis/combined_ineligible_articles.csv") %>% 
+# re-find which articles are ineligible in case I forgot to update this manaully
+source("code/cpet_articles/tidying/combine_ineligible_articles.R")
+
+ineligible_articles <- read_csv("data/cpet_articles/text_analysis/ineligible_articles_combined.csv") %>% 
     clean_names()
 
 # load_bbb articles, removing potential douglas bag or mixing chamber articles
@@ -16,18 +19,19 @@ interpolation_data <- read_csv("data/cpet_articles/text_analysis/Interpolation -
                                show_col_types = FALSE) %>% 
     clean_names()
 
-merge_df <- full_join(bbb_articles, interpolation_data, by = "doi_suffix") %>% 
+interpolation_df <- full_join(bbb_articles, interpolation_data, by = "doi_suffix") %>% 
     select(colnames(interpolation_data)) %>% 
     filter(doi_suffix %in% bbb_articles$doi_suffix)
 
 
 ############### INTERPOLATION #################
 
-total_articles <- merge_df %>% 
+total_articles <- interpolation_df %>% 
     distinct(doi_suffix, .keep_all = FALSE) %>% 
     nrow()
 
-interpolation_specification_summary <- merge_df %>% 
+######## how many did or did not specify interpolation
+interpolation_specification_summary <- interpolation_df %>% 
     select(interpolation_type, interpolation_time_s) %>% 
     summarise(across(everything(), .fns = ~!is.na(.))) %>% 
     mutate(interpolation_details = interpolation_type | interpolation_time_s) %>% 
@@ -46,7 +50,15 @@ pct_specified_interpolation <- interpolation_specification_summary %>%
     select(freq) %>% 
     pull()
 
-interpolation_by_specified_procedure <- merge_df %>% 
+# calc MOE for number reporting interpolation details
+z <- qnorm(0.025, lower.tail = FALSE)
+moe_pct_articles_reporting_interpolation <-
+    z * sqrt((pct_specified_interpolation * (1 - pct_specified_interpolation)) / total_articles)
+
+
+####### Interpolation by procedure
+
+interpolation_by_specified_procedure <- interpolation_df %>% 
     select(interpolation_type, interpolation_time_s) %>% 
     mutate(interpolation_details = 
                !is.na(interpolation_type) | !is.na(interpolation_time_s)) %>% 
@@ -58,7 +70,93 @@ interpolation_by_specified_procedure <- merge_df %>%
     arrange(desc(n))
 interpolation_by_specified_procedure
 
-condensed_interpolation_summary <- merge_df %>% 
+
+###### Most popular interpolation by time
+
+most_popular_interpolation_time <- interpolation_by_specified_procedure %>% 
+    group_by(interpolation_time_s) %>% 
+    summarize(n = sum(n)) %>% 
+    filter(n == max(n)) %>% 
+    select(interpolation_time_s) %>% 
+    pull()
+
+n_most_popular_interpolation_time <- interpolation_by_specified_procedure %>% 
+    group_by(interpolation_time_s) %>% 
+    summarize(n = sum(n)) %>% 
+    filter(n == max(n)) %>% 
+    select(n) %>% 
+    pull()
+
+pct_most_popular_interpolation_time <- interpolation_by_specified_procedure %>% 
+    group_by(interpolation_time_s) %>% 
+    summarize(n = sum(n)) %>% 
+    ungroup() %>% 
+    mutate(pct = prop.table(n)) %>% 
+    filter(n == max(n)) %>% 
+    select(pct) %>% 
+    pull()
+
+
+##### Most popular interpolation by method
+
+n_most_popular_interpolation_method <- interpolation_by_specified_procedure %>% 
+    group_by(interpolation_type) %>% 
+    summarize(n = sum(n)) %>% 
+    ungroup() %>%
+    mutate(pct = prop.table(n)) %>% 
+    filter(n == max(n)) %>% 
+    select(n) %>% 
+    pull()
+n_most_popular_interpolation_method
+
+pct_most_popular_interpolation_method <- interpolation_by_specified_procedure %>% 
+    group_by(interpolation_type) %>% 
+    summarize(n = sum(n)) %>% 
+    ungroup() %>%
+    mutate(pct = prop.table(n)) %>% 
+    filter(n == max(n)) %>% 
+    select(pct) %>% 
+    pull()
+pct_most_popular_interpolation_method
+
+most_popular_stated_interpolation_method <- interpolation_by_specified_procedure %>% 
+    group_by(interpolation_type) %>% 
+    filter(!is.na(interpolation_type)) %>% 
+    summarize(n = sum(n)) %>% 
+    ungroup() %>%
+    mutate(pct = prop.table(n)) %>% 
+    filter(n == max(n)) %>% 
+    select(interpolation_type) %>% 
+    pull()
+most_popular_stated_interpolation_method
+
+n_most_popular_stated_interpolation_method <- interpolation_by_specified_procedure %>% 
+    group_by(interpolation_type) %>% 
+    filter(!is.na(interpolation_type)) %>% 
+    summarize(n = sum(n)) %>% 
+    ungroup() %>%
+    mutate(pct = prop.table(n)) %>% 
+    filter(n == max(n)) %>% 
+    select(n) %>% 
+    pull()
+n_most_popular_stated_interpolation_method
+
+pct_most_popular_stated_interpolation_method <- interpolation_by_specified_procedure %>% 
+    group_by(interpolation_type) %>% 
+    summarize(n = sum(n)) %>% 
+    ungroup() %>%
+    mutate(pct = prop.table(n)) %>% 
+    filter(!is.na(interpolation_type)) %>% 
+    filter(n == max(n)) %>% 
+    select(pct) %>% 
+    pull()
+pct_most_popular_stated_interpolation_method
+
+
+
+##### Condensing interpolation results
+
+condensed_interpolation_summary <- interpolation_df %>% 
     select(interpolation_type, interpolation_time_s) %>% 
     mutate(interpolation_details = 
                !is.na(interpolation_type) | !is.na(interpolation_time_s)) %>% 
@@ -76,7 +174,7 @@ condensed_interpolation_summary <- merge_df %>%
     arrange(desc(n))
 condensed_interpolation_summary
 
-interpolation_reproting_frequency_plot <- condensed_interpolation_summary %>% 
+interpolation_reporting_frequency_plot <- condensed_interpolation_summary %>% 
     ggplot(aes(x = type, y = n)) +
     geom_col() +
     geom_text(aes(label = scales::percent(pct)), vjust = -0.5) +
@@ -89,25 +187,29 @@ interpolation_reproting_frequency_plot <- condensed_interpolation_summary %>%
     #     paste("Interpolation method reporting frequencies. 
     #           Data are expressed as counts and percentages. N = ",
     #           total_articles, ".", sep = ""), width = 100)) +
-    theme(plot.caption = element_text(hjust=0))
-interpolation_reproting_frequency_plot
+    theme(plot.caption = element_text(hjust=0),
+          text=element_text(family="Times New Roman", size=12))
+interpolation_reporting_frequency_plot
 
 
-merge_df %>% 
+interpolation_by_time_tib <- interpolation_df %>% 
     select(interpolation_time_s) %>% 
     filter(!is.na(interpolation_time_s)) %>% 
     count(interpolation_time_s) %>% 
     ungroup() %>% 
     mutate(prop = prop.table(n)) %>% 
     arrange(desc(n))
+interpolation_by_time_tib
 
-merge_df %>% 
+interpolation_by_type_tib <- interpolation_df %>% 
     select(interpolation_type) %>% 
     filter(!is.na(interpolation_type)) %>% 
     count(interpolation_type) %>% 
     ungroup() %>% 
-    mutate(prop = prop.table(n)) %>% 
+    mutate(prop = prop.table(n),
+           interpolation_type = str_to_title(interpolation_type)) %>% 
     arrange(desc(n))
+interpolation_by_type_tib
 
 condensed_interpolation_by_specified_procedure <-
     interpolation_by_specified_procedure %>% 
@@ -132,19 +234,26 @@ condensed_interpolation_by_specified_procedure_plot <-
     geom_text(aes(label = n), vjust = -2) +
     xlab("Interpolation Procedure") +
     ylab("Count") +
-    ylim(0, 150 * ceiling(max(interpolation_by_specified_procedure$n) / 150)) +
+    ylim(0, 175 * ceiling(max(interpolation_by_specified_procedure$n) / 175)) +
     theme_minimal() +
     # labs(caption = str_wrap(
     #     paste(
     #         "Interpolation method by time and type. Data are expressed as counts and \npercentages. N = ",
     #         count_specified_interpolation, ".", sep = ""), width = 100)) +
     # theme(plot.caption = element_text(hjust=0)) +
-    theme(axis.text.x = element_text(angle=90, hjust=1))
+    theme(axis.text.x = element_text(angle=90, hjust=1),
+          text=element_text(family="Times New Roman", size=12)) %>% 
+    
 condensed_interpolation_by_specified_procedure_plot
 
 
 # pct interpolation method by time only
-merge_df %>% 
+interpolation_df %>% 
+    mutate(interpolation_details = !is.na(interpolation_time_s)) %>% 
+    filter(interpolation_details == TRUE) %>% 
+    count() %>% pull()
+
+interpolation_df %>% 
     mutate(interpolation_details = !is.na(interpolation_time_s)) %>% 
     filter(interpolation_details == TRUE) %>% 
     count() %>% pull()
@@ -156,9 +265,9 @@ condensed_interpolation_times <- interpolation_by_specified_procedure %>%
         interpolation_time_s == 1 ~ 1,
         interpolation_time_s == 5 ~ 5),
         interpolation_time_s = if_else(
-        is.na(interpolation_time_s),
-        "other",
-        as.character(interpolation_time_s)),
+            is.na(interpolation_time_s),
+            "other",
+            as.character(interpolation_time_s)),
         interpolation_time_s = str_to_title(interpolation_time_s)) %>% 
     group_by(interpolation_time_s) %>% 
     summarize(n = sum(n)) %>% 
@@ -179,7 +288,7 @@ interpolation_by_time_plot <- condensed_interpolation_times %>%
     #     paste("Interpolation methods by time. Data are expressed as counts and percentages. N = ",
     #           sum(condensed_interpolation_times$n), ".", sep = ""), width = 100)) +
     theme(plot.caption = element_text(hjust=0))
-interpolation_by_time_plot
+interpolation_by_time_plot # write this in text
 
 condensed_interpolation_types <-
     interpolation_by_specified_procedure %>% 
@@ -212,4 +321,4 @@ condensed_interpolation_types_plot <- condensed_interpolation_types %>%
     #     paste("Interpolation methods by type. Data are expressed as counts and percentages. N = ",
     #     sum(condensed_interpolation_types$n), ".", sep = ""), width = 100)) +
     theme(plot.caption = element_text(hjust=0))
-condensed_interpolation_types_plot
+condensed_interpolation_types_plot # just write in text instead

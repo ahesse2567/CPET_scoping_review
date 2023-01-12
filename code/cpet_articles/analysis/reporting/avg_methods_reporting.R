@@ -3,7 +3,7 @@ library(stringr)
 library(scales)
 library(janitor)
 
-ineligible_articles <- read_csv("data/cpet_articles/text_analysis/combined_ineligible_articles.csv") %>% 
+ineligible_articles <- read_csv("data/cpet_articles/text_analysis/ineligible_articles_combined.csv") %>% 
     clean_names()
 
 # load_bbb articles, removing potential douglas bag or mixing chamber articles
@@ -62,8 +62,6 @@ avg_by_type_tab
 
 
 
-
-
 # avg by subtype count
 n_avg_subtype <- merge_df %>% 
     filter(!is.na(avg_subtype)) %>% 
@@ -89,7 +87,7 @@ avg_by_type_subtype_tab <- merge_df %>%
     mutate(avg_type_subtype = paste(avg_type, "-", avg_subtype, sep = ""),
            avg_type_subtype = str_to_title(avg_type_subtype)) %>% 
     arrange(desc(pct))
-avg_by_type_subtype_tab
+avg_by_type_subtype_tab # this is an appendix kinda deal
 
 
 
