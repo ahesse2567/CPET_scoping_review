@@ -3,13 +3,15 @@ library(stringr)
 library(scales)
 library(janitor)
 # load fonts so Times works with ggplot2 + pdf rendering
-extrafont::loadfonts(device = "all")
-theme_update(text = element_text(family = "Times New Roman"))
+extrafont::loadfonts(quiet = TRUE)
+theme_update(text = element_text(family = "Times"))
 
 # re-find which articles are ineligible in case I forgot to update this manaully
 source("code/cpet_articles/tidying/combine_ineligible_articles.R")
 
-ineligible_articles <- read_csv("data/cpet_articles/text_analysis/ineligible_articles_combined.csv") %>% 
+ineligible_articles <- read_csv(
+    "data/cpet_articles/text_analysis/ineligible_articles_combined.csv",
+    show_col_types = FALSE) %>% 
     clean_names()
 
 # load_bbb articles, removing potential douglas bag or mixing chamber articles
@@ -40,7 +42,7 @@ interpolation_specification_summary <- interpolation_df %>%
     mutate(interpolation_details = interpolation_type | interpolation_time_s) %>% 
     count(interpolation_details) %>% 
     ungroup() %>% 
-    mutate(freq = prop.table(n))
+    mutate(prop = prop.table(n))
 interpolation_specification_summary
 
 count_specified_interpolation <- interpolation_specification_summary %>% 
@@ -48,15 +50,15 @@ count_specified_interpolation <- interpolation_specification_summary %>%
     select(n) %>% 
     pull()
 
-pct_specified_interpolation <- interpolation_specification_summary %>% 
+prop_specified_interpolation <- interpolation_specification_summary %>% 
     filter(interpolation_details == TRUE) %>% 
-    select(freq) %>% 
+    select(prop) %>% 
     pull()
 
 # calc MOE for number reporting interpolation details
 z <- qnorm(0.025, lower.tail = FALSE)
-moe_pct_articles_reporting_interpolation <-
-    z * sqrt((pct_specified_interpolation * (1 - pct_specified_interpolation)) / total_articles)
+moe_prop_articles_reporting_interpolation <-
+    z * sqrt((prop_specified_interpolation * (1 - prop_specified_interpolation)) / total_articles)
 
 
 ####### Interpolation by procedure
@@ -68,7 +70,7 @@ interpolation_by_specified_procedure <- interpolation_df %>%
     filter(interpolation_details == TRUE) %>% 
     count(interpolation_type, interpolation_time_s) %>% 
     mutate(procedure = paste0(interpolation_type, "-", interpolation_time_s),
-           pct = prop.table(n)) %>% 
+           prop = prop.table(n)) %>% 
     relocate(procedure, .after = interpolation_time_s) %>% 
     arrange(desc(n))
 interpolation_by_specified_procedure
@@ -90,13 +92,13 @@ n_most_popular_interpolation_time <- interpolation_by_specified_procedure %>%
     select(n) %>% 
     pull()
 
-pct_most_popular_interpolation_time <- interpolation_by_specified_procedure %>% 
+prop_most_popular_interpolation_time <- interpolation_by_specified_procedure %>% 
     group_by(interpolation_time_s) %>% 
     summarize(n = sum(n)) %>% 
     ungroup() %>% 
-    mutate(pct = prop.table(n)) %>% 
+    mutate(prop = prop.table(n)) %>% 
     filter(n == max(n)) %>% 
-    select(pct) %>% 
+    select(prop) %>% 
     pull()
 
 
@@ -106,28 +108,28 @@ n_most_popular_interpolation_method <- interpolation_by_specified_procedure %>%
     group_by(interpolation_type) %>% 
     summarize(n = sum(n)) %>% 
     ungroup() %>%
-    mutate(pct = prop.table(n)) %>% 
+    mutate(prop = prop.table(n)) %>% 
     filter(n == max(n)) %>% 
     select(n) %>% 
     pull()
 n_most_popular_interpolation_method
 
-pct_most_popular_interpolation_method <- interpolation_by_specified_procedure %>% 
+prop_most_popular_interpolation_method <- interpolation_by_specified_procedure %>% 
     group_by(interpolation_type) %>% 
     summarize(n = sum(n)) %>% 
     ungroup() %>%
-    mutate(pct = prop.table(n)) %>% 
+    mutate(prop = prop.table(n)) %>% 
     filter(n == max(n)) %>% 
-    select(pct) %>% 
+    select(prop) %>% 
     pull()
-pct_most_popular_interpolation_method
+prop_most_popular_interpolation_method
 
 most_popular_stated_interpolation_method <- interpolation_by_specified_procedure %>% 
     group_by(interpolation_type) %>% 
     filter(!is.na(interpolation_type)) %>% 
     summarize(n = sum(n)) %>% 
     ungroup() %>%
-    mutate(pct = prop.table(n)) %>% 
+    mutate(prop = prop.table(n)) %>% 
     filter(n == max(n)) %>% 
     select(interpolation_type) %>% 
     pull()
@@ -138,22 +140,22 @@ n_most_popular_stated_interpolation_method <- interpolation_by_specified_procedu
     filter(!is.na(interpolation_type)) %>% 
     summarize(n = sum(n)) %>% 
     ungroup() %>%
-    mutate(pct = prop.table(n)) %>% 
+    mutate(prop = prop.table(n)) %>% 
     filter(n == max(n)) %>% 
     select(n) %>% 
     pull()
 n_most_popular_stated_interpolation_method
 
-pct_most_popular_stated_interpolation_method <- interpolation_by_specified_procedure %>% 
+prop_most_popular_stated_interpolation_method <- interpolation_by_specified_procedure %>% 
     group_by(interpolation_type) %>% 
     summarize(n = sum(n)) %>% 
     ungroup() %>%
-    mutate(pct = prop.table(n)) %>% 
+    mutate(prop = prop.table(n)) %>% 
     filter(!is.na(interpolation_type)) %>% 
     filter(n == max(n)) %>% 
-    select(pct) %>% 
+    select(prop) %>% 
     pull()
-pct_most_popular_stated_interpolation_method
+prop_most_popular_stated_interpolation_method
 
 
 
@@ -166,25 +168,28 @@ condensed_interpolation_summary <- interpolation_df %>%
     mutate(procedure = paste0(interpolation_type, "-", interpolation_time_s)) %>% 
     group_by(procedure) %>% 
     summarize(n = n()) %>% 
-    mutate(pct = n / sum(n) * 100) %>% 
+    mutate(prop = n / sum(n) * 100) %>% 
     mutate(type = case_when(procedure == "NA-NA" ~ "Unspecified",
                             procedure == "linear-1" ~ '1-second',
                             procedure == "NA-1" ~ "1-second")) %>% 
     mutate(type = if_else(is.na(type), "Other", type)) %>% 
     group_by(type) %>% 
     summarize(n = sum(n)) %>% 
-    mutate(pct = n / sum(n)) %>% 
+    mutate(prop = n / sum(n)) %>% 
     arrange(desc(n))
 condensed_interpolation_summary
 
 interpolation_reporting_frequency_plot <- condensed_interpolation_summary %>% 
     ggplot(aes(x = type, y = n)) +
     geom_col() +
-    geom_text(aes(label = scales::percent(pct)), vjust = -0.5) +
-    geom_text(aes(label = n), vjust = -2) +
+    geom_text(aes(label = scales::percent(prop)),
+              family = "Times", vjust = -0.5) +
+    geom_text(aes(label = n),
+              family = "Times", vjust = -2) +
     xlab("Interpolation Procedure") +
     ylab("Count") +
-    ylim(0, 2000 * ceiling(max(condensed_interpolation_summary$n) / 2000)) +
+    ylim(0, plyr::round_any(max(condensed_interpolation_summary$n),
+                            3000, f = ceiling)) +
     theme_minimal() +
     # labs(caption = str_wrap(
     #     paste("Interpolation method reporting frequencies. 
@@ -193,7 +198,6 @@ interpolation_reporting_frequency_plot <- condensed_interpolation_summary %>%
     theme(plot.caption = element_text(hjust=0)) +
     theme(text=element_text(family="Times", size=12))
 interpolation_reporting_frequency_plot
-
 
 interpolation_by_time_tib <- interpolation_df %>% 
     select(interpolation_time_s) %>% 
@@ -217,24 +221,28 @@ interpolation_by_type_tib
 condensed_interpolation_by_specified_procedure <-
     interpolation_by_specified_procedure %>% 
     mutate(condensed_procedure = case_when(interpolation_time_s == 1 ~ procedure,
-                                           interpolation_time_s == 5 ~ "5-second"),
+                                           interpolation_time_s == 5 ~ "Other-5"),
            condensed_procedure = if_else(is.na(condensed_procedure),
                                          "other",
                                          condensed_procedure),
-           condensed_procedure = str_to_title(condensed_procedure)) %>% 
+           condensed_procedure = str_to_title(condensed_procedure),
+           condensed_procedure = if_else(
+               str_to_lower(condensed_procedure) == "na-1",
+               "Unspecified-1", condensed_procedure)) %>% 
     group_by(condensed_procedure) %>% 
     summarize(n = sum(n)) %>% 
     ungroup() %>% 
-    mutate(pct = prop.table(n))
+    mutate(prop = prop.table(n)) %>% 
+    arrange((desc(n)))
 condensed_interpolation_by_specified_procedure
 
 condensed_interpolation_by_specified_procedure_plot <-
     condensed_interpolation_by_specified_procedure %>% 
     ggplot(aes(x = condensed_procedure, y = n)) +
     geom_col() +
-    geom_text(aes(label = scales::percent(pct)),
-              vjust = -0.5) +
-    geom_text(aes(label = n), vjust = -2) +
+    geom_text(aes(label = scales::percent(prop)),
+              family = "Times", vjust = -0.5) +
+    geom_text(aes(label = n), family = "Times", vjust = -2) +
     xlab("Interpolation Procedure") +
     ylab("Count") +
     ylim(0, 175 * ceiling(max(interpolation_by_specified_procedure$n) / 175)) +
@@ -246,11 +254,10 @@ condensed_interpolation_by_specified_procedure_plot <-
     # theme(plot.caption = element_text(hjust=0)) +
     theme(axis.text.x = element_text(angle=90, hjust=1)) +
     theme(text=element_text(family="Times", size=12))
-    
 condensed_interpolation_by_specified_procedure_plot
 
 
-# pct interpolation method by time only
+# prop interpolation method by time only
 interpolation_df %>% 
     mutate(interpolation_details = !is.na(interpolation_time_s)) %>% 
     filter(interpolation_details == TRUE) %>% 
@@ -262,7 +269,7 @@ interpolation_df %>%
     count() %>% pull()
 
 condensed_interpolation_times <- interpolation_by_specified_procedure %>% 
-    select(interpolation_time_s, n, pct) %>% 
+    select(interpolation_time_s, n, prop) %>% 
     filter(!is.na(interpolation_time_s)) %>% 
     mutate(interpolation_time_s = case_when(
         interpolation_time_s == 1 ~ 1,
@@ -275,13 +282,13 @@ condensed_interpolation_times <- interpolation_by_specified_procedure %>%
     group_by(interpolation_time_s) %>% 
     summarize(n = sum(n)) %>% 
     ungroup() %>% 
-    mutate(pct = prop.table(n))
+    mutate(prop = prop.table(n))
 condensed_interpolation_times
 
 interpolation_by_time_plot <- condensed_interpolation_times %>% 
     ggplot(aes(x = as.factor(interpolation_time_s), y = n)) +
     geom_col() +
-    geom_text(aes(label = scales::percent(pct)), vjust = -0.5) +
+    geom_text(aes(label = scales::percent(prop)), vjust = -0.5) +
     geom_text(aes(label = n), vjust = -2) +
     xlab("Interpolation Time (s)") +
     ylab("Count") +
@@ -295,7 +302,7 @@ interpolation_by_time_plot # write this in text
 
 condensed_interpolation_types <-
     interpolation_by_specified_procedure %>% 
-    select(interpolation_type, n, pct) %>% 
+    select(interpolation_type, n, prop) %>% 
     filter(!is.na(interpolation_type)) %>% 
     mutate(interpolation_type = case_when(
         interpolation_type == "linear" ~ interpolation_type,
@@ -308,13 +315,13 @@ condensed_interpolation_types <-
     group_by(interpolation_type) %>% 
     summarize(n = sum(n)) %>% 
     ungroup() %>% 
-    mutate(pct = prop.table(n))
+    mutate(prop = prop.table(n))
 condensed_interpolation_types
 
 condensed_interpolation_types_plot <- condensed_interpolation_types %>% 
     ggplot(aes(x = as.factor(interpolation_type), y = n)) +
     geom_col() +
-    geom_text(aes(label = scales::percent(pct)), vjust = -0.5) +
+    geom_text(aes(label = scales::percent(prop)), vjust = -0.5) +
     geom_text(aes(label = n), vjust = -2) +
     xlab("Interpolation Calculation Type") +
     ylab("Count") +
