@@ -2,8 +2,14 @@ library(tidyverse)
 library(stringr)
 library(scales)
 library(janitor)
+extrafont::loadfonts(quiet=TRUE)
+theme_update(text = element_text(family = "Times"))
 
-ineligible_articles <- read_csv("data/cpet_articles/text_analysis/ineligible_articles_combined.csv") %>% 
+source("code/cpet_articles/tidying/combine_ineligible_articles.R")
+
+ineligible_articles <- read_csv(
+    "data/cpet_articles/text_analysis/ineligible_articles_combined.csv",
+    show_col_types = FALSE) %>% 
     clean_names()
 
 # load_bbb articles, removing potential douglas bag or mixing chamber articles
@@ -17,17 +23,17 @@ avg_data <- read_csv(
                      show_col_types = FALSE) %>% 
     clean_names()
 
-merge_df <- full_join(avg_data, bbb_articles, by = "doi_suffix") %>% 
+avg_df <- full_join(avg_data, bbb_articles, by = "doi_suffix") %>% 
     select(colnames(avg_data)) %>% 
     filter(doi_suffix %in% avg_data$doi_suffix)
 
 ######## Averaging methods #################
 
-total_articles <- merge_df %>% 
+n_total_articles_avg <- avg_df %>% 
     distinct(doi_suffix, .keep_all = FALSE) %>% 
     nrow()
 
-pct_reporting_avg_methods <- merge_df %>% 
+prop_reporting_avg_methods <- avg_df %>% 
     count(no_avg_details) %>% 
     ungroup() %>% 
     mutate(prop = prop.table(n)) %>% 
@@ -35,11 +41,19 @@ pct_reporting_avg_methods <- merge_df %>%
     select(prop) %>% 
     pull()
 
+n_reporting_avg_methods <- avg_df %>% 
+    count(no_avg_details) %>% 
+    ungroup() %>% 
+    mutate(prop = prop.table(n)) %>% 
+    filter(no_avg_details == FALSE) %>% 
+    select(n) %>% 
+    pull()
+
 z <- qnorm(0.025, lower.tail = FALSE)
 
 margin_of_error <- z * sqrt(
-    pct_reporting_avg_methods * (1 - pct_reporting_avg_methods) / 
-        total_articles) * 100
+    prop_reporting_avg_methods * (1 - prop_reporting_avg_methods) / 
+        n_total_articles_avg)
 margin_of_error
 
 #### Averaging method types
@@ -47,57 +61,88 @@ margin_of_error
 
 
 # count by averaging type
-n_avg <- merge_df %>% 
+n_avg <- avg_df %>% 
     filter(!is.na(avg_type)) %>% 
     nrow()
 
-avg_by_type_tab <- merge_df %>% 
+avg_by_type_tab <- avg_df %>% 
     filter(!is.na(avg_type)) %>% 
     count(avg_type) %>% 
     ungroup() %>% 
-    mutate(pct = prop.table(n)) %>% 
-    mutate(avg_type = str_to_title(avg_type))
+    mutate(prop = prop.table(n)) %>% 
+    mutate(avg_type = str_to_title(avg_type)) %>% 
+    arrange(desc(n))
 avg_by_type_tab
 
 
-
-
 # avg by subtype count
-n_avg_subtype <- merge_df %>% 
+n_avg_subtype <- avg_df %>% 
     filter(!is.na(avg_subtype)) %>% 
     nrow()
 
-avg_by_subtype_tab <- merge_df %>% 
+avg_by_subtype_tab <- avg_df %>% 
     filter(!is.na(avg_subtype)) %>% 
     count(avg_subtype) %>% 
     ungroup() %>% 
-    mutate(pct = prop.table(n)) %>% 
-    mutate(avg_subtype = str_to_title(avg_subtype))
+    mutate(prop = prop.table(n)) %>% 
+    mutate(avg_subtype = str_to_title(avg_subtype)) %>% 
+    arrange(desc(n))
 avg_by_subtype_tab
 
 
 
 
 # avg by type and subtype
-avg_by_type_subtype_tab <- merge_df %>% 
+avg_by_type_subtype_tab <- avg_df %>% 
     filter(!is.na(avg_subtype) | !is.na(avg_type)) %>% 
     count(avg_type, avg_subtype) %>% 
     ungroup() %>% 
-    mutate(pct = prop.table(n)) %>% 
+    mutate(prop = prop.table(n)) %>% 
     mutate(avg_type_subtype = paste(avg_type, "-", avg_subtype, sep = ""),
            avg_type_subtype = str_to_title(avg_type_subtype)) %>% 
-    arrange(desc(pct))
+    arrange(desc(prop))
 avg_by_type_subtype_tab # this is an appendix kinda deal
 
 
 
 # avg by full avg method
-avg_by_full_method_tab <- merge_df %>% 
+avg_by_full_method_tab <- avg_df %>% 
     filter(!is.na(avg_type)) %>% 
     group_by(avg_type, avg_subtype, avg_amount, avg_mos, avg_mean_type) %>% 
     summarize(n = n()) %>% 
     ungroup() %>% 
-    mutate(pct = prop.table(n)) %>% 
+    mutate(prop = prop.table(n)) %>% 
     arrange(desc(n))
 avg_by_full_method_tab
-View(avg_by_full_method_tab)
+# View(avg_by_full_method_tab)
+
+
+avg_by_full_method_plot <- avg_by_full_method_tab %>% 
+    mutate(avg_procedure = paste(
+        avg_type, avg_subtype, avg_amount, avg_mos, avg_mean_type, sep = "-"),
+        avg_procedure = if_else(prop < 0.01, "Other", str_to_title(avg_procedure))) %>% 
+    group_by(avg_procedure) %>% 
+    summarize(n = sum(n)) %>% 
+    ungroup() %>% 
+    mutate(prop = prop.table(n)) %>% 
+    mutate(avg_procedure = str_remove(avg_procedure, "-Mean-Whole"),
+           avg_procedure = str_remove_all(avg_procedure, "-Na")) %>% 
+    ggplot(aes(x = reorder(avg_procedure, -n), y = n)) +
+    geom_col() +
+    geom_text(aes(label = scales::percent(prop, accuracy = 0.1)), 
+              family = "Times", vjust = -0.5) +
+    geom_text(aes(label = n),
+              family = "Times", vjust = -2) +
+    xlab("Averaging Procedure") +
+    ylab("Count") +
+    ylim(0, 300) +
+    theme_minimal() +
+    # labs(caption = str_wrap(
+    #     paste(
+    #         "Prevalence of averaging method by full procedure. 
+    #         Data are expressed as counts and percentages. ",
+    #         sum(avg_by_full_method_tab$n), ".", sep = ""), width = 100)) +
+    # theme(plot.caption = element_text(hjust=0)) +
+    theme(axis.text.x = element_text(angle=90, hjust=1)) +
+    theme(text = element_text(family = "Times"))
+avg_by_full_method_plot
