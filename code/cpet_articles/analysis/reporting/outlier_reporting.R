@@ -68,6 +68,10 @@ outlier_cutoff_by_type <- outlier_df %>%
     arrange(desc(n))
 outlier_cutoff_by_type
 
+label_size <- 10
+caption_size <- 20
+axes_text_size <- 25
+
 outlier_reporting_frequency_plot <- outlier_df %>% 
     count(outlier_limit) %>% 
     mutate(prop = round(prop.table(n),4)) %>% 
@@ -98,6 +102,50 @@ outlier_reporting_frequency_plot <- outlier_df %>%
     theme(text=element_text(family="Times", size=12))
 outlier_reporting_frequency_plot
 
+outlier_reporting_frequency_plot_ACSM <- outlier_df %>% 
+    count(outlier_limit) %>% 
+    mutate(prop = round(prop.table(n),4)) %>% 
+    mutate(outlier_limit = if_else(is.na(outlier_limit),
+                                   "Unspecified",
+                                   str_to_upper(outlier_limit)),
+           outlier_limit = str_remove(outlier_limit, " / 99%"),
+           outlier_limit = if_else(prop < 0.01, "Other", outlier_limit)) %>% 
+    group_by(outlier_limit) %>% 
+    summarize(n = sum(n)) %>% 
+    ungroup() %>% 
+    mutate(prop = prop.table(n)) %>% 
+    ggplot(aes(x = outlier_limit, y = n)) +
+    geom_col() +
+    geom_text(aes(label = scales::percent(prop)),
+              family = "Times", vjust = -0.5, size = label_size) +
+    geom_text(aes(label = n),
+              family = "Times", vjust = -2, size = label_size) +
+    xlab("Outlier Limit") +
+    ylab("Count") +
+    ylim(0, plyr::round_any(max(outlier_cutoff_by_type$n),
+                            2250, ceiling)) +
+    theme_minimal() +
+    # labs(
+    #     caption = str_wrap(
+    #         paste(
+    #             "Outlier cutoff reporting frequency. Data are expressed as counts and percentages. N = ",
+    #             total_articles, ".", sep = ""), width = 100)) +
+    # theme(plot.caption = element_text(hjust=0)) +
+    labs(caption = "Counts and percentages of articles reporting outlier methods and their types.") +
+    theme(text=element_text(family="Times", size=12),
+          axis.text.x = element_text(size = axes_text_size),
+          axis.text.y = element_text(size = axes_text_size),
+          axis.title = element_text(size = axes_text_size),
+          plot.caption = element_text(size = caption_size,
+                                      hjust = 0))
+outlier_reporting_frequency_plot_ACSM
+
+ggsave("graphics/outlier_reporting_ACSM.tiff",
+       outlier_reporting_frequency_plot_ACSM,
+       width = 13,
+       height = 8.5,
+       units = "in",
+       bg = "white")
 
 # prop outlier cutoff by type
 specified_outlier_cutoffs_by_type <- outlier_df %>% 
@@ -147,6 +195,51 @@ prop_outlier_limits_plot <- outlier_df %>%
     theme(text=element_text(family="Times", size=12))
 prop_outlier_limits_plot
 
+prop_outlier_limits_plot_ACSM <- outlier_df %>% 
+    select(outlier_limit) %>% 
+    drop_na() %>% 
+    group_by(outlier_limit) %>% 
+    summarize(n = n()) %>% 
+    mutate(prop = prop.table(n),
+           outlier_limit = if_else(prop < 0.02, "Other", outlier_limit),
+           outlier_limit = str_remove(outlier_limit, " / \\d{2}%")) %>%
+    group_by(outlier_limit) %>% 
+    summarize(n = sum(n)) %>% 
+    ungroup() %>% 
+    mutate(prop = prop.table(n)) %>% 
+    mutate(outlier_limit = if_else(outlier_limit == "Other",
+                                   str_to_title(outlier_limit),
+                                   outlier_limit)) %>% 
+    ggplot(aes(x = outlier_limit, y = n)) +
+    geom_col() +
+    geom_text(aes(label = scales::percent(prop)),
+              family = "Times", vjust = -0.5, size = label_size) +
+    geom_text(aes(label = n),
+              family = "Times", vjust = -2, size = label_size) +
+    xlab("Outlier Limit") +
+    ylab("Count") +
+    ylim(0, 250) +
+    theme_minimal() +
+    # labs(
+    #     caption = str_wrap(
+    #         paste("Outlier cutoff frequencies. Data are expressed as counts and percentages. N = ",
+    #               count_outlier_procedure_described, ".", sep = ""), width = 100)) +
+    # theme(plot.caption = element_text(hjust=0)) +
+    labs(caption = "Counts and percentages of specified outlier removal limits.") +
+    theme(text=element_text(family="Times", size=12),
+          axis.text.x = element_text(size = axes_text_size),
+          axis.text.y = element_text(size = axes_text_size),
+          axis.title = element_text(size = axes_text_size),
+          plot.caption = element_text(size = caption_size,
+                                      hjust = 0))
+prop_outlier_limits_plot_ACSM
+
+ggsave("graphics/outlier_prevalence_by_type_ACSM.tiff",
+       prop_outlier_limits_plot_ACSM,
+       width = 13,
+       height = 8.5,
+       units = "in",
+       bg = "white")
 
 # percentage of articles that specify outlier removal
 outlier_df %>% 
