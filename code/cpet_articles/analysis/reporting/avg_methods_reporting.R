@@ -146,3 +146,91 @@ avg_by_full_method_plot <- avg_by_full_method_tab %>%
     theme(axis.text.x = element_text(angle=90, hjust=1)) +
     theme(text = element_text(family = "Times"))
 avg_by_full_method_plot
+
+label_size <- 15
+caption_size <- 20
+axes_text_size <- 30
+
+avg_by_full_method_plot_ACSM <- avg_by_full_method_tab %>% 
+    mutate(avg_procedure = paste(
+        avg_type, avg_subtype, avg_amount, avg_mos, avg_mean_type, sep = "-"),
+        avg_procedure = if_else(prop < 0.01, "Other", str_to_title(avg_procedure))) %>% 
+    group_by(avg_procedure) %>% 
+    summarize(n = sum(n)) %>% 
+    ungroup() %>% 
+    mutate(prop = prop.table(n)) %>% 
+    mutate(avg_procedure = str_remove(avg_procedure, "-Mean-Whole"),
+           avg_procedure = str_remove_all(avg_procedure, "-Na")) %>% 
+    ggplot(aes(x = reorder(avg_procedure, -n), y = n)) +
+    geom_col() +
+    geom_text(aes(label = scales::percent(prop, accuracy = 0.1)), 
+              family = "Times", vjust = -0.5, size = label_size) +
+    geom_text(aes(label = n),
+              family = "Times", vjust = -2, size = label_size) +
+    xlab("Averaging Procedure") +
+    ylab("Count") +
+    ylim(0, 300) +
+    theme_minimal() +
+    # labs(caption = str_wrap(
+    #     paste(
+    #         "Prevalence of averaging method by full procedure. 
+    #         Data are expressed as counts and percentages. ",
+    #         sum(avg_by_full_method_tab$n), ".", sep = ""), width = 100)) +
+    # theme(plot.caption = element_text(hjust=0)) +
+    labs(caption = "Counts and percentages of averaging procedure by type (time, bin, other), calculation type (bin, rolling), and number of units (seconds, breaths).") +
+    theme(axis.text.x = element_text(angle=90, hjust=1)) +
+    theme(text = element_text(family = "Times"),
+          axis.text.x = element_text(size = axes_text_size),
+          axis.text.y = element_text(size = axes_text_size),
+          axis.title = element_text(size = axes_text_size),
+          plot.caption = element_text(size = caption_size,
+                                      hjust = 0))
+    
+
+ggsave("graphics/avg_by_full_method_plot.tiff",
+       avg_by_full_method_plot_ACSM,
+       width = 18,
+       height = 8.5,
+       units = "in",
+       dpi = 200,
+       bg = "white")
+
+pct_reporting_avg_plot_ACSM <- avg_df %>% 
+    count(no_avg_details) %>% 
+    ungroup() %>% 
+    mutate(prop = prop.table(n),
+           no_avg_details = if_else(no_avg_details,
+                                    "Not Reported",
+                                    "Reported"),
+           no_avg_details = as.factor(no_avg_details),
+           no_avg_details = forcats::fct_relevel(
+               no_avg_details,
+               "Reported",
+               "Not Reported")) %>% 
+    ggplot(aes(x = no_avg_details, y = n)) +
+    geom_col() +
+    geom_text(aes(label = scales::percent(prop, accuracy = 0.1)), 
+              family = "Times", vjust = -0.5, size = label_size) +
+    geom_text(aes(label = n),
+              family = "Times", vjust = -2, size = label_size) +
+    ylim(c(0, 1000)) +
+    xlab("Averaging Method Documentation") +
+    ylab("Count") +
+    theme_bw() +
+    labs(
+        caption = "Counts and percentages of articles reporting\ntheir averaging methods") +
+    theme(text = element_text(family = "Times"),
+          axis.text.x = element_text(size = axes_text_size),
+          axis.text.y = element_text(size = axes_text_size),
+          axis.title = element_text(size = axes_text_size),
+          plot.caption = element_text(size = caption_size,
+                                      hjust = 0))
+
+ggsave("graphics/avg_reporting_ACSM.tiff",
+       pct_reporting_avg_plot_ACSM,
+       width = 7.25,
+       height = 8.5,
+       units = "in",
+       dpi = 200,
+       bg = "white")
+    

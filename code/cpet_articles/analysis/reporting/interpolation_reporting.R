@@ -199,6 +199,44 @@ interpolation_reporting_frequency_plot <- condensed_interpolation_summary %>%
     theme(text=element_text(family="Times", size=12))
 interpolation_reporting_frequency_plot
 
+label_size <- 10
+caption_size <- 20
+axes_text_size <- 25
+
+interpolation_reporting_frequency_plot_ACSM <- 
+    condensed_interpolation_summary %>% 
+    ggplot(aes(x = type, y = n)) +
+    geom_col() +
+    geom_text(aes(label = scales::percent(prop)),
+              family = "Times", vjust = -0.5, size = label_size) +
+    geom_text(aes(label = n),
+              family = "Times", vjust = -2, size = label_size) +
+    xlab("Interpolation Procedure") +
+    ylab("Count") +
+    ylim(0, plyr::round_any(max(condensed_interpolation_summary$n),
+                            3000, f = ceiling)) +
+    theme_minimal() +
+    # labs(caption = str_wrap(
+    #     paste("Interpolation method reporting frequencies. 
+    #           Data are expressed as counts and percentages. N = ",
+    #           total_articles, ".", sep = ""), width = 100)) +
+    labs(caption = "Counts and percentages of articles reporting interpolation\nmethods and their types") +
+    theme(plot.caption = element_text(hjust=0)) +
+    theme(text=element_text(family="Times", size=12),
+          axis.text.x = element_text(size = axes_text_size),
+          axis.text.y = element_text(size = axes_text_size),
+          axis.title = element_text(size = axes_text_size),
+          plot.caption = element_text(size = caption_size,
+                                      hjust = 0))
+interpolation_reporting_frequency_plot_ACSM
+
+ggsave("graphics/interpolation_reporting_frequency_plot_ACSM.tiff",
+       interpolation_reporting_frequency_plot_ACSM,
+       width = 8.666667,
+       height = 8.5,
+       units = "in",
+       bg = "white")
+
 interpolation_by_time_tib <- interpolation_df %>% 
     select(interpolation_time_s) %>% 
     filter(!is.na(interpolation_time_s)) %>% 
@@ -257,6 +295,41 @@ condensed_interpolation_by_specified_procedure_plot <-
 condensed_interpolation_by_specified_procedure_plot
 
 
+condensed_interpolation_by_specified_procedure_plot_ACSM <-
+    condensed_interpolation_by_specified_procedure %>% 
+    ggplot(aes(x = condensed_procedure, y = n)) +
+    geom_col() +
+    geom_text(aes(label = scales::percent(prop)),
+              family = "Times", vjust = -0.5, size = label_size) +
+    geom_text(aes(label = n), family = "Times", vjust = -2,
+              size = label_size) +
+    xlab("Interpolation Procedure") +
+    ylab("Count") +
+    ylim(0, 175 * ceiling(max(interpolation_by_specified_procedure$n) / 175)) +
+    theme_minimal() +
+    # labs(caption = str_wrap(
+    #     paste(
+    #         "Interpolation method by time and type. Data are expressed as counts and \npercentages. N = ",
+    #         count_specified_interpolation, ".", sep = ""), width = 100)) +
+    # theme(plot.caption = element_text(hjust=0)) +
+    labs(
+        caption = "Counts and percentages of reported interpolation type and time.") +
+    theme(axis.text.x = element_text(angle=90, hjust=1)) +
+    theme(text=element_text(family="Times", size=12),
+          axis.text.x = element_text(size = axes_text_size),
+          axis.text.y = element_text(size = axes_text_size),
+          axis.title = element_text(size = axes_text_size),
+          plot.caption = element_text(size = caption_size,
+                                      hjust = 0))
+condensed_interpolation_by_specified_procedure_plot_ACSM
+
+ggsave("graphics/condensed_interpolation_by_specified_procedure_plot_ACSM.tiff",
+       condensed_interpolation_by_specified_procedure_plot_ACSM,
+       width = 8.666667,
+       height = 8.5,
+       units = "in",
+       bg = "white")
+
 # prop interpolation method by time only
 interpolation_df %>% 
     mutate(interpolation_details = !is.na(interpolation_time_s)) %>% 
@@ -299,6 +372,35 @@ interpolation_by_time_plot <- condensed_interpolation_times %>%
     #           sum(condensed_interpolation_times$n), ".", sep = ""), width = 100)) +
     theme(plot.caption = element_text(hjust=0))
 interpolation_by_time_plot # write this in text
+
+interpolation_by_time_plot_ACSM <- condensed_interpolation_times %>% 
+    ggplot(aes(x = as.factor(interpolation_time_s), y = n)) +
+    geom_col() +
+    geom_text(aes(label = scales::percent(prop)), family = "Times", 
+              vjust = -0.5, size = label_size) +
+    geom_text(aes(label = n), vjust = -2, family = "Times", size = label_size) +
+    xlab("Interpolation Time (s)") +
+    ylab("Count") +
+    ylim(0,100 * ceiling(max(condensed_interpolation_times$n) / 100)) +
+    theme_minimal() +
+    # labs(caption = str_wrap(
+    #     paste("Interpolation methods by time. Data are expressed as counts and percentages. N = ",
+    #           sum(condensed_interpolation_times$n), ".", sep = ""), width = 100)) +
+    labs(caption = "Reported interpolation time in seconds") +
+    theme(text=element_text(family="Times", size=12),
+          axis.text.x = element_text(size = axes_text_size),
+          axis.text.y = element_text(size = axes_text_size),
+          axis.title = element_text(size = axes_text_size),
+          plot.caption = element_text(size = caption_size,
+                                      hjust = 0))
+interpolation_by_time_plot_ACSM # write this in text
+
+ggsave("graphics/interpolation_by_time_plot_ACSM.tiff",
+       interpolation_by_time_plot_ACSM,
+       width = 8.666667,
+       height = 8.5,
+       units = "in",
+       bg = "white")
 
 condensed_interpolation_types <-
     interpolation_by_specified_procedure %>% 

@@ -1,0 +1,170 @@
+---
+title: Generate Reproducible & Live HTML and PDF Conference Posters Using RMarkdown
+author:
+  - name: Anton S. Hesse
+    affil: 1
+    orcid: '0000-0001-8456-7343'
+  - name: Christopher J. Lundstrom
+    orcid: '0000-0002-1527-1685'
+    affil: 1
+affiliation:
+  - num: 1
+    address: University of Minnesota-Twin Cities, School of Kinesiology
+column_numbers: 3
+logoright_name: https&#58;//raw.githubusercontent.com/brentthorne/posterdown/master/images/betterhexlogo.png
+logoleft_name: https&#58;//raw.githubusercontent.com/brentthorne/posterdown/master/images/betterhexlogo.png
+output: 
+  posterdown::posterdown_html:
+    self_contained: false
+bibliography: packages.bib
+editor_options: 
+  markdown: 
+    wrap: 72
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+```
+
+# Abstract
+
+## Purpose
+
+Cardiopulmonary exercise testing (CPET) is the gold standard for
+non-invasively measuring cardiorespiratory fitness and is popular in
+many fields. CPET analyzes expired gases, usually generating one data
+point per breath (breath-by-breath). Consequentially, this data requires
+processing before later analysis because respiratory variability is much
+higher than the underlying metabolism it reflects. There is no universal
+method to process breath-by-breath data, and previous research shows
+that different approaches can affect downstream results. Moreover, there
+is little research on the popularity of different data processing
+methods and how often they are described in peer-reviewed literature.
+This scoping review aims to document the popularity and prevalence of
+CPET data processing methods.
+
+## Methods
+
+We followed current scoping review methodology and searched three
+databases for papers whose methods included CPET with gas exchange. We
+screened those results using regular expressions and machine learning to
+identify papers where authors collected gas data breath-by-breath. Using
+regular expressions, we documented which, if any, gas data processing
+procedures were described in the methods section regarding outlier
+removal, interpolation, and averaging methods.
+
+## Results
+
+Of the 8420 articles analyzed, 377 (4.5%) and 583 (6.9%) described
+outlier removal and interpolation, respectively. An estimated 66.8 ±
+2.8% reported averaging methods (n = 1078). When documented, the most
+popular outlier cutoffs are mean ± 3 or 4 SD (39.0% and 51.7%,
+respectively), and the dominating interpolation time frame and procedure
+were one second (94.0%) and linear interpolation (92.2%), respectively.
+When described, the most popular averaging methods are 30 (30.8%), 60
+(12.4%), 15 (11.6%), 10 (11.0%), and 20 (8.1%) second bin averages.
+
+## Conclusions
+
+Despite the known impact on later analyses, only two-thirds of studies
+using breath-by-breath data clearly documented their averaging methods.
+Few papers explicitly describe gas data processing regarding outlier
+removal and interpolation. The importance of data processing depends on
+the subsequent analysis, but better documentation can improve
+reproducibility and study comparisons.
+
+# Introduction
+
+-   Some combination of outlier removal, interpolation, and data
+    averaging is typically required before calculating VO2max,
+    ventilatory thresholds, and VO2 kinetics from CPETs
+-   Prior research has shown data averaging duration affects calculated
+    VO2max [@robergs2003; @robergs2010], but less is known about how
+    outlier removal and interpolation affect this and other values
+-   Before investigating how data processing decisions affect later
+    outcomes, it is important to determine the prevalence of these
+    procedures when reported
+-   Quantifying the reporting percentage of data processing decisions
+    improves study reproducibility
+
+# Methods
+
+-   This scoping review followed the Preferred Reporting Items for
+    Systematic reviews and Meta-Analyses extension for Scoping Reviews
+
+-   We downloaded a list of original, peer-reviewed articles from 3
+    databases that likely included original research on human subjects
+    with breath-by-breath data collection and an exercise test
+
+-   Downloaded full-text articles were converted articles to .txt format
+    and the text was normalized easier analysis
+
+-   We used regular expressions and machine learning classification
+    algorithms to remove articles not satisfying the required criteria
+
+-   We extracted text regarding outlier, interpolation, and data
+    averaging methods using regular expressions and quantified their
+    reporting frequency and prevalence when reported
+
+This package uses the same workflow approach as the R Markdown you know
+and love. Basically it goes from RMarkdown \> Knitr \> Markdown \>
+Pandoc \> HTML/CSS \> PDF. You can even use the bibliography the same
+way [@R-posterdown].
+
+# Results
+
+Usually you want to have a nice table displaying some important results
+that you have calculated. In `posterdown` this is as easy as using the
+`kable` table formatting you are probably use to as per typical R
+Markdown formatting.
+
+You can reference tables like so: Table \@ref(tab:mytable). Lorem ipsum
+dolor sit amet, consectetur adipiscing elit. Aliquam placerat augue at
+velit tincidunt semper. Donec elementum porta posuere. Nullam interdum,
+odio at tincidunt feugiat, turpis nisi blandit eros, eu posuere risus
+felis non quam. Nam eget lorem odio. Duis et aliquet orci. Phasellus nec
+viverra est.
+
+```{r mytable, out.width='80%'}
+knitr::kable(iris[1:10, 1:4], caption = 'Table caption.',align = 'c',"html")
+```
+
+Or with figures: Figure \@ref(fig:standard-plot), or Figure
+\@ref(fig:morefigs).
+
+```{r standard-plot, out.width='80%', fig.align='center', fig.cap='Great figure!', fig.height=5}
+plot(mtcars[1:2])
+```
+
+```{r morefigs, out.width='80%', echo=TRUE, fig.cap='Amazing, right?!', fig.height=5}
+data <- iris
+
+plot(x = data$Sepal.Length, 
+     y = data$Sepal.Width, 
+     col = data$Species,
+     pch = 19, 
+     xlab = "Sepal Length (cm)",
+     ylab = "Sepal Width (cm)")
+
+```
+
+# Next Steps
+
+Aliquam sed faucibus risus, quis efficitur erat. Vestibulum semper
+mauris quis tempus eleifend. Aliquam sagittis dictum ipsum, quis viverra
+ligula eleifend ut. Curabitur sagittis vitae arcu eget faucibus. In non
+elementum felis. Duis et aliquam nunc. Nunc pulvinar sapien nunc, vel
+pretium nisi efficitur in. Fusce fringilla maximus leo et maximus. Fusce
+at ligula laoreet, iaculis mi at, auctor odio. Praesent sed elementum
+justo. Aenean consectetur risus rhoncus tincidunt efficitur. Praesent
+dictum mauris at diam maximus maximus [@R-posterdown].
+
+# Conclusion
+
+Try `posterdown` out! Hopefully you like it!
+
+```{r, include=FALSE}
+knitr::write_bib(c('knitr','rmarkdown','posterdown','pagedown'), 'packages.bib')
+```
+
+# References
