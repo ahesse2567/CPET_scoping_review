@@ -169,7 +169,7 @@ avg_by_full_method_plot_ACSM <- avg_by_full_method_tab %>%
               family = "Times", vjust = -2, size = label_size) +
     xlab("Averaging Procedure") +
     ylab("Count") +
-    ylim(0, 300) +
+    ylim(0, 350) +
     theme_minimal() +
     # labs(caption = str_wrap(
     #     paste(
@@ -187,7 +187,7 @@ avg_by_full_method_plot_ACSM <- avg_by_full_method_tab %>%
                                       hjust = 0))
     
 
-ggsave("graphics/avg_by_full_method_plot.tiff",
+ggsave("graphics/avg_by_full_method_plot_ACSM.tiff",
        avg_by_full_method_plot_ACSM,
        width = 18,
        height = 8.5,
@@ -213,7 +213,7 @@ pct_reporting_avg_plot_ACSM <- avg_df %>%
               family = "Times", vjust = -0.5, size = label_size) +
     geom_text(aes(label = n),
               family = "Times", vjust = -2, size = label_size) +
-    ylim(c(0, 1000)) +
+    ylim(c(0, 1050)) +
     xlab("Averaging Method Documentation") +
     ylab("Count") +
     theme_bw() +
@@ -224,7 +224,8 @@ pct_reporting_avg_plot_ACSM <- avg_df %>%
           axis.text.y = element_text(size = axes_text_size),
           axis.title = element_text(size = axes_text_size),
           plot.caption = element_text(size = caption_size,
-                                      hjust = 0))
+                                      hjust = 0),
+          panel.border = element_blank())
 
 ggsave("graphics/avg_reporting_ACSM.tiff",
        pct_reporting_avg_plot_ACSM,

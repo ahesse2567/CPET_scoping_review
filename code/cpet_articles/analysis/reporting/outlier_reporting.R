@@ -6,7 +6,7 @@ library(janitor)
 extrafont::loadfonts(quiet = TRUE)
 theme_replace(text = element_text(family = "Times"))
 
-# re-find which articles are ineligible in case I forgot to update this manaully
+# re-find which articles are ineligible in case I forgot to update this manually
 source("code/cpet_articles/tidying/combine_ineligible_articles.R")
 
 ineligible_articles <- read_csv(
