@@ -13,3 +13,15 @@ data/cpet_articles/full_texts/
 data/cpet_articles/no_exer/
 **/__pycache__
 .venv
+
+
+.ipynb_checkpoints
+*/.ipynb_checkpoints/*
+
+/.quarto/
+/_manuscript
+
+/agujournal2019.cls
+/trackchanges.sty
+.httr-oauth
+.DS_Store
