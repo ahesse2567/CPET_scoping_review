@@ -1,0 +1,17 @@
+project:
+  type: manuscript
+
+execute:
+  freeze: auto
+
+format:
+  html:
+    toc: true
+    comments:
+      hypothesis: true
+  apaquarto-docx: default
+  apaquarto-html: default
+  apaquarto-pdf: default
+
+
+
