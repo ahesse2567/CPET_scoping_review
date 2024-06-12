@@ -36,12 +36,42 @@ citation:
 number-sections: true
 ---
 
+```{r, setup, results='hide', echo=FALSE, message=FALSE}
+library(tidyverse)
+library(janitor)
+library(knitr)
+library(kableExtra)
+extrafont::loadfonts(quiet = TRUE)
+```
+
+# Chapter 2: Scoping review of gas exchange data processing procedures for exercise tests in published literature
+
 ## Introduction
 
-```{r}
-eruptions <- c(1492, 1585, 1646, 1677, 1712, 1949, 1971, 2021)
-n_eruptions <- length(eruptions)
-```
+Clinicians and researchers commonly use cardiopulmonary exercise testing (CPET) to determine maximal aerobic capacity (VO~2~max), the first ventilatory threshold (VT~1~), and the respiratory compensation point (RC or RCP).
+Such values help categorize fitness, predict disease risk, and can inform exercise training [@pescatello2014, p. 162].
+Prescribing exercise intensity based on these ventilatory thresholds yields better and more consistent results compared to using percentages of maximal anchors or reserve anchors, for example as %HR reserve, because exercise relative to these thresholds manifests as similar metabolic and ventilatory responses [@jamnick2020].
+Therefore, incorrect threshold identification may undermine the benefits of prescribing exercise relative to these thresholds.
+
+Identifying these thresholds often requires data preprocessing when CPET data is collected breath-by-breath (BBB) as it is highly variable [@robergs2010].
+The data processing sequence in most studies usually starts with outlier removal, followed by an optional data interpolation step so the data appear at regular time intervals, and ends by averaging the data.
+This smooths that data to better reflect the underlying whole-body metabolism, which changes more slowly than variable ventilatory data [@robergs2010].
+
+Previous research has described common data processing methods, in particular the affect of data averaging, and how these methods influence calculated CPET values.
+For example averaging the data over longer durations reduces VO\~2\~max and the frequency of detecting a VO\~2\~ plateau [@robergs2003; @robergs2010].
+However, there is scarce information on data averaging and its effect on ventilatory thresholds.
+
+Many studies remove outliers by finding points ±3 standard deviations (SD) beyond the local mean (i.e., a prediction interval).
+The value of ±3 SD is common because the relatively small sample size of breath-by-breath gas exchange data often contains more values beyond 3 SD than one would predict from a Gaussian distribution [@lamarra1987].
+More outliers appear than expected because of "swallowing, coughing, or premature ending of the breath for some other reason" [@lamarra1987].
+We are unaware of prior research that examines how different outlier removal strategies affect VO~2~max or physiological thresholds.
+
+Interpolation for gas exchange data is primarily used to distribute data points uniformly, often to one-second intervals.
+This procedure is more common with VO\~2\~ kinetics analyses because it allows for repeated transitions between easier and harder exercise bouts to be "ensemble" averaged by superposition [@keir2014; @lamarra1987].
+Within VO\~2\~ kinetics research, the practice of linearly interpolating data every one second has been criticized because it artificially narrows confidence intervals [@benson2017; @francescato2014; @francescato2019; @francescato2015].
+Since ventilation frequency at the beginning of a graded exercise test is approximately 0.2 Hz, interpolating to every one second adds dependent data points that do not represent an independent reading by the gas analyzer and flow sensor.
+This increases the sample size without adding independent readings and thus artificially narrows the confidence intervals of parameter estimates in VO\~2\~ kinetics analyses.
+As before, we are unaware of research specifically investigating how interpolation affects VO~2~max and ventilatory threshold identification.
 
 ```{r}
 #| label: fig-timeline
