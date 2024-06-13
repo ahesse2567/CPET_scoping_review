@@ -26,9 +26,9 @@ keywords:
   - Data averaging
   - Outlier Removal
   - Interpolation
-author-note:
-  disclosures:
-    conflict of interest: "The author has no conflict of interest to declare."
+# author-note:
+#   disclosures:
+#     conflict of interest: "The author has no conflict of interest to declare."
 date: last-modified
 bibliography: references.bib
 citation:
@@ -44,109 +44,77 @@ library(kableExtra)
 extrafont::loadfonts(quiet = TRUE)
 ```
 
-# Chapter 2: Scoping review of gas exchange data processing procedures for exercise tests in published literature
+# Introduction
 
-## Introduction
+Clinicians and researchers commonly use cardiopulmonary exercise testing (CPET) to determine maximal aerobic capacity (VO~2~max), the first ventilatory threshold (VT~1~), the respiratory compensation point (RC or RCP), and VO~2~ kinetics parameters.
+Such values help categorize fitness, predict disease risk, and inform exercise training [@pescatello2014], p. 162\].
+Using these results, especially exercise intensity based on ventilatory thresholds, yields better and more consistent results than using percentages of maximal or reserve anchors, such as %HRmax or %HR reserve, respectively [@jamnick2020].
+These improved results are thought to occur because exercise relative to these thresholds manifests as similar metabolic and ventilatory responses [@jamnick2020].
+Therefore, incorrectly calculating or identifying these values may limit the exercise prescription benefits derived from a CPET.
 
-Clinicians and researchers commonly use cardiopulmonary exercise testing (CPET) to determine maximal aerobic capacity (VO~2~max), the first ventilatory threshold (VT~1~), and the respiratory compensation point (RC or RCP).
-Such values help categorize fitness, predict disease risk, and can inform exercise training [@pescatello2014, p. 162].
-Prescribing exercise intensity based on these ventilatory thresholds yields better and more consistent results compared to using percentages of maximal anchors or reserve anchors, for example as %HR reserve, because exercise relative to these thresholds manifests as similar metabolic and ventilatory responses [@jamnick2020].
-Therefore, incorrect threshold identification may undermine the benefits of prescribing exercise relative to these thresholds.
-
-Identifying these thresholds often requires data preprocessing when CPET data is collected breath-by-breath (BBB) as it is highly variable [@robergs2010].
+Calculating the above values often requires data processing when CPET data is collected breath-by-breath (BBB) as it is highly variable [@robergs2010].
 The data processing sequence in most studies usually starts with outlier removal, followed by an optional data interpolation step so the data appear at regular time intervals, and ends by averaging the data.
-This smooths that data to better reflect the underlying whole-body metabolism, which changes more slowly than variable ventilatory data [@robergs2010].
+This smooths that data to better reflect the underlying whole-body metabolism, which changes more slowly than variable ventilatory data [@robergs2010].Previous research has described common data processing methods, particularly the effect of data averaging, and how these methods influence calculated CPET values.
+For example averaging the data over longer durations reduces VO~2~max and the frequency of detecting a VO~2~ plateau [@sousa2010; @johnson1998; @sell2021; @midgley2007; @astorino2009; @astorino2000; @sousa2010; @martin-rincon2019; @martin-rincon2020; @scheadler2017; @dejesus2014; @hill2003; @smart2015; @matthews1987; @robergs2003; @robergs2010].
+However, there is scarce information on data averaging and its effect on ventilatory threshold identification.
 
-Previous research has described common data processing methods, in particular the affect of data averaging, and how these methods influence calculated CPET values.
-For example averaging the data over longer durations reduces VO\~2\~max and the frequency of detecting a VO\~2\~ plateau [@robergs2003; @robergs2010].
-However, there is scarce information on data averaging and its effect on ventilatory thresholds.
-
-Many studies remove outliers by finding points ±3 standard deviations (SD) beyond the local mean (i.e., a prediction interval).
-The value of ±3 SD is common because the relatively small sample size of breath-by-breath gas exchange data often contains more values beyond 3 SD than one would predict from a Gaussian distribution [@lamarra1987].
+Many studies remove outliers by finding points ±3 or ±4 standard deviations (SD) beyond the local mean (i.e., a prediction interval).
+These cutoffs are common because the relatively small sample size of breath-by-breath gas exchange data often contains more values beyond 3 or 4 SD than one would predict from an assumed Gaussian distribution [@lamarra1987].
 More outliers appear than expected because of "swallowing, coughing, or premature ending of the breath for some other reason" [@lamarra1987].
-We are unaware of prior research that examines how different outlier removal strategies affect VO~2~max or physiological thresholds.
+We are unaware of prior research that examines how different outlier removal strategies affect VO~2~max or ventilatory thresholds.
 
-Interpolation for gas exchange data is primarily used to distribute data points uniformly, often to one-second intervals.
-This procedure is more common with VO\~2\~ kinetics analyses because it allows for repeated transitions between easier and harder exercise bouts to be "ensemble" averaged by superposition [@keir2014; @lamarra1987].
-Within VO\~2\~ kinetics research, the practice of linearly interpolating data every one second has been criticized because it artificially narrows confidence intervals [@benson2017; @francescato2014; @francescato2019; @francescato2015].
+Gas exchange data interpolation is primarily used to distribute data points uniformly, often to one-second intervals.
+This procedure is more common with VO~2~ kinetics analyses because it allows for repeated transitions between easier and harder exercise bouts to be "ensemble" averaged by superposition [@keir2014; @lamarra1987].
+Within VO~2~ kinetics research, the practice of linearly interpolating data every one second has been criticized because it artificially narrows confidence intervals [@benson2017; @francescato2014; @francescato2019; @francescato2015].
 Since ventilation frequency at the beginning of a graded exercise test is approximately 0.2 Hz, interpolating to every one second adds dependent data points that do not represent an independent reading by the gas analyzer and flow sensor.
-This increases the sample size without adding independent readings and thus artificially narrows the confidence intervals of parameter estimates in VO\~2\~ kinetics analyses.
+This increases the sample size without adding independent readings and thus artificially narrows the confidence intervals of parameter estimates in VO~2~ kinetics analyses.
 As before, we are unaware of research specifically investigating how interpolation affects VO~2~max and ventilatory threshold identification.
 
-```{r}
-#| label: fig-timeline
-#| fig-cap: Timeline of recent earthquakes on La Palma
-#| fig-alt: An event plot of the years of the last 8 eruptions on La Palma.
-#| fig-height: 1.5
-#| fig-width: 6
-par(mar = c(3, 1, 1, 1) + 0.1)
-plot(eruptions, rep(0, n_eruptions), 
-  pch = "|", axes = FALSE)
-axis(1)
-box()
+Therefore, some evidence suggests that data processing choices, such as outlier removal and interpolation, can significantly impact the CPET variables calculated.
+However, we are unaware of research investigating the effect of data processing on ventilatory threshold identification.
+Some research has already surveyed reported data averaging in peer-reviewed journals [@midgley2007] and via survey [@robergs2010], with the major finding that time-based bin averages (see @sec-methods for details) were the most popular averaging methods.
+However, these two studies were rather small in scale.
+Future researchers conducting studies on CPET data processing may therefore wish to learn the most popular data processing choices to best represent the field.
+
+Before conducting this scoping review, we anecdotally observed that many articles using CPET data did not report all data processing steps, especially outlier removal and interpolation details.
+This may hamper reproduction or replication attempts.
+Therefore, to assist with conducting research on the effects of data processing on CPET values and to evaluate the methodological reproducibility of research using breath-by-breath gas exchange data generally, we conducted a broad scoping review to identify the prevalence and popularity of outlier removal, interpolation, and data averaging methods.
+
+# Methods {#sec-methods}
+
+## Design
+
+This study is a scoping review of CPET data processing methods.
+It documents the frequency of reporting and the prevalence of reported methods.
+The choice to perform a scoping review over a systematic review fits with the broader nature of scoping reviews, rather than the narrower questions asked by systematic reviews [@arksey2005].
+This study specifically seeks to survey the breadth of gas exchange data processing choices in peer-reviewed published literature, rather than ask a specific question about them.
+The review summarizes the types and frequency of methods used to 1) remove outliers; 2) interpolate data; and 3) average data.
+
+## Protocol Registration
+
+The methods presented [@peters2020] and reporting of results [@tricco2018] are modeled after the guidelines and checklist described by the Preferred Reporting Items for Systematic reviews and Meta-Analyses extension for Scoping Reviews (PRISMA-ScR).
+This protocol was registered with the Open Science Framework (OSF) and is available through this link: <https://doi.org/10.17605/OSF.IO/A4VMZ>.
+
+## Eligibility Criteria
+
+```{r, article_counts}
+source(file.path("../R/selection_sources_evidence.R"))
 ```
 
-```{r}
-#| output: false
-avg_years_between_eruptions <- mean(diff(eruptions[-n_eruptions]))
-avg_years_between_eruptions
-```
+The eligibility criteria for this review is as follows: (1) peer-reviewed articles; (2) presence of an exercise test with breath-by-breath gas exchange data collection; (3) written in English; (4) involved human participants; and (5) open access with a digital object identifier (DOI), or a PubMed unique identifier or PubMed Central reference numbers (PMID or PMCID, respectively) that can be mapped to a DOI.
+Searches were not date limited to maximize the total number of results.
+We sought peer-reviewed articles as a minimum standard of research quality.
+Limiting to English-only articles reduced our article pool size but simplified our later regular expression analysis.
+Finally, tracing back to a DOI allowed for rapid identification of article metadata and informed our later full-text download strategy.
+We acknowledge that requiring DOIs induces a bias towards newer articles because older articles may lack them.
+Furthermore, although guidance on scoping reviews suggests including unpublished literature to be as comprehensive as possible [@peters2020], our electronic search returned `r format(n_total_articles, big.mark = ',', scientific = FALSE)` articles.
+We, therefore, feel that our assessment was sufficiently comprehensive.
 
-Based on data up to and including 1971, eruptions on La Palma happen every `r round(avg_years_between_eruptions, 1)` years on average.
+# Results {#sec-results}
 
-Studies of the magma systems feeding the volcano, such as @marrero2019, have proposed that there are two main magma reservoirs feeding the Cumbre Vieja volcano; one in the mantle (30-40km depth) which charges and in turn feeds a shallower crustal reservoir (10-20km depth).
+# Discussion {#sec-discussion}
 
-<!-- Eight eruptions have been recorded since the late 1400s (@fig-timeline). -->
-
-Data and methods are discussed in @sec-data-methods.
-
-<!-- Let $x$ denote the number of eruptions in a year. Then, $x$ can be modeled by a Poisson distribution -->
-
-<!-- $$ -->
-
-<!-- p(x) = \frac{e^{-\lambda} \lambda^{x}}{x !} -->
-
-<!-- $$ {#eq-poisson} -->
-
-<!-- where $\lambda$ is the rate of eruptions per year. Using @eq-poisson, the probability of an eruption in the next $t$ years can be calculated. -->
-
-<!-- | Name                 | Year   | -->
-
-<!-- | -------------------- | ------ | -->
-
-<!-- | Current              | 2021   | -->
-
-<!-- | Teneguía             | 1971   | -->
-
-<!-- | Nambroque            | 1949   | -->
-
-<!-- | El Charco            | 1712   | -->
-
-<!-- | Volcán San Antonio   | 1677   | -->
-
-<!-- | Volcán San Martin    | 1646   | -->
-
-<!-- | Tajuya near El Paso  | 1585   | -->
-
-<!-- | Montaña Quemada      | 1492   | -->
-
-<!-- : Recent historic eruptions on La Palma {#tbl-history} -->
-
-<!-- @tbl-history summarises the eruptions recorded since the colonization of the islands by Europeans in the late 1400s. -->
-
-<!-- ![Map of La Palma](images/la-palma-map.png){#fig-map} -->
-
-<!-- La Palma is one of the west most islands in the Volcanic Archipelago of the Canary Islands (@fig-map).  -->
-
-<!-- {{< embed notebooks/explore-earthquakes.qmd#fig-spatial-plot >}} -->
-
-<!-- @fig-spatial-plot shows the location of recent Earthquakes on La Palma. -->
-
-## Data & Methods {#sec-data-methods}
-
-## Conclusion
-
-## References {.unnumbered}
+# References {.unnumbered}
 
 ::: {#refs}
 :::
