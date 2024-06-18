@@ -42,12 +42,13 @@ library(janitor)
 library(knitr)
 library(kableExtra)
 extrafont::loadfonts(quiet = TRUE)
+library(here)
 ```
 
 # Introduction
 
 Clinicians and researchers commonly use cardiopulmonary exercise testing (CPET) to determine maximal aerobic capacity (VO~2~max), the first ventilatory threshold (VT~1~), the respiratory compensation point (RC or RCP), and VO~2~ kinetics parameters.
-Such values help categorize fitness, predict disease risk, and inform exercise training [@pescatello2014], p. 162\].
+Such values help categorize fitness, predict disease risk, and inform exercise training [@pescatello2014, p. 162].
 Using these results, especially exercise intensity based on ventilatory thresholds, yields better and more consistent results than using percentages of maximal or reserve anchors, such as %HRmax or %HR reserve, respectively [@jamnick2020].
 These improved results are thought to occur because exercise relative to these thresholds manifests as similar metabolic and ventilatory responses [@jamnick2020].
 Therefore, incorrectly calculating or identifying these values may limit the exercise prescription benefits derived from a CPET.
@@ -59,7 +60,7 @@ For example averaging the data over longer durations reduces VO~2~max and the fr
 However, there is scarce information on data averaging and its effect on ventilatory threshold identification.
 
 Many studies remove outliers by finding points ±3 or ±4 standard deviations (SD) beyond the local mean (i.e., a prediction interval).
-These cutoffs are common because the relatively small sample size of breath-by-breath gas exchange data often contains more values beyond 3 or 4 SD than one would predict from an assumed Gaussian distribution [@lamarra1987].
+These cutoffs are common because the relatively small sample size of BBB gas exchange data often contains more values beyond 3 or 4 SD than one would predict from an assumed Gaussian distribution [@lamarra1987].
 More outliers appear than expected because of "swallowing, coughing, or premature ending of the breath for some other reason" [@lamarra1987].
 We are unaware of prior research that examines how different outlier removal strategies affect VO~2~max or ventilatory thresholds.
 
@@ -78,7 +79,7 @@ Future researchers conducting studies on CPET data processing may therefore wish
 
 Before conducting this scoping review, we anecdotally observed that many articles using CPET data did not report all data processing steps, especially outlier removal and interpolation details.
 This may hamper reproduction or replication attempts.
-Therefore, to assist with conducting research on the effects of data processing on CPET values and to evaluate the methodological reproducibility of research using breath-by-breath gas exchange data generally, we conducted a broad scoping review to identify the prevalence and popularity of outlier removal, interpolation, and data averaging methods.
+Therefore, to assist with conducting research on the effects of data processing on CPET values and to evaluate the methodological reproducibility of research using BBB gas exchange data generally, we conducted a broad scoping review to identify the prevalence and popularity of outlier removal, interpolation, and data averaging methods.
 
 # Methods {#sec-methods}
 
@@ -98,10 +99,10 @@ This protocol was registered with the Open Science Framework (OSF) and is availa
 ## Eligibility Criteria
 
 ```{r, article_counts}
-source(file.path("../R/selection_sources_evidence.R"))
+source(here("code/cpet_articles/analysis/reporting/selection_sources_evidence.R"))
 ```
 
-The eligibility criteria for this review is as follows: (1) peer-reviewed articles; (2) presence of an exercise test with breath-by-breath gas exchange data collection; (3) written in English; (4) involved human participants; and (5) open access with a digital object identifier (DOI), or a PubMed unique identifier or PubMed Central reference numbers (PMID or PMCID, respectively) that can be mapped to a DOI.
+The eligibility criteria for this review is as follows: (1) peer-reviewed articles; (2) presence of an exercise test with BBB gas exchange data collection; (3) written in English; (4) involved human participants; and (5) open access with a digital object identifier (DOI), or a PubMed unique identifier or PubMed Central reference numbers (PMID or PMCID, respectively) that can be mapped to a DOI.
 Searches were not date limited to maximize the total number of results.
 We sought peer-reviewed articles as a minimum standard of research quality.
 Limiting to English-only articles reduced our article pool size but simplified our later regular expression analysis.
@@ -109,6 +110,275 @@ Finally, tracing back to a DOI allowed for rapid identification of article metad
 We acknowledge that requiring DOIs induces a bias towards newer articles because older articles may lack them.
 Furthermore, although guidance on scoping reviews suggests including unpublished literature to be as comprehensive as possible [@peters2020], our electronic search returned `r format(n_total_articles, big.mark = ',', scientific = FALSE)` articles.
 We, therefore, feel that our assessment was sufficiently comprehensive.
+
+## Information Sources and Search
+
+```{r, n_non_subscribed_articles}
+manual_downloads <- read_csv(
+    file.path("data/cpet_articles/Manual Downloads - Articles.csv"),
+    show_col_types = FALSE)
+
+n_unsubscribed <- manual_downloads %>% 
+    count(subscribed) %>% 
+    filter(subscribed == FALSE) %>% 
+    select(n) %>% 
+    pull()
+```
+
+We acquired data from the Ovid-MEDLINE, Scopus, and Web of Science databases with the guidance of a university librarian and exported search results to Microsoft Excel spreadsheets.
+The electronic search strategy for the Ovid-MEDLINE database can be found at this link: <https://osf.io/a4vmz/files/osfstorage/6255791f28f9400531a24c96>.
+
+This output from the electronic search includes different article identifiers, including DOIs, PMIDs, and PMCIDs.
+We used the PubMed Central ID Converter API [@ncbi2021] to find additional DOIs from PMIDs and PMCIDs where DOIs were missing using Python code.
+With a more complete list of DOIs, we obtained open-access, full-text articles using the unpywall Python package.
+This package interfaces with [unpaywall.org](https://unpaywall.org/), a database of open-access articles.
+For articles unobtainable via unpywall, we also used Python to download full-text articles via publisher text and data mining (TDM) application programming interfaces (API) and to write custom web-scraping software when publishers lacked TDM APIs.
+Any remaining articles were downloaded manually, assuming a valid University subscription.
+Our subscription did not permit us access to `r format(n_unsubscribed, big.mark = ',', scientific = FALSE)` articles.
+
+## Selection of Sources of Evidence
+
+This study used a single screening process because it differs from most scoping reviews.
+It only requires an exercise test with BBB gas exchange data collection rather than a more complex assessment of the overall methodology and intervention.
+
+### Text Analysis and Screening
+
+Despite database search filters, we determined additional screening was necessary after reading a subset of results because we found several non-English, non-human, and non-original research, such as reviews, meta-analyses, and protocol registrations.
+We also excluded case studies.
+These ineligible articles were removed from a combination of random forest machine learning classifier models and regular expressions using the Python programming language.
+We manually analyzed a subset of articles to help build machine learning classifiers and construct regular expressions described below.
+
+First, full-text PDF and EPUB documents were converted into plain text (.txt) files.
+Before text screening, we normalized the text with regular expressions (sequences of characters that specify a search pattern in text) by converting text to lowercase, removing end-of-line hyphenations and excess whitespace, and fixing some errors induced when converting the file type.
+
+After text normalization, we removed articles that did not convert correctly to a txt format by identifying empty files.
+Then we identified non-English articles using the fasttext Python module [@bojanowski2016].
+Next, we used a supervised random forest machine learning classifier from the sklearn Python package [@pedregosa2011] to identify ineligible non-human and non-original research.
+We manually verified ineligible articles identified by the machine learning classifier.
+
+```{r, calc_n_bbb_articles}
+ineligible_articles <- read_csv(
+    "data/cpet_articles/text_analysis/eligibility/ineligible_articles_combined.csv",
+    show_col_types = FALSE)
+
+bbb_articles <- read_csv(
+    "data/cpet_articles/text_analysis/all_bbb_articles.csv",
+    show_col_types = FALSE) %>% 
+    distinct(doi_suffix, .keep_all = TRUE) %>% 
+    filter(!(doi_suffix %in% ineligible_articles$doi_suffix))
+
+n_bbb_articles <- nrow(bbb_articles)
+```
+
+Next, we identified BBB articles using regular expressions.
+Articles were considered BBB articles if their text contained variations of the phrase "breath-by-breath", or if their text included the make or model of a known BBB analyzer.
+Breath-by-breath brands and analyzers we included were Oxycon and Carefusion brands, Medgraphics Ultima, CPX, CCM, and CardiO~2~ models, Sensormedics Encore and 2900 models, Cosmed quark, k4, and k5 models, and the Minato RM-200, AE-280S, AE-300S, and AE-310S models.
+In total, we identified `r format(n_bbb_articles, big.mark = ',', scientific = FALSE)` articles.
+
+Within this subset, we performed a similar regular expression search for studies that documented using Douglas Bags or mixing chambers and excluded those articles.
+The full details are described in the "data charting process" section.
+
+### Data Charting Process
+
+We designed our regular expressions by manually reading many full-text articles and documenting common written patterns describing outlier, interpolation, and averaging methods.
+We first identified the presence of short phrases that usually indicated that the study authors included details on outlier removal, interpolation, or data averaging steps in their methods.
+If present, we extracted a snippet of text surrounding those phrases for later manual analysis by obtaining approximately 200 characters before and after the short phrase.
+The methods from these snippets were then recorded.
+In all cases, methods were only considered documented if the snippets provided at least some specific information.
+For example, articles stating outlying breaths were removed but without describing the criteria for determining outliers were considered "not described." Examples of common phrases and snippets are provided for each data processing category in the outlier, interpolation, and averaging method subsections below.
+Finally, when a snippet was ambiguous, we read the full-text file to accurately document the data processing methods.
+
+```{r, n_rand_articles, results='hide'}
+z <- qnorm(0.025, lower.tail = FALSE)
+margin_of_error <- 0.03
+p <- 0.5
+
+n_articles <- ceiling(((margin_of_error / z)^2)^-1 * (p * (1 - p)))
+
+n_rounded_up_nearest_hundred <- round(n_articles, -2)
+```
+
+We analyzed all eligible BBB articles for outlier and interpolation methods because fewer articles described these methods (\~5%) and the phrases were more distinct.
+In contrast, we analyzed a random subset of articles to document data averaging methods because far more articles described their averaging methods.
+Early estimates as we developed our regular expressions were that \~60% or `r format(round(0.6 * n_bbb_articles), big.mark = ',', scientific=FALSE)` articles had some averaging details.
+Furthermore, the phrases associated with averaging methods are more generic and often refer to other study aspects, such as heart rate averaging periods.
+Given the large number of articles, we needed a minimum sample size of `r format(n_articles, big.mark = ',', scientific = FALSE)` based on a 95% confidence interval and a maximum margin of error of ±3%, assuming a proportion of 0.5.
+However, we raised this to `r format(n_rounded_up_nearest_hundred, big.mark = ',', scientific = FALSE)` in anticipation of finding ineligible articles that eluded our previous text screening.
+
+#### Outliers
+
+We supply text-extraction examples in this and the following subsections on interpolation and averaging methods.
+Extracted texts are shown exactly as they were identified after prior text normalization.
+That is, all text was first converted to lowercase and we removed any end-of-line hyphenations as well as excessive white space repetition.
+We later capitalized some keywords or phrases to aid our manual reading.
+Therefore, some example snippets do not follow conventional formatting.
+Furthermore, some example snippets may contain non-standard spacing and unicode characters, and may not begin or end at the start or termination of a sentence.
+
+Our outlier regular expressions identified phrases like "swallowing", "coughing", "errant", "aberrant", and rerences to the "local mean," "prediction interval," or a specific standard deviation limit such as ±3 or ±4.
+For example, our regular expressions detected the following phrases from @breese2019: " errant"; " local mean"; and "breath-by-breath ̇vo2 data from each step transition were initially edited to exclude errant breaths by removing values lying more than 4 sd." After gathering the snippets surrounding those phrases and combining them when they overlapped, we extracted
+
+> > y\[hb+mb\] data (quaresima & ferrari, 2009).
+> > expressed as 2.5 data analysis and kinetic modelling the breath-by-breath ̇vo2 data from each step transition were initially edited to exclude errant breaths by removing values lying more than 4 sd from the local mean determined using a five-breath rolling\\n\\x0c1932 breese et al. and deoxy\[hb+mb\] responses were subavera
+
+We recorded the outlier limit as ±4 SD and the outlier function as a rolling 5-breath whole mean average.
+
+#### Interpolation
+
+Nearly all articles describing interpolation methods used variations of "interpolate." The remaining phrases were infrequent and inconsistent enough that interpolation methods were only described for those articles when discovered by chance.
+To illustrate interpolation documentation, our regular expressions extracted the snippet from @hartman2018.
+
+> > the v̇ o2 data from gd and gl exercise bouts were modeled to characterize the oxygen uptake kinetics following the methods described by bell et al. (2001).
+> > breath-by-breath v̇ o2 data were linearly INTERPOLATed to provide second-by-second values.
+> > phase 1 data (i.e. the cardiodynamic component), from the first ∼20 s of exercise, were omitted from the kinetics analysis because phase 1 is not directly repres
+
+We documented the interpolation type as "linear" and the interpolation time as one second.
+
+#### Averaging
+
+::: {.content-hidden when-format="docx"}
+```{r, avg_methods_flowchart}
+#| label: fig-avg_methods_flowchart
+#| fig-cap: Flowchart depicting the four major components of averaging method documentation. Colored arrows are used to visually distinguish each step.
+
+avg_methods_flowchart <- DiagrammeR::grViz("
+    digraph avg_methods_fch {
+        # graph statements
+        graph [rankdir = LR, newrank=true];
+        
+        # node defaults
+        node [shape = oval];
+    
+        subgraph cluster_type_unit {
+            # node [rank = same];
+            'Time';
+            'Breath';
+            'Digital\nFilter';
+        }
+        
+        subgraph cluster_subtype_calc{
+            # node [rank = same];
+            'Bin';
+            'Rolling';
+            'Filter\nType';
+        }
+        
+        subgraph cluster_measure{
+            # node [rank = same];
+            'Mean';
+            'Median';
+            'Filter\nSpecs';
+        }
+        
+        subgraph cluster_mean_type{
+            # node [rank = same];
+            'Whole';
+            'Trimmed';
+        }
+        
+        subgraph cluster_steps {
+        node [shape = plaintext]
+            'Type/Unit';
+            'Subtype/Calculation';
+            'Measure\nof Center';
+            'Mean Type';
+        }
+        
+        'Combination\nMethod' [shape = box];
+        
+        # edge statments
+        
+        'Type/Unit' -> 'Subtype/Calculation' -> 'Measure\nof Center' -> 'Mean Type'
+        
+        'Digital\nFilter':e -> 'Filter\nType':w [color = blue]
+        {'Time' 'Breath'} -> {'Bin' 'Rolling'} [constraint=true; color=blue];
+
+        'Filter\nType' -> 'Filter\nSpecs' [color=red]
+        {'Bin' 'Rolling'} -> {'Mean' 'Median'} [constraint=true; color=red];
+        
+        'Mean':e -> 'Whole':w [constraint=true; color=green]
+        'Mean':e -> 'Trimmed':w [constraint=true; color=green]
+        
+        {rank=same; 'Whole'; 'Trimmed'; 'Combination\nMethod'}
+        
+        'Whole':e -> 'Combination\nMethod' [constraint=true]
+        'Trimmed' -> 'Combination\nMethod' [constraint=true]
+        'Mean':e -> 'Combination\nMethod' [constraint=true]
+        'Median' -> 'Combination\nMethod' [constraint=true]
+        
+        'Combination\nMethod':s -> 'Time':s [constraint=false]
+        'Combination\nMethod':s -> 'Breath':s [constraint=false]
+   
+    }
+")
+
+avg_methods_flowchart
+```
+:::
+
+We chose to document averaging methods according to the following five criteria: type/units, subtype/calculation, amount, measure of center, and mean type ([@fig-avg_methods_flowchart]).
+Type/units refers to the averaging units, including time, breath, and digital filter.
+Subtype/calculation corresponds to the computation, such as bin averages, rolling averages, or the specific form of the digital filter.
+The amount is the unit quantity.
+For example, the amount of 30 for a time average is 30 seconds, but it is 30 breaths for a breath average.
+The measure of center refers to the mean or median.
+Finally, the mean type specifies a whole vs. a trimmed mean.
+Trimmed (truncated) refers to removing a percentage or number of the highest and lowest values before calculating the average of the remaining data to minimize the effect of outliers.
+
+Descriptions of averaging methods are also considerably more diverse and generic than outlier and interpolation descriptions.
+For example, "30-second averages" and "averaged every 30 seconds" invite complexity, leading to more snippets referring to averaging something besides BBB gas exchange data.
+Given that, we required that the text snippets include a reference to gas data such as the text "O~2~," "breath," "gas," "ventilation," etc.
+
+In contrast to previous studies, we also documented every averaging method we found per paper instead of only describing the averaging method for VO~2~max.
+We also recorded multiple averaging methods when the authors described the sampling interval and the transformation applied to it.
+For example, the snippet from @hassinen2008
+
+> > ath method using the vmax respiratory gas analyzer (sensormedics, yorba linda, ca).
+> > vo2max was deﬁned as the mean of the three highest values of the averaged oxygen consumption measured consecutively OVER 20-S intervals.
+> > a total of 98% of the subjects achieved the respiratory exchange ratio of ⱖ1.1.
+> > electrocardiography was recorded throughout the exercise test using cardiosoft software (ge medical systems,
+
+states that oxygen consumption was measured every 20 seconds and that VO~2~max was calculated as the average of three 20-second intervals, or 60-seconds.
+For this article, we documented one averaging method as a 20-second time bin whole mean and another as a 60-second time bin whole mean.
+
+In many cases, authors did not explicitly use the terms "average" or "mean" to describe their averaging methods, but we documented their methods when implied.
+For example, the snippet from @deboeck2004 reading
+
+> > red using a continuously monitored electrocardiograph.
+> > blood pressure was measured at the end of each workload increment using an automatic sphygmomanometer.
+> > peak v9o2 was deﬁned as the v9o2 measured DURING THE LAST 30 S of peak exercise.
+> > oxygen pulse was calculated by dividing v9o2 by cardiac frequency.
+> > the anaerobic threshold was detected using the v-slope method \[16\].
+> > the ventilatory equivalent for carbon dioxide w
+
+states they calculated VO~2~peak using the last 30 seconds of exercise data.
+We documented such phrasing as a 30-second time-bin whole mean average.
+
+### Data Items
+
+In all cases, articles that did not return any phrases were documented as "not described" for their respective data processing category.
+If snippets did not refer to the data processing category or if the snippet lacked sufficient information, those data processing variables were documented as "not described." For example, interpolation variables were denoted as "not described" if interpolation was acknowledged but without details for the interpolation type or time.
+
+#### Outliers
+
+We documented the outlier limit, for example, ±3 standard deviations, and any outlier function used to compute the outlier limit, if described.
+
+#### Interpolation
+
+We recorded the interpolation type (linear, cubic, Lagrange, specifically *un*interpolated, and other) and time frame (e.g., every one second).
+
+#### Averaging
+
+We noted the following averaging types: Time, breath, breath-time, time-breath, digital filter, ensemble, (explicitly) *un*averaged, and other.
+Averaging subtypes included bin, rolling, bin-roll, rolling-bin, Butterworth low-pass, Fast Fourier Transform, and Savitsky-Golay.
+Next, we recorded the time in seconds or the number of breaths.
+We recorded the measure of center as mean or median.
+Finally, we noted if the mean was a whole or trimmed.
+
+### Synthesis of Results
+
+We reported the counts, percentages, and margin of error (95% confidence) of the reporting frequency for each data processing method.
+We calculated the counts and percentages of reported methods for those studies reporting their data processing.
+These descriptive statistics were computed using R [@rcoreteam2021] and RStudio [@positteam2022].
 
 # Results {#sec-results}
 
