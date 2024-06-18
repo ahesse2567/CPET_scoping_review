@@ -1,0 +1,15 @@
+\begin{figure*}[hbt]
+\ifnextchar[{\eatarg}{}
+[H]
+
+\caption{\label{fig-avg_methods_flowchart}Flowchart depicting the four
+major components of averaging method documentation. Colored arrows are
+used to visually distinguish each step.}
+
+\centering{
+
+\includegraphics{index_files/figure-pdf/fig-avg_methods_flowchart-1.pdf}
+
+}
+
+\end{figure*}
