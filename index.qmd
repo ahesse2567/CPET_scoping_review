@@ -115,7 +115,7 @@ We, therefore, feel that our assessment was sufficiently comprehensive.
 
 ```{r, n_non_subscribed_articles}
 manual_downloads <- read_csv(
-    file.path("data/cpet_articles/Manual Downloads - Articles.csv"),
+    here::here("data/cpet_articles/Manual Downloads - Articles.csv"),
     show_col_types = FALSE)
 
 n_unsubscribed <- manual_downloads %>% 
@@ -381,6 +381,296 @@ We calculated the counts and percentages of reported methods for those studies r
 These descriptive statistics were computed using R [@rcoreteam2021] and RStudio [@positteam2022].
 
 # Results {#sec-results}
+
+## Selection of Sources of Evidence
+
+```{r}
+ovid_records <- read_csv(here::here(
+    "data/cpet_articles/database_search/ovid/doi_merged_ovid.csv"),
+    show_col_types = FALSE) %>% 
+    clean_names()
+scopus_records <- read_csv(here::here(
+    "data/cpet_articles/database_search/scopus/scopus_records_tidy.csv"),
+    show_col_types = FALSE) %>% 
+    clean_names()
+wos_records <- read_csv(here::here(
+    "data/cpet_articles/database_search/web_of_science/web_of_science_records_tidy.csv"), show_col_types = FALSE) %>% 
+    clean_names()
+
+n_total_with_na <- bind_rows(ovid_records['doi'],
+                    scopus_records['doi'],
+                    wos_records['doi']) %>% 
+    distinct() %>% 
+    nrow()
+
+n_no_doi <- n_total_with_na - n_total_articles
+n_no_doi <- if_else(n_no_doi <= 10, 
+        english::english(n_no_doi) %>% as.character() %>% str_to_sentence(),
+        format(n_no_doi, big.mark = ',', scientific = FALSE))
+```
+
+For a visual representation of our selection of sources of evidence, please refer to @fig-selection_sources_evidence_flowchart.
+Our original electronic search yielded `r format(n_total_with_na, big.mark = ',', scientific = FALSE)` articles, and all but `r n_no_doi` had a DOI.
+However, we only obtained `r format(n_downloaded_files_in_doi_list, big.mark = ',', scientific = FALSE)` because some were unavailable due to University library licensing limitations or their download links were faulty.
+Given this large number, we did not use the International Library Loan system.
+We ultimately collected or converted `r format(n_txt_files_in_list, big.mark = ',', scientific = FALSE)` to a txt format.
+We next eliminated `r n_non_english` non-English files and `r format(n_conversion_error_files, big.mark = ',', scientific = FALSE)` files that could not properly be converted to txt.
+Of the remaining articles, we identified `r format(n_all_bbb_articles, big.mark = ',', scientific = FALSE)` articles referring to breath-by-breath data.
+
+Throughout our analysis, we identified `r format(n_ineligible_articles, big.mark = ',', scientific = FALSE)` ineligible articles for other reasons, including using Douglas bags or mixing chamber systems, not being original, peer-reviewed research, non-human studies, or because the study did not collect gas data.
+We cross-referenced this list against the breath-by-breath articles and removed another `r format(n_ineligible_bbb_articles, big.mark = ',', scientific = FALSE)` articles, leaving a final number of `r format(n_eligible_bbb_articles, big.mark = ',', scientific = FALSE)`.
+
+::: {.content-hidden when-format="docx"}
+```{r selection_sources_evidence_flowchart}
+#| label: fig-selection_sources_evidence_flowchart
+#| fig-cap: Selection of sources of evidence flowchart. Dashed lines point to articles articles that were removed. Solid lines indicate path of articles that remained in analysis.
+#| fig-pos: 't'
+
+flowchart <- DiagrammeR::grViz("
+digraph selection_sources_evidence {
+    # graph statements set attributes for ALL components of the graph
+    
+    # node statements provide statements for graph nodes
+    # a node is a 'thing', like a box, a circle, etc.
+    node [shape = oval]
+    'All Articles: @@12'
+    'Articles\nwithout DOI: @@13'
+    'Articles\nwith DOI: @@1'
+    'Unobtained\nArticles: @@10'
+    'Files Unavailable\nin TXT format: @@11'
+    'Downloaded Full-Text\nFiles: @@2'
+    'TXT Files: @@3'
+    'Non-English: @@4'
+    'Conversion\nError: @@5'
+    'Resolveable\nFiles: @@6'
+    'All Breath-by-Breath: @@7'
+    'Ineligible\nBreath-by-Breath: @@8'
+    'Eligible\nBreath-by-Breath: @@9'
+    
+    # edge statements direct operations between nodes
+    'All Articles: @@12' -> 'Articles\nwith DOI: @@1'
+    'All Articles: @@12'-> 'Articles\nwithout DOI: @@13' [style=dashed]
+    'Articles\nwith DOI: @@1' -> 'Downloaded Full-Text\nFiles: @@2'
+    'Articles\nwith DOI: @@1' -> 'Unobtained\nArticles: @@10' [style=dashed]
+    'Downloaded Full-Text\nFiles: @@2' -> 'TXT Files: @@3'
+    'Downloaded Full-Text\nFiles: @@2' -> 'Files Unavailable\nin TXT format: @@11' [style=dashed]
+    'TXT Files: @@3' -> {'Non-English: @@4' 'Conversion\nError: @@5'} [style=dashed]
+    'TXT Files: @@3' -> 'Resolveable\nFiles: @@6'
+    'Resolveable\nFiles: @@6' -> 'All Breath-by-Breath: @@7'
+    'All Breath-by-Breath: @@7' -> 'Ineligible\nBreath-by-Breath: @@8' [style=dashed]
+    'All Breath-by-Breath: @@7' -> 'Eligible\nBreath-by-Breath: @@9'
+
+    # each statement will have a list nodes or edges
+    
+}
+
+[1]: format(n_total_articles, big.mark = ',', scientific = FALSE)
+[2]: format(n_downloaded_files_in_doi_list, big.mark = ',', scientific = FALSE)
+[3]: format(n_txt_files_in_list, big.mark = ',', scientific = FALSE)
+[4]: format(n_non_english, big.mark = ',', scientific = FALSE)
+[5]: format(n_conversion_error_files, big.mark = ',', scientific = FALSE)
+[6]: format(n_resolvable_articles, big.mark = ',', scientific = FALSE)
+[7]: format(n_all_bbb_articles, big.mark = ',', scientific = FALSE)
+[8]: format(n_ineligible_bbb_articles, big.mark = ',', scientific = FALSE)
+[9]: format(n_eligible_bbb_articles, big.mark = ',', scientific = FALSE)
+[10]: format(n_unobtained_articles, big.mark = ',', scientific = FALSE)
+[11]: format(n_unavailable_in_txt, big.mark = ',', scientific = FALSE)
+[12]: format(n_total_with_na, big.mark = ',', scientific = FALSE)
+[13]: format(n_total_with_na - n_total_articles, big.mark = ',', scientific = FALSE)
+    ")
+
+flowchart
+```
+:::
+
+## Characteristics and Results of Individual Sources of Evidence
+
+The PRISMA Extension for Scoping Reviews checklist normally requires a section to report the characteristics and results of individual sources of evidence, usually in a table format, including citations [@tricco2018].
+Given the vast nature of this scoping review, readers can instead view web links to our [outlier](https://docs.google.com/spreadsheets/d/1k_i4EP5U3zMltk8n21X-KHGoxUfR6XAJu6lxrVUufg0/edit?usp=sharing), [interpolation](https://docs.google.com/spreadsheets/d/1mNHwyNwVeQeAAm-Jx43ImR91sLyRLSvad9oglHQB83A/edit?usp=sharing), [averaging](https://docs.google.com/spreadsheets/d/1KdmDZuI1FS1XUK5zJm3JIqf4tQiBd0C1pW0p0PFZweU/edit?usp=sharing) data charting spreadsheets.
+
+## Synthesis of Results
+
+We present our results according the reporting prevalance followed by the specific characteristics when reported.
+The tables and figures depict the distributions of reported methods.
+
+### Outliers
+
+```{r, outlier_reporting, message=FALSE, warning=FALSE}
+source("code/cpet_articles/analysis/reporting/outlier_reporting.R")
+```
+
+```{r}
+prop_3sd <- specified_outlier_cutoffs_by_type %>% 
+    filter(outlier_limit == "±3 SD / 99%") %>% 
+    select(prop) %>% 
+    pull()
+
+prop_4sd <- specified_outlier_cutoffs_by_type %>% 
+    filter(outlier_limit == "±4 SD") %>% 
+    select(prop) %>% 
+    pull()
+```
+
+Of the `r format(total_articles, big.mark = ',', scientific = FALSE)` articles, `r n_articles_reporting_outliers` (`r prop_articles_reporting_outliers * 100` ± `r round(moe_prop_articles_reporting * 100, 1)`%) reported outlier removal methods.
+Of the articles reporting their outlier methods, the most prevalent methods were ±3 (`r sprintf("%.1f", prop_3sd * 100)`%) and ±4 (`r sprintf("%.1f", prop_4sd * 100)`%) standard deviations, respectively (@fig-specified-outlier-limits).
+
+```{r, outliers_when_reported}
+#| label: fig-specified-outlier-limits
+#| fig-cap: Counts and percentages of outlier limits when specified.
+plot(prop_outlier_limits_plot)
+```
+
+Only `r n_outlier_func_reporting` (`r sprintf("%.1f", prop_outlier_func_reporting * 100)` ± `r sprintf("%.1f", moe_prop_outlier_func_reporting *100)`%) articles reported details of the function they used to calculate their outlier limit.
+Of those, breath-based averages (n = `r n_breath_outlier_funcs`, `r prop_breath_outlier_funcs`%) then time-based averages (n = `r  n_time_outlier_funcs`, `r prop_time_outlier_funcs`%) were the most common for calculating outlier boundaries.
+Specifically, 5-breath averages (n = `r n_5_breath_func`, `r prop_5_breath_func`%) were the most prevalent functions to calculate outlier limits.
+
+### Interpolation
+
+```{r, interpolation_reporting, warning=FALSE, message=FALSE}
+source("code/cpet_articles/analysis/reporting/interpolation_reporting.R")
+```
+
+We found that `r count_specified_interpolation` (`r sprintf("%.1f", prop_specified_interpolation * 100)` ± `r sprintf("%.1f", moe_prop_articles_reporting_interpolation * 100)`%) out of `r format(total_articles, big.mark = ',', scientific = FALSE)` specified their interpolation methodology.
+When reported, the most common interpolation time was `r as.numeric(most_popular_interpolation_time) %>% english::english() %>% as.character()` second (n = `r n_most_popular_interpolation_time`, `r sprintf("%.1f", prop_most_popular_interpolation_time * 100)`%).
+Although the majority of articles reporting interpolation procedures did not explicitly specify their interpolation method (n = `r n_most_popular_interpolation_method`, `r sprintf("%.1f", prop_most_popular_interpolation_method * 100)`%), `r most_popular_stated_interpolation_method` interpolation was the most popular stated method (n = `r n_most_popular_stated_interpolation_method`, `r sprintf("%.1f", prop_most_popular_stated_interpolation_method * 100)`%) (see @tbl-interpolation_time_type and @fig-interpolation_by-time-and_type.
+
+```{r, interpolation_tables}
+#| label: tbl-interpolation_time_type
+#| tbl-cap: Most prevalent specified interpolation methods by type (a) and by time (b)
+#| layout-ncol: 2
+
+# interpolation by type
+interpolation_by_type_tib %>% 
+    mutate(prop = round(prop * 100,1),
+           interpolation_type = str_to_title(interpolation_type)) %>% 
+    rename("Interpolation Type" = interpolation_type,
+           N = n,
+           "%" = prop) %>% 
+    kbl() %>% 
+    kable_classic(full_width = FALSE, html_font = "Times New Roman")
+
+# interpolation by time
+interpolation_by_time_tib %>% 
+    mutate(interpolation_time_s = if_else(prop < 0.01, "other", interpolation_time_s)) %>% 
+    group_by(interpolation_time_s) %>% 
+    summarize(n = sum(n)) %>% 
+    ungroup() %>% 
+    mutate(prop = round(prop.table(n) * 100, 1)) %>% 
+    rename("Interpolation Time (s)" = interpolation_time_s,
+           N = n,
+           "%" = prop) %>% 
+    kbl() %>% 
+    kable_classic(full_width = FALSE, html_font = "Times New Roman")
+```
+
+```{r, interpolation_plot}
+#| label: fig-interpolation_by-time-and_type
+#| fig-cap: Most prevalent specified interpolation methods by both type and time.
+plot(condensed_interpolation_by_specified_procedure_plot)
+```
+
+### Averaging
+
+```{r, load_avg_data}
+source(here::here("code/cpet_articles/analysis/reporting/avg_methods_reporting.R"))
+```
+
+```{r, avg_by_type_calcs}
+most_popular_avg_type <- avg_by_type_tab %>% 
+    filter(n == max(n)) %>% 
+    select(avg_type) %>% 
+    pull()
+
+most_popular_avg_type_prop <- avg_by_type_tab %>% 
+    filter(n == max(n)) %>% 
+    select(prop) %>% 
+    pull()
+
+second_most_popular_avg_type <- avg_by_type_tab %>% 
+    filter(n == sort(n)[length(n) - 1]) %>%
+    select(avg_type) %>% 
+    pull()
+
+second_most_popular_avg_type_prop <- avg_by_type_tab %>% 
+    filter(n == sort(n)[length(n) - 1]) %>% 
+    select(prop) %>% 
+    pull()
+```
+
+```{r, avg_subtype_calcs}
+most_popular_avg_subtype <- avg_by_subtype_tab %>% 
+    filter(n == max(n)) %>% 
+    select(avg_subtype) %>% 
+    pull()
+
+most_popular_avg_subtype_prop <- avg_by_subtype_tab %>% 
+    filter(n == max(n)) %>% 
+    select(prop) %>% 
+    pull()
+
+second_most_popular_avg_subtype <- avg_by_subtype_tab %>% 
+    filter(n == sort(n)[length(n) - 1]) %>%
+    select(avg_subtype) %>% 
+    pull()
+
+second_most_popular_avg_subtype_prop <- avg_by_subtype_tab %>% 
+    filter(n == sort(n)[length(n) - 1]) %>% 
+    select(prop) %>% 
+    pull()
+```
+
+```{r}
+top_three_type_subtype <- avg_by_type_subtype_tab %>% 
+    slice_max(order_by = n, n = 3) %>% 
+    select(avg_type_subtype) %>% 
+    pull() %>% 
+    str_to_lower()
+
+top_three_type_subtype_props <- avg_by_type_subtype_tab %>% 
+    slice_max(order_by = n, n = 3) %>% 
+    select(prop) %>% 
+    pull()
+```
+
+After removing `r n_rounded_up_nearest_hundred - n_total_articles_avg` articles that we discovered during data documentation from the original `r format(n_rounded_up_nearest_hundred, big.mark = ',', scientific = FALSE)` random articles, we analyzed `r format(n_total_articles_avg, big.mark = ',', scientific = FALSE)` articles for our averaging analysis.
+We recorded that `r n_reporting_avg_methods` (`r sprintf("%.1f", prop_reporting_avg_methods * 100)` ± `r round(margin_of_error * 100, 1)`%) reported some details of their data averaging methods.
+Within articles reporting averaging methods, `r str_to_lower(most_popular_avg_type)` averages dominated (`r sprintf("%.1f", most_popular_avg_type_prop * 100)`%), followed by `r str_to_lower(second_most_popular_avg_type)` averages (`r sprintf("%.1f", second_most_popular_avg_type_prop * 100)`%) (@tbl-avg_type_subtype_tables).
+`r most_popular_avg_subtype` averages proved the most widespread averaging subtype (`r sprintf("%.1f", most_popular_avg_subtype_prop * 100)`%), followed by `r str_to_lower(second_most_popular_avg_subtype)` averages (`r sprintf("%.1f", second_most_popular_avg_subtype_prop * 100)`%) (@tbl-avg_type_subtype_tables).
+Together, `r top_three_type_subtype[1]` (`r sprintf("%.1f", top_three_type_subtype_props[1] * 100)`%), `r top_three_type_subtype[2]` (`r sprintf("%.1f", top_three_type_subtype_props[2] * 100)`%), and `r top_three_type_subtype[3]` (`r sprintf("%.1f", top_three_type_subtype_props[3] * 100)`%) were the most frequent type-subtype averaging method combinations.
+
+```{r, avg_type_subtype_tables}
+#| label: tbl-avg_type_subtype_tables
+#| tbl-cap: Averaging methods by type (a) and subtype (b).
+#| tbl-cap-location: top
+#| layout-ncol: 2
+
+avg_by_type_tab %>% 
+    mutate(prop = round(prop * 100, 1)) %>% 
+    rename("Averaging Type" = avg_type,
+           N = n,
+           "%" = prop) %>% 
+    kbl() %>% 
+    kable_classic(full_width = FALSE, html_font = "Times New Roman")
+
+avg_by_subtype_tab %>% 
+    mutate(prop = round(prop * 100, 1)) %>% 
+    rename("Averaging Subtype" = avg_subtype,
+           N = n,
+           "%" = prop) %>% 
+    arrange(desc(N)) %>% 
+    kbl() %>% 
+    kable_classic(full_width = FALSE, html_font = "Times New Roman")
+```
+
+When incorporating the averaging duration or the number of breaths, 30-second bin averages were the most prevalent overall method, followed by 60-, 15-, and 10-second bin averages (@fig-avg_full_method_plot).
+Although the "other" methods category accounted for the second highest share of the total, this represents a group of averaging procedures that were rarely used.
+
+```{r, avg_full_method_plot}
+#| label: fig-avg_full_method_plot
+#| fig-cap: Prevalence of complete averaging procedures. The numbers in each column label are in seconds for time averages and the number of breaths for breath averages. The "other" column represents methods that accounted for less than 1% of the total stated methods.
+plot(avg_by_full_method_plot)
+```
+
 
 # Discussion {#sec-discussion}
 
