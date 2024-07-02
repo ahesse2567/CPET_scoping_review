@@ -96,6 +96,10 @@ prop_most_popular_interpolation_time <- interpolation_by_specified_procedure %>%
     group_by(interpolation_time_s) %>% 
     summarize(n = sum(n)) %>% 
     ungroup() %>% 
+    # filter out NAs as these correspond to UNreported interpolation times 
+    # (although there were other details reported about interpolation for these
+    # articles
+    filter(!is.na(interpolation_time_s)) %>% 
     mutate(prop = prop.table(n)) %>% 
     filter(n == max(n)) %>% 
     select(prop) %>% 
@@ -124,7 +128,8 @@ prop_most_popular_interpolation_method <- interpolation_by_specified_procedure %
     pull()
 prop_most_popular_interpolation_method
 
-most_popular_stated_interpolation_method <- interpolation_by_specified_procedure %>% 
+most_popular_stated_interpolation_method <- 
+    interpolation_by_specified_procedure %>% 
     group_by(interpolation_type) %>% 
     filter(!is.na(interpolation_type)) %>% 
     summarize(n = sum(n)) %>% 
@@ -147,11 +152,12 @@ n_most_popular_stated_interpolation_method <- interpolation_by_specified_procedu
 n_most_popular_stated_interpolation_method
 
 prop_most_popular_stated_interpolation_method <- interpolation_by_specified_procedure %>% 
+    # filter out unspecified interpolation procedures/types
+    filter(!is.na(interpolation_type)) %>% 
     group_by(interpolation_type) %>% 
     summarize(n = sum(n)) %>% 
     ungroup() %>%
     mutate(prop = prop.table(n)) %>% 
-    filter(!is.na(interpolation_type)) %>% 
     filter(n == max(n)) %>% 
     select(prop) %>% 
     pull()
@@ -341,22 +347,19 @@ interpolation_df %>%
     filter(interpolation_details == TRUE) %>% 
     count() %>% pull()
 
+
 condensed_interpolation_times <- interpolation_by_specified_procedure %>% 
     select(interpolation_time_s, n, prop) %>% 
     filter(!is.na(interpolation_time_s)) %>% 
-    mutate(interpolation_time_s = case_when(
-        interpolation_time_s == 1 ~ 1,
-        interpolation_time_s == 5 ~ 5),
-        interpolation_time_s = if_else(
-            is.na(interpolation_time_s),
-            "other",
-            as.character(interpolation_time_s)),
+    mutate(interpolation_time_s = if_else(
+        interpolation_time_s %in% c("1", "5"),
+        interpolation_time_s,
+        "other"),
         interpolation_time_s = str_to_title(interpolation_time_s)) %>% 
     group_by(interpolation_time_s) %>% 
     summarize(n = sum(n)) %>% 
     ungroup() %>% 
     mutate(prop = prop.table(n))
-condensed_interpolation_times
 
 interpolation_by_time_plot <- condensed_interpolation_times %>% 
     ggplot(aes(x = as.factor(interpolation_time_s), y = n)) +
@@ -405,6 +408,7 @@ ggsave("graphics/interpolation_by_time_plot_ACSM.tiff",
 condensed_interpolation_types <-
     interpolation_by_specified_procedure %>% 
     select(interpolation_type, n, prop) %>% 
+    # filter out NA as these are unreported interpolation types
     filter(!is.na(interpolation_type)) %>% 
     mutate(interpolation_type = case_when(
         interpolation_type == "linear" ~ interpolation_type,
