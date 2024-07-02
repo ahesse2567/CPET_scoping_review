@@ -1,17 +1,34 @@
+# Quarto manuscripts: https://quarto.org/docs/manuscripts/authoring/rstudio.html
+
 project:
   type: manuscript
 
 execute:
   freeze: auto
+  echo: false
+  warning: false
+  message: false
+
+bibliography: references.bib
 
 format:
-  html:
+  html: 
     toc: true
+    theme: cosmo
     comments:
       hypothesis: true
-  apaquarto-docx: default
-  apaquarto-html: default
-  apaquarto-pdf: default
-
+    csl: "apa-no-ampersand.csl"
+  docx: 
+    prefer-html: true
+    csl: "apa-no-ampersand.csl"
+  # jats: default
+  pdf:
+    csl: "apa-no-ampersand.csl"
+    colorlinks: true
+    documentclass: scrartcl # this is equivalent to 'article'
+  # uncomment below to use APA formatting. However, this is a little buggy
+  # apaquarto-docx: default
+  # apaquarto-html: default
+  # apaquarto-pdf: default
 
 
