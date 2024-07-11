@@ -11,6 +11,9 @@ execute:
 
 bibliography: references.bib
 
+# for the time being, I don't want the "Source: Article Notebook" to appear
+notebook-links: false
+
 format:
   html: 
     toc: true
