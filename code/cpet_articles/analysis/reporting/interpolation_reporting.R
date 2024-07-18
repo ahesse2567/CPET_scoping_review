@@ -4,7 +4,7 @@ library(scales)
 library(janitor)
 # load fonts so Times works with ggplot2 + pdf rendering
 extrafont::loadfonts(quiet = TRUE)
-theme_update(text = element_text(family = "Times"))
+# theme_update(text = element_text(family = "Times"))
 
 # re-find which articles are ineligible in case I forgot to update this manaully
 source("code/cpet_articles/tidying/combine_ineligible_articles.R")
@@ -189,9 +189,11 @@ interpolation_reporting_frequency_plot <- condensed_interpolation_summary %>%
     ggplot(aes(x = type, y = n)) +
     geom_col() +
     geom_text(aes(label = scales::percent(prop)),
-              family = "Times", vjust = -0.5) +
+              # family = "Times",
+              vjust = -0.5) +
     geom_text(aes(label = n),
-              family = "Times", vjust = -2) +
+              # family = "Times", 
+              vjust = -2) +
     xlab("Interpolation Procedure") +
     ylab("Count") +
     ylim(0, plyr::round_any(max(condensed_interpolation_summary$n),
@@ -202,7 +204,9 @@ interpolation_reporting_frequency_plot <- condensed_interpolation_summary %>%
     #           Data are expressed as counts and percentages. N = ",
     #           total_articles, ".", sep = ""), width = 100)) +
     theme(plot.caption = element_text(hjust=0)) +
-    theme(text=element_text(family="Times", size=12))
+    theme(text=element_text(
+        # family="Times", 
+                            size=12))
 interpolation_reporting_frequency_plot
 
 label_size <- 10
@@ -285,8 +289,11 @@ condensed_interpolation_by_specified_procedure_plot <-
     ggplot(aes(x = condensed_procedure, y = n)) +
     geom_col() +
     geom_text(aes(label = scales::percent(prop)),
-              family = "Times", vjust = -0.5) +
-    geom_text(aes(label = n), family = "Times", vjust = -2) +
+              # family = "Times", 
+              vjust = -0.5) +
+    geom_text(aes(label = n), 
+              # family = "Times",
+              vjust = -2) +
     xlab("Interpolation Procedure") +
     ylab("Count") +
     ylim(0, 175 * ceiling(max(interpolation_by_specified_procedure$n) / 175)) +
@@ -297,8 +304,13 @@ condensed_interpolation_by_specified_procedure_plot <-
     #         count_specified_interpolation, ".", sep = ""), width = 100)) +
     # theme(plot.caption = element_text(hjust=0)) +
     theme(axis.text.x = element_text(angle=90, hjust=1)) +
-    theme(text=element_text(family="Times", size=12))
+    theme(text=element_text(
+        # family="Times", 
+                            size=12))
 condensed_interpolation_by_specified_procedure_plot
+ggsave(
+    here::here("graphics/condensed_interpolation_by_specified_procedure_plot.jpg"),
+    condensed_interpolation_by_specified_procedure_plot)
 
 
 condensed_interpolation_by_specified_procedure_plot_ACSM <-

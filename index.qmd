@@ -24,7 +24,7 @@ title: "Popularity And Prevalence Of Gas Exchange Data Processing Methods In Pee
 #     affiliations:
 #       - University of Minnesota-Twin Cities
 abstract: |
-  Cardiopulmonary exercise testing involves collecting variable breath-by-breath data, sometimes requiring data processing of outlier removal, interpolation, and averaging before later analysis. These data processing choices, such as averaging duration, are known to affect calculated values such as VO2max. However, assessing the effects of data processing without knowing popular methods worth comparing is difficult. In addition, such details aid study reproduction. We conducted a scoping review and identified peer-reviewed articles with exercise testing that collected data breath-by-breath from Ovid-MEDLINE, Scopus, and Web of Science databases. We screened articles and extracted data processing methods manually, using machine learning, and with regular expressions. Of the 8,351 articles, 376 (4.5 ± 0.4%) and 581 (7.0 ± 0.5%) described outlier removal and interpolation, respectively. An estimated 66.8 ± 2.8% reported averaging methods (n = 1078). Commonly documented outlier cutoffs were ± 3 or 4 SD (39.1% and 51.6%, respectively). The dominating interpolation duration and procedure were one second (93.9%) and linear interpolation (92.5%). Averaging methods were 30 (30.9%), 60 (12.4%), 15 (11.6%), 10 (11.0%), and 20 (8.1%) second bin averages. This shows that studies collecting breath-by-breath data often lack detailed descriptions of data processing methods, particularly for outlier removal and interpolation. While averaging methods are more commonly reported, improved documentation across all processing methods will enhance reproducibility and facilitate future research comparing data processing choices.
+  Cardiopulmonary exercise testing involves collecting variable breath-by-breath data, sometimes requiring data processing of outlier removal, interpolation, and averaging before later analysis. These data processing choices, such as averaging duration, are known to affect calculated values such as VO2max. However, assessing the effects of data processing without knowing popular methods worth comparing is difficult. In addition, such details aid study reproduction. We conducted a scoping review and identified peer-reviewed articles with exercise testing that collected data breath-by-breath from Ovid-MEDLINE, Scopus, and Web of Science databases. We screened articles and extracted data processing methods manually, using machine learning, and with regular expressions. Of the 8,351 articles, 376 (4.5 ± 0.4%) and 581 (7.0 ± 0.5%) described outlier removal and interpolation, respectively. An estimated 66.8 ± 2.8% reported averaging methods (n = 1078). Commonly documented outlier cutoffs were ± 3 or 4 SD (39.1% and 51.6%, respectively). The dominating interpolation duration and procedure were one second (93.9%) and linear interpolation (92.5%). Averaging methods commonly described were 30 (30.9%), 60 (12.4%), 15 (11.6%), 10 (11.0%), and 20 (8.1%) second bin averages. This shows that studies collecting breath-by-breath data often lack detailed descriptions of data processing methods, particularly for outlier removal and interpolation. While averaging methods are more commonly reported, improved documentation across all processing methods will enhance reproducibility and facilitate future research comparing data processing choices.
 keywords:
   - Data Averaging
   - Outlier Removal
@@ -34,8 +34,8 @@ keywords:
 #     conflict of interest: "The author has no conflict of interest to declare."
 date: last-modified
 bibliography: references.bib
-citation:
-  container-title: "JOURNAL GOES HERE"
+# citation:
+#   container-title: "JOURNAL GOES HERE"
 number-sections: true
 ---
 
@@ -60,14 +60,14 @@ Calculating the above values often requires data processing when CPET data is co
 CPET data processing usually involves outlier removal, optional interpolation to regular intervals, and averaging to more accurately reflect whole-body metabolism [@robergs2010].
 Previous research has shown that data averaging influences CPET values.
 Averaging over longer durations reduces VO~2~max and VO~2~ plateau detection [@sousa2010; @johnson1998; @sell2021; @midgley2007; @astorino2009; @astorino2000; @sousa2010; @martin-rincon2019; @martin-rincon2020; @scheadler2017; @dejesus2014; @hill2003; @smart2015; @matthews1987; @robergs2003; @robergs2010].
-We are unaware of research on data processing and locating ventilatory thresholds.
+We are unaware of research on the effects of data processing and locating ventilatory thresholds.
 
 Many studies remove outliers by finding points ±3 or ±4 standard deviations (SD) beyond the local mean (i.e., a prediction interval).
 These cutoffs are common because the relatively small sample size of BBB gas exchange data often contains more values beyond 3 or 4 SD than one would predict from an assumed Gaussian distribution [@lamarra1987].
-More outliers appear than expected because of "swallowing, coughing, or premature ending of the breath for some other reason" [@lamarra1987].
+More outliers appear than expected because of both conscious and unconscious alterations of breathing patterns, including swallowing and coughing [@lamarra1987].
 We are unaware of prior research that examines how different outlier removal strategies affect VO~2~max, ventilatory thresholds, and VO~2~ kinetics.
 
-Interpolation, often to one-second intervals, is common in VO2 kinetics research to "ensemble" average repeated transitions to minimize variability [@keir2014; @lamarra1987].
+Interpolation, often to one-second intervals, is common in VO~2~ kinetics research to "ensemble" average repeated transitions to minimize variability [@keir2014; @lamarra1987].
 Although this does not affect parameter estimates, one-second interpolation has been criticized for artificially narrowing confidence intervals [@benson2017; @francescato2014; @francescato2019; @francescato2015].
 As before, we are unaware of research specifically investigating how interpolation affects VO~2~max and ventilatory threshold identification.
 
@@ -76,7 +76,7 @@ Existing surveys [@robergs2010] and studies [@midgley2007] are small and focused
 A larger sample can, therefore, better describe how often all data processing steps are described.
 
 Before conducting this scoping review, we anecdotally observed that many articles using CPET data did not report all data processing steps, especially outlier removal and interpolation details.
-This may hamper reproduction or replication attempts, which became a more prominent issue in science within the past decade [@goodman2016; @opensciencecollaboration2015] Therefore, to assist with conducting future research on the effects of data processing on CPET values and to evaluate the methodological reproducibility of research using BBB gas exchange data generally, we conducted a broad scoping review to identify the prevalence and popularity of outlier removal, interpolation, and data averaging methods.
+This may hamper reproduction or replication attempts, which have become a more prominent issue in science within the past decade [@goodman2016; @opensciencecollaboration2015] Therefore, to assist with conducting future research on the effects of data processing on CPET values and to evaluate the methodological reproducibility of research using BBB gas exchange data generally, we conducted a broad scoping review to identify the frequency of reporting, and popularity of outlier removal, interpolation, and data averaging methods.
 
 # Methods {#sec-methods}
 
@@ -114,7 +114,7 @@ We acquired data from the Ovid-MEDLINE, Scopus, and Web of Science databases wit
 The electronic search strategy for the Ovid-MEDLINE database can be found at this link: <https://osf.io/a4vmz/files/osfstorage/6255791f28f9400531a24c96>.
 
 Our search output comprised article identifiers like DOIs.
-To find missing DOIs, we employed the PubMed Central ID Converter API [@ncbi2021] using Python. Full-texts were accessed via publisher text and data mining APIs using Python, [unpaywall.org](https://unpaywall.org/) using the unpywall Python package, through custom-built web-scraping scripts, or manually.
+To find missing DOIs, we employed the PubMed Central ID Converter API [@ncbi2021] using Python. Full texts were accessed via publisher text and data mining APIs using Python, [unpaywall.org](https://unpaywall.org/) using the unpywall Python package, through custom-built web-scraping scripts, or manually.
 Our library subscription did not permit access to`r format(n_unsubscribed, big.mark = ',', scientific = FALSE)` articles.
 
 ## Selection of Sources of Evidence
@@ -208,98 +208,9 @@ We documented the interpolation type as "linear" and the interpolation time as o
 
 #### Averaging
 
-::: {.content-hidden when-format="docx"}
-```{r, avg_methods_flowchart}
-#| label: fig-avg_methods_flowchart
-#| fig-cap: Flowchart depicting the four major components of averaging method documentation. Colored arrows are used to visually distinguish each step.
+<!-- ![Flowchart depicting the four major components of averaging method documentation.](graphics/Averaging Method Documentation300.jph){#fig-avg_methods_flowchart} -->
 
-library(chromote)
-library(webshot2)
-
-# don't ask why I need this chromote stuff bc I don't know
-# https://github.com/rstudio/chromote/issues/5
-# https://github.com/sneumann/metaRbolomics/blob/master/connectivity/revDepNet.Rmd
-
-chromote::set_default_chromote_object(
-  Chromote$new(browser = Chrome$new(args = "--no-sandbox"))
-)
-
-avg_methods_flowchart <- DiagrammeR::grViz("
-    digraph avg_methods_fch {
-        # graph statements
-        graph [rankdir = LR, newrank=true];
-        
-        # node defaults
-        node [shape = oval];
-    
-        subgraph cluster_type_unit {
-            # node [rank = same];
-            'Time';
-            'Breath';
-            'Digital\nFilter';
-        }
-        
-        subgraph cluster_subtype_calc{
-            # node [rank = same];
-            'Bin';
-            'Rolling';
-            'Filter\nType';
-        }
-        
-        subgraph cluster_measure{
-            # node [rank = same];
-            'Mean';
-            'Median';
-            'Filter\nSpecs';
-        }
-        
-        subgraph cluster_mean_type{
-            # node [rank = same];
-            'Whole';
-            'Trimmed';
-        }
-        
-        subgraph cluster_steps {
-        node [shape = plaintext]
-            'Type/Unit';
-            'Subtype/Calculation';
-            'Measure\nof Center';
-            'Mean Type';
-        }
-        
-        'Combination\nMethod' [shape = box];
-        
-        # edge statments
-        
-        'Type/Unit' -> 'Subtype/Calculation' -> 'Measure\nof Center' -> 'Mean Type'
-        
-        'Digital\nFilter':e -> 'Filter\nType':w [color = blue]
-        {'Time' 'Breath'} -> {'Bin' 'Rolling'} [constraint=true; color=blue];
-
-        'Filter\nType' -> 'Filter\nSpecs' [color=red]
-        {'Bin' 'Rolling'} -> {'Mean' 'Median'} [constraint=true; color=red];
-        
-        'Mean':e -> 'Whole':w [constraint=true; color=green]
-        'Mean':e -> 'Trimmed':w [constraint=true; color=green]
-        
-        {rank=same; 'Whole'; 'Trimmed'; 'Combination\nMethod'}
-        
-        'Whole':e -> 'Combination\nMethod' [constraint=true]
-        'Trimmed' -> 'Combination\nMethod' [constraint=true]
-        'Mean':e -> 'Combination\nMethod' [constraint=true]
-        'Median' -> 'Combination\nMethod' [constraint=true]
-        
-        'Combination\nMethod':s -> 'Time':s [constraint=false]
-        'Combination\nMethod':s -> 'Breath':s [constraint=false]
-   
-    }
-")
-
-avg_methods_flowchart
-```
-:::
-
-We document averaging methods according to five criteria: type/units, subtype/calculation, amount, measure of center, and mean type ([@fig-avg_methods_flowchart]).
+We document averaging methods according to five criteria: type/units, subtype/calculation, amount, measure of center, and mean type (Figure 1).
 Type/units refer to the averaging units of time, breath, and digital filters.
 Subtype/calculation involves specific computations like bin and rolling averages or digital filter forms.
 The amount is the unit quantity.
@@ -352,7 +263,7 @@ We recorded the interpolation type (linear, cubic, Lagrange, specifically *un*in
 #### Averaging
 
 We noted the following averaging types: Time, breath, breath-time, time-breath, time-time, digital filter, ensemble, (explicitly) *un*averaged, and other.
-Averaging subtypes included bin, rolling, bin-roll, rolling-bin, Butterworth low-pass, Fast Fourier Transform, and Savitsky-Golay.
+Averaging subtypes included bin, rolling, bin-roll, rolling-bin, Butterworth low-pass, Fast Fourier Transform (FFT), and Savitsky-Golay.
 Next, we recorded the time in seconds or the number of breaths.
 We recorded the measure of center as mean or median.
 Finally, we noted if the mean was a whole or trimmed.
@@ -392,83 +303,13 @@ n_no_doi <- if_else(n_no_doi <= 10,
         format(n_no_doi, big.mark = ',', scientific = FALSE))
 ```
 
-@fig-selection_sources_evidence_flowchart shows the selection of sources of evidence flowchart.
-"Unobtained" articles were those unavailable due to University library licensing limitations or faulty download links.
-We did not use the International Library Loan system given our already large sample.
-"Resolvable" files could be analyzed by RegExs and ML.
-
-During our analysis, we identified `r format(n_ineligible_articles, big.mark = ',', scientific = FALSE)` ineligible articles.
+Figure 2 shows the selection of sources of evidence flowchart. During our analysis, we identified `r format(n_ineligible_articles, big.mark = ',', scientific = FALSE)` ineligible articles.
 We cross-referenced those against the breath-by-breath articles and removed another `r format(n_ineligible_bbb_articles, big.mark = ',', scientific = FALSE)`, leading to `r format(n_eligible_bbb_articles, big.mark = ',', scientific = FALSE)` articles.
-
-::: {.content-hidden when-format="docx"}
-```{r selection_sources_evidence_flowchart}
-#| label: fig-selection_sources_evidence_flowchart
-#| fig-cap: Selection of sources of evidence flowchart. Dashed lines point to articles that were removed. Solid lines indicate the path of articles that remained in analysis. Details are provided in the main text.
-#| fig-pos: 't'
-
-flowchart <- DiagrammeR::grViz("
-digraph selection_sources_evidence {
-    # graph statements set attributes for ALL components of the graph
-    
-    # node statements provide statements for graph nodes
-    # a node is a 'thing', like a box, a circle, etc.
-    node [shape = oval]
-    'All Articles: @@12'
-    'Articles\nwithout DOI: @@13'
-    'Articles\nwith DOI: @@1'
-    'Unobtained\nArticles: @@10'
-    'Files Unavailable\nin TXT format: @@11'
-    'Downloaded Full-Text\nFiles: @@2'
-    'TXT Files: @@3'
-    'Non-English: @@4'
-    'Conversion\nError: @@5'
-    'Resolvable\nFiles: @@6'
-    'All Breath-by-Breath: @@7'
-    'Ineligible\nBreath-by-Breath: @@8'
-    'Eligible\nBreath-by-Breath: @@9'
-    
-    # edge statements direct operations between nodes
-    'All Articles: @@12' -> 'Articles\nwith DOI: @@1'
-    'All Articles: @@12'-> 'Articles\nwithout DOI: @@13' [style=dashed]
-    'Articles\nwith DOI: @@1' -> 'Downloaded Full-Text\nFiles: @@2'
-    'Articles\nwith DOI: @@1' -> 'Unobtained\nArticles: @@10' [style=dashed]
-    'Downloaded Full-Text\nFiles: @@2' -> 'TXT Files: @@3'
-    'Downloaded Full-Text\nFiles: @@2' -> 'Files Unavailable\nin TXT format: @@11' [style=dashed]
-    'TXT Files: @@3' -> {'Non-English: @@4' 'Conversion\nError: @@5'} [style=dashed]
-    'TXT Files: @@3' -> 'Resolvable\nFiles: @@6'
-    'Resolvable\nFiles: @@6' -> 'All Breath-by-Breath: @@7'
-    'All Breath-by-Breath: @@7' -> 'Ineligible\nBreath-by-Breath: @@8' [style=dashed]
-    'All Breath-by-Breath: @@7' -> 'Eligible\nBreath-by-Breath: @@9'
-
-    # each statement will have a list nodes or edges
-    
-}
-
-[1]: format(n_total_articles, big.mark = ',', scientific = FALSE)
-[2]: format(n_downloaded_files_in_doi_list, big.mark = ',', scientific = FALSE)
-[3]: format(n_txt_files_in_list, big.mark = ',', scientific = FALSE)
-[4]: format(n_non_english, big.mark = ',', scientific = FALSE)
-[5]: format(n_conversion_error_files, big.mark = ',', scientific = FALSE)
-[6]: format(n_resolvable_articles, big.mark = ',', scientific = FALSE)
-[7]: format(n_all_bbb_articles, big.mark = ',', scientific = FALSE)
-[8]: format(n_ineligible_bbb_articles, big.mark = ',', scientific = FALSE)
-[9]: format(n_eligible_bbb_articles, big.mark = ',', scientific = FALSE)
-[10]: format(n_unobtained_articles, big.mark = ',', scientific = FALSE)
-[11]: format(n_unavailable_in_txt, big.mark = ',', scientific = FALSE)
-[12]: format(n_total_with_na, big.mark = ',', scientific = FALSE)
-[13]: format(n_total_with_na - n_total_articles, big.mark = ',', scientific = FALSE)
-    ")
-
-flowchart
-```
-:::
 
 ## Characteristics and Results of Individual Sources of Evidence
 
 The PRISMA Extension for Scoping Reviews checklist normally requires a section to report the characteristics and results of individual sources of evidence, usually in a table format, including citations [@tricco2018].
 Given the vast nature of this scoping review, readers can instead view web links to our [outlier](https://docs.google.com/spreadsheets/d/1k_i4EP5U3zMltk8n21X-KHGoxUfR6XAJu6lxrVUufg0/edit?usp=sharing), [interpolation](https://docs.google.com/spreadsheets/d/1mNHwyNwVeQeAAm-Jx43ImR91sLyRLSvad9oglHQB83A/edit?usp=sharing), and [averaging](https://docs.google.com/spreadsheets/d/1KdmDZuI1FS1XUK5zJm3JIqf4tQiBd0C1pW0p0PFZweU/edit?usp=sharing) data charting spreadsheets.
-
-
 
 ## Synthesis of Results
 
@@ -493,12 +334,12 @@ prop_4sd <- specified_outlier_cutoffs_by_type %>%
 ```
 
 Of the `r format(total_articles, big.mark = ',', scientific = FALSE)` articles, `r n_articles_reporting_outliers` (`r prop_articles_reporting_outliers * 100` ± `r round(moe_prop_articles_reporting * 100, 1)`%) reported outlier removal methods.
-Of the articles reporting their outlier methods, the most prevalent methods were ±3 (`r sprintf("%.1f", prop_3sd * 100)`%) and ±4 (`r sprintf("%.1f", prop_4sd * 100)`%) standard deviations, respectively (@fig-specified-outlier-limits).
+Of the articles reporting their outlier methods, the most prevalent methods were ±3 (`r sprintf("%.1f", prop_3sd * 100)`%) and ±4 (`r sprintf("%.1f", prop_4sd * 100)`%) standard deviations, respectively (Figure 3).
 
 ```{r, outliers_when_reported}
 #| label: fig-specified-outlier-limits
 #| fig-cap: Counts and percentages of outlier limits when specified.
-plot(prop_outlier_limits_plot)
+# plot(prop_outlier_limits_plot)
 ```
 
 Only `r n_outlier_func_reporting` (`r sprintf("%.1f", prop_outlier_func_reporting * 100)` ± `r sprintf("%.1f", moe_prop_outlier_func_reporting *100)`%) articles reported details of the function they used to calculate their outlier limit.
@@ -513,7 +354,7 @@ source("code/cpet_articles/analysis/reporting/interpolation_reporting.R")
 
 We found that `r count_specified_interpolation` (`r sprintf("%.1f", prop_specified_interpolation * 100)` ± `r sprintf("%.1f", moe_prop_articles_reporting_interpolation * 100)`%) out of `r format(total_articles, big.mark = ',', scientific = FALSE)` specified their interpolation methodology.
 When reported, the most common interpolation time was `r as.numeric(most_popular_interpolation_time) %>% english::english() %>% as.character()` second (n = `r n_most_popular_interpolation_time`, `r sprintf("%.1f", prop_most_popular_interpolation_time * 100)`%).
-Although the majority of articles reporting interpolation procedures did not explicitly specify their interpolation method (n = `r n_most_popular_interpolation_method`, `r sprintf("%.1f", prop_most_popular_interpolation_method * 100)`%), `r most_popular_stated_interpolation_method` interpolation was the most popular stated method (n = `r n_most_popular_stated_interpolation_method`, `r sprintf("%.1f", prop_most_popular_stated_interpolation_method * 100)`%) (see @tbl-interpolation_time_type and @fig-interpolation_by-time-and_type).
+Although the majority of articles reporting interpolation procedures did not explicitly specify their interpolation method (n = `r n_most_popular_interpolation_method`, `r sprintf("%.1f", prop_most_popular_interpolation_method * 100)`%), `r most_popular_stated_interpolation_method` interpolation was the most popular stated method (n = `r n_most_popular_stated_interpolation_method`, `r sprintf("%.1f", prop_most_popular_stated_interpolation_method * 100)`%) (see Table 1 and Figure 4).
 
 ```{r, interpolation_tables}
 #| label: tbl-interpolation_time_type
@@ -521,18 +362,19 @@ Although the majority of articles reporting interpolation procedures did not exp
 #| layout-ncol: 2
 
 # interpolation by type
-interpolation_by_type_tib %>% 
+interpolation_by_type_tib_formatted <- 
+  interpolation_by_type_tib %>% 
     mutate(prop = round(prop * 100,1),
            interpolation_type = str_to_title(interpolation_type)) %>% 
     rename("Interpolation Type" = interpolation_type,
            N = n,
            "%" = prop) %>% 
     flextable::flextable()
-    
 
 # interpolation by time
-interpolation_by_time_tib %>% 
-    mutate(interpolation_time_s = if_else(prop < 0.01, "other", interpolation_time_s)) %>% 
+interp_by_time_formatted <- interpolation_by_time_tib %>% 
+    mutate(interpolation_time_s = if_else(prop < 0.01, "other", interpolation_time_s),
+           interpolation_time_s = str_to_sentence(interpolation_time_s)) %>% 
     group_by(interpolation_time_s) %>% 
     summarize(n = sum(n)) %>% 
     ungroup() %>% 
@@ -541,12 +383,19 @@ interpolation_by_time_tib %>%
            N = n,
            "%" = prop) %>% 
     flextable::flextable()
+
+flextable::save_as_docx(
+  interpolation_by_type_tib_formatted,
+  interp_by_time_formatted,
+  path = here::here("graphics/interp_tables.docx"))
+
+
 ```
 
 ```{r, interpolation_plot}
 #| label: fig-interpolation_by-time-and_type
 #| fig-cap: Most prevalent specified interpolation methods by both type and time.
-plot(condensed_interpolation_by_specified_procedure_plot)
+# plot(condensed_interpolation_by_specified_procedure_plot)
 ```
 
 ### Averaging
@@ -614,8 +463,8 @@ top_three_type_subtype_props <- avg_by_type_subtype_tab %>%
 
 After removing `r n_rounded_up_nearest_hundred - n_total_articles_avg` ineligible articles that we discovered during data documentation from the original `r format(n_rounded_up_nearest_hundred, big.mark = ',', scientific = FALSE)` random articles, we analyzed `r format(n_total_articles_avg, big.mark = ',', scientific = FALSE)` articles for our averaging analysis.
 We recorded that `r n_reporting_avg_methods` (`r sprintf("%.1f", prop_reporting_avg_methods * 100)` ± `r round(margin_of_error * 100, 1)`%) reported some details of their data averaging methods.
-`r str_to_sentence(most_popular_avg_type)` averages dominated in popularity (`r sprintf("%.1f", most_popular_avg_type_prop * 100)`%) (@tbl-avg_type_subtype_tables).
-`r most_popular_avg_subtype` averages proved the most widespread averaging subtype (`r sprintf("%.1f", most_popular_avg_subtype_prop * 100)`%) (@tbl-avg_type_subtype_tables).
+`r str_to_sentence(most_popular_avg_type)` averages dominated in popularity (`r sprintf("%.1f", most_popular_avg_type_prop * 100)`%) (Table 2).
+`r most_popular_avg_subtype` averages proved the most widespread averaging subtype (`r sprintf("%.1f", most_popular_avg_subtype_prop * 100)`%) (Table 2).
 Together, `r top_three_type_subtype[1]` (`r sprintf("%.1f", top_three_type_subtype_props[1] * 100)`%) was the most frequent type-subtype averaging method combination.
 
 ```{r, avg_type_subtype_tables}
@@ -624,29 +473,38 @@ Together, `r top_three_type_subtype[1]` (`r sprintf("%.1f", top_three_type_subty
 #| tbl-cap-location: top
 #| layout-ncol: 2
 
-avg_by_type_tab %>% 
+avg_by_type_tab_formatted <- avg_by_type_tab %>% 
     mutate(prop = round(prop * 100, 1)) %>% 
     rename("Averaging Type" = avg_type,
            N = n,
            "%" = prop) %>% 
     flextable::flextable()
 
-avg_by_subtype_tab %>% 
-    mutate(prop = round(prop * 100, 1)) %>% 
+avg_by_subtype_tab_formatted <- avg_by_subtype_tab %>% 
+    mutate(prop = round(prop * 100, 1),
+          avg_subtype = if_else(avg_subtype == "Fft",
+                                "Fast Fourier Transform",
+                                avg_subtype)) %>% 
     rename("Averaging Subtype" = avg_subtype,
            N = n,
            "%" = prop) %>% 
     arrange(desc(N)) %>% 
     flextable::flextable()
+
+flextable::save_as_docx(
+  avg_by_type_tab_formatted,
+  avg_by_subtype_tab_formatted,
+  path = here::here("graphics/avg_tables.docx"))
+
 ```
 
-When incorporating averaging amounts, 30-, 60-, 15-, and 10-second bin averages (@fig-avg_full_method_plot) were the most popular.
+When incorporating averaging amounts, 30-, 60-, 15-, and 10-second bin averages (Figure 5) were the most popular.
 The "other" methods category accounted for the second highest share of the total, but this represents many rarely used averaging methods.
 
 ```{r, avg_full_method_plot}
 #| label: fig-avg_full_method_plot
 #| fig-cap: Prevalence of complete averaging procedures. The numbers in each column label are in seconds for time averages and the number of breaths for breath averages. The "other" column represents methods that accounted for less than 1% of the total stated methods.
-plot(avg_by_full_method_plot)
+# plot(avg_by_full_method_plot)
 ```
 # Discussion {#sec-discussion}
 
@@ -677,10 +535,10 @@ However, the V-slope method, one of the most common methods for determining the 
 Importantly, the V-slope algorithm is only part of the overall V-slope method, so it can be unclear if authors interpolated data when citing the V-slope method. Given this and the artificial confidence interval shrinkage, it may be prudent for future papers to specify interpolation or lack thereof.
 
 Most studies use one-second linear interpolation, but different time frames and styles, such as cubic interpolation, may yield different results.
-Cubic spline interpolation produces a smooth curve but may slightly "overshoot" [@zhang1997] measured values.
+Cubic spline interpolation produces a smooth curve but may slightly "overshoot" measured values [@zhang1997].
 Though likely small, we recommend authors specify the interpolation type.
 
-Despite a much higher percentage of papers describing at least some of their averaging methods, a third of studies neglect to document their process.
+Despite a much higher percentage of papers describing at least some of their averaging methods, a third of studies examined in this review neglected to document their process.
 Data averaging likely contributes more to the final calculated values of VO~2~max and other variables than do outlier removal and interpolation.
 Indeed, the research on the effect of interpolation on VO~2~ kinetics parameters shows that interpolation does not significantly affect the values of parameter estimates [@benson2017; @francescato2014; @francescato2019; @francescato2015].
 Although we are unaware of studies comparing the effect of outlier removal or leaving data as-is before proceeding with other calculations, the known impact of data averaging on VO~2~max and the inherent dampening effect of averaging on outliers itself suggests that data averaging is the most important of the three steps when the goal is to reflect the underlying whole-body metabolic rate.
@@ -760,8 +618,8 @@ Yet, methodological shortcut citations can mean missing details that prevent rea
 Next, by chance, we found rare examples of articles using the median as the measure of center as we built our RegExs.
 However, we did not document any such cases in our random sample.
 A larger sample would likely find these and other rare data averaging methods.
-Finally, we suspect a few ineligible articles eluded our screening.
-Taken together, our results are not entirely comprehensive and slightly underestimate data processing methods' true reporting frequency.
+Finally, it is possible that a few ineligible articles eluded our screening.
+Taken together, our results are not entirely comprehensive and may slightly underestimate data processing methods' true reporting frequency.
 
 Another limitation of this scoping review is that our results do not indicate how different data processing methods were used.
 For example, we did not distinguish if a 60-second time-bin average was used to calculate VO~2~max or a steady-state exercise period.
@@ -770,7 +628,7 @@ Nevertheless, this is the first study we know of to document data processing met
 
 ## Conclusions
 
-This scoping review found that data processing methods were seldom reported for outlier removal and interpolation, and that averaging reporting, though much higher, could further improve. The results reflect prevalent methods, and prevalence should not be conflated with “best.” Nevertheless, knowing the prevalent methods can allow others to test the influence data processing in this field by comparing relevant options. Finally, we hope these results motivate others to improve their methodological documentation and, thus, reproducibility in this field.
+This scoping review found that data processing methods were seldom reported for outlier removal and interpolation, and that averaging reporting, though much higher, could further improve. The results reflect prevalent methods. While prevalence should not be conflated with quality, knowing the prevalent methods can allow others to test the influence data processing in this field by comparing relevant options. Finally, we hope these results motivate others to improve their methodological documentation and, thus, reproducibility in this field.
 
 # Funding {.unnumbered}
 

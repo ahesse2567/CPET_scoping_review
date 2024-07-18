@@ -3,7 +3,7 @@ library(stringr)
 library(scales)
 library(janitor)
 extrafont::loadfonts(quiet=TRUE)
-theme_update(text = element_text(family = "Times"))
+# theme_update(text = element_text(family = "Times"))
 
 source("code/cpet_articles/tidying/combine_ineligible_articles.R")
 
@@ -130,9 +130,11 @@ avg_by_full_method_plot <- avg_by_full_method_tab %>%
     ggplot(aes(x = reorder(avg_procedure, -n), y = n)) +
     geom_col() +
     geom_text(aes(label = scales::percent(prop, accuracy = 0.1)), 
-              family = "Times", vjust = -0.5) +
+              # family = "Times", 
+              vjust = -0.5) +
     geom_text(aes(label = n),
-              family = "Times", vjust = -2) +
+              # family = "Times", 
+              vjust = -2) +
     xlab("Averaging Procedure") +
     ylab("Count") +
     ylim(0, 300) +
@@ -143,9 +145,12 @@ avg_by_full_method_plot <- avg_by_full_method_tab %>%
     #         Data are expressed as counts and percentages. ",
     #         sum(avg_by_full_method_tab$n), ".", sep = ""), width = 100)) +
     # theme(plot.caption = element_text(hjust=0)) +
-    theme(axis.text.x = element_text(angle=90, hjust=1)) +
-    theme(text = element_text(family = "Times"))
+    theme(axis.text.x = element_text(angle=90, hjust=1)) # +
+    # theme(text = element_text(family = "Times"))
 avg_by_full_method_plot
+
+ggsave(here::here("graphics/avg_by_full_method_plot.jpg"),
+       avg_by_full_method_plot)
 
 label_size <- 15
 caption_size <- 20
