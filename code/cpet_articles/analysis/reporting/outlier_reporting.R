@@ -4,7 +4,7 @@ library(scales)
 library(janitor)
 # load fonts so Times works with ggplot2 + pdf rendering
 extrafont::loadfonts(quiet = TRUE)
-theme_replace(text = element_text(family = "Times"))
+# theme_replace(text = element_text(family = "Times"))
 
 # re-find which articles are ineligible in case I forgot to update this manually
 source("code/cpet_articles/tidying/combine_ineligible_articles.R")
@@ -85,9 +85,11 @@ outlier_reporting_frequency_plot <- outlier_df %>%
     ggplot(aes(x = outlier_limit, y = n)) +
     geom_col() +
     geom_text(aes(label = scales::percent(prop)),
-              family = "Times", vjust = -0.5) +
+              # family = "Times", 
+              vjust = -0.5) +
     geom_text(aes(label = n),
-              family = "Times", vjust = -2) +
+              # family = "Times", 
+              vjust = -2) +
     xlab("Outlier Limit") +
     ylab("Count") +
     ylim(0, plyr::round_any(max(outlier_cutoff_by_type$n),
@@ -99,7 +101,9 @@ outlier_reporting_frequency_plot <- outlier_df %>%
     #             "Outlier cutoff reporting frequency. Data are expressed as counts and percentages. N = ",
     #             total_articles, ".", sep = ""), width = 100)) +
     # theme(plot.caption = element_text(hjust=0)) +
-    theme(text=element_text(family="Times", size=12))
+    theme(text=element_text(
+        # family="Times", 
+        size=12))
 outlier_reporting_frequency_plot
 
 outlier_reporting_frequency_plot_ACSM <- outlier_df %>% 
@@ -117,7 +121,8 @@ outlier_reporting_frequency_plot_ACSM <- outlier_df %>%
     ggplot(aes(x = outlier_limit, y = n)) +
     geom_col() +
     geom_text(aes(label = scales::percent(prop)),
-              family = "Times", vjust = -0.5, size = label_size) +
+              family = "Times", 
+              vjust = -0.5, size = label_size) +
     geom_text(aes(label = n),
               family = "Times", vjust = -2, size = label_size) +
     xlab("Outlier Limit") +
@@ -180,9 +185,11 @@ prop_outlier_limits_plot <- outlier_df %>%
     ggplot(aes(x = outlier_limit, y = n)) +
     geom_col() +
     geom_text(aes(label = scales::percent(prop)),
-              family = "Times", vjust = -0.5) +
+              # family = "Times",
+              vjust = -0.5) +
     geom_text(aes(label = n),
-              family = "Times", vjust = -2) +
+              # family = "Times", 
+              vjust = -2) +
     xlab("Outlier Limit") +
     ylab("Count") +
     ylim(0, 250) +
@@ -192,8 +199,13 @@ prop_outlier_limits_plot <- outlier_df %>%
     #         paste("Outlier cutoff frequencies. Data are expressed as counts and percentages. N = ",
     #               count_outlier_procedure_described, ".", sep = ""), width = 100)) +
     # theme(plot.caption = element_text(hjust=0)) +
-    theme(text=element_text(family="Times", size=12))
+    theme(text=element_text(
+        # family="Times", 
+                            size=12))
 prop_outlier_limits_plot
+
+ggsave(here::here("graphics/prop_outlier_limits_plot.jpg"),
+       prop_outlier_limits_plot)
 
 prop_outlier_limits_plot_ACSM <- outlier_df %>% 
     select(outlier_limit) %>% 
