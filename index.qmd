@@ -91,7 +91,8 @@ This scoping review surveyed gas exchange data processing choices in original, p
 
 ## Protocol Registration
 
-These methods [@tricco2018] and results [@peters2020] are modeled on the PRISMA scoping review extension guidelines. This protocol was registered with the Open Science Framework (OSF): <https://doi.org/10.17605/OSF.IO/A4VMZ>.
+These methods [@tricco2018] and results [@peters2020] are modeled on the PRISMA scoping review extension guidelines.
+This protocol was registered with the Open Science Framework (OSF): <https://doi.org/10.17605/OSF.IO/A4VMZ>.
 
 ## Eligibility Criteria
 
@@ -99,7 +100,8 @@ These methods [@tricco2018] and results [@peters2020] are modeled on the PRISMA 
 source(here("code/cpet_articles/analysis/reporting/selection_sources_evidence.R"))
 ```
 
-Eligible articles were peer-reviewed, with BBB gas exchange data, human participants, in English, with a DOI. We imposed no date restriction.
+Eligible articles were peer-reviewed, with BBB gas exchange data, human participants, in English, with a DOI.
+We imposed no date restriction.
 
 ## Information Sources and Search
 
@@ -119,7 +121,8 @@ We acquired data from the Ovid-MEDLINE, Scopus, and Web of Science databases wit
 The electronic search strategy for the Ovid-MEDLINE database can be found at this link: <https://osf.io/a4vmz/files/osfstorage/6255791f28f9400531a24c96>.
 
 Our search output comprised article identifiers like DOIs.
-To find missing DOIs, we employed the PubMed Central ID Converter API [@ncbi2021] using Python. Full texts were accessed via publisher text and data mining APIs using Python, [unpaywall.org](https://unpaywall.org/) using the unpywall Python package, through custom-built web-scraping scripts, or manually.
+To find missing DOIs, we employed the PubMed Central ID Converter API [@ncbi2021] using Python.
+Full texts were accessed via publisher text and data mining APIs using Python, [unpaywall.org](https://unpaywall.org/) using the unpywall Python package, through custom-built web-scraping scripts, or manually.
 Our library subscription did not permit access to `r format(n_unsubscribed, big.mark = ',', scientific = FALSE)` articles.
 
 ## Selection of Sources of Evidence
@@ -308,7 +311,8 @@ n_no_doi <- if_else(n_no_doi <= 10,
         format(n_no_doi, big.mark = ',', scientific = FALSE))
 ```
 
-Figure 2 shows the selection of sources of evidence flowchart. During our analysis, we identified `r format(n_ineligible_articles, big.mark = ',', scientific = FALSE)` ineligible articles.
+Figure 2 shows the selection of sources of evidence flowchart.
+During our analysis, we identified `r format(n_ineligible_articles, big.mark = ',', scientific = FALSE)` ineligible articles.
 We cross-referenced those against the breath-by-breath articles and removed another `r format(n_ineligible_bbb_articles, big.mark = ',', scientific = FALSE)`, leading to `r format(n_eligible_bbb_articles, big.mark = ',', scientific = FALSE)` articles.
 
 ## Characteristics and Results of Individual Sources of Evidence
@@ -511,6 +515,7 @@ The "other" methods category accounted for the second highest share of the total
 #| fig-cap: Prevalence of complete averaging procedures. The numbers in each column label are in seconds for time averages and the number of breaths for breath averages. The "other" column represents methods that accounted for less than 1% of the total stated methods.
 # plot(avg_by_full_method_plot)
 ```
+
 # Discussion {#sec-discussion}
 
 ## Summary of Evidence
@@ -537,7 +542,8 @@ We are unaware of a recommended outlier removal function but encourage stating s
 
 We find the low interpolation reporting more reasonable because this procedure is most relevant to less frequent VO~2~ kinetics studies.
 However, the V-slope method, one of the most common methods for determining the first ventilatory threshold, interpolates data in their original method [@beaver1986].
-Importantly, the V-slope algorithm is only part of the overall V-slope method, so it can be unclear if authors interpolated data when citing the V-slope method. Given this and the artificial confidence interval shrinkage, it may be prudent for future papers to specify interpolation or lack thereof.
+Importantly, the V-slope algorithm is only part of the overall V-slope method, so it can be unclear if authors interpolated data when citing the V-slope method.
+Given this and the artificial confidence interval shrinkage, it may be prudent for future papers to specify interpolation or lack thereof.
 
 Most studies use one-second linear interpolation, but different time frames and styles, such as cubic interpolation, may yield different results.
 Cubic spline interpolation produces a smooth curve but may slightly "overshoot" measured values [@zhang1997].
@@ -633,7 +639,10 @@ Nevertheless, this is the first study we know of to document data processing met
 
 ## Conclusions
 
-This scoping review found that data processing methods were seldom reported for outlier removal and interpolation, and that averaging reporting, though much higher, could further improve. The results reflect prevalent methods. While prevalence should not be conflated with quality, knowing the prevalent methods can allow others to test the influence data processing in this field by comparing relevant options. Finally, we hope these results motivate others to improve their methodological documentation and, thus, reproducibility in this field.
+This scoping review found that data processing methods were seldom reported for outlier removal and interpolation, and that averaging reporting, though much higher, could further improve.
+The results reflect prevalent methods.
+While prevalence should not be conflated with quality, knowing the prevalent methods can allow others to test the influence data processing in this field by comparing relevant options.
+Finally, we hope these results motivate others to improve their methodological documentation and, thus, reproducibility in this field.
 
 <!-- # Funding {.unnumbered} -->
 
@@ -642,6 +651,7 @@ This scoping review found that data processing methods were seldom reported for 
 <!-- # Acknowledgments {.unnumbered} -->
 
 <!-- We thank Scott Marsalis and Cody Hennesy from the University -->
+
 <!-- of Minnesota Libraries for their advice and support. -->
 
 <!-- # Conflict of Interest {.unnumbered} -->
