@@ -20,13 +20,13 @@ format:
     theme: cosmo
     comments:
       hypothesis: true
-    csl: "apa-no-ampersand.csl"
+    csl: "thieme-german.csl"
   docx: 
     prefer-html: true
-    csl: "apa-no-ampersand.csl"
+    csl: "thieme-german.csl"
   # jats: default
   pdf:
-    csl: "apa-no-ampersand.csl"
+    csl: "thieme-german.csl"
     colorlinks: true
     documentclass: scrartcl # this is equivalent to 'article'
   # uncomment below to use APA formatting. However, this is a little buggy
