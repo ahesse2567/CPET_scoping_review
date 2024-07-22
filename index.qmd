@@ -15,6 +15,11 @@ title: "Popularity And Prevalence Of Gas Exchange Data Processing Methods In Pee
 #       - Writing – Original Draft Preparation
 #     affiliations:
 #       - University of Minnesota-Twin Cities
+#   - name: Manix White
+#     roles:
+#       - Data Collection
+#     affiliations:
+#       - University of Minnesota-Twin Cities
 #   - name: Christopher Lundstrom
 #     orcid: 0000-0002-1527-1685
 #     corresponding: false
@@ -24,7 +29,7 @@ title: "Popularity And Prevalence Of Gas Exchange Data Processing Methods In Pee
 #     affiliations:
 #       - University of Minnesota-Twin Cities
 abstract: |
-  Cardiopulmonary exercise testing involves collecting variable breath-by-breath data, sometimes requiring data processing of outlier removal, interpolation, and averaging before later analysis. These data processing choices, such as averaging duration, are known to affect calculated values such as VO2max. However, assessing the effects of data processing without knowing popular methods worth comparing is difficult. In addition, such details aid study reproduction. We conducted a scoping review and identified peer-reviewed articles with exercise testing that collected data breath-by-breath from Ovid-MEDLINE, Scopus, and Web of Science databases. We screened articles and extracted data processing methods manually, using machine learning, and with regular expressions. Of the 8,351 articles, 376 (4.5 ± 0.4%) and 581 (7.0 ± 0.5%) described outlier removal and interpolation, respectively. An estimated 66.8 ± 2.8% reported averaging methods (n = 1078). Commonly documented outlier cutoffs were ± 3 or 4 SD (39.1% and 51.6%, respectively). The dominating interpolation duration and procedure were one second (93.9%) and linear interpolation (92.5%). Averaging methods commonly described were 30 (30.9%), 60 (12.4%), 15 (11.6%), 10 (11.0%), and 20 (8.1%) second bin averages. This shows that studies collecting breath-by-breath data often lack detailed descriptions of data processing methods, particularly for outlier removal and interpolation. While averaging methods are more commonly reported, improved documentation across all processing methods will enhance reproducibility and facilitate future research comparing data processing choices.
+  Cardiopulmonary exercise testing involves collecting variable breath-by-breath data, sometimes requiring data processing of outlier removal, interpolation, and averaging before later analysis. These data processing choices, such as averaging duration, are known to affect calculated values such as VO~2~max. However, assessing the effects of data processing without knowing popular methods worth comparing is difficult. In addition, such details aid study reproduction. We conducted a scoping review and identified peer-reviewed articles with exercise testing that collected data breath-by-breath from Ovid-MEDLINE, Scopus, and Web of Science databases. We screened articles and extracted data processing methods manually, using machine learning, and with regular expressions. Of the 8,351 articles, 376 (4.5 ± 0.4%) and 581 (7.0 ± 0.5%) described outlier removal and interpolation, respectively. An estimated 66.8 ± 2.8% reported averaging methods (n = 1078). Commonly documented outlier cutoffs were ± 3 or 4 SD (39.1% and 51.6%, respectively). The dominating interpolation duration and procedure were one second (93.9%) and linear interpolation (92.5%). Averaging methods commonly described were 30 (30.9%), 60 (12.4%), 15 (11.6%), 10 (11.0%), and 20 (8.1%) second bin averages. This shows that studies collecting breath-by-breath data often lack detailed descriptions of data processing methods, particularly for outlier removal and interpolation. While averaging methods are more commonly reported, improved documentation across all processing methods will enhance reproducibility and facilitate future research comparing data processing choices.
 keywords:
   - Data Averaging
   - Outlier Removal
@@ -548,7 +553,7 @@ Stating averaging methods can also help correctly classify cardiorespiratory fit
 Research by @martin-rincon2020 offers a strategy to compare two VO~2~max values obtained with different averaging methods.
 Without such corrections, one could misclassify cardiorespiratory fitness based on VO~2~max if VO~2~max were calculated with a sufficiently different sampling interval than that used to generate the normative data.
 Importantly, the normative data offered by the American College of Sports Medicine [@pescatello2014, table 4.9, pp. 88-93] is based on a regression of VO~2~ vs. time-to-exhaustion using a modified Balke protocol and equations developed from @pollock1982 and @pollock1976 (Cooper Institute, personal communication, 9/2021), rather than directly measured.
-The system used create the regression for males [@pollock1976] and females [@pollock1982] averaged the data every minute and every 30-seconds, respectively.
+The system used to create the regression for males [@pollock1976] and females [@pollock1982] averaged the data every minute and every 30 seconds, respectively.
 Given that, stating the averaging methods used may allow for better comparisons to normative data.
 
 ```{r, recommended_methods_by_robergs}
@@ -606,7 +611,7 @@ top_three_full_method <- avg_by_full_method_tab_condensed %>%
 
 ```
 
-The most frequent fully specified data averaging method, the 30-second time average, fits maximum recommended guideline by Robergs [-@robergs2010].
+The most frequent, fully specified data averaging method, the 30-second time average, fits the maximum recommended guideline by Robergs [-@robergs2010].
 @robergs2010 also recommended the 15-breath rolling average or the low-pass digital filter, but we only documented these methods `r english::english(n_15_breath_roll) %>% as.character()` (`r sprintf("%.1f", prop_15_breath_roll * 100)` ±`r sprintf("%.1f", moe_15_br_rolling * 100)`%) and `r english::english(n_low_pass) %>% as.character()` (`r sprintf("%.1f", prop_low_pass * 100)` ±`r sprintf("%.1f", moe_low_pass * 100)`%) times, respectively.
 
 ## Limitations
