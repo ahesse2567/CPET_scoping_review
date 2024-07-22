@@ -1,5 +1,5 @@
 ---
-title: "Popularity And Prevalence Of Gas Exchange Data Processing Methods In Peer-reviewed Literature: A Scoping Review"
+title: "Popularity And Prevalence Of Gas Exchange Data Processing Methods: A Scoping Review"
 
 # Hiding author and affiliation info per IJSM instructions.
 
@@ -29,7 +29,7 @@ title: "Popularity And Prevalence Of Gas Exchange Data Processing Methods In Pee
 #     affiliations:
 #       - University of Minnesota-Twin Cities
 abstract: |
-  Cardiopulmonary exercise testing involves collecting variable breath-by-breath data, sometimes requiring data processing of outlier removal, interpolation, and averaging before later analysis. These data processing choices, such as averaging duration, are known to affect calculated values such as VO~2~max. However, assessing the effects of data processing without knowing popular methods worth comparing is difficult. In addition, such details aid study reproduction. We conducted a scoping review and identified peer-reviewed articles with exercise testing that collected data breath-by-breath from Ovid-MEDLINE, Scopus, and Web of Science databases. We screened articles and extracted data processing methods manually, using machine learning, and with regular expressions. Of the 8,351 articles, 376 (4.5 ± 0.4%) and 581 (7.0 ± 0.5%) described outlier removal and interpolation, respectively. An estimated 66.8 ± 2.8% reported averaging methods (n = 1078). Commonly documented outlier cutoffs were ± 3 or 4 SD (39.1% and 51.6%, respectively). The dominating interpolation duration and procedure were one second (93.9%) and linear interpolation (92.5%). Averaging methods commonly described were 30 (30.9%), 60 (12.4%), 15 (11.6%), 10 (11.0%), and 20 (8.1%) second bin averages. This shows that studies collecting breath-by-breath data often lack detailed descriptions of data processing methods, particularly for outlier removal and interpolation. While averaging methods are more commonly reported, improved documentation across all processing methods will enhance reproducibility and facilitate future research comparing data processing choices.
+  Cardiopulmonary exercise testing involves collecting variable breath-by-breath data, sometimes requiring data processing of outlier removal, interpolation, and averaging before later analysis. These data processing choices, such as averaging duration, are known to affect calculated values such as VO~2~max. However, assessing the effects of data processing without knowing popular methods worth comparing is difficult. In addition, such details aid study reproduction. We conducted a scoping review of articles with exercise testing that collected data breath-by-breath from three databases. Of the 8,351 articles, 376 (4.5 ± 0.4%) and 581 (7.0 ± 0.5%) described outlier removal and interpolation, respectively. An estimated 66.8 ± 2.8% reported averaging methods (n = 1078). Commonly documented outlier cutoffs were ± 3 or 4 SD (39.1% and 51.6%, respectively). The dominating interpolation duration and procedure were one second (93.9%) and linear interpolation (92.5%). Averaging methods commonly described were 30 (30.9%), 60 (12.4%), 15 (11.6%), 10 (11.0%), and 20 (8.1%) second bin averages. This shows that studies collecting breath-by-breath data often lack detailed descriptions of data processing methods, particularly for outlier removal and interpolation. While averaging methods are more commonly reported, improved documentation across all processing methods will enhance reproducibility and facilitate future research comparing data processing choices.
 keywords:
   - Data Averaging
   - Outlier Removal
@@ -120,7 +120,7 @@ The electronic search strategy for the Ovid-MEDLINE database can be found at thi
 
 Our search output comprised article identifiers like DOIs.
 To find missing DOIs, we employed the PubMed Central ID Converter API [@ncbi2021] using Python. Full texts were accessed via publisher text and data mining APIs using Python, [unpaywall.org](https://unpaywall.org/) using the unpywall Python package, through custom-built web-scraping scripts, or manually.
-Our library subscription did not permit access to`r format(n_unsubscribed, big.mark = ',', scientific = FALSE)` articles.
+Our library subscription did not permit access to `r format(n_unsubscribed, big.mark = ',', scientific = FALSE)` articles.
 
 ## Selection of Sources of Evidence
 
@@ -363,7 +363,7 @@ Although the majority of articles reporting interpolation procedures did not exp
 
 ```{r, interpolation_tables}
 #| label: tbl-interpolation_time_type
-#| tbl-cap: Most prevalent specified interpolation methods by type (a) and by time (b)
+#| tbl-cap: Most prevalent specified interpolation methods by type (a) and by time (b).
 #| layout-ncol: 2
 
 # interpolation by type
@@ -635,18 +635,18 @@ Nevertheless, this is the first study we know of to document data processing met
 
 This scoping review found that data processing methods were seldom reported for outlier removal and interpolation, and that averaging reporting, though much higher, could further improve. The results reflect prevalent methods. While prevalence should not be conflated with quality, knowing the prevalent methods can allow others to test the influence data processing in this field by comparing relevant options. Finally, we hope these results motivate others to improve their methodological documentation and, thus, reproducibility in this field.
 
-# Funding {.unnumbered}
+<!-- # Funding {.unnumbered} -->
 
-We have no funding sources to disclose.
+<!-- We have no funding sources to disclose. -->
 
-# Acknowledgments {.unnumbered}
+<!-- # Acknowledgments {.unnumbered} -->
 
-We thank Scott Marsalis and Cody Hennesy from the University
-of Minnesota Libraries for their advice and support.
+<!-- We thank Scott Marsalis and Cody Hennesy from the University -->
+<!-- of Minnesota Libraries for their advice and support. -->
 
-# Conflict of Interest {.unnumbered}
+<!-- # Conflict of Interest {.unnumbered} -->
 
-The authors declare that they have no conflict of interest.
+<!-- The authors declare that they have no conflict of interest. -->
 
 # References {.unnumbered}
 
