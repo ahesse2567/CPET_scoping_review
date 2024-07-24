@@ -37,7 +37,7 @@ keywords:
 # author-note:
 #   disclosures:
 #     conflict of interest: "The author has no conflict of interest to declare."
-date: last-modified
+# date: last-modified
 bibliography: references.bib
 # citation:
 #   container-title: "JOURNAL GOES HERE"
@@ -85,23 +85,17 @@ This may hamper reproduction or replication attempts, which have become a more p
 
 # Methods {#sec-methods}
 
-## Design
+## Design and Eligibility Criteria
 
 This scoping review surveyed gas exchange data processing choices in original, peer-reviewed studies, summarizing the reporting frequency and methods for outlier removal, interpolation, and averaging.
-
-## Protocol Registration
-
+It is based on a dissertation chapter by the first author [-@hesse2023].
 These methods [@tricco2018] and results [@peters2020] are modeled on the PRISMA scoping review extension guidelines.
-This protocol was registered with the Open Science Framework (OSF): <https://doi.org/10.17605/OSF.IO/A4VMZ>.
-
-## Eligibility Criteria
+Eligible articles were original, peer-reviewed articles, with BBB gas exchange data, human participants, in English, with a DOI.
+We imposed no date restriction.
 
 ```{r, article_counts}
 source(here("code/cpet_articles/analysis/reporting/selection_sources_evidence.R"))
 ```
-
-Eligible articles were peer-reviewed, with BBB gas exchange data, human participants, in English, with a DOI.
-We imposed no date restriction.
 
 ## Information Sources and Search
 
@@ -118,7 +112,7 @@ n_unsubscribed <- manual_downloads %>%
 ```
 
 We acquired data from the Ovid-MEDLINE, Scopus, and Web of Science databases with the guidance of a university librarian.
-The electronic search strategy for the Ovid-MEDLINE database can be found at this link: <https://osf.io/a4vmz/files/osfstorage/6255791f28f9400531a24c96>.
+The electronic search strategy for the Ovid-MEDLINE database can be found in the supplemental materials.
 
 Our search output comprised article identifiers like DOIs.
 To find missing DOIs, we employed the PubMed Central ID Converter API [@ncbi2021] using Python.

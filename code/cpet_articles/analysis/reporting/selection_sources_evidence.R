@@ -189,7 +189,7 @@ htmlwidgets::saveWidget(
 webshot::webshot(
   here::here("graphics/selection_sources_evidence_flowchart.html"),
   here::here("graphics/selection_sources_evidence_flowchart.jpg"),
-  zoom = 2)
+  zoom = 3)
 # for now, use a free DPI converter tool to get up to 300 dpi
 # https://convert.town/image-dpi
 # ```
