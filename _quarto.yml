@@ -10,6 +10,13 @@ execute:
   message: false
 
 bibliography: references.bib
+# ncbi-abbreviations.json has been edited from 
+# https://github.com/citation-style-language/abbreviations/blob/master/ncbi/json/nlm-abbreviations.json
+# because some citations are loaded into Zotero using "and" or "&" in their
+# name while the NCBI JSON file uses the opposite. This means the journal
+# will not be abbreviated properly.
+citation-abbreviations: "ncbi-abbreviations.json"
+csl: "thieme-german.csl"
 
 # for the time being, I don't want the "Source: Article Notebook" to appear
 notebook-links: false
@@ -20,13 +27,13 @@ format:
     theme: cosmo
     comments:
       hypothesis: true
-    csl: "thieme-german.csl"
+    # csl: "thieme-german.csl"
   docx: 
     prefer-html: true
-    csl: "thieme-german.csl"
+    # csl: "thieme-german.csl"
   # jats: default
   pdf:
-    csl: "thieme-german.csl"
+    # csl: "thieme-german.csl"
     colorlinks: true
     documentclass: scrartcl # this is equivalent to 'article'
   # uncomment below to use APA formatting. However, this is a little buggy

@@ -150,7 +150,8 @@ avg_by_full_method_plot <- avg_by_full_method_tab %>%
 avg_by_full_method_plot
 
 ggsave(here::here("graphics/avg_by_full_method_plot.jpg"),
-       avg_by_full_method_plot)
+       avg_by_full_method_plot,
+       dpi = 300)
 
 label_size <- 15
 caption_size <- 20
