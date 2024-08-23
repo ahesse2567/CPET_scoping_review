@@ -77,11 +77,15 @@ Although this does not affect parameter estimates, one-second interpolation has 
 As before, we are unaware of research specifically investigating how interpolation affects VO~2~max and ventilatory threshold identification.
 
 Data processing choices, such as averaging and interpolation, impact CPET variables or their confidence intervals.
-Existing surveys [@robergs2010] and studies [@midgley2007] are small and focused on averaging methods only, finding time-based bin averages (e.g., 30-second averages) were popular.
-A larger sample can, therefore, better describe how often all data processing steps are described.
+Earlier surveys [@robergs2010] and studies [@midgley2007] were small and focused on averaging methods only, finding time-based bin averages (e.g., 30-second averages) were popular.
+A more recent scoping review by @nolte2023 on papers published between 2017 and March 2022 assessing VO~2~max with ramp protocols found that nearly half of their included studies did not report their data processing steps.
+They also found that only 4.3% and 4.5% of papers reported interpolation and outlier removal strategies, respectively.
+Our work parallels many aspects of @nolte2023 but searches without date restriction and includes studies with CPET data beyond VO~2~max ramp tests.
+This larger sample may uncover an even broader set of data processing methods.
 
 Before conducting this scoping review, we anecdotally observed that many articles using CPET data did not report all data processing steps, especially outlier removal and interpolation details.
-This may hamper reproduction or replication attempts, which have become a more prominent issue in science within the past decade [@goodman2016; @opensciencecollaboration2015] Therefore, to assist with conducting future research on the effects of data processing on CPET values and to evaluate the methodological reproducibility of research using BBB gas exchange data generally, we conducted a broad scoping review to identify the frequency of reporting, and popularity of outlier removal, interpolation, and data averaging methods.
+This may hamper reproduction or replication attempts, which have become a more prominent issue in science within the past decade [@goodman2016; @opensciencecollaboration2015].
+Therefore, to assist with conducting future research on the effects of data processing on CPET values and to evaluate the methodological reproducibility of research using BBB gas exchange data generally, we conducted a broad scoping review to identify the frequency of reporting, and popularity of outlier removal, interpolation, and data averaging methods.
 
 # Methods {#sec-methods}
 
