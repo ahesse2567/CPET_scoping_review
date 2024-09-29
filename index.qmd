@@ -62,12 +62,17 @@ Using CPET results to guide exercise, especially relative to thresholds, produce
 Therefore, incorrectly calculating or identifying these values limits CPET benefits.
 
 Calculating the above values often requires data processing when CPET data is collected breath-by-breath (BBB) as it is highly variable [@robergs2010].
-CPET data processing usually involves outlier removal, optional interpolation to regular intervals, and averaging to more accurately reflect whole-body metabolism [@robergs2010].
+BBB VO~2~ data can change by up to 86% during a steady state, but changes to muscle blood flow or oxygen extraction cannot account for such rapid fluctuations [@robergs2010].
+Instead, Robergs et at.
+[@robergs2010] showed that the rate and depth of breathing account for most of the variation in VO~2~ during both steady states and incremental exercise.
+Therefore, CPET data processing usually involves outlier removal, optional interpolation to regular intervals, and averaging to more accurately reflect whole-body metabolism [@robergs2010].
 Previous research has shown that data averaging influences CPET values.
 Averaging over longer durations reduces VO~2~max and VO~2~ plateau detection [@robergs2003; @robergs2010; @sousa2010; @johnson1998; @sell2021; @midgley2007; @astorino2009; @astorino2000; @martin-rincon2019; @martin-rincon2020; @scheadler2017; @dejesus2014; @hill2003; @smart2015; @matthews1987].
-We are unaware of research on the effects of data processing and locating ventilatory thresholds.
+The importance of attaining a VO~2~ plateau to accurately determine VO~2~max has been highlighted because "secondary" VO~2~max criteria often underestimate VO~2~max [@poole2017], and thus misclassify cardiorespiratoroy fitness.
+Finally, we are unaware of research on the effects of data processing and locating ventilatory thresholds.
 
-Outlier removal is often accomplished by removing points beyond 2, 3, or 4 standard deviations (SD) beyond the local mean (i.e., a prediction interval) [@nolte2023]. These cutoffs are common because the relatively small sample size of BBB gas exchange data often contains more values beyond 3 or 4 SD than one would predict from an assumed Gaussian distribution [@lamarra1987].
+Outlier removal is often accomplished by removing points beyond 2, 3, or 4 standard deviations (SD) beyond the local mean (i.e., a prediction interval) [@nolte2023].
+These cutoffs are common because the relatively small sample size of BBB gas exchange data often contains more values beyond 3 or 4 SD than one would predict from an assumed Gaussian distribution [@lamarra1987].
 More outliers appear than expected because of both conscious and unconscious alterations of breathing patterns, including swallowing and coughing [@lamarra1987].
 We are unaware of prior research that examines how different outlier removal strategies affect VO~2~max, ventilatory thresholds, and VO~2~ kinetics.
 
@@ -77,8 +82,9 @@ As before, we are unaware of research specifically investigating how interpolati
 
 Data processing choices, such as averaging and interpolation, impact CPET variables or their confidence intervals.
 Earlier surveys [@robergs2010] and studies [@midgley2007] were small and focused on averaging methods only, finding time-based bin averages (e.g., 30-second averages) were popular.
-A more recent scoping review by @nolte2023 on papers published between 2017 and March 2022 assessing VO~2~max with ramp protocols found that nearly half of their included studies did not report their data processing steps.
+A more recent scoping review by Nolte et al. @nolte2023 on papers published between 2017 and March 2022 assessing VO~2~max with ramp protocols found that nearly half of their included studies did not report their data processing steps.
 They also found that only 4.3% and 4.5% of papers reported interpolation and outlier removal strategies, respectively.
+Finally, they reported that scant studies employed the recommended moving-average or digital filter averaging options suggested in 2010 [@robergs2010].
 
 These low rates of reporting data processing steps may hamper reproduction or replication attempts, which have become a more prominent issue in science within the past decade [@goodman2016; @opensciencecollaboration2015].
 In addition, as summarized by Nolte et al. [-@nolte2023], using VO~2~max and similar values to classify fitness or evaluating patients for treatment requires practitioners to consider and state data processing choices as they may inadvertently misclassify or suboptimally select patients and treatments.
@@ -175,6 +181,7 @@ For example, articles stating outlying breaths were removed but without describi
 The data charting subsections below provide text extraction examples.
 Extracted texts were normalized to lowercase, with end-of-line hyphenation and unnecessary white space removed before capitalizing certain keywords for readability.
 Therefore, formatting varies and may include unconventional spacing and Unicode characters.
+Finally, the snippets may not start or and at the beginning or end of a word or sentence because the RegExs extracted a specific number of characters rather than words.
 
 ```{r, n_rand_articles, results='hide'}
 z <- qnorm(0.025, lower.tail = FALSE)
@@ -551,8 +558,8 @@ Cubic spline interpolation produces a smooth curve but may slightly "overshoot" 
 Though likely small, we recommend authors specify the interpolation type.
 
 Despite a much higher percentage of papers describing at least some of their averaging methods, a third of studies examined in this review neglected to document their process.
-Data averaging likely contributes more to the final calculated values of VO~2~max and other variables than do outlier removal and interpolation.
-Indeed, the research on the effect of interpolation on VO~2~ kinetics parameters shows that interpolation does not significantly affect the values of parameter estimates [@benson2017; @francescato2014; @francescato2019; @francescato2015].
+Data averaging likely contributes more to the final calculated values of VO~2~max and other variables than do outlier removal and interpolation as averaging suppresses potential outliers itself by combining those points with additional observations.
+Research on the effect of interpolation on VO~2~ kinetics parameters shows that interpolation does not significantly affect the values of parameter estimates [@benson2017; @francescato2014; @francescato2019; @francescato2015].
 Although we are unaware of studies comparing the effect of outlier removal or leaving data as-is before proceeding with other calculations, the known impact of data averaging on VO~2~max and the inherent dampening effect of averaging on outliers itself suggests that data averaging is the most important of the three steps when the goal is to reflect the underlying whole-body metabolic rate.
 Therefore, researchers should state their gas exchange data averaging methods to improve research reproducibility and study comparisons.
 
@@ -619,7 +626,8 @@ top_three_full_method <- avg_by_full_method_tab_condensed %>%
 ```
 
 The most frequent, fully specified data averaging method, the 30-second time average, fits the maximum recommended guideline by Robergs [-@robergs2010].
-@robergs2010 also recommended the 15-breath rolling average or the low-pass digital filter, but we only documented these methods `r english::english(n_15_breath_roll) %>% as.character()` (`r sprintf("%.1f", prop_15_breath_roll * 100)` ±`r sprintf("%.1f", moe_15_br_rolling * 100)`%) and `r english::english(n_low_pass) %>% as.character()` (`r sprintf("%.1f", prop_low_pass * 100)` ±`r sprintf("%.1f", moe_low_pass * 100)`%) times, respectively.
+Robergs et al. @robergs2010 also recommended the 15-breath rolling average or the low-pass digital filter, but we only documented these methods `r english::english(n_15_breath_roll) %>% as.character()` (`r sprintf("%.1f", prop_15_breath_roll * 100)` ±`r sprintf("%.1f", moe_15_br_rolling * 100)`%) and `r english::english(n_low_pass) %>% as.character()` (`r sprintf("%.1f", prop_low_pass * 100)` ±`r sprintf("%.1f", moe_low_pass * 100)`%) times, respectively.
+Despite the most popular method not exceeding the maximum recommended duration, at least for calculating VO~2~max, the vast majority of papers neglected to follow current guidelines.
 
 ## Limitations
 

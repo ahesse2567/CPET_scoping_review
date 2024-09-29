@@ -2,10 +2,7 @@
 .Rhistory
 .RData
 .Ruserdata
-elsevier_config.json
-springer_config.json
-crossref_config.json
-wiley_config.json
+*_config*.json
 *.log
 data/cpet_articles/full_texts/
 **/unpaywall_cache
