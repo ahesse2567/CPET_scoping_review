@@ -96,11 +96,15 @@ The results emphasize the importance of stating these methods to improve reprodu
 
 # Methods {#sec-methods}
 
-## Design and Eligibility Criteria
+## Protocol and Registration
+
+These methods [@tricco2018] and results [@peters2020] are modeled on the PRISMA scoping review extension guidelines. This work was first registered with the Open Science Framework [@foster2017; -@hesse2022] and is based on a dissertation chapter by the first author [-@hesse2023].
+The code and most data for this project are available on GitHub.
+
+## Eligibility Criteria
 
 This scoping review surveyed gas exchange data processing choices in original, peer-reviewed studies, summarizing the reporting frequency and methods for outlier removal, interpolation, and averaging.
-It is based on a dissertation chapter by the first author [-@hesse2023].
-These methods [@tricco2018] and results [@peters2020] are modeled on the PRISMA scoping review extension guidelines.
+Due to licensing restrictions and text and data mining agreements, we are unable to share the full-text files.
 Eligible articles were original, peer-reviewed articles, with BBB gas exchange data, human participants, in English, with a DOI.
 We imposed no date restriction.
 
@@ -108,7 +112,7 @@ We imposed no date restriction.
 source(here("code/cpet_articles/analysis/reporting/selection_sources_evidence.R"))
 ```
 
-## Information Sources and Search
+##  Information Sources and Search
 
 ```{r, n_non_subscribed_articles}
 manual_downloads <- read_csv(
@@ -135,7 +139,7 @@ Our library subscription did not permit access to `r format(n_unsubscribed, big.
 This study used a single screening process because it differs from most scoping reviews.
 It only requires an exercise test with BBB gas exchange data collection rather than a more complex assessment of the overall methodology and intervention.
 
-### Text Analysis and Screening
+### Text Analysis & Screening
 
 Despite database search filters, we screened additional non-English, non-human, and non-original articles such as reviews, meta-analyses, and protocol registrations, in addition to case studies.
 We manually analyzed a subset of articles to help build machine learning (ML) classifiers and construct regular expressions (RegExs) described below.
@@ -146,7 +150,11 @@ This computerized screening required converting full-text PDF and EPUB documents
 Plain text files were normalized by transforming text to lowercase, removing hyphenations and extra whitespace, and correcting some plain text conversion-induced errors.
 
 Following the normalization, we identified and removed articles that failed to correctly convert into text format, spotted non-English articles using the fasttext Python module [@bojanowski2016] and employed a random forest classifier from the sklearn Python package [@pedregosa2011] to detect ineligible articles based on our criteria.
-We manually reviewed potentially ineligible articles flagged by the ML classifier.
+We manually reviewed every article flagged as ineligible by the ML classifier.
+Our classifiers also calculated an eligibility probability.
+We also manually reviewed articles within \~15% of the decision boundary.
+We iteratively rebuilt our classifiers with more data as we manually confirmed article eligibility.
+Through rebuilding our classifiers we discovered additional ineligible articles missed by previous classifier iterations.
 
 ```{r, calc_n_bbb_articles}
 ineligible_articles <- read_csv(
@@ -286,7 +294,7 @@ Finally, we noted if the mean was a whole or trimmed.
 
 ### Synthesis of Results
 
-Counts, percentages, and margin of error (95% confidence) were calculated for the reporting frequency of each data processing method using R [@rcoreteam2021] and RStudio [@positteam2022].
+Counts, percentages, and margin of error (95% confidence) were calculated for the reporting frequency of each data processing method using R `r str_extract(R.version.string, "R version \\d\\.\\d\\.\\d")` [@rcoreteam2021] in the RStudio IDE version `r rstudioapi::versionInfo()$version` [@rcoreteam2021].
 
 # Results {#sec-results}
 
