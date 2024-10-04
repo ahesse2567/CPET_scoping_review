@@ -112,7 +112,7 @@ We imposed no date restriction.
 source(here("code/cpet_articles/analysis/reporting/selection_sources_evidence.R"))
 ```
 
-##  Information Sources and Search
+## Information Sources and Search
 
 ```{r, n_non_subscribed_articles}
 manual_downloads <- read_csv(
