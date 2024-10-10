@@ -126,8 +126,8 @@ n_unsubscribed <- manual_downloads %>%
     pull()
 ```
 
-We acquired data from the Ovid-MEDLINE, Scopus, and Web of Science databases with the guidance of a university librarian.
-The electronic search strategy for the Ovid-MEDLINE database can be found in the supplemental materials.
+We acquired data from the Ovid-MEDLINE, Scopus, and Web of Science databases with the guidance of a university librarian on 2022-06-27.
+The electronic search strategies for all databases can be found in the supplemental materials.
 
 Our search output comprised article identifiers like DOIs.
 To find missing DOIs, we employed the PubMed Central ID Converter API [@ncbi2022] using Python.
@@ -202,7 +202,7 @@ n_rounded_up_nearest_hundred <- round(n_articles, -2)
 ```
 
 We analyzed all eligible BBB articles for outlier and interpolation methods because fewer articles described these methods (\~5%) and the phrases were more distinct.
-In contrast, we analyzed a random subset of articles to document data averaging methods because far more articles described their averaging methods.
+In contrast, we analyzed a random subset of articles using a random number generator in R to document data averaging methods because far more articles described their averaging methods.
 Early estimates as we developed our RegExs were that \~60% or `r format(round(0.6 * n_bbb_articles), big.mark = ',', scientific=FALSE)` articles had some averaging details.
 Furthermore, the phrases associated with averaging methods are more generic and often refer to other study aspects, such as heart rate averaging periods.
 Given the large number of articles, we needed a minimum sample size of `r format(n_articles, big.mark = ',', scientific = FALSE)` based on a 95% confidence interval and a maximum margin of error of ±3%, assuming a proportion of 0.5.
@@ -563,7 +563,7 @@ Given this and the artificial confidence interval shrinkage, it may be prudent f
 
 Most studies use one-second linear interpolation, but different time frames and styles, such as cubic interpolation, may yield different results.
 Cubic spline interpolation produces a smooth curve but may slightly "overshoot" measured values [@zhang1997].
-Though likely small, we recommend authors specify the interpolation type.
+Though the choice of linear vs. cubic interpolation may be small, we recommend authors specify the interpolation type for improved reproducibility.
 
 Despite a much higher percentage of papers describing at least some of their averaging methods, a third of studies examined in this review neglected to document their process.
 Data averaging likely contributes more to the final calculated values of VO~2~max and other variables than do outlier removal and interpolation as averaging suppresses potential outliers itself by combining those points with additional observations.
@@ -572,9 +572,11 @@ Although we are unaware of studies comparing the effect of outlier removal or le
 Therefore, researchers should state their gas exchange data averaging methods to improve research reproducibility and study comparisons.
 
 Stating averaging methods can also help correctly classify cardiorespiratory fitness against normative data.
-Research by @martin-rincon2020 offers a strategy to compare two VO~2~max values obtained with different averaging methods.
-Without such corrections, one could misclassify cardiorespiratory fitness based on VO~2~max if VO~2~max were calculated with a sufficiently different sampling interval than that used to generate the normative data.
-Importantly, the normative data offered by the American College of Sports Medicine [@pescatello2014, table 4.9, pp. 88-93] is based on a regression of VO~2~ vs. time-to-exhaustion using a modified Balke protocol and equations developed from @pollock1982 and @pollock1976 (Cooper Institute, personal communication, 9/2021), rather than directly measured.
+Research by Martin-Rincon et al. \[@martin-rincon2019\] offers a strategy to compare two VO~2~max values obtained with different averaging methods. Without such corrections, one could misclassify cardiorespiratory fitness based on VO~2~max if VO~2~max were calculated with a sufficiently different sampling interval than that used to generate the normative data. However, this correction applies to group data \[@martin-rincon2019\] and different averaging strategies also affect individual VO~2~max values. In addition, the effect of different data averaging on VO~2~max is not uniform across individuals:
+
+COMPUTE SUB ANALYSIS WITH PHYSIONET DATA TO SHOW HOW THIS INTERTWINES WITH ACSM AND FRIEND REGISTRY VO2MAX PERCENTILE CLASSIFICATION
+
+Importantly, the normative data offered by the American College of Sports Medicine \[@pescatello2014, table 4.9, pp. 88-93\] is based on a regression of VO~2~ vs. time-to-exhaustion using a modified Balke protocol and equations developed from @pollock1982 and @pollock1976 (Cooper Institute, personal communication, 9/2021), rather than directly measured.
 The system used to create the regression for males [@pollock1976] and females [@pollock1982] averaged the data every minute and every 30 seconds, respectively.
 Given that, stating the averaging methods used may allow for better comparisons to normative data.
 
@@ -652,6 +654,9 @@ Taken together, our results are not entirely comprehensive and may slightly unde
 Another limitation of this scoping review is that our results do not indicate how different data processing methods were used.
 For example, we did not distinguish if a 60-second time-bin average was used to calculate VO~2~max or a steady-state exercise period.
 Therefore, this review cannot estimate the prevalence of different processing methods for specific analyses, such as VO~2~max.
+Previous research shows that 30-second averages for VO~2~max are the most common [@robergs2010; @midgley2007; @nolte2023], presumably as they remove short-term fluctuations.
+We anticipate that VO~2~ kinetics and similar analyses which rely on high temporal resolution data likely employ averaging with less smoothing.
+Moderate smoothing may assist with detecting ventilatory thresholds as an optimal signal-to-noise ratio may highlight the systematic changepoints between ventilatory variables.
 Nevertheless, this is the first study we know of to document data processing methods *besides* those used to calculate VO~2~max.
 
 ## Conclusions
