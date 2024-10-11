@@ -572,11 +572,14 @@ Although we are unaware of studies comparing the effect of outlier removal or le
 Therefore, researchers should state their gas exchange data averaging methods to improve research reproducibility and study comparisons.
 
 Stating averaging methods can also help correctly classify cardiorespiratory fitness against normative data.
-Research by Martin-Rincon et al. \[@martin-rincon2019\] offers a strategy to compare two VO~2~max values obtained with different averaging methods. Without such corrections, one could misclassify cardiorespiratory fitness based on VO~2~max if VO~2~max were calculated with a sufficiently different sampling interval than that used to generate the normative data. However, this correction applies to group data \[@martin-rincon2019\] and different averaging strategies also affect individual VO~2~max values. In addition, the effect of different data averaging on VO~2~max is not uniform across individuals:
+Research by Martin-Rincon et al. [@martin-rincon2019] offers a strategy to compare two VO~2~max values obtained with different averaging methods.
+Without such corrections, one could misclassify cardiorespiratory fitness based on VO~2~max if VO~2~max were calculated with a sufficiently different sampling interval than that used to generate the normative data.
+However, this correction applies to group data [@martin-rincon2019] and different averaging strategies also affect individual VO~2~max values.
+In addition, the effect of different data averaging on VO~2~max is not uniform across individuals:
 
 COMPUTE SUB ANALYSIS WITH PHYSIONET DATA TO SHOW HOW THIS INTERTWINES WITH ACSM AND FRIEND REGISTRY VO2MAX PERCENTILE CLASSIFICATION
 
-Importantly, the normative data offered by the American College of Sports Medicine \[@pescatello2014, table 4.9, pp. 88-93\] is based on a regression of VO~2~ vs. time-to-exhaustion using a modified Balke protocol and equations developed from @pollock1982 and @pollock1976 (Cooper Institute, personal communication, 9/2021), rather than directly measured.
+Importantly, the normative data offered by the American College of Sports Medicine [@pescatello2014, table 4.9, pp. 88-93] is based on a regression of VO~2~ vs. time-to-exhaustion using a modified Balke protocol and equations developed from @pollock1982 and @pollock1976 (Cooper Institute, personal communication, 9/2021), rather than directly measured.
 The system used to create the regression for males [@pollock1976] and females [@pollock1982] averaged the data every minute and every 30 seconds, respectively.
 Given that, stating the averaging methods used may allow for better comparisons to normative data.
 
