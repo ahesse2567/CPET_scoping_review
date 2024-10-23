@@ -1,10 +1,10 @@
 import pandas as pd
 
-ovid_records = pd.read_csv('/Users/antonhesse/Desktop/Anton/Education/UMN/Lab and Research/HSPL/CPET_scoping_review/data/cpet_articles/ovid/ovid_records_tidy.csv')
+ovid_records = pd.read_csv('/Users/antonhesse/Desktop/Anton/Education/UMN/PhD/Dissertation/CPET_scoping_review/data/cpet_articles/database_search/ovid/ovid_records_tidy.csv')
 # id_intersect = pd.crosstab(id_df['pmcid'], ovid_records['pmc_clean']) > 0
 # id_intersect.to_csv("/Users/antonhesse/Desktop/Anton/Education/UMN/Lab and Research/HSPL/CPET_data_analysis/data/raw/id_intersect.csv",\
 #     index = True)
-id_df = pd.read_csv('/Users/antonhesse/Desktop/Anton/Education/UMN/Lab and Research/HSPL/CPET_scoping_review/data/cpet_articles/ovid/ovid_pmc_conv.csv')
+id_df = pd.read_csv('/Users/antonhesse/Desktop/Anton/Education/UMN/PhD/Dissertation/CPET_scoping_review/data/cpet_articles/database_search/ovid/ovid_pmc_conv.csv')
 
 #change the name of the pmc id coquitlumn so that it's the same in both dfs.
 ovid_records = ovid_records.rename(columns={'pmc_clean': 'pmcid'})
@@ -29,5 +29,5 @@ my_function()
 merged_df = merged_df.drop('doi', axis=1)
 merged_df = merged_df.rename(columns={'doi_clean': 'doi'})
 
-merged_df.to_csv('/Users/antonhesse/Desktop/Anton/Education/UMN/Lab and Research/HSPL/CPET_scoping_review/data/cpet_articles/ovid/doi_merged_ovid.csv',\
+merged_df.to_csv('/Users/antonhesse/Desktop/Anton/Education/UMN/PhD/Dissertation/CPET_scoping_review/data/cpet_articles/database_search/ovid/doi_merged_ovid.csv',\
     index=False)

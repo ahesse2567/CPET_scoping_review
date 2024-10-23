@@ -7,7 +7,7 @@ ovid_records <- read_csv(path(
     select(doi)
 
 scopus_records <- read_csv(path(
-    "data/cpet_articles/database_search/scopus/no_exer/scopus_records_tidy.csv"),
+    "data/cpet_articles/database_search/scopus/scopus_records_tidy.csv"),
     show_col_types = FALSE) %>% 
     select(doi)
 
@@ -17,3 +17,11 @@ wos_records <- read_csv(path(
     select(doi)
 
 all_dois <- reduce(list(ovid_records, scopus_records, wos_records), rbind)
+
+duplicates <- all_dois %>% 
+    group_by(doi) %>% 
+    filter(n() > 1) %>% 
+    nrow()
+
+unique_dois <- all_dois %>% 
+    unique()
