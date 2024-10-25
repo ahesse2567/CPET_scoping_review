@@ -3,7 +3,7 @@ NA,node4,prevstud,Grey title box; Previous studies,Previous studies,Grey title b
 previous_studies,node5,box1,Studies included in previous version of review,Studies included in previous version of review,Studies included in previous version of review,previous_studies.html,0
 previous_reports,NA,box1,Reports of studies included in previous version of review,Reports of studies included in previous version of review,NA,previous_reports.html,0
 NA,node6,newstud,Yellow title box; Identification of new studies via databases and registers,Identification of new studies via databases and registers,Yellow title box; Identification of new studies via databases and registers,newstud.html,0
-database_results,node7,box2,Records identified from: Databases,Databases,Records identified from: Databases and Registers,database_results.html,0
+database_results,node7,box2,Records identified from: Databases,Databases,Records identified from: Databases and Registers,database_results.html,3
 database_specific_results,NA,box2,Records identified from: specific databases,Specific Databases,NA,database_results.html,"Ovid-MEDLINE, 16993; Scopus, 19879; Web of Science, 13858"
 register_results,NA,box2,Records identified from: Registers,Registers,NA,NA,0
 register_specific_results,NA,box2,Records identified from: specific registers,Specific Registers,NA,database_results.html,"Register 1, xxx; Register 2, xxx; Register 3, xxx"
@@ -11,8 +11,8 @@ NA,node16,othstud,Grey title box; Identification of new studies via other method
 website_results,node17,box11,Records identified from: Websites,Websites,"Records identified from: Websites, Organisations and Citation Searching",website_results.html,0
 organisation_results,,box11,Records identified from: Organisations,Organisations,NA,NA,0
 citations_results,NA,box11,Records identified from: Citation searching,Citation searching,NA,NA,0
+excluded_automatic,NA,box3,Records marked as ineligible by automation tools,Records without DOI assigned,NA,NA,13148
 duplicates,node8,box3,Duplicate records,Duplicate records,Duplicate records,duplicates.html,0
-excluded_automatic,NA,box3,Records marked as ineligible by automation tools,Records marked as ineligible by automation tools,NA,NA,0
 excluded_other,NA,box3,Records removed for other reasons,Records removed for other reasons,NA,NA,0
 records_screened,node9,box4,Records screened (databases and registers),Records screened,Records screened (databases and registers),records_screened.html,0
 records_excluded,node10,box5,Records excluded (databases and registers),Records excluded,Records excluded (databases and registers),records_excluded.html,0
