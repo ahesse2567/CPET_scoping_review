@@ -101,7 +101,7 @@ all_articles['doi_suffix'] = all_articles['doi'].apply(lambda x: get_doi_suffix(
 merge_df = pd.merge(text_df, all_articles, how='inner', on='doi_suffix').drop_duplicates()
 
 # load known ineligible articles
-ineligibility_path = Path('/Users/antonhesse/Desktop/Anton/Education/UMN/PhD/Dissertation/CPET_scoping_review/data/cpet_articles/text_analysis/combined_ineligible_articles.csv')
+ineligibility_path = Path('/Users/antonhesse/Desktop/Anton/Education/UMN/PhD/Dissertation/CPET_scoping_review/data/cpet_articles/text_analysis/ineligible_articles_combined.csv')
 inelgibility_df = pd.read_csv(ineligibility_path)
 
 # [str(path) for path in txt_file_paths if path.stem == 'mss.0000000000001353'][0]

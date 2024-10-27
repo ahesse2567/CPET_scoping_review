@@ -34,3 +34,12 @@ comb_ineligible <- bind_rows(
 
 write_csv(comb_ineligible,
           "data/cpet_articles/text_analysis/ineligible_articles_combined.csv")
+
+bbb_articles <- read_csv(
+    fs::path("data/cpet_articles/text_analysis/bbb_articles.csv"),
+    show_col_types = FALSE)
+
+bbb_eligible <- anti_join(bbb_articles, comb_ineligible, by = "doi_suffix")
+
+write_csv(bbb_eligible, 
+          fs::path("data/cpet_articles/text_analysis/bbb_eligible.csv"))

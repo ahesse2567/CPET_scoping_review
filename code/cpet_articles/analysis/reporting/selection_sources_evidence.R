@@ -32,7 +32,7 @@ n_total_articles <- nrow(all_dois)
 # recursive set to true b/c some txt files were moved to other folders to 
 # simply regex analysis
 txt_files <- list.files(
-    here("data/cpet_articles/full_texts/"),
+    here("data/cpet_articles/full_texts/txts"),
     pattern = "\\.txt",
     recursive = TRUE) %>% 
     basename() %>% 
@@ -60,6 +60,7 @@ n_downloaded_files_in_doi_list <-
     unique_files[unique_files %in% all_dois$doi_suffix] %>% 
     length()
 
+# Also known as "reports not retrieved per PRISMA
 n_unobtained_articles <- n_total_articles - n_downloaded_files_in_doi_list
 
 # all of the txt files we obtained in the master list
@@ -80,11 +81,19 @@ n_conversion_error_files <- list.files(
 
 n_resolvable_articles <- n_txt_files_in_list - n_non_english - n_conversion_error_files
 
+# I think this should use the bbb_articles.csv, not the all_bbb_articles.csv.
+# There was a time when I made a file with several of the bbb_articles removed
+# based on factors that made them ineligible. This is well and good, but
+# I don't have any code I know of that created this file. I think I made the
+# file manually.
+
 all_bbb_articles <- read_csv(
-    here("data/cpet_articles/text_analysis/all_bbb_articles.csv"),
+    here("data/cpet_articles/text_analysis/bbb_articles.csv"),
     show_col_types = FALSE) %>% 
     clean_names()
 n_all_bbb_articles <- nrow(all_bbb_articles)
+
+non_bbb_articles <- n_resolvable_articles - n_all_bbb_articles
 
 ineligible_articles <- read_csv(
     here("data/cpet_articles/text_analysis/ineligible_articles_combined.csv"),

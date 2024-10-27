@@ -98,7 +98,7 @@ The results emphasize the importance of stating these methods to improve reprodu
 
 ## Protocol and Registration
 
-These methods [@tricco2018] and results [@peters2020] are modeled on the PRISMA scoping review extension guidelines. This work was first registered with the Open Science Framework [@foster2017; -@hesse2022] and is based on a dissertation chapter by the first author [-@hesse2023].
+These methods [@tricco2018] and results [@peters2020] are modeled on the PRISMA scoping review extension guidelines and PRISMA 2020 statement [@page2021]. This work was first registered with the Open Science Framework [@foster2017; -@hesse2022] and is based on a dissertation chapter by the first author [-@hesse2023].
 The code and most data for this project are available on GitHub.
 
 ## Eligibility Criteria
@@ -138,6 +138,7 @@ Our library subscription did not permit access to `r format(n_unsubscribed, big.
 
 This study used a single screening process because it differs from most scoping reviews.
 It only requires an exercise test with BBB gas exchange data collection rather than a more complex assessment of the overall methodology and intervention.
+The correspobnding PRISMA flow diagram was created using the PRISMA2020 R package [@haddawayPRISMA2020PackageShiny2022].
 
 ### Text Analysis & Screening
 
@@ -232,9 +233,7 @@ We documented the interpolation type as "linear" and the interpolation time as o
 
 #### Averaging
 
-<!-- ![Flowchart depicting the four major components of averaging method documentation.](graphics/Averaging Method Documentation300.jph){#fig-avg_methods_flowchart} -->
-
-We document averaging methods according to five criteria: type/units, subtype/calculation, amount, measure of center, and mean type (Figure 1).
+We document averaging methods according to five criteria: type/units, subtype/calculation, amount, measure of center, and mean type.
 Type/units refer to the averaging units of time, breath, and digital filters.
 Subtype/calculation involves specific computations like bin and rolling averages or digital filter forms.
 The amount is the unit quantity.
@@ -327,7 +326,7 @@ n_no_doi <- if_else(n_no_doi <= 10,
         format(n_no_doi, big.mark = ',', scientific = FALSE))
 ```
 
-Figure 2 shows the selection of sources of evidence flowchart.
+Figure 1 shows the selection of sources of evidence flowchart.
 During our analysis, we identified `r format(n_ineligible_articles, big.mark = ',', scientific = FALSE)` ineligible articles.
 We cross-referenced those against the breath-by-breath articles and removed another `r format(n_ineligible_bbb_articles, big.mark = ',', scientific = FALSE)`, leading to `r format(n_eligible_bbb_articles, big.mark = ',', scientific = FALSE)` articles.
 
@@ -359,7 +358,7 @@ prop_4sd <- specified_outlier_cutoffs_by_type %>%
 ```
 
 Of the `r format(total_articles, big.mark = ',', scientific = FALSE)` articles, `r n_articles_reporting_outliers` (`r prop_articles_reporting_outliers * 100` ± `r round(moe_prop_articles_reporting * 100, 1)`%) reported outlier removal methods.
-Of the articles reporting their outlier methods, the most prevalent methods were ±3 (`r sprintf("%.1f", prop_3sd * 100)`%) and ±4 (`r sprintf("%.1f", prop_4sd * 100)`%) standard deviations, respectively (Figure 3).
+Of the articles reporting their outlier methods, the most prevalent methods were ±3 (`r sprintf("%.1f", prop_3sd * 100)`%) and ±4 (`r sprintf("%.1f", prop_4sd * 100)`%) standard deviations, respectively (Figure 2).
 
 ```{r, outliers_when_reported}
 #| label: fig-specified-outlier-limits
@@ -379,7 +378,7 @@ source("code/cpet_articles/analysis/reporting/interpolation_reporting.R")
 
 We found that `r count_specified_interpolation` (`r sprintf("%.1f", prop_specified_interpolation * 100)` ± `r sprintf("%.1f", moe_prop_articles_reporting_interpolation * 100)`%) out of `r format(total_articles, big.mark = ',', scientific = FALSE)` specified their interpolation methodology.
 When reported, the most common interpolation time was `r as.numeric(most_popular_interpolation_time) %>% english::english() %>% as.character()` second (n = `r n_most_popular_interpolation_time`, `r sprintf("%.1f", prop_most_popular_interpolation_time * 100)`%).
-Although the majority of articles reporting interpolation procedures did not explicitly specify their interpolation method (n = `r n_most_popular_interpolation_method`, `r sprintf("%.1f", prop_most_popular_interpolation_method * 100)`%), `r most_popular_stated_interpolation_method` interpolation was the most popular stated method (n = `r n_most_popular_stated_interpolation_method`, `r sprintf("%.1f", prop_most_popular_stated_interpolation_method * 100)`%) (see Table 1 and Figure 4).
+Although the majority of articles reporting interpolation procedures did not explicitly specify their interpolation method (n = `r n_most_popular_interpolation_method`, `r sprintf("%.1f", prop_most_popular_interpolation_method * 100)`%), `r most_popular_stated_interpolation_method` interpolation was the most popular stated method (n = `r n_most_popular_stated_interpolation_method`, `r sprintf("%.1f", prop_most_popular_stated_interpolation_method * 100)`%) (see Table 1 and Figure 3).
 
 ```{r, interpolation_tables}
 #| label: tbl-interpolation_time_type
@@ -523,7 +522,7 @@ flextable::save_as_docx(
 
 ```
 
-When incorporating averaging amounts, 30-, 60-, 15-, and 10-second bin averages (Figure 5) were the most popular.
+When incorporating averaging amounts, 30-, 60-, 15-, and 10-second bin averages (Figure 4) were the most popular.
 The "other" methods category accounted for the second highest share of the total, but this represents many rarely used averaging methods.
 
 ```{r, avg_full_method_plot}
@@ -698,19 +697,18 @@ Table 2: Averaging methods by type (a) and subtype (b).
 
 **Figure Captions**
 
-Figure 1: Flowchart depicting the four major components of averaging method documentation.
+Figure 1: Selection of sources of evidence flow diagram in accordance with with the PRISMA 2020 statement
 
-Figure 2: Selection of sources of evidence flowchart.
 Dashed lines point to articles that were removed.
 Solid lines indicate the path of articles that remained in the analysis.
 Details are provided in the main text.
 "Unobtained" articles were those unavailable due to University library licensing limitations or faulty download links.
 "Resolvable" files could be analyzed by RegExs and ML.
 
-Figure 3: Counts and percentages of outlier limits when specified.
+Figure 2: Counts and percentages of outlier limits when specified.
 
-Figure 4: Most prevalent specified interpolation methods by both type and time.
+Figure 3: Most prevalent specified interpolation methods by both type and time.
 
-Figure 5: Prevalence of complete averaging procedures.
+Figure 4: Prevalence of complete averaging procedures.
 The numbers in each column label are in seconds for time averages and the number of breaths for breath averages.
 The "other" column represents methods that accounted for less than 1% of the total stated methods.
