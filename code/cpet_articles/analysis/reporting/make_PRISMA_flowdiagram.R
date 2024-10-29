@@ -20,7 +20,7 @@ prisma_plot <- PRISMA_flowdiagram(prisma_data,
                                   other = FALSE,
                                   detail_databases = TRUE,
                                   detail_registers = FALSE,
-                                  fontsize = 7,
+                                  fontsize = 10,
                                   font = "Helvetica",
                                   title_colour = "Goldenrod1",
                                   greybox_colour = "Gainsboro",
@@ -31,3 +31,7 @@ prisma_plot <- PRISMA_flowdiagram(prisma_data,
                                   side_boxes = TRUE)
 prisma_plot
 saveRDS(prisma_plot, fs::path("graphics/PRISMA_flowdiagram.rds"))
+
+PRISMA_save(prisma_plot,
+            fs::path("graphics/PRISA_flowdiagram.png"),
+            overwrite = TRUE)

@@ -109,7 +109,7 @@ Eligible articles were original, peer-reviewed articles, with BBB gas exchange d
 We imposed no date restriction.
 
 ```{r, article_counts}
-source(here("code/cpet_articles/analysis/reporting/selection_sources_evidence.R"))
+source(here("code/cpet_articles/analysis/reporting/PRISMA_flowchart_calcs.R"))
 ```
 
 ## Information Sources and Search
@@ -163,7 +163,7 @@ ineligible_articles <- read_csv(
     show_col_types = FALSE)
 
 bbb_articles <- read_csv(
-    "data/cpet_articles/text_analysis/all_bbb_articles.csv",
+    "data/cpet_articles/text_analysis/bbb_articles.csv",
     show_col_types = FALSE) %>% 
     distinct(doi_suffix, .keep_all = TRUE) %>% 
     filter(!(doi_suffix %in% ineligible_articles$doi_suffix))
@@ -174,6 +174,8 @@ n_bbb_articles <- nrow(bbb_articles)
 Next, we identified BBB articles using RegExs.
 Articles were considered BBB articles if their text contained variations of the phrase "breath-by-breath", or if their text included the make or model of a known BBB analyzer.
 Breath-by-breath brands and analyzers we included were Oxycon and Carefusion brands, Medgraphics Ultima, CPX, CCM, and CardiO~2~ models, Sensormedics Encore and 2900 models, Cosmed quark, k4, and k5 models, and the Minato RM-200, AE-280S, AE-300S, and AE-310S models.
+Some metabolic carts have both BBB and mixing chamber modes.
+If not described we assumed the data was collected BBB.
 In total, we identified `r format(n_bbb_articles, big.mark = ',', scientific = FALSE)` articles.
 
 Within this subset, we performed a similar RegEx search for studies that documented using Douglas Bags or mixing chambers and excluded those articles.
@@ -186,6 +188,7 @@ If present, we extracted a "snippet" of text surrounding those phrases for later
 We then recorded the methods from these snippets.
 In all cases, methods were only considered documented if the snippets provided at least some specific information.
 For example, articles stating outlying breaths were removed but without describing the outlier criteria were considered "not described." Finally, we read the full-text article to accurately document the data when snippets were ambiguous.
+Full-text articles without snippets were not read and there methods were documented as "not described."
 
 The data charting subsections below provide text extraction examples.
 Extracted texts were normalized to lowercase, with end-of-line hyphenation and unnecessary white space removed before capitalizing certain keywords for readability.
@@ -203,11 +206,12 @@ n_rounded_up_nearest_hundred <- round(n_articles, -2)
 ```
 
 We analyzed all eligible BBB articles for outlier and interpolation methods because fewer articles described these methods (\~5%) and the phrases were more distinct.
-In contrast, we analyzed a random subset of articles using a random number generator in R to document data averaging methods because far more articles described their averaging methods.
+In contrast, we analyzed a random subset of articles using a random number generator in Python to document data averaging methods because far more articles described their averaging methods.
 Early estimates as we developed our RegExs were that \~60% or `r format(round(0.6 * n_bbb_articles), big.mark = ',', scientific=FALSE)` articles had some averaging details.
 Furthermore, the phrases associated with averaging methods are more generic and often refer to other study aspects, such as heart rate averaging periods.
-Given the large number of articles, we needed a minimum sample size of `r format(n_articles, big.mark = ',', scientific = FALSE)` based on a 95% confidence interval and a maximum margin of error of ±3%, assuming a proportion of 0.5.
+Given the large number of articles, we needed a minimum sample size of `r format(n_articles, big.mark = ',', scientific = FALSE)` based on a 95% confidence interval and a maximum margin of error (MOE) of ±3%, assuming a proportion of 0.5 for a conservative estimate.
 However, we raised this to `r format(n_rounded_up_nearest_hundred, big.mark = ',', scientific = FALSE)` in anticipation of finding ineligible articles that eluded our previous text screening.
+The chosen MOE was selected as a balance between accuracy and the required corresponding samples: decreasing the MOE to ±2% with an assumed proportion of 0.5 would require another 1,333 samples.
 
 #### Outliers
 
@@ -293,42 +297,22 @@ Finally, we noted if the mean was a whole or trimmed.
 
 ### Synthesis of Results
 
-Counts, percentages, and margin of error (95% confidence) were calculated for the reporting frequency of each data processing method using R `r str_extract(R.version.string, "R version \\d\\.\\d\\.\\d")` [@rcoreteam2021] in the RStudio IDE version `r rstudioapi::versionInfo()$version` [@rcoreteam2021].
+Counts, proportions, and their 95% confidence intervals using the Agresti-Coull method were calculated for the reporting frequency of each data processing method using R `r str_extract(R.version.string, "R version \\d\\.\\d\\.\\d")` [@rcoreteam2021] in the RStudio IDE version 2023.6.1.524 [@rcoreteam2021].
+When articles reported multiple methods, we only counted this article once for calculating reporting proportions.
 
 # Results {#sec-results}
 
 ## Selection of Sources of Evidence
 
-```{r, selection_sources_evidence}
-ovid_records <- read_csv(here::here(
-    "data/cpet_articles/database_search/ovid/doi_merged_ovid.csv"),
-    show_col_types = FALSE) %>% 
-    clean_names()
-scopus_records <- read_csv(here::here(
-    "data/cpet_articles/database_search/scopus/scopus_records_tidy.csv"),
-    show_col_types = FALSE) %>% 
-    clean_names()
-wos_records <- read_csv(here::here(
-    "data/cpet_articles/database_search/web_of_science/web_of_science_records_tidy.csv"), show_col_types = FALSE) %>% 
-    clean_names()
-
-n_total_with_na <- bind_rows(ovid_records['doi'],
-                    scopus_records['doi'],
-                    wos_records['doi']) %>% 
-    distinct() %>% 
-    nrow()
-
-n_no_doi <- n_total_with_na - n_total_articles
-n_no_doi <- if_else(n_no_doi <= 10, 
-        english::english(n_no_doi) %>% 
-            as.character() %>% 
-            str_to_lower(),
-        format(n_no_doi, big.mark = ',', scientific = FALSE))
+```{r, load_avg_data}
+source(here::here("code/cpet_articles/analysis/reporting/avg_methods_reporting.R"))
 ```
 
 Figure 1 shows the selection of sources of evidence flowchart.
-During our analysis, we identified `r format(n_ineligible_articles, big.mark = ',', scientific = FALSE)` ineligible articles.
-We cross-referenced those against the breath-by-breath articles and removed another `r format(n_ineligible_bbb_articles, big.mark = ',', scientific = FALSE)`, leading to `r format(n_eligible_bbb_articles, big.mark = ',', scientific = FALSE)` articles.
+Our initial search discovered `r format(nrow(all_articles), big.mark = ',', scientific = FALSE)` articles.
+We attempted to retrieve the remaining `r format(nrow(articles_unique), big.mark = ',', scientific = FALSE)` after removing duplicates and articles without a DOI.
+A total of `r format(nrow(bbb_eligible), big.mark = ',', scientific = FALSE)` articles analyzed were included in the interpolation and outlier analysis.
+After removing `r n_rounded_up_nearest_hundred - n_total_articles_avg` ineligible articles that we discovered during data documentation from the original `r format(n_rounded_up_nearest_hundred, big.mark = ',', scientific = FALSE)` random articles, we analyzed `r format(n_total_articles_avg, big.mark = ',', scientific = FALSE)` articles for our averaging analysis.
 
 ## Characteristics and Results of Individual Sources of Evidence
 
@@ -357,7 +341,7 @@ prop_4sd <- specified_outlier_cutoffs_by_type %>%
     pull()
 ```
 
-Of the `r format(total_articles, big.mark = ',', scientific = FALSE)` articles, `r n_articles_reporting_outliers` (`r prop_articles_reporting_outliers * 100` ± `r round(moe_prop_articles_reporting * 100, 1)`%) reported outlier removal methods.
+Of the `r format(total_articles, big.mark = ',', scientific = FALSE)` articles, `r moe_prop_articles_reporting$x` (`r sprintf("%.1f", moe_prop_articles_reporting$mean * 100)`, 95% CI: `r sprintf("%.1f", moe_prop_articles_reporting$lower * 100)`-`r sprintf("%.1f", moe_prop_articles_reporting$upper * 100)`%) reported outlier removal methods.
 Of the articles reporting their outlier methods, the most prevalent methods were ±3 (`r sprintf("%.1f", prop_3sd * 100)`%) and ±4 (`r sprintf("%.1f", prop_4sd * 100)`%) standard deviations, respectively (Figure 2).
 
 ```{r, outliers_when_reported}
@@ -366,7 +350,7 @@ Of the articles reporting their outlier methods, the most prevalent methods were
 # plot(prop_outlier_limits_plot)
 ```
 
-Only `r n_outlier_func_reporting` (`r sprintf("%.1f", prop_outlier_func_reporting * 100)` ± `r sprintf("%.1f", moe_prop_outlier_func_reporting *100)`%) articles reported details of the function they used to calculate their outlier limit.
+Only `r n_outlier_func_reporting` (`r sprintf("%.1f", moe_prop_outlier_func_reporting$mean * 100)`%, 95% CI: `r sprintf("%.1f", moe_prop_outlier_func_reporting$lower * 100)`-`r sprintf("%.1f", moe_prop_outlier_func_reporting$upper * 100)`%) articles reported details of the function they used to calculate their outlier limit.
 Of those, breath-based averages (n = `r n_breath_outlier_funcs`, `r prop_breath_outlier_funcs`%) then time-based averages (n = `r  n_time_outlier_funcs`, `r prop_time_outlier_funcs`%) were the most common for calculating outlier boundaries.
 Specifically, 5-breath averages (n = `r n_5_breath_func`, `r prop_5_breath_func`%) were the most prevalent functions to calculate outlier limits.
 
@@ -376,7 +360,7 @@ Specifically, 5-breath averages (n = `r n_5_breath_func`, `r prop_5_breath_func`
 source("code/cpet_articles/analysis/reporting/interpolation_reporting.R")
 ```
 
-We found that `r count_specified_interpolation` (`r sprintf("%.1f", prop_specified_interpolation * 100)` ± `r sprintf("%.1f", moe_prop_articles_reporting_interpolation * 100)`%) out of `r format(total_articles, big.mark = ',', scientific = FALSE)` specified their interpolation methodology.
+We found that `r count_specified_interpolation` (`r sprintf("%.1f", moe_prop_articles_reporting_interpolation$mean * 100)`%, 95% CI: `r sprintf("%.1f", moe_prop_articles_reporting_interpolation$lower * 100)`-`r sprintf("%.1f", moe_prop_articles_reporting_interpolation$upper * 100)`) out of `r format(total_articles, big.mark = ',', scientific = FALSE)` specified their interpolation methodology.
 When reported, the most common interpolation time was `r as.numeric(most_popular_interpolation_time) %>% english::english() %>% as.character()` second (n = `r n_most_popular_interpolation_time`, `r sprintf("%.1f", prop_most_popular_interpolation_time * 100)`%).
 Although the majority of articles reporting interpolation procedures did not explicitly specify their interpolation method (n = `r n_most_popular_interpolation_method`, `r sprintf("%.1f", prop_most_popular_interpolation_method * 100)`%), `r most_popular_stated_interpolation_method` interpolation was the most popular stated method (n = `r n_most_popular_stated_interpolation_method`, `r sprintf("%.1f", prop_most_popular_stated_interpolation_method * 100)`%) (see Table 1 and Figure 3).
 
@@ -423,10 +407,6 @@ flextable::save_as_docx(
 ```
 
 ### Averaging
-
-```{r, load_avg_data}
-source(here::here("code/cpet_articles/analysis/reporting/avg_methods_reporting.R"))
-```
 
 ```{r, avg_by_type_calcs}
 most_popular_avg_type <- avg_by_type_tab %>% 
@@ -485,8 +465,8 @@ top_three_type_subtype_props <- avg_by_type_subtype_tab %>%
     pull()
 ```
 
-After removing `r n_rounded_up_nearest_hundred - n_total_articles_avg` ineligible articles that we discovered during data documentation from the original `r format(n_rounded_up_nearest_hundred, big.mark = ',', scientific = FALSE)` random articles, we analyzed `r format(n_total_articles_avg, big.mark = ',', scientific = FALSE)` articles for our averaging analysis.
-We recorded that `r n_reporting_avg_methods` (`r sprintf("%.1f", prop_reporting_avg_methods * 100)` ± `r round(margin_of_error * 100, 1)`%) reported some details of their data averaging methods.
+We recorded that `r n_reporting_avg_methods` (`r sprintf("%.1f", moe_avg_reporting$mean * 100)`%, 95% CI: `r round(moe_avg_reporting$lower * 100, 1)`-`r sprintf("%.1f", moe_avg_reporting$upper * 100)`%) reported some details of their data averaging methods.
+We found `r sprintf("%.f", prop_multiple_methods * 100)` articles reported more than one averaging method.
 `r str_to_sentence(most_popular_avg_type)` averages dominated in popularity (`r sprintf("%.1f", most_popular_avg_type_prop * 100)`%) (Table 2).
 `r most_popular_avg_subtype` averages proved the most widespread averaging subtype (`r sprintf("%.1f", most_popular_avg_subtype_prop * 100)`%) (Table 2).
 Together, `r top_three_type_subtype[1]` (`r sprintf("%.1f", top_three_type_subtype_props[1] * 100)`%) was the most frequent type-subtype averaging method combination.
@@ -576,8 +556,6 @@ Without such corrections, one could misclassify cardiorespiratory fitness based 
 However, this correction applies to group data [@martin-rincon2019] and different averaging strategies also affect individual VO~2~max values.
 In addition, the effect of different data averaging on VO~2~max is not uniform across individuals:
 
-COMPUTE SUB ANALYSIS WITH PHYSIONET DATA TO SHOW HOW THIS INTERTWINES WITH ACSM AND FRIEND REGISTRY VO2MAX PERCENTILE CLASSIFICATION
-
 Importantly, the normative data offered by the American College of Sports Medicine [@pescatello2014, table 4.9, pp. 88-93] is based on a regression of VO~2~ vs. time-to-exhaustion using a modified Balke protocol and equations developed from @pollock1982 and @pollock1976 (Cooper Institute, personal communication, 9/2021), rather than directly measured.
 The system used to create the regression for males [@pollock1976] and females [@pollock1982] averaged the data every minute and every 30 seconds, respectively.
 Given that, stating the averaging methods used may allow for better comparisons to normative data.
@@ -650,7 +628,8 @@ Yet, methodological shortcut citations can mean missing details that prevent rea
 Next, by chance, we found rare examples of articles using the median as the measure of center as we built our RegExs.
 However, we did not document any such cases in our random sample.
 A larger sample would likely find these and other rare data averaging methods.
-Finally, it is possible that a few ineligible articles eluded our screening.
+Also, it is possible that a few ineligible articles eluded our screening.
+Lastly, we predict that some studies we included collected their data via mixing chambers as not all authors specify this detail [@nolte2023].
 Taken together, our results are not entirely comprehensive and may slightly underestimate data processing methods' true reporting frequency.
 
 Another limitation of this scoping review is that our results do not indicate how different data processing methods were used.
