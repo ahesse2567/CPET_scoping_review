@@ -1,0 +1,1 @@
+This repository is for a scoping review of breath-by-breath gas exchange data processing. It contains most data and code for study 1 from the dissertation found at https://conservancy.umn.edu/items/f62f4994-5f30-480a-a0cd-4e3a819d6c7b.
