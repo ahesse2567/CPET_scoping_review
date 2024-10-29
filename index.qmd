@@ -99,7 +99,7 @@ The results emphasize the importance of stating these methods to improve reprodu
 ## Protocol and Registration
 
 These methods [@tricco2018] and results [@peters2020] are modeled on the PRISMA scoping review extension guidelines and PRISMA 2020 statement [@page2021]. This work was first registered with the Open Science Framework [@foster2017; -@hesse2022] and is based on a dissertation chapter by the first author [-@hesse2023].
-The code and most data for this project are available on GitHub.
+The code and most data for this project are available on [GitHub](https://github.com/ahesse2567/CPET_scoping_review/).
 
 ## Eligibility Criteria
 
@@ -151,11 +151,7 @@ This computerized screening required converting full-text PDF and EPUB documents
 Plain text files were normalized by transforming text to lowercase, removing hyphenations and extra whitespace, and correcting some plain text conversion-induced errors.
 
 Following the normalization, we identified and removed articles that failed to correctly convert into text format, spotted non-English articles using the fasttext Python module [@bojanowski2016] and employed a random forest classifier from the sklearn Python package [@pedregosa2011] to detect ineligible articles based on our criteria.
-We manually reviewed every article flagged as ineligible by the ML classifier.
-Our classifiers also calculated an eligibility probability.
-We also manually reviewed articles within \~15% of the decision boundary.
-We iteratively rebuilt our classifiers with more data as we manually confirmed article eligibility.
-Through rebuilding our classifiers we discovered additional ineligible articles missed by previous classifier iterations.
+See the supplemental methods for additional ML model detials.
 
 ```{r, calc_n_bbb_articles}
 ineligible_articles <- read_csv(
@@ -542,6 +538,7 @@ We find the low interpolation reporting more reasonable because this procedure i
 However, the V-slope method, one of the most common methods for determining the first ventilatory threshold, interpolates data in their original method [@beaver1986].
 Importantly, the V-slope algorithm is only part of the overall V-slope method, so it can be unclear if authors interpolated data when citing the V-slope method.
 Given this and the artificial confidence interval shrinkage, it may be prudent for future papers to specify interpolation or lack thereof.
+Although the uncertainty of the VO~2~ at thresholds are not commonly reported, doing so with appropriate confidence intervals may be prudent as traditional thresholds may be better described as transitions [@pethick2020; @ozkaya2022].
 
 Most studies use one-second linear interpolation, but different time frames and styles, such as cubic interpolation, may yield different results.
 Cubic spline interpolation produces a smooth curve but may slightly "overshoot" measured values [@zhang1997].
@@ -626,8 +623,10 @@ This review did not document all aspects of the recommending reporting guideline
 We did not record the exact metabolic cart used, the measurement mode, the software used, nor the data processing rationale.
 Our outlier reporting rates of `r sprintf("%.f", moe_prop_articles_reporting$mean * 100)` was similar, while our interpolation reporting rate of `r sprintf("%.1f", moe_prop_articles_reporting_interpolation$mean * 100)`% was slightly higher than Nolte's 4.3%.
 Our averaging reporting rate was also \~5% higher at `r sprintf("%.1f", moe_avg_reporting$mean * 100)`.
-Although the specific percentages differ, our results are similar to previous works showing that time-bin averages are the most popular, with 30-second averages as the most common overall [@midgley2007; @nolte2023; @robergs2010].
-Similar to these works, ours showa that most studies do not follow current reporting guidelines.
+Our results are similar to previous works showing that time-bin averages are the most popular, with 30-second averages as the most common overall [@midgley2007; @nolte2023; @robergs2010].
+The order in popularity of other methods differs from these other studies.
+This may be attributed to our wider date range and including data processing beyond that to describe VO~2~max.
+
 Although more complex data processing strategies have existed for several years, we suspect time-bin averages are still favored in part due to subjective reasons like tradition [@robergs2010].
 We speculate that practitioners also chose time-bin averages if more complex options are not integrated within metabolic cart software.
 
@@ -637,6 +636,9 @@ This study presents the most extensive review of gas exchange data processing me
 However, due to its scope, not every article received a detailed examination, meaning some data processing descriptions might have been missed due to the limitations of our RegExs, leading us to categorize these as "not described." Articles that referred to previous works or supplemental materials for their data processing techniques were also marked as "not described" for simplicity.
 We realize authors must balance adequate methodological documentation with journal word or character limits.
 Yet, methodological shortcut citations can mean missing details that prevent readers from fully reproducing the methods used [@standvoss2024].
+The best practice yet would be for authors to publish all data and code when possible.
+Several open-source gas analyses software are avaiable to facilitate transparent analyses [@maturana2021; @nolte2023; @hesse2023].
+
 Next, by chance, we found rare examples of articles using the median as the measure of center as we built our RegExs.
 However, we did not document any such cases in our random sample.
 A larger sample would likely find these and other rare data averaging methods.
