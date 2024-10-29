@@ -358,7 +358,7 @@ source("code/cpet_articles/analysis/reporting/interpolation_reporting.R")
 
 We found that `r count_specified_interpolation` (`r sprintf("%.1f", moe_prop_articles_reporting_interpolation$mean * 100)`%, 95% CI: `r sprintf("%.1f", moe_prop_articles_reporting_interpolation$lower * 100)`-`r sprintf("%.1f", moe_prop_articles_reporting_interpolation$upper * 100)`) out of `r format(total_articles, big.mark = ',', scientific = FALSE)` specified their interpolation methodology.
 When reported, the most common interpolation time was `r as.numeric(most_popular_interpolation_time) %>% english::english() %>% as.character()` second (n = `r n_most_popular_interpolation_time`, `r sprintf("%.1f", prop_most_popular_interpolation_time * 100)`%).
-Although the majority of articles reporting interpolation procedures did not explicitly specify their interpolation method (n = `r n_most_popular_interpolation_method`, `r sprintf("%.1f", prop_most_popular_interpolation_method * 100)`%), `r most_popular_stated_interpolation_method` interpolation was the most popular stated method (n = `r n_most_popular_stated_interpolation_method`, `r sprintf("%.1f", prop_most_popular_stated_interpolation_method * 100)`%) (see Table 1 and Figure 3).
+Although the majority of articles reporting interpolation procedures did not explicitly specify their interpolation method (n = `r n_most_popular_interpolation_method`, `r sprintf("%.1f", prop_most_popular_interpolation_method * 100)`%), `r most_popular_stated_interpolation_method` interpolation was the most popular stated method (n = `r n_most_popular_stated_interpolation_method`, `r sprintf("%.1f", prop_most_popular_stated_interpolation_method * 100)`%) (Figure 3).
 
 ```{r, interpolation_tables}
 #| label: tbl-interpolation_time_type
@@ -463,8 +463,8 @@ top_three_type_subtype_props <- avg_by_type_subtype_tab %>%
 
 We recorded that `r n_reporting_avg_methods` (`r sprintf("%.1f", moe_avg_reporting$mean * 100)`%, 95% CI: `r round(moe_avg_reporting$lower * 100, 1)`-`r sprintf("%.1f", moe_avg_reporting$upper * 100)`%) reported some details of their data averaging methods.
 We found `r sprintf("%.f", prop_multiple_methods * 100)` articles reported more than one averaging method.
-`r str_to_sentence(most_popular_avg_type)` averages dominated in popularity (`r sprintf("%.1f", most_popular_avg_type_prop * 100)`%) (Table 2).
-`r most_popular_avg_subtype` averages proved the most widespread averaging subtype (`r sprintf("%.1f", most_popular_avg_subtype_prop * 100)`%) (Table 2).
+`r str_to_sentence(most_popular_avg_type)` averages dominated in popularity (`r sprintf("%.1f", most_popular_avg_type_prop * 100)`%) (Table 1).
+`r most_popular_avg_subtype` averages proved the most widespread averaging subtype (`r sprintf("%.1f", most_popular_avg_subtype_prop * 100)`%) (Table 1).
 Together, `r top_three_type_subtype[1]` (`r sprintf("%.1f", top_three_type_subtype_props[1] * 100)`%) was the most frequent type-subtype averaging method combination.
 
 ```{r, avg_type_subtype_tables}
@@ -634,16 +634,16 @@ We speculate that practitioners also chose time-bin averages if more complex opt
 
 This study presents the most extensive review of gas exchange data processing methods to date.
 However, due to its scope, not every article received a detailed examination, meaning some data processing descriptions might have been missed due to the limitations of our RegExs, leading us to categorize these as "not described." Articles that referred to previous works or supplemental materials for their data processing techniques were also marked as "not described" for simplicity.
-We realize authors must balance adequate methodological documentation with journal word or character limits.
+We realize authors must balance adequate methodological documentation with word limits.
 Yet, methodological shortcut citations can mean missing details that prevent readers from fully reproducing the methods used [@standvoss2024].
 The best practice yet would be for authors to publish all data and code when possible.
-Several open-source gas analyses software are avaiable to facilitate transparent analyses [@maturana2021; @nolte2023; @hesse2023].
+Several open-source gas data software are avaiable to facilitate transparent analyses [@maturana2021; @nolte2023; @hesse2023].
 
 Next, by chance, we found rare examples of articles using the median as the measure of center as we built our RegExs.
 However, we did not document any such cases in our random sample.
-A larger sample would likely find these and other rare data averaging methods.
-Also, it is possible that a few ineligible articles eluded our screening.
-Lastly, we predict that some studies we included collected their data via mixing chambers as not all authors specify this detail [@nolte2023].
+A larger random sample would likely find these and other rare data averaging methods.
+Also, a few ineligible articles may have eluded our screening.
+We predict that some studies we included collected their data via mixing chambers as not all authors specify this detail [@nolte2023].
 Taken together, our results are not entirely comprehensive and may slightly underestimate data processing methods' true reporting frequency.
 
 Another limitation of this scoping review is that our results do not indicate how different data processing methods were used.
@@ -684,9 +684,7 @@ Finally, we hope these results motivate others to improve their methodological d
 
 **Table Captions**
 
-Table 1: Most prevalent specified interpolation methods by type (a) and by time (b).
-
-Table 2: Averaging methods by type (a) and subtype (b).
+Table 1: Averaging methods by type (a) and subtype (b).
 
 **Figure Captions**
 
