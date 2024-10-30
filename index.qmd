@@ -68,7 +68,7 @@ Instead, Robergs et at.
 Therefore, CPET data processing usually involves outlier removal, optional interpolation to regular intervals, and averaging to more accurately reflect whole-body metabolism [@robergs2010].
 Previous research has shown that data averaging influences CPET values.
 Averaging over longer durations reduces VO~2~max and VO~2~ plateau detection [@robergs2003; @robergs2010; @sousa2010; @johnson1998; @sell2021; @midgley2007; @astorino2009; @astorino2000; @martin-rincon2019; @martin-rincon2020; @scheadler2017; @dejesus2014; @hill2003; @smart2015; @matthews1987].
-The importance of attaining a VO~2~ plateau to accurately determine VO~2~max has been highlighted because "secondary" VO~2~max criteria often underestimate VO~2~max [@poole2017], and thus misclassify cardiorespiratoroy fitness.
+The importance of attaining a VO~2~ plateau to accurately determine VO~2~max has been highlighted because "secondary" VO~2~max criteria often underestimate VO~2~max [@poole2017], and thus misclassify cardiorespiratory fitness.
 Finally, we are unaware of research on the effects of data processing and locating ventilatory thresholds.
 
 Outlier removal typically excludes points beyond 2-4 standard deviations (SD) from the local mean [@nolte2023].
@@ -77,7 +77,7 @@ More outliers appear than expected because of both conscious and unconscious alt
 We are unaware of prior research that examines how different outlier removal strategies affect VO~2~max, ventilatory thresholds, and VO~2~ kinetics.
 
 Interpolation, often to one-second intervals, is common in VO~2~ kinetics research to "ensemble" average repeated transitions to minimize variability [@keir2014; @lamarra1987].
-Although this does not affect parameter estimates, one-second interpolation has been criticized for artificially narrowing confidence intervals as respiratory rates are usually below below 60 breaths per minute, even near maximal exercise [@benson2017; @francescato2014; @francescato2019; @francescato2015].
+Although this does not affect parameter estimates, one-second interpolation has been criticized for artificially narrowing confidence intervals as respiratory rates are usually below 60 breaths per minute, even near maximal exercise [@benson2017; @francescato2014; @francescato2019; @francescato2015].
 As before, we are unaware of research specifically investigating how interpolation affects VO~2~max and ventilatory threshold identification.
 
 Data processing choices, such as averaging and interpolation, impact CPET variables or their confidence intervals.
@@ -89,7 +89,7 @@ Finally, they reported that scant studies employed the recommended moving-averag
 These low rates of reporting data processing steps may hamper reproduction or replication attempts, which have become a more prominent issue in science within the past decade [@goodman2016; @opensciencecollaboration2015].
 In addition, as summarized by Nolte et al. [-@nolte2023], using VO~2~max and similar values to classify fitness or evaluating patients for treatment requires practitioners to consider and state data processing choices as they may inadvertently misclassify or suboptimally select patients and treatments.
 
-This research expands on that of @nolte2023 but searches without date restriction and includes studies with CPET data beyond VO~2~max ramp tests.
+This research expands on that of Nolte et al. @nolte2023 but searches without date restriction and includes studies with CPET data beyond VO~2~max ramp tests.
 To accomplish greater breadth, we employed a semi-automated analysis to find more articles based on common text patterns before manually reading extracted subsections from each study.
 This review assesses the reporting frequency of outlier removal, interpolation, and averaging methods.
 The results emphasize the need for documentation to improve reproducibility and documents the data processing choices worth testing in future research investigating the effects of such choices on CPET values.
@@ -150,7 +150,7 @@ This computerized screening required converting full-text PDF and EPUB documents
 Plain text files were normalized by transforming text to lowercase, removing hyphenations and extra whitespace, and correcting some plain text conversion-induced errors.
 
 Following the normalization, we identified and removed articles that failed to correctly convert into text format, spotted non-English articles using the fasttext Python module [@bojanowski2016] and employed a random forest classifier from the sklearn Python package [@pedregosa2011] to detect ineligible articles based on our criteria.
-See the supplemental methods for additional ML model detials.
+See the supplemental methods for additional ML model details.
 
 ```{r, calc_n_bbb_articles}
 ineligible_articles <- read_csv(
@@ -304,7 +304,7 @@ source(here::here("code/cpet_articles/analysis/reporting/avg_methods_reporting.R
 ```
 
 Figure 1 shows the selection of sources of evidence flowchart.
-The initial search identified `r format(nrow(all_articles), big.mark = ',', scientific = FALSE)` articles; `format(nrow(articles_unique), big.mark = ',', scientific = FALSE)` remained for retrieval after removing duplicates and those without DOIs.
+The initial search identified `r format(nrow(all_articles), big.mark = ',', scientific = FALSE)` articles; `r format(nrow(articles_unique), big.mark = ',', scientific = FALSE)` remained for retrieval after removing duplicates and those without DOIs.
 A total of `r format(nrow(bbb_eligible), big.mark = ',', scientific = FALSE)` articles analyzed were included in the interpolation and outlier analysis.
 After removing `r n_rounded_up_nearest_hundred - n_total_articles_avg` ineligible articles that we discovered during data documentation from the original `r format(n_rounded_up_nearest_hundred, big.mark = ',', scientific = FALSE)` random articles, we analyzed `r format(n_total_articles_avg, big.mark = ',', scientific = FALSE)` articles for our averaging analysis.
 
@@ -688,7 +688,7 @@ Table 1: Averaging methods by type (a) and subtype (b).
 
 **Figure Captions**
 
-Figure 1: Selection of sources of evidence flow diagram in accordance with with the PRISMA 2020 statement
+Figure 1: Selection of sources of evidence flow diagram in accordance with with the PRISMA 2020 statement.
 
 Dashed lines point to articles that were removed.
 Solid lines indicate the path of articles that remained in the analysis.
