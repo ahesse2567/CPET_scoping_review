@@ -66,6 +66,7 @@ def sensormedics_bbb(text):
 text_df['sensormedics'] = text_df['text'].progress_apply(lambda x: sensormedics_bbb(x))
 text_df['sensormedics'].value_counts()
 
+
 def cosmed_bbb(text):
     brand_re = re.compile(r'cosmed')
     model_re = re.compile(r'quark|k[4,5]')
@@ -100,13 +101,8 @@ all_articles['doi_suffix'] = all_articles['doi'].apply(lambda x: get_doi_suffix(
 
 merge_df = pd.merge(text_df, all_articles, how='inner', on='doi_suffix').drop_duplicates()
 
-# load known ineligible articles
-ineligibility_path = Path('/Users/antonhesse/Desktop/Anton/Education/UMN/PhD/Dissertation/CPET_scoping_review/data/cpet_articles/text_analysis/ineligible_articles_combined.csv')
-inelgibility_df = pd.read_csv(ineligibility_path)
-
 # [str(path) for path in txt_file_paths if path.stem == 'mss.0000000000001353'][0]
 
-merge_df = merge_df[~merge_df['doi_suffix'].isin(inelgibility_df['doi_suffix'].to_list())] # remove inelgible articles
 bbb_df = merge_df[merge_df['pred_bbb'] == True].drop('text', axis=1).drop_duplicates('doi_suffix').reset_index(drop=True)
 bbb_df = bbb_df.sample(frac=1, random_state=22).reset_index(drop=True)
 bbb_df['doi_suffix'] = bbb_df['doi_suffix'].astype('str')
