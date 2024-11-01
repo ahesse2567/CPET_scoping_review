@@ -1,5 +1,5 @@
 ---
-title: "Popularity And Prevalence Of Gas Exchange Data Processing Methods: A Semi-Automated Scoping Review"
+title: "The Prevalence Of Gas Exchange Data Processing Methods: A Semi-Automated Scoping Review"
 
 # Hiding author and affiliation info per IJSM instructions.
 
@@ -57,7 +57,7 @@ library(here)
 # Introduction
 
 Clinicians and researchers use cardiopulmonary exercise testing (CPET) to determine maximal aerobic capacity (VO~2~max), ventilatory thresholds, and VO~2~ kinetics.
-Such values help categorize fitness, predict disease risk, and guide exercise [@pescatello2014, p. 162].
+Such values help categorize fitness, predict disease risk, and guide exercise [@pescatello2014].
 Using CPET results to guide exercise, especially relative to thresholds, yields better improvements given more consistent and predictable metabolic responses [@jamnick2020].
 Therefore, incorrectly calculating or identifying these values limits CPET benefits.
 
@@ -689,12 +689,6 @@ Table 1: Averaging methods by type (a) and subtype (b).
 **Figure Captions**
 
 Figure 1: Selection of sources of evidence flow diagram in accordance with with the PRISMA 2020 statement.
-
-Dashed lines point to articles that were removed.
-Solid lines indicate the path of articles that remained in the analysis.
-Details are provided in the main text.
-"Unobtained" articles were those unavailable due to University library licensing limitations or faulty download links.
-"Resolvable" files could be analyzed by RegExs and ML.
 
 Figure 2: Counts and percentages of outlier limits when specified.
 

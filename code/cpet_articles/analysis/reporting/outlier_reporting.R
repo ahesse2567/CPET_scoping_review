@@ -211,7 +211,8 @@ prop_outlier_limits_plot <- outlier_df %>%
 prop_outlier_limits_plot
 
 ggsave(here::here("graphics/prop_outlier_limits_plot.jpg"),
-       prop_outlier_limits_plot)
+       plot = prop_outlier_limits_plot,
+       dpi = 300)
 
 prop_outlier_limits_plot_ACSM <- outlier_df %>% 
     select(outlier_limit) %>% 
