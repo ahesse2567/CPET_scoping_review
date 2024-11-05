@@ -40,13 +40,11 @@ n_total_articles_avg <- avg_df %>%
     distinct(doi_suffix, .keep_all = FALSE) %>% 
     nrow()
 
-# okay, I think this is incorrect because it's double counting
-# the articles that had more than one averaging method
-
 yn_avg_methods <- avg_df %>% 
     group_by(doi_suffix) %>% 
     summarize(avg_details = if_else(sum(!no_avg_details) > 0, TRUE, FALSE)) %>% 
-    count(avg_details)
+    count(avg_details) %>% 
+    mutate(prop = prop.table(n))
 
 n_reporting_avg_methods <- yn_avg_methods %>% 
     filter(avg_details) %>% 
@@ -81,7 +79,6 @@ moe_avg_reporting <- binom.confint(
 moe_avg_reporting
 
 #### Averaging method types
-
 
 
 # count by averaging type

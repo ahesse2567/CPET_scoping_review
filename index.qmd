@@ -1,5 +1,5 @@
 ---
-title: "The Prevalence Of Gas Exchange Data Processing Methods: A Semi-Automated Scoping Review"
+title: "The prevalence of gas exchange data processing methods: a semi-automated scoping review"
 
 # Hiding author and affiliation info per IJSM instructions.
 
@@ -356,42 +356,6 @@ source("code/cpet_articles/analysis/reporting/interpolation_reporting.R")
 Of `r format(total_articles, big.mark = ',', scientific = FALSE)` articles `r count_specified_interpolation` (`r sprintf("%.1f", moe_prop_articles_reporting_interpolation$mean * 100)`%, 95% CI: `r sprintf("%.1f", moe_prop_articles_reporting_interpolation$lower * 100)`-`r sprintf("%.1f", moe_prop_articles_reporting_interpolation$upper * 100)` specified interpolation, with `r as.numeric(most_popular_interpolation_time) %>% english::english() %>% as.character()`-second intervals as the most common (`r sprintf("%.1f", prop_most_popular_interpolation_time * 100)`%).
 Around half of reported interpolation procedures included the method (n = `r n_most_popular_interpolation_method`, `r sprintf("%.1f", prop_most_popular_interpolation_method * 100)`%), with `r most_popular_stated_interpolation_method` interpolation as the most popular (n = `r n_most_popular_stated_interpolation_method`, `r sprintf("%.1f", prop_most_popular_stated_interpolation_method * 100)`%) (Figure 3).
 
-```{r, interpolation_tables}
-#| label: tbl-interpolation_time_type
-#| tbl-cap: Most prevalent specified interpolation methods by type (a) and by time (b).
-#| layout-ncol: 2
-
-# interpolation by type
-interpolation_by_type_tib_formatted <- 
-  interpolation_by_type_tib %>% 
-    mutate(prop = round(prop * 100,1),
-           interpolation_type = str_to_title(interpolation_type)) %>% 
-    rename("Interpolation Type" = interpolation_type,
-           N = n,
-           "%" = prop) %>% 
-    flextable::flextable()
-
-# interpolation by time
-interp_by_time_formatted <- interpolation_by_time_tib %>% 
-    mutate(interpolation_time_s = if_else(prop < 0.01, "other", interpolation_time_s),
-           interpolation_time_s = str_to_sentence(interpolation_time_s)) %>% 
-    group_by(interpolation_time_s) %>% 
-    summarize(n = sum(n)) %>% 
-    ungroup() %>% 
-    mutate(prop = round(prop.table(n) * 100, 1)) %>% 
-    rename("Interpolation Time (s)" = interpolation_time_s,
-           N = n,
-           "%" = prop) %>% 
-    flextable::flextable()
-
-flextable::save_as_docx(
-  interpolation_by_type_tib_formatted,
-  interp_by_time_formatted,
-  path = here::here("graphics/interp_tables.docx"))
-
-
-```
-
 ```{r, interpolation_plot}
 #| label: fig-interpolation_by-time-and_type
 #| fig-cap: Most prevalent specified interpolation methods by both type and time.
@@ -551,7 +515,7 @@ Research by Martin-Rincon et al. [@martin-rincon2019] offers a strategy to compa
 Without such corrections, one could misclassify cardiorespiratory fitness based on VO~2~max if VO~2~max were calculated with a sufficiently different sampling interval than that used to generate the normative data.
 However, this correction applies to group data [@martin-rincon2019] and different averaging strategies also affect individual VO~2~max values.
 
-Importantly, the normative data offered by the American College of Sports Medicine [@pescatello2014, table 4.9, pp. 88-93] is based on a regression of VO~2~ vs. time-to-exhaustion using a modified Balke protocol and equations developed from @pollock1982 and @pollock1976 (Cooper Institute, personal communication, 9/2021), rather than directly measured.
+Importantly, the normative data offered by the American College of Sports Medicine [@pescatello2014] is based on a regression of VO~2~ vs. time-to-exhaustion using a modified Balke protocol and equations developed from @pollock1982 and @pollock1976 (Cooper Institute, personal communication, 9/2021), rather than directly measured.
 The system used to create the regression for males [@pollock1976] and females [@pollock1982] averaged the data every minute and every 30 seconds, respectively.
 Given that, stating the averaging methods used may allow for better comparisons to normative data.
 
@@ -688,7 +652,7 @@ Table 1: Averaging methods by type (a) and subtype (b).
 
 **Figure Captions**
 
-Figure 1: Selection of sources of evidence flow diagram in accordance with with the PRISMA 2020 statement.
+Figure 1: Selection of sources of evidence flow diagram per the PRISMA 2020 statement [@page2021].
 
 Figure 2: Counts and percentages of outlier limits when specified.
 
