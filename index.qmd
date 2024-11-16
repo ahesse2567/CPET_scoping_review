@@ -127,7 +127,7 @@ n_unsubscribed <- manual_downloads %>%
 ```
 
 Data were collected from Ovid-MEDLINE, Scopus, and Web of Science on 2022-06-27 with librarian assistance.
-The electronic search strategies for all databases can be found in the supplemental materials.
+The electronic search strategies for all databases can be found in the information sources and search section of the supplemental materials.
 
 Our search output comprised article identifiers like DOIs.
 To find missing DOIs, we employed the PubMed Central ID Converter API [@ncbi2022] using Python.
@@ -136,7 +136,7 @@ Our library subscription did not permit access to `r format(n_unsubscribed, big.
 
 ## Selection of Sources of Evidence
 
-This study used a single screening process, requring only BBB gas exchange data collection with exercise.
+This study used a single screening process, requiring only BBB gas exchange data collection with exercise.
 The corresponding PRISMA flow diagram was created using the PRISMA2020 R package [@haddawayPRISMA2020PackageShiny2022].
 
 ### Text Analysis & Screening
@@ -150,7 +150,7 @@ This computerized screening required converting full-text PDF and EPUB documents
 Plain text files were normalized by transforming text to lowercase, removing hyphenations and extra whitespace, and correcting some plain text conversion-induced errors.
 
 Following the normalization, we identified and removed articles that failed to correctly convert into text format, spotted non-English articles using the fasttext Python module [@bojanowski2016] and employed a random forest classifier from the sklearn Python package [@pedregosa2011] to detect ineligible articles based on our criteria.
-See the supplemental methods for additional ML model details.
+See the supplemental methods for text analysis and screening for additional ML model details.
 
 ```{r, calc_n_bbb_articles}
 ineligible_articles <- read_csv(
@@ -433,29 +433,32 @@ Together, `r top_three_type_subtype[1]` (`r sprintf("%.1f", top_three_type_subty
 #| tbl-cap-location: top
 #| layout-ncol: 2
 
+# Subtable 1: Averaging Type
 avg_by_type_tab_formatted <- avg_by_type_tab %>% 
     mutate(prop = round(prop * 100, 1)) %>% 
     rename("Averaging Type" = avg_type,
            N = n,
            "%" = prop) %>% 
-    flextable::flextable()
+    flextable() %>% 
+    flextable::add_header_row(values = "Table 1a: Averaging type by counts (N) and proportions (%).", colwidths = 3)
 
+# Subtable 2: Averaging Subtype
 avg_by_subtype_tab_formatted <- avg_by_subtype_tab %>% 
     mutate(prop = round(prop * 100, 1),
-          avg_subtype = if_else(avg_subtype == "Fft",
-                                "Fast Fourier Transform",
-                                avg_subtype)) %>% 
+           avg_subtype = if_else(avg_subtype == "Fft",
+                                 "Fast Fourier Transform",
+                                 avg_subtype)) %>% 
     rename("Averaging Subtype" = avg_subtype,
            N = n,
            "%" = prop) %>% 
     arrange(desc(N)) %>% 
-    flextable::flextable()
+    flextable() %>% 
+    flextable::add_header_row(values = "Table 1b: Averaging subtype by counts (N) and proportions (%).", colwidths = 3)
 
 flextable::save_as_docx(
   avg_by_type_tab_formatted,
   avg_by_subtype_tab_formatted,
   path = here::here("graphics/avg_tables.docx"))
-
 ```
 
 When incorporating averaging amounts, 30-, 60-, 15-, and 10-second bin averages (Figure 4) were the most popular.
@@ -648,7 +651,9 @@ We hope these results motivate better methodological documentation and reproduci
 
 **Table Captions**
 
-Table 1: Averaging methods by type (a) and subtype (b).
+Table 1a: Averaging type by counts (N) and proportions (%).
+
+Table 1b: Averaging subtype by counts (N) and proportions (%).
 
 **Figure Captions**
 
