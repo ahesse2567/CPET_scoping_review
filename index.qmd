@@ -588,9 +588,9 @@ However, Robergs et al. recommended a 30-s rolling rather than a bin average.
 The same study also recommended a 15-breath rolling average or, preferably, the low-pass digital filter, but we only documented these methods `r english::english(n_15_breath_roll) %>% as.character()` (`r sprintf("%.1f", prop_15_breath_roll * 100)` and `r english::english(n_low_pass) %>% as.character()` (`r sprintf("%.1f", prop_low_pass * 100)`%) times, respectively.
 Despite the most popular method not exceeding the maximum recommended duration, at least for calculating VO~2~max, the vast majority of papers neglected to follow current guidelines.
 
-This review did not document all aspects of the recommending reporting guidelines proposed by Nolte et al. [@nolte2023].
+This review did not document all aspects of the recommended reporting guidelines proposed by Nolte et al. [@nolte2023].
 We did not record the exact metabolic cart used, the measurement mode, the software used, nor the data processing rationale.
-Our outlier reporting rates of `r sprintf("%.f", moe_prop_articles_reporting$mean * 100)` was similar, while our interpolation reporting rate of `r sprintf("%.1f", moe_prop_articles_reporting_interpolation$mean * 100)`% was slightly higher than Nolte's 4.3%.
+Our outlier reporting rates of `r sprintf("%.1f", moe_prop_articles_reporting$mean * 100)`% was similar, while our interpolation reporting rate of `r sprintf("%.1f", moe_prop_articles_reporting_interpolation$mean * 100)`% was slightly higher than Nolte's 4.3%.
 Our averaging reporting rate was also \~5% higher at `r sprintf("%.1f", moe_avg_reporting$mean * 100)`.
 Our results are similar to previous works showing that time-bin averages are the most popular, with 30-second averages as the most common overall [@midgley2007; @nolte2023; @robergs2010].
 The order in popularity of other methods differs from these other studies.
