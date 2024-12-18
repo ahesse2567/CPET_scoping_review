@@ -2,6 +2,7 @@ library(tidyverse)
 library(stringr)
 library(scales)
 library(janitor)
+library(binom)
 # load fonts so Times works with ggplot2 + pdf rendering
 extrafont::loadfonts(quiet = TRUE)
 # theme_replace(text = element_text(family = "Times"))
@@ -15,7 +16,7 @@ ineligible_articles <- read_csv(
     clean_names()
 
 # load_bbb articles, removing potential Douglas bag or mixing chamber articles
-bbb_articles <- read_csv("data/cpet_articles/text_analysis/all_bbb_articles.csv",
+bbb_articles <- read_csv("data/cpet_articles/text_analysis/bbb_articles.csv",
                          show_col_types = FALSE) %>% 
     distinct(doi_suffix, .keep_all = TRUE) %>% 
     filter(!(doi_suffix %in% ineligible_articles$doi_suffix))
@@ -54,9 +55,14 @@ prop_articles_reporting_outliers <- articles_reporting_outliers_tib %>%
     pull() %>% 
     round(3)
 
-z <- qnorm(0.025, lower.tail = FALSE)
-moe_prop_articles_reporting <-
-    z * sqrt((prop_articles_reporting_outliers * (1 - prop_articles_reporting_outliers)) / total_articles)
+# z <- qnorm(0.025, lower.tail = FALSE)
+# Using agresti-coull method for confidence intervals
+moe_prop_articles_reporting <- binom.confint(x = n_articles_reporting_outliers,
+                                             n = total_articles,
+                                             conf.level = 0.95,
+                                             methods = "ac")
+    # z * sqrt((prop_articles_reporting_outliers * (1 - prop_articles_reporting_outliers)) / total_articles)
+
 
 
 # count by outlier cutoff type
@@ -205,7 +211,8 @@ prop_outlier_limits_plot <- outlier_df %>%
 prop_outlier_limits_plot
 
 ggsave(here::here("graphics/prop_outlier_limits_plot.jpg"),
-       prop_outlier_limits_plot)
+       plot = prop_outlier_limits_plot,
+       dpi = 300)
 
 prop_outlier_limits_plot_ACSM <- outlier_df %>% 
     select(outlier_limit) %>% 
@@ -281,9 +288,11 @@ prop_outlier_func_reporting <- outlier_function_tib %>%
     select(prop) %>% 
     pull()
 
-moe_prop_outlier_func_reporting <-
-    z * sqrt((prop_outlier_func_reporting * (1 - prop_outlier_func_reporting)) / total_articles)
-
+moe_prop_outlier_func_reporting <- binom.confint(
+    x = n_outlier_func_reporting,
+    n = total_articles,
+    conf.level = 0.95,
+    methods = "ac")
 
 outlier_func_by_type <- outlier_df %>% 
     rowwise() %>% 

@@ -2,6 +2,7 @@ library(tidyverse)
 library(stringr)
 library(scales)
 library(janitor)
+library(binom)
 extrafont::loadfonts(quiet=TRUE)
 # theme_update(text = element_text(family = "Times"))
 
@@ -19,7 +20,7 @@ ineligible_articles <- read_csv(
 #     filter(!(doi_suffix %in% ineligible_articles$doi_suffix))
 
 # load_bbb articles, removing potential douglas bag or mixing chamber articles
-bbb_articles <- read_csv("data/cpet_articles/text_analysis/all_bbb_articles.csv",
+bbb_articles <- read_csv("data/cpet_articles/text_analysis/bbb_articles.csv",
                          show_col_types = FALSE) %>% 
     distinct(doi_suffix, .keep_all = TRUE) %>% 
     filter(!(doi_suffix %in% ineligible_articles$doi_suffix))
@@ -39,31 +40,45 @@ n_total_articles_avg <- avg_df %>%
     distinct(doi_suffix, .keep_all = FALSE) %>% 
     nrow()
 
-prop_reporting_avg_methods <- avg_df %>% 
-    count(no_avg_details) %>% 
-    ungroup() %>% 
-    mutate(prop = prop.table(n)) %>% 
-    filter(no_avg_details == FALSE) %>% 
-    select(prop) %>% 
-    pull()
+yn_avg_methods <- avg_df %>% 
+    group_by(doi_suffix) %>% 
+    summarize(avg_details = if_else(sum(!no_avg_details) > 0, TRUE, FALSE)) %>% 
+    count(avg_details) %>% 
+    mutate(prop = prop.table(n))
 
-n_reporting_avg_methods <- avg_df %>% 
-    count(no_avg_details) %>% 
-    ungroup() %>% 
-    mutate(prop = prop.table(n)) %>% 
-    filter(no_avg_details == FALSE) %>% 
+n_reporting_avg_methods <- yn_avg_methods %>% 
+    filter(avg_details) %>% 
     select(n) %>% 
     pull()
 
-z <- qnorm(0.025, lower.tail = FALSE)
+multiple_avg_methods <- avg_df %>% 
+    group_by(doi_suffix) %>% 
+    summarize(n_avg_methods = sum(!no_avg_details)) %>% 
+    count(n_avg_methods) %>% 
+    mutate(multiple_methods = if_else(n_avg_methods > 1, TRUE, FALSE)) %>% 
+    summarize(count_multiple_methods = sum(n), 
+              .by = multiple_methods)
 
-margin_of_error <- z * sqrt(
-    prop_reporting_avg_methods * (1 - prop_reporting_avg_methods) / 
-        n_total_articles_avg)
-margin_of_error
+prop_multiple_methods <- multiple_avg_methods %>% 
+    mutate(prop = prop.table(count_multiple_methods)) %>% 
+    filter(multiple_methods) %>% 
+    select(prop) %>% 
+    pull()
+
+# z <- qnorm(0.025, lower.tail = FALSE)
+# z * sqrt(
+# prop_reporting_avg_methods * (1 - prop_reporting_avg_methods) / 
+# n_total_articles_avg)
+
+moe_avg_reporting <- binom.confint(
+    x = n_reporting_avg_methods,
+    n = n_total_articles_avg,
+    conf.level = 0.95,
+    methods = "ac")
+
+moe_avg_reporting
 
 #### Averaging method types
-
 
 
 # count by averaging type

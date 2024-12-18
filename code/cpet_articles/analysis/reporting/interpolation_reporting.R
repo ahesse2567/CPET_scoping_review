@@ -2,6 +2,7 @@ library(tidyverse)
 library(stringr)
 library(scales)
 library(janitor)
+library(binom)
 # load fonts so Times works with ggplot2 + pdf rendering
 extrafont::loadfonts(quiet = TRUE)
 # theme_update(text = element_text(family = "Times"))
@@ -15,7 +16,7 @@ ineligible_articles <- read_csv(
     clean_names()
 
 # load_bbb articles, removing potential douglas bag or mixing chamber articles
-bbb_articles <- read_csv("data/cpet_articles/text_analysis/all_bbb_articles.csv",
+bbb_articles <- read_csv("data/cpet_articles/text_analysis/bbb_articles.csv",
                          show_col_types = FALSE) %>% 
     distinct(doi_suffix, .keep_all = TRUE) %>% 
     filter(!(doi_suffix %in% ineligible_articles$doi_suffix))
@@ -24,7 +25,9 @@ interpolation_data <- read_csv("data/cpet_articles/text_analysis/Interpolation -
                                show_col_types = FALSE) %>% 
     clean_names()
 
-interpolation_df <- full_join(bbb_articles, interpolation_data, by = "doi_suffix") %>% 
+interpolation_df <- full_join(bbb_articles, 
+                              interpolation_data, 
+                              by = "doi_suffix") %>% 
     select(colnames(interpolation_data)) %>% 
     filter(doi_suffix %in% bbb_articles$doi_suffix)
 
@@ -56,9 +59,14 @@ prop_specified_interpolation <- interpolation_specification_summary %>%
     pull()
 
 # calc MOE for number reporting interpolation details
-z <- qnorm(0.025, lower.tail = FALSE)
-moe_prop_articles_reporting_interpolation <-
-    z * sqrt((prop_specified_interpolation * (1 - prop_specified_interpolation)) / total_articles)
+# z <- qnorm(0.025, lower.tail = FALSE)
+moe_prop_articles_reporting_interpolation <- binom.confint(
+    x = count_specified_interpolation,
+    n = total_articles,
+    conf.level = 0.95,
+    methods = "ac")
+    
+#     z * sqrt((prop_specified_interpolation * (1 - prop_specified_interpolation)) / total_articles)
 
 
 ####### Interpolation by procedure

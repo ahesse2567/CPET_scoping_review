@@ -150,6 +150,10 @@ n_conversion_error_files
 
 n_resolvable_articles <- n_txt_files_in_list - n_non_english -
     n_conversion_error_files
+n_unresolvable_files <- 
+    n_unavailable_in_txt +
+    n_non_english +
+    n_conversion_error_files
 
 # within those that could be analyzed, how many mentioned BBB
 
@@ -233,8 +237,8 @@ comb_ineligible <- bind_rows(
 bbb_eligible <- anti_join(bbb_articles, comb_ineligible)
 nrow(bbb_eligible)
 
-if(total_studies != nrow(bbb_eligible)) {
-    print("Total studies do NOT match elibible BBB articles! Boo...")
-} else {
-    print("Total studies MATCHES eligible BBB articles. Yay!")
-}
+# if(total_studies != nrow(bbb_eligible)) {
+#     print("Total studies do NOT match elibible BBB articles! Boo...")
+# } else {
+#     print("Total studies MATCHES eligible BBB articles. Yay!")
+# }
