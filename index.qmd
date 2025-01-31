@@ -183,12 +183,12 @@ If present, we extracted a "snippet" of text surrounding those phrases for later
 We then recorded the methods from these snippets.
 In all cases, methods were only considered documented if the snippets provided at least some specific information.
 For example, articles stating outlying breaths were removed but without describing the outlier criteria were considered "not described." Finally, we read the full-text article to accurately document the data when snippets were ambiguous.
-Full-text articles without snippets were not read and there methods were documented as "not described."
+Full-text articles without snippets were not read and their methods were documented as "not described."
 
 The data charting subsections below provide text extraction examples.
 Extracted texts were normalized to lowercase, with end-of-line hyphenation and unnecessary white space removed before capitalizing certain keywords for readability.
 Therefore, formatting varies and may include unconventional spacing and Unicode characters.
-Finally, the snippets may not start or and at the beginning or end of a word or sentence because the RegExs extracted a specific number of characters rather than words.
+Finally, the snippets may not start or end at the beginning or end of a word or sentence because the RegExs extracted a specific number of characters rather than words.
 
 ```{r, n_rand_articles, results='hide'}
 z <- qnorm(0.025, lower.tail = FALSE)
@@ -204,7 +204,7 @@ All eligible BBB articles were analyzed for outlier and interpolation methods du
 In contrast, we analyzed a random subset of articles using a random number generator in Python to document data averaging methods because far more articles described their averaging methods.
 Early estimates as we developed our RegExs were that \~60% or `r format(round(0.6 * n_bbb_articles), big.mark = ',', scientific=FALSE)` articles had some averaging details.
 Furthermore, the phrases associated with averaging methods are more generic and often refer to other study aspects, such as heart rate averaging periods.
-Given the large number of articles, we needed a minimum sample size of `r format(n_articles, big.mark = ',', scientific = FALSE)` based on a 95% confidence interval and a maximum margin of error (MOE) of ±3%, assuming a proportion of 0.5 for a conservative estimate.
+Given the large number of articles, we needed a minimum sample size of `r format(n_articles, big.mark = ',', scientific = FALSE)` based on a 95% confidence interval and a maximum margin of error (MOE) of ±3%, assuming a proportion of 0.5 for a conservative estimate [@brown2001].
 However, we raised this to `r format(n_rounded_up_nearest_hundred, big.mark = ',', scientific = FALSE)` in anticipation of finding ineligible articles that eluded our previous text screening.
 The chosen MOE was selected as a balance between accuracy and the required corresponding samples: decreasing the MOE to ±2% with an assumed proportion of 0.5 would require another 1,333 samples.
 
